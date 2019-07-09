@@ -1,0 +1,8 @@
+/bin/
+/target/
+/src/main/resources
+/src/test/resources
+.settings/
+.classpath
+.project
+.springBeans
