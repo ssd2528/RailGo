@@ -148,12 +148,12 @@
 		<dependency> <!-- 9. jackson-databind : @ResponseBody를 위한 라이브러리 -->
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
-		    <version>2.9.7</version>
+		    <version>2.9.9</version>
 		</dependency>
 		<dependency> <!-- 10. jackson-dataformat-xml : 객체를 JSON/XML로 변환할 때 사용 -->
 		    <groupId>com.fasterxml.jackson.dataformat</groupId>
 		    <artifactId>jackson-dataformat-xml</artifactId>
-		    <version>2.9.7</version>
+		    <version>2.9.9</version>
 		</dependency>
 		<dependency> <!-- 11. gson : Java 객체를 JSON타입의 문자열로 변환해야 하는 일들도 있기 때문에 라이브러리 추가 -->
 		    <groupId>com.google.code.gson</groupId>
