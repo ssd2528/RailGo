@@ -23,7 +23,7 @@
 					<!-- section-search -->
 					<div class="section-search">
 						<div class="search-wrap clearfix">
-							<div class="search-city">어디로 가시나요?? &nbsp; ▼</div>
+							<div class="search-city">어디로 가시나요? &nbsp; ▼</div>
 							<ul class="search-list">
 								<li class="search-item search-accom"> 
 									<a href="#">
