@@ -19,13 +19,48 @@
 			<!-- content -->
 			<div class="content">
 				<div class="content-wrapper">
+				
 					<!-- section-search -->
 					<div class="sectoin-search clearfix">
 						<img class="main-img" src="../img/default_summer.png" alt="여름">
 					</div>
-					1CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>
-					CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>
-					CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>
+					
+					<!-- section-main -->
+					<div class="section-main clearfix">
+						<div class="article-wrapper article-75">
+							<!-- article-course -->
+							<div class="article-item article-course">
+								<a href="#">혹시 내일로 여행이 처음이신가요? 이런 코스는 어떠세요?</a> <span class="close-btn">x</span>
+							</div>
+							<!-- article-concept -->
+							<div class="article-item article-concept">
+								컨셉 추천
+								CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>
+								CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>
+							</div>
+							<!-- article-sns-content -->
+							<div class="article-item article-sns-content">
+								핫한 SNS 게시물
+								CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>
+								CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>
+							</div>
+						</div>
+						
+						
+						<div class="article-wrapper article-25">
+							<!-- article-course -->
+							<div class="article-item article-sns-user">
+								SNS 이용자 추천 <br>
+								SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>
+							</div>
+							<!-- article-adsense -->
+							<div class="article-item article-adsense">
+								에드센스<br>
+								에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 			

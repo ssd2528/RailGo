@@ -42,6 +42,21 @@ header {
 .content {
 	padding-top:60px;
 }
+/* section-main */
+.section-main {
+	margin:15px 120px;
+}
+.article-wrapper {
+	float:left;
+}
+.article-item {
+	background:#FFFFFF;
+	padding:10px 20px;
+	box-shadow:3px 3px 3px #7f7f7f;
+	margin:15px 10px;
+}
+.article-75 { width:75%; }
+.article-25 { width:25%; }
 
 
 /* 		FOOTER 		*/
