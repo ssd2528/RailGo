@@ -21,8 +21,29 @@
 				<div class="content-wrapper">
 				
 					<!-- section-search -->
-					<div class="sectoin-search clearfix">
-						<img class="main-img" src="../img/default_summer.png" alt="여름">
+					<div class="sectoin-search">
+						<div class="search-wrap clearfix">
+							<div class="search-city">어디로 가시나요? &nbsp; ▼</div>
+							<ul class="search-list">
+								<li class="search-item search-accom"> 
+									<a href="#">
+										<img src="../img/main/bed_dgray.png" class="search-icons" alt="bed" /><br>숙 박 
+									</a> 
+								</li>
+								<hr color="#595959" noshade>
+								<li class="search-item search-place"> 
+									<a href="#">
+										<img src="../img/main/hotplace_dgray.png" class="search-icons" alt="hotplace" /><br>관광 명소 
+									</a> 
+								</li>
+								<hr color="#595959" noshade>
+								<li class="search-item search-food"> 
+									<a href="#">
+										<img src="../img/main/food_dgray.png" class="search-icons" alt="food" /><br>맛 집 
+									</a> 
+								</li>
+							</ul>
+						</div>
 					</div>
 					
 					<!-- section-main -->
