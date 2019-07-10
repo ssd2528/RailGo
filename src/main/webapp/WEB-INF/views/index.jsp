@@ -21,7 +21,7 @@
 				<div class="content-wrapper">
 				
 					<!-- section-search -->
-					<div class="sectoin-search">
+					<div class="section-search">
 						<div class="search-wrap clearfix">
 							<div class="search-city">어디로 가시나요? &nbsp; ▼</div>
 							<ul class="search-list">

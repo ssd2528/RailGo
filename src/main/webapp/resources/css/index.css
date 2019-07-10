@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* 		section-search 		*/
-.sectoin-search {
+.section-search {
 	width:100%;
 	height:350px;
 	min-height:350px;
@@ -10,12 +10,12 @@
 	vertical-align:middle;
 }
 .search-wrap {
-    width: 40%;
+    width: 35%;
     height: inherit;
-    position: absolute;
-    top: 45%;
+    position: relative;
+    top: 60%;
     left: 50%;
-    transform: translate(-45%, -50%);
+    transform: translate(-50%, -40%);
 }
 .search-city {
 	align-items:center;
