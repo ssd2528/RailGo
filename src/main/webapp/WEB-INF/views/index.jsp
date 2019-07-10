@@ -12,6 +12,26 @@
 		<link href="../css/index.css" rel="stylesheet">
 	</head>
 	<body>
-		Main Page
+		<div class="wrap">
+			<!-- header -->
+			<%@include file="includes/header.jsp"%>
+			
+			<!-- content -->
+			<div class="content">
+				<div class="content-wrapper">
+					<!-- section-search -->
+					<div class="sectoin-search clearfix">
+						<img class="main-img" src="../img/default_summer.png" alt="여름">
+					</div>
+					1CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>
+					CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>
+					CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>CONTENT<br>
+				</div>
+			</div>
+			
+			<!-- footer -->
+			<%@include file="includes/footer.jsp"%>
+			
+		</div>
 	</body>
 </html>

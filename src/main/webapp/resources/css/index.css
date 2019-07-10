@@ -1,1 +1,19 @@
 @charset "UTF-8";
+
+/* 		section-search 		*/
+.sectoin-search {
+	width:100%;
+	height:350px;
+	min-height:350px;
+}
+.main-img {
+	/* position: absolute;*/
+	top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    padding: 0;
+    margin: 0;
+}
