@@ -55,8 +55,14 @@ header {
 	box-shadow:3px 3px 3px #7f7f7f;
 	margin:15px 10px;
 }
+.article-item .article-title {
+	margin-bottom:10px;
+}
 .article-75 { width:75%; }
 .article-25 { width:25%; }
+
+.col-50 { width:53%; }
+.col-45 { width:45%; }
 
 
 /* 		FOOTER 		*/
