@@ -11,10 +11,10 @@
 					<!-- navi -->
 					<div class="navi">
 						<ul>
-							<li><a href="#"><img src="../img/header/alarm.png" alt="알림"><br>알림</a></li>
-							<li><a href="sns"><img src="../img/header/sns.png" alt="SNS"><br>SNS</a></li>
-							<li><a href="planner"><img src="../img/header/planner.png" alt="플래너"><br>플래너</a></li>
-							<li><a href="member"><img src="../img/header/default_profile_f.png" alt="프로필" class="member-img"></a></li>
+							<li><a href="#"><img class="alarm-img" src="../img/header/alarm.png" alt="알림"><br>알림</a></li>
+							<li><a href="sns"><img class="sns-img" src="../img/header/sns.png" alt="SNS"><br>SNS</a></li>
+							<li><a href="planner"><img class=planner-img" src="../img/header/planner.png" alt="플래너"><br>플래너</a></li>
+							<li><a href="member"><img class="member-img" src="../img/member/default_profile_f.png" alt="프로필" ></a></li>
 						</ul>
 					</div>
 				</div>
