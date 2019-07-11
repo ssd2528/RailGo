@@ -107,12 +107,12 @@
 									<!-- 각 SNS 게시글 (sns-content-item) -->
 									<div class="sns-content-item">
 										<div class="sns-content-img col-50" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; height:300px;">게시글 이미지</div>
-										<div class="col-45">
+										<div class="col-45" style="padding:5px 0px;">
 											<div class="sns-content-user">
 												<img class="user-img" src="../img/header/default_profile_m.png">
 												<div class="user-name">사용자 닉네임</div>
 											</div>
-											<div class="sns-content-body">
+											<div class="sns-content-body font-13">
 												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
 												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
 												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글
@@ -123,40 +123,38 @@
 												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
 												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글
 											</div>
-											<div class="sns-content-reply"><a href="#">3개의 댓글 모두보기</a></div>
+											<div class="sns-content-reply font-13"><a href="#">3개의 댓글 모두보기</a></div>
 											<ul class="icon-list">
 												<li> <img class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
 												<li> <img class="sns-icon sns-chat" src="../img/sns/chat.png" alt="댓글달기"> </li>
 												<li> <img class="sns-icon sns-share" src="../img/sns/share.png" alt="공유하기"> </li>
 											</ul>
-											<div class="sns-heart-count">좋아요 5개</div>
-											<div class="sns-content-regDate">작성일자</div>
+											<div class="sns-heart-count font-13">좋아요 5개</div>
+											<div class="sns-content-regDate font-13">작성일자</div>
 										</div>
 									</div> 
 									
 									<!-- 각 SNS 게시글 (sns-content-item) -->
 									<div class="sns-content-item">
 										<div class="sns-content-img col-50" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; height:300px;">게시글 이미지</div>
-										<div class="col-45">
+										<div class="col-45" style="padding:5px 0px;">
 											<div class="sns-content-user">
 												<img class="user-img" src="../img/header/default_profile_m.png">
 												<div class="user-name">사용자 닉네임</div>
 											</div>
-											<div class="sns-content-body">
+											<div class="sns-content-body font-13">
 												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
 												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
 												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-
 											</div>
-											<div class="sns-content-reply"><a href="#">3개의 댓글 모두보기</a></div>
+											<div class="sns-content-reply font-13"><a href="#">3개의 댓글 모두보기</a></div>
 											<ul class="icon-list">
 												<li> <img class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
 												<li> <img class="sns-icon sns-chat" src="../img/sns/chat.png" alt="댓글달기"> </li>
 												<li> <img class="sns-icon sns-share" src="../img/sns/share.png" alt="공유하기"> </li>
 											</ul>
-											<div class="sns-heart-count">좋아요 5개</div>
-											<div class="sns-content-regDate">작성일자</div>
+											<div class="sns-heart-count font-13">좋아요 5개</div>
+											<div class="sns-content-regDate font-13">작성일자</div>
 										</div>
 									</div> 
 									
@@ -167,16 +165,31 @@
 						
 						
 						<div class="article-wrapper article-25">
-							<!-- article-course -->
+							<!-- article-sns-user -->
 							<div class="article-item article-sns-user">
-								<div class="article-title"><h2>SNS 이용자 추천</h2></div> <br>
-								SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>
+								<div class="article-title"><h2>SNS 이용자 추천</h2></div> 
+								<div class="sns-user-list">
+									<!-- 추천 이용자1 -->
+									<div class="sns-user-item">
+										<div class="sns-user-profile">
+											<img class="user-img" src="../img/header/default_profile_m.png">
+											<div class="user-nameid">
+												<span class="user-name">사용자 닉네임</span><br> 
+												<span class="user-id">@UserId</span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
+							<!-- ./article-sns-user -->
+							
 							<!-- article-adsense -->
 							<div class="article-item article-adsense">
 								<div class="article-title"><h2>에드센스</h2></div><br>
 								에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>
 							</div>
+							<!-- ./article-adsense -->
+							
 						</div>
 					</div> <!-- ./section-main -->
 					
