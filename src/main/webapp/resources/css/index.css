@@ -65,20 +65,18 @@
 }
 
 /* article-sns-content */
-.sns-content-item { /* 각 SNS 게시글 */
-	display: flex;
-    justify-content: space-between;
-	width:100%;
-	margin:30px 0px;
-}
+.sns-content-item { display: flex; justify-content: space-between; width:100%; margin:50px 0px; }
+.sns-content-item:first-child, .sns-content-item:last-child { margin:0; }
 .sns-content-item>div { display:inline-block; }
+.sns-content-img { height:400px; }
 .sns-content-user * { display: inline-block; vertical-align: middle; }
-.user-img{ width:50px; height:50px; margin-right:20px; }
-.sns-content-body { margin:10px 0px; width: 100%; height: 130px; overflow: auto; }
+.user-img{ width:60px; height:60px; margin-right:20px; }
+.sns-content-body { margin:10px 0px; width: 100%; height: 200px; overflow: auto; }
 .sns-content-body::-webkit-scrollbar { display: none !important; }
 .sns-content-reply a { text-decoration:underline; }
-.sns-icon { width:20px; height:20px; padding:10px 20px 0px 0px;}
+.sns-icon { width:30px; height:30px; padding:10px 20px 0px 0px;}
 
 /* article-sns-user */
 .sns-user-item { background:#d9d9d9; padding:10px;}
+.sns-user-profile { display:flex; }
 .sns-user-profile img { width:45px; height:45px; }
