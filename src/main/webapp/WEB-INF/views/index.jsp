@@ -170,7 +170,7 @@
 							<!-- article-course -->
 							<div class="article-item article-sns-user">
 								<div class="article-title"><h2>SNS 이용자 추천</h2></div> <br>
-								SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>
+								SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>
 							</div>
 							<!-- article-adsense -->
 							<div class="article-item article-adsense">
