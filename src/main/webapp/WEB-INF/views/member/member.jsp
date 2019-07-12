@@ -108,6 +108,7 @@
 									<div class="sns-content">
 										Holy Shit <br/> What the Fuck <br/> Oh my GOD<br/>
 										#앙기모디
+										
 									</div>
 									<div id="like-reply-share">
 										<a href="#"><img class="like-reply-share" src="../img/sns/heart.png"></a>
