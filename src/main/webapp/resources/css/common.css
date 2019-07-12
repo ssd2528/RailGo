@@ -40,6 +40,12 @@ header {
 .navi img { width:30px; height:30px; }
 .navi .member-img img { width:45px; height:45px; }
 
+.member-submenu { display:none; position:absolute; background:#595959; width:80px; min-width:80px; z-index:999;}
+.member-submenu li { display:block; margin:0; font-size:13px; padding:10px; border-bottom:1px solid #FFF; }
+.member-submenu li:last-child { border-bottom:0px; }
+.member-submenu li a { color:#FFF;}
+.member-submenu li:hover { background:#7f7f7f; }
+.member:hover .member-submenu { display:block; }
 
 
 /* 		CONTENT		*/
@@ -56,10 +62,10 @@ header {
 	float:left;
 }
 .article-item {
-	background:#FFFFFF;
-	padding:10px 20px;
-	box-shadow:3px 3px 3px #7f7f7f;
-	margin:15px 10px;
+    background: #FFFFFF;
+    padding: 20px;
+    box-shadow: 3px 3px 3px #7f7f7f;
+    margin: 20px 10px;
 }
 .article-item .article-title {
 	margin-bottom:10px;
