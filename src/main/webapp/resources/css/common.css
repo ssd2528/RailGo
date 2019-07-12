@@ -27,8 +27,8 @@ header {
 }
 .header-inner {
 	background:#FFFFFF;
-	margin: 0 auto;
-    max-width: 1280px;
+	margin:0 auto;
+	max-width: 1280px;
 }
 .header-inner div { display:inline-block; height:50px; }
 

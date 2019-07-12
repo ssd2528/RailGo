@@ -8,8 +8,12 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping()
+@RequestMapping("/planner/*")
 @AllArgsConstructor
 public class PlannerController {
 
+	@RequestMapping("/list.do")
+	public String list() {
+		return "planner/list";
+	}
 }
