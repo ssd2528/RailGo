@@ -10,6 +10,10 @@
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		<link href="../css/common.css" rel="stylesheet">
 		<link href="../css/index.css" rel="stylesheet">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="../js/header.js" type="text/javascript"></script>
+		<script src="../js/index.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<div class="wrap">
@@ -27,19 +31,19 @@
 							<ul class="search-list">
 								<li class="search-item search-accom"> 
 									<a href="#">
-										<img src="../img/main/bed_dgray.png" class="search-icons" alt="bed" /><br>숙 박 
+										<img src="../img/main/bed.png" class="search-icons" alt="bed" /><br>숙 박 
 									</a> 
 								</li>
 								<hr color="#595959" noshade>
 								<li class="search-item search-place"> 
 									<a href="#">
-										<img src="../img/main/hotplace_dgray.png" class="search-icons" alt="hotplace" /><br>관광 명소 
+										<img src="../img/main/hotplace.png" class="search-icons" alt="hotplace" /><br>관광 명소 
 									</a> 
 								</li>
 								<hr color="#595959" noshade>
 								<li class="search-item search-food"> 
 									<a href="#">
-										<img src="../img/main/food_dgray.png" class="search-icons" alt="food" /><br>맛 집 
+										<img src="../img/main/food.png" class="search-icons" alt="food" /><br>맛 집 
 									</a> 
 								</li>
 							</ul>
@@ -51,7 +55,25 @@
 						<div class="article-wrapper article-75">
 							<!-- article-course -->
 							<div class="article-item article-course">
-								<a href="#">혹시 내일로 여행이 처음이신가요? 이런 코스는 어떠세요?</a> <span class="close-btn">x</span>
+								<span class="show-course"><a href="#">혹시 내일로 여행이 처음이신가요? 이런 코스는 어떠세요?</a></span> <span class="close-btn">x</span>
+								
+								<div class="course-wrap">
+									<div class="course-title"><h2>초보자를 위한 내일로 코스 추천</h2></div>
+									<ul class="course-content">
+										<li class="course-item">
+											<div class="course-img" style="background:#d9d9d9  url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="course-detail">#초보자_코스추천</div>
+										</li>
+										<li class="course-item">
+											<div class="course-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="course-detail">#초보자_코스추천</div>
+										</li>
+										<li class="course-item">
+											<div class="course-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="course-detail">#초보자_코스추천</div>
+										</li>
+									</ul>
+								</div>
 							</div>
 							<!-- ./article-course -->
 							
@@ -198,7 +220,7 @@
 							<div class="article-item article-sns-user">
 								<div class="article-title"><h2>SNS 이용자 추천</h2></div> 
 								<div class="sns-user-list">
-									<!-- 추천 이용자1 -->
+									<!-- 추천 이용자 1(sns-user-item) -->
 									<div class="sns-user-item">
 										<div class="sns-user-profile">
 											<img class="user-img" src="../img/header/default_profile_m.png">
@@ -207,7 +229,42 @@
 												<span class="user-id font-13">@UserId</span>
 											</div>
 										</div>
+										<div class="user-loc font-15"><img src="../img/member/info_location.png">서울, 대한민국</div>
+										<span class="user-posting font-15">123 포스팅</span> &nbsp;&nbsp;&nbsp; <span class="user-follower font-15">456 팔로워</span>
+										<div class="user-detail font-15">사용자 소개 글</div>
+										<div class="follow-btn"><img src="../img/sns/add_follow.png">팔로우</div>
 									</div>
+									<!-- ./sns-user-item -->
+									<!-- 추천 이용자 2(sns-user-item) -->
+									<div class="sns-user-item">
+										<div class="sns-user-profile">
+											<img class="user-img" src="../img/header/default_profile_m.png">
+											<div class="user-nameid">
+												<span class="user-name">사용자 닉네임</span><br> 
+												<span class="user-id font-13">@UserId</span>
+											</div>
+										</div>
+										<div class="user-loc font-15"><img src="../img/member/info_location.png">서울, 대한민국</div>
+										<span class="user-posting font-15">123 포스팅</span> &nbsp;&nbsp;&nbsp; <span class="user-follower font-15">456 팔로워</span>
+										<div class="user-detail font-15">사용자 소개 글</div>
+										<div class="follow-btn"><img src="../img/sns/add_follow.png">팔로우</div>
+									</div>
+									<!-- ./sns-user-item -->
+									<!-- 추천 이용자 3(sns-user-item) -->
+									<div class="sns-user-item">
+										<div class="sns-user-profile">
+											<img class="user-img" src="../img/header/default_profile_m.png">
+											<div class="user-nameid">
+												<span class="user-name">사용자 닉네임</span><br> 
+												<span class="user-id font-13">@UserId</span>
+											</div>
+										</div>
+										<div class="user-loc font-15"><img src="../img/member/info_location.png">서울, 대한민국</div>
+										<span class="user-posting font-15">123 포스팅</span> &nbsp;&nbsp;&nbsp; <span class="user-follower font-15">456 팔로워</span>
+										<div class="user-detail font-15">사용자 소개 글</div>
+										<div class="follow-btn"><img src="../img/sns/add_follow.png">팔로우</div>
+									</div>
+									<!-- ./sns-user-item -->
 								</div>
 							</div>
 							<!-- ./article-sns-user -->

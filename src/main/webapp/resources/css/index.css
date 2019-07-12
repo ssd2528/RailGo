@@ -13,11 +13,11 @@
 }
 .search-wrap {
     width: 35%;
-    height: inherit;
+    /* height: inherit; */
     position: relative;
-    top: 60%;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -40%);
+    transform: translate(-50%, -50%);
 }
 .search-city {
 	align-items:center;
@@ -37,6 +37,10 @@
 	margin-top:60px;
 	margin-bottom:-100px;
 }
+.search-item *{
+	color:#595959;
+	text-align: center;
+}
 .search-icons {
 	padding:0px 30px;
 	width:50px; 
@@ -45,24 +49,20 @@
 
 /* article-course */
 .article-course { text-align:center; }
-.close-btn { float: right; margin-top: -10px; margin-right: -10px; }
+.show-course { cursor: pointer; }
+.show-course:hover { cursor: pointer; }
+.close-btn { float: right; margin-top: -10px; margin-right: -10px; cursor: pointer;}
+.course-wrap { text-align:left; }
+.course-title { margin:5px 0px; }
+.course-content { display: flex; justify-content: space-between; width: 100%; }
+.course-item { width:30%; background:#d9d9d9; }
+.course-detail { font-size:15px; }
 
 /* article-concept */
-.concept-title {
-	margin:5px 0px;
-}
-.concept-content {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-.concept-item {
-	width:30%;
-	background:#d9d9d9;
-}
-.concept-detail {
-	font-size:13px;
-}
+.concept-title { margin:5px 0px; }
+.concept-content { display: flex; justify-content: space-between; width: 100%; }
+.concept-item { width:30%; background:#d9d9d9; }
+.concept-detail { font-size:15px; }
 
 /* article-sns-content */
 .sns-content-item { display: flex; justify-content: space-between; width:100%; margin:50px 0px; }
@@ -77,6 +77,10 @@
 .sns-icon { width:30px; height:30px; padding:10px 20px 0px 0px;}
 
 /* article-sns-user */
-.sns-user-item { background:#d9d9d9; padding:10px;}
-.sns-user-profile { display:flex; }
+.sns-user-item { background:#d9d9d9; padding:10px; margin-bottom:20px;}
+.sns-user-item:last-child { margin-bottom:0px; }
+.sns-user-profile { display:flex; margin-bottom:10px;}
 .sns-user-profile img { width:45px; height:45px; }
+.user-loc img { width:15px; height:15px; margin-right:5px; }
+.follow-btn { background:#FFFFFF; margin-top:10px; text-align:center; }
+.follow-btn img { width:15px; height:15px; margin-right:5px; }
