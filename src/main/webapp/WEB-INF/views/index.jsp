@@ -8,12 +8,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>[RailGo] Main Page</title>
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+		
+		<!-- CSS -->
 		<link href="../css/common.css" rel="stylesheet">
 		<link href="../css/index.css" rel="stylesheet">
+		<link href="../css/section_search.css" rel="stylesheet">
+		<link href="../css/article_sns_user.css" rel="stylesheet">
 		
+		<!-- JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="../js/header.js" type="text/javascript"></script>
-		<script src="../js/index.js" type="text/javascript"></script>
+		<script src="../js/section_search.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<div class="wrap">
