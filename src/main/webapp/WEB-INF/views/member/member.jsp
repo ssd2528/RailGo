@@ -22,6 +22,7 @@
 				<div class="content-wrapper">
 				
 				<div class="section-profilebg">
+					<a  href="#"><img id="profilePicUpdate" src="../img/member/pencil.png" alt="프로필 사진 수정"></a>
 				</div>
 					<!-- profile-info -->
 					<div class="profile-info">
@@ -30,7 +31,27 @@
 					<div class="profile-img clearfix">
 						<img src="../img/header/default_profile_f.png" alt="프로필">
 					</div>
-						<!-- profile-detail -->
+					<!-- profile-detail -->
+						<div class="profile-detail">
+							<div class="row1">
+								<span class="user-name">사용자 닉네임</span>	
+								<span>포스팅</span>	
+								<span>팔로워</span>	
+								<span>팔로잉</span>
+							</div>
+							<div class="row2">
+								<span class="user-id">@UserId</span>
+								<span class="posting">0</span>
+								<span class="follower">0</span>	
+								<span class="following">0</span>
+							</div>
+						</div>
+						<!-- tab-list -->
+						<div class="tab-list">
+							<a href="#" class="timeline">타임라인</a>
+							<a href="#" class="shedule">일정관리</a>
+							
+						</div>
 					
 					</div>			
 					<!-- section-main -->
@@ -38,13 +59,32 @@
 						<div class="article-wrapper article-25">
 							<!-- article-introduce -->
 							<div class="article-item article-sns-user">
-								소개 <br>
-								소개 <br>소개 <br>소개 <br>소개 <br>소개 <br>소개 <br>소개 <br>
+								<h2><a  href="#">소개<img id="profileUpdate" src="../img/member/pencil.png" alt="정보 수정"></a></h2> 
+								<br>
+								<a><img src="../img/member/location.png" alt="지역">   서울,대한민국</a>
+								<br>
+								<a><img src="../img/member/job.png" alt="직업">   직업</a>
+								<br>
+								<a><img src="../img/member/birthday.png" alt="생일">   0000년 0월 00일</a>
+								<br>
+								<a><img src="../img/member/interest.png" alt="관심사">   관심사</a>
+								<br> 앙기무띠  앙기무띠  앙기무띠  앙기무띠  앙기무띠  앙기무띠  앙기무띠  앙기무띠 
 							</div>
 							<!-- article-course -->
 							<div class="article-item article-sns-user">
-								SNS 이용자 추천 <br>
-								SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>SNS 이용자 추천 <br>
+								<div class="article-title"><h2>SNS 이용자 추천</h2></div> 
+								<div class="sns-user-list">
+									<!-- 추천 이용자1 -->
+									<div class="sns-user-item">
+										<div class="sns-user-profile">
+											<img class="user-img" src="../img/header/default_profile_m.png">
+											<div class="user-nameid">
+												<span class="user-name">사용자 닉네임</span><br> 
+												<span class="user-id">@UserId</span>
+											</div>
+										</div>
+									</div>						
+								</div>
 							</div>
 							<!-- article-adsense -->
 							<div class="article-item article-adsense">
@@ -57,8 +97,13 @@
 					
 							<!-- article-sns-content -->
 							<div class="article-item article-sns-content">
-								내 게시물
-								CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>
+								<img class="sns-user-img" src="../img/header/default_profile_f.png">
+									<div class="sns-title">
+										<h2>XXX님이 리뷰를 남겼습니다.</h2>
+										리뷰 날짜<br/>
+									</div>
+								<img class="sns-img" src="../img/member/나홀로_기차.jpg">
+								Holly Shit What the Fuck Oh my GOD<br/>
 								CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>CONTENT<br/>
 							</div>
 						</div>
