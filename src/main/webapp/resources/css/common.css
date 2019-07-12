@@ -27,8 +27,8 @@ header {
 }
 .header-inner {
 	background:#FFFFFF;
-	margin: 0 auto;
-    max-width: 1280px;
+	margin:0 auto;
+	max-width: 1280px;
 }
 .header-inner div { display:inline-block; height:50px; }
 
@@ -64,7 +64,7 @@ header {
 .article-item {
     background: #FFFFFF;
     padding: 20px;
-    box-shadow: 3px 3px 3px #7f7f7f;
+    box-shadow: 3px 3px 3px #bfbfbf;
     margin: 20px 10px;
 }
 .article-item .article-title {
