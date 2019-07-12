@@ -51,11 +51,23 @@
 }
 
 #profileUpdate{
+	width:20px;
+	height:20px;
 	margin-left:190px;
 }
 #profilePicUpdate{
+	width:20px;
+	height:20px;
 	float:right;
 	padding:10px;
+}
+.location-job-birth-intertest{
+	width:20px;
+	height:20px;
+	margin: 8px 10px 0px 0px;
+}
+.profile-detailInfo{
+	margin: -10px 0px 0px 0px;
 }
 .sns-user-img{
 	width:65px;
@@ -71,4 +83,17 @@
 .sns-title{
 	margin: 10px 0px 0 10px;
 }
+.sns-content{
+	margin: 0px 0px 0 15px;
+	font-size: 18px;
+}
+#like-reply-share{
+	display :inline;s
+}
+.like-reply-share{
+	width:30px;
+	height:30px;
+	margin: 16px 10px 0 10px;
+}
+
 .
