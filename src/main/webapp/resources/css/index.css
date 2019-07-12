@@ -48,10 +48,11 @@
 }
 
 /* article-course */
+.article-item.article-course { padding: 10px; }
 .article-course { text-align:center; }
-.show-course { cursor: pointer; }
-.show-course:hover { cursor: pointer; }
-.close-btn { float: right; margin-top: -10px; margin-right: -10px; cursor: pointer;}
+.show-course:hover a { cursor: pointer; color:#009CE9; font-weight:bold; }
+.close-btn { float: right; margin-top: -10px; margin-right: 0px; }
+.close-btn:hover { cursor: pointer; color:#009CE9; font-weight:bold; }
 .course-wrap { text-align:left; }
 .course-title { margin:5px 0px; }
 .course-content { display: flex; justify-content: space-between; width: 100%; }
