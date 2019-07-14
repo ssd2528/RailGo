@@ -61,6 +61,7 @@
 .region-item, .region-city-item { display:block; }
 .region-item { margin:20px 0; cursor:pointer; }
 .region-item:hover .region-name, .region-item:hover .toggle-btn { color:#009CE9; }
+.show-region-item { display:none; }
 .toggle-btn { float:right; margin:0 5px; font-size:18px; font-weight:bold; }
 .region-city-list { display:none; margin:0 10px;}
 .show-city-list { display:block; }
