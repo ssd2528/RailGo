@@ -54,7 +54,18 @@
 	border: 1px solid #888;
 	width: 30%;
 }
-.closeBtn { color:#aaa; float:right; font-size:28px; font-weight:bold; }
+.closeBtn { color:#aaa; float:right; font-size:28px; font-weight:bold; margin:-10px 0;}
 .closeBtn:hover, .closeBtn:focus { color:black; cursor:pointer; }
 .searchText { width:100%; border:none; border-bottom:1px solid #e5e5e5; font-size:24px; line-height: 1.7em; }
 .searchText:focus { outline:none; }
+
+
+.region-item, .region-city-item { display:block; }
+.region-item { margin:20px 0; cursor:pointer; }
+.region-item:hover .region-name, .region-item:hover .toggle-btn { color:#009CE9; }
+.toggle-btn { float:right; margin:0 5px; font-size:18px; font-weight:bold; }
+.region-city-list { display:none; margin:0 10px;}
+.show-city-list { display:block; }
+.region-city-item { margin: 5px 0;}
+.region-name { font-size:18px; font-weight:bold; }
+
