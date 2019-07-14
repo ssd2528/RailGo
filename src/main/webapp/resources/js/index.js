@@ -3,7 +3,7 @@ $(document).ready(function(){
 	$('.search-city').on('click', function(){ 
 		$('.search-modal').css('display', 'block'); 
 		$('.searchText').focus();
-		$('html, body').css({'overflow':'hidden', 'height':'100%'});
+		$('body').css({'overflow':'hidden', 'height':'100%'});
 		
 		
 	});
@@ -11,7 +11,7 @@ $(document).ready(function(){
 	// search-modal에서 x버튼 클릭시 modal 안보이게 하기
 	$('.closeBtn').on('click', function(){ 
 		$('.search-modal').css('display', 'none'); 
-		$('html, body').css({'overflow':'auto', 'height':'100%'});
+		$('body').css({'overflow':'auto', 'height':'100%'});
 	});
 	
 	// search-modal 외 검정바탕 클릭시 modal 안보이게 하기
