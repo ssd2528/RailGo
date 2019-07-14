@@ -46,8 +46,6 @@
 	background-color:rgba(0,0,0,0.85);
 }
 .modal-content {
-	transition: right 150ms ease 300ms, left 150ms ease 300ms, opacity 150ms ease 300ms;
-	transform: translate(0%, 0px) scale(1, 1);
 	background: #FFF;
 	margin: auto;
 	padding: 20px;

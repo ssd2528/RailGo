@@ -239,7 +239,7 @@
 				</div>
 			</div>
 			
-			<!-- search-modal -->
+			<!-- search-modal부분 -->
 			<%@include file="includes/search_modal.jsp"%>
 			
 			<!-- footer -->
