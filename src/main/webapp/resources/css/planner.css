@@ -16,19 +16,9 @@
 	border-collapse: collapse;
 	margin-bottom:1%;
 }
-td{
-	border: 1.2px solid #d9d9d9;
-	padding:15px;
-}
-.td-subject{
-	width:13%;
-	font-size:18px;
-	text-align:center;
-}
-.td-option > a{
-	color:#7f7f7f;
-	margin-right:15px;
-}
+td{border: 1.2px solid #d9d9d9;padding:15px;}
+.td-subject{width:13%;font-size:18px;text-align:center;}
+.td-option > div{color:#7f7f7f;margin-right:15px;float:left;cursor:pointer;}
 /*상단 플래너 설명*/
 .planner-info-img {
 	background: #FFFFFF url('../img/planner/background.jpg') no-repeat
@@ -79,41 +69,45 @@ td{
 	border:none;
 	cursor:pointer;
 }
-.planner-info-btn-wrapper > .create-plan-btn {
-	margin-left: 13%;
-	margin-right: 13%;
-}
-
-.planner-info-btn-wrapper > .my-plan-btn {
-	margin-left: 13%;
-	margin-right: 13%;
-}
-
-.planner-info-left {
-	text-align: center;
-	width: 27%;
-	height: 100%;
-	background-color: rgb(248, 248, 248, 0.5);
-}
-
-.planner-info-right {
-	text-align: center;
-	width: 27%;
-	height: 100%;
-	background-color: rgb(248, 248, 248, 0.5);
-}
+.planner-info-btn-wrapper > .create-plan-btn {margin-left:13%;margin-right:13%;}
+.planner-info-btn-wrapper > .my-plan-btn {margin-left:13%;margin-right:13%;}
+.planner-info-left {text-align:center;width:27%;height:100%;background-color:rgb(248, 248, 248, 0.5);}
+.planner-info-right {text-align:center;width:27%;height:100%;background-color:rgb(248, 248, 248, 0.5);}
 /*필터 테이블 텍스트 */
-.filter-text{
-	text-align: center;
-	font-size: 25px;
-	margin-bottom:5px;
+.filter-text{text-align:center;font-size:25px;margin-bottom:5px;}
+/*필터 테이블의 테마 인덱스 체크시 필터에 오르는 버튼 폼 */
+.filter-value{
+	float: left;
+    cursor: pointer;
+    background: #f3f3f3;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    color: #808080;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 3px;
+    margin-right: 12px;
+}
+.f-text{
+	color:#7f7f7f;
+	float:left;
+}
+.f-line{
+	background: #7f7f7f;
+    width: 1px;
+    height: 15px;
+    margin-left: 8px;
+    margin-right: 8px;
+    float: left;
+    margin-top: 10px;
+}
+.f-x-icon{
+	color:#7f7f7f;
+	float:left;
 }
 /*일정 추천 속성*/
-.calendar-lists-wrapper{
-	width:100%;
-	margin:0 auto;
-	padding-left:1%;
-}
+.calendar-lists-wrapper{width:100%;margin:0 auto;padding-left:1%;}
 .calendar-lists{
 	background-color:#7f7f7f;
 	text-align:center;
@@ -136,29 +130,12 @@ td{
 	background-color:white;
 	font-size:17px;
 }
-.calendar-text-tag{
-	display:inline-block;
-	margin-right: 7px;
-}
-.calendar-text-course{
-	color:gray;
-	text-align:left;
-	font-size:13px;
-	margin-bottom:7px;
-}
-.calendar-text-writer{
-	display:inline-block;
-}
-.calendar-like-number-wrapper{
-	float:right;
-	margin-right:5px;
-}
-.calendar-text-like{
-	display:inline-block;
-}
-.calendar-text-like-number{
-	display:inline-block;
-}
+.calendar-text-tag{display:inline-block;margin-right: 7px;}
+.calendar-text-course{color:gray;text-align:left;font-size:13px;margin-bottom:7px;}
+.calendar-text-writer{display:inline-block;}
+.calendar-like-number-wrapper{float:right;margin-right:5px;}
+.calendar-text-like{display:inline-block;}
+.calendar-text-like-number{display:inline-block;}
 /*더보기 버튼*/
 .more-btn{
 	color:white;

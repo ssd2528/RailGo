@@ -49,41 +49,49 @@
 						<table class="filter-table">
 							<tr>
 								<td class="td-subject">필 터</td>
-								<td>&nbsp;서울x&nbsp;&nbsp;3일권x&nbsp;&nbsp;여름x</td>
-							</tr>
-							<tr>
-								<td class="td-subject">여행 도시</td>
-								<td class="td-option">
-									<a id="seoul-tag" href="#">서울</a>
-									<a id="gyonggi-tag" href="#">경기</a>
-									<a id="gangwon-tag" href="#">강원</a>
-									<a id="choongchung-tag" href="#">충청</a>
-									<a id="jeonla-tag" href="#">전라</a>
-									<a id="gyeongsang-tag" href="#">경상</a></td>
-							</tr>
-							<tr>
-								<td class="td-subject">여행일</td>
-								<td class="td-option">
-									<a id="third-day-tag" href="#">3일권</a>
-									<a id="fifth-day-tag" href="#">5일권</a>
-									<a id="seventh-day-tag" href="#">7일권</a>
+								<td>
+								<% for(int i = 0; i < 3; i++){ %>
+									<div class="filter-value">
+										<span class="f-text">둘이서</span>
+										<div class="f-line"></div>
+										<div class="f-x-icon">x</div>
+									</div>
+									<%} %>
 								</td>
 							</tr>
 							<tr>
-								<td class="td-subject">여행 시기</td>
-								<td class="td-option">
-									<a id="summer-tag" href="#">여름</a>
-									<a id="winter-tag" href="#">겨울</a>
+								<td id="city" class="td-subject">여행 도시</td>
+								<td id="city-option" class="td-option">
+									<div id="capital-tag">수도권</div>
+									<div id="gangwon-tag">강원권</div>
+									<div id="choongchung-tag">충청권</div>
+									<div id="jeonla-tag">전라권</div>
+									<div id="gyeongsang-tag">경상권</div>
 								</td>
 							</tr>
 							<tr>
-								<td class="td-subject">여행 테마</td>
-								<td class="td-option">
-									<a id="solo-tag" href="#">나홀로</a>
-									<a id="duo-tag" href="#">단둘이</a>
-									<a id="squad-tag" href="#">셋이상</a>
-									<a id="eatting-tag" href="#">먹방</a>
-									<a id="healing-tag" href="#">힐링</a>
+								<td id="days"class="td-subject">여행일</td>
+								<td id="days-option"class="td-option">
+									<div id="third-day-tag">3일권</div>
+									<div id="fifth-day-tag">5일권</div>
+									<div id="seventh-day-tag">7일권</div>
+								</td>
+							</tr>
+							<tr>
+								<td id="period" class="td-subject">여행 시기</td>
+								<td id="period-option" class="td-option">
+									<div id="summer-tag">여름</div>
+									<div id="winter-tag">겨울</div>
+								</td>
+							</tr>
+							<tr>
+								<td id="theme"class="td-subject">여행 테마</td>
+								<td id="theme-option" class="td-option">
+									<div id="solo-tag">나홀로</div>
+									<div id="duo-tag">단둘이</div>
+									<div id="squad-tag">셋이상</div>
+									<div id="eatting-tag">먹방</div>
+									<div id="healing-tag">힐링</div>
 								</td>
 							</tr>																												
 						</table>
@@ -92,6 +100,7 @@
 						<div class="filter-text">다른 내일러들의 일정</div>
 							<!-- 일정들의 목록 -->
 						<div class="calendar-lists-wrapper">
+						<% for(int i = 0; i < 6; i++){ %>
 							<div class="calendar-lists">
 								<div class="calendar-map" onclick="location.href='#';"></div>
 								<div class="calendar-text-wrapper">
@@ -100,37 +109,12 @@
 									<div class="calendar-text-course">서울-대전-대구-부산</div>
 									<div class="calendar-text-writer">씹찬우</div>
 									<div class="calendar-like-number-wrapper">
-										<a class="calendar-text-like">♡</a>	
+										<div class="calendar-text-like" >♡</div>	
 										<div class="calendar-text-like-number">111</div>
 									</div>
 								</div>
 							</div>
-							<div class="calendar-lists">
-								<div class="calendar-map" onclick="location.href='#';"></div>
-								<div class="calendar-text-wrapper">
-									<div class="calendar-text-tag">#셋이서</div>
-									<div class="calendar-text-tag">#전국일주</div>
-									<div class="calendar-text-course">서울-대전-대구-부산</div>
-									<div class="calendar-text-writer">혐찬우</div>
-									<div class="calendar-like-number-wrapper">
-										<a class="calendar-text-like">♡</a>	
-										<div class="calendar-text-like-number">1</div>
-									</div>
-								</div>
-							</div>
-							<div class="calendar-lists">
-								<div class="calendar-map" onclick="location.href='#';"></div>
-								<div class="calendar-text-wrapper">
-									<div class="calendar-text-tag">#셋이서</div>
-									<div class="calendar-text-tag">#전국일주</div>
-									<div class="calendar-text-course">서울-대전-대구-부산</div>
-									<div class="calendar-text-writer">개찬우</div>
-									<div class="calendar-like-number-wrapper">
-										<a class="calendar-text-like">♡</a>	
-										<div class="calendar-text-like-number">11</div>
-									</div>
-								</div>
-							</div>
+						<% } %>
 						</div>
 						<button class="more-btn"> 더보기 </button>
 					</div>
