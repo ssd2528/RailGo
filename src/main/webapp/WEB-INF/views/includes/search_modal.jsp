@@ -2,8 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="search-modal" class="search-modal">
 	<div class="modal-content">
-		<span class="closeBtn">&times;</span>
-		<div><input class="searchText" type="text" placeholder="어디로 가시나요?"></div>
+		<span class="close-btn">&times;</span>
+		<div class="search-text">
+			어디로 가시나요?
+			<!-- <input class="search-text" type="text" placeholder="어디로 가시나요?"> -->
+		</div>
 		<div class="city-list-wrap">
 			<!-- 지역별 -->
 			<ul class="region-list">
