@@ -3,6 +3,7 @@ $(document).ready(function(){
 	// '어디로 가시나요' 클릭시 search-modal 보이게 하기
 	$('.search-city').on('click', function(){ 
 		$('.search-modal').addClass('show-modal'); 
+		$('.search-text').focus();
 		$('body').css({'overflow':'hidden', 'height':'100%'});
 	});
 	// search-modal에서 x버튼 클릭시 modal 안보이게 하기

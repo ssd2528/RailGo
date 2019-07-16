@@ -1,0 +1,18 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('../font/12롯데마트행복Bold.ttf');
+
+
+
+
+/* article-sns-content */
+.sns-content-item { margin:50px 0px; }
+.sns-content-item:first-child, .sns-content-item:last-child { margin:0; }
+.sns-content-user { width:100%; height:80px; }
+.sns-content-user>* { vertical-align:middle; display:inline-block; }
+.sns-content-user .user-img { width:70px; height:70px; margin-right:20px;}
+.sns-img { width:100%; height:500px; }
+.sns-content-body { margin:10px 0px; width: 100%; }
+.sns-content-reply a { text-decoration:underline; }
+.sns-icon { width:30px; height:30px; padding:10px 20px 0px 0px;}
+
