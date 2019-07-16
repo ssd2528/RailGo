@@ -21,4 +21,9 @@ public class IndexController {
 	public String plannerList() {
 		return "planner/list";
 	}
+	
+	@GetMapping("/member")
+	public String member() {
+		return "member/member";
+	}
 }

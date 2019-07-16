@@ -28,6 +28,7 @@
 	font-size: 30px;
 	border-radius: 30px;
 	font-family: '12롯데마트행복Bold';
+	cursor:pointer;
 }
 .search-list {
 	background:rgba(255,255,255,0.7);

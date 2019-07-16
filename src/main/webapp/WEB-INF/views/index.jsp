@@ -18,7 +18,9 @@
 		<!-- JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="../js/header.js" type="text/javascript"></script>
+		<script src="../js/index.js" type="text/javascript"></script>
 		<script src="../js/section_search.js" type="text/javascript"></script>
+
 	</head>
 	<body>
 		<div class="wrap">
@@ -54,6 +56,7 @@
 							</ul>
 						</div>
 					</div>
+					<!-- ./section-search -->
 					
 					<!-- section-main -->
 					<div class="section-main clearfix">
@@ -235,8 +238,15 @@
 						</div>
 					</div> <!-- ./section-main -->
 					
+					<!-- search-modal부분 -->
+					<%@include file="includes/search_modal.jsp"%>
+					
 				</div>
+				<!-- ./content-wrapper -->
 			</div>
+			<!-- ./content -->
+			
+			
 			
 			<!-- footer -->
 			<%@include file="includes/footer.jsp"%>
