@@ -12,7 +12,7 @@
 						<ul>
 							<li><a href="#" class="alarm-img"><img src="../img/header/alarm.png" alt="알림"><br>알림</a></li>
 							<li><a href="../sns/sns" class="sns-img"><img src="../img/header/sns.png" alt="SNS"><br>SNS</a></li>
-							<li><a href="../planner/list.do" class="planner-img"><img src="../img/header/planner.png" alt="플래너"><br>플래너</a></li>
+							<li><a href="planner" class="planner-img"><img src="../img/header/planner.png" alt="플래너"><br>플래너</a></li>
 							<li class="member">
 								<!-- 사용자가 로그인을 하지 않은 상태인 경우 -->
 								<c:if test="${member eq null}">
