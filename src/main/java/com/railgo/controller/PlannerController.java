@@ -11,9 +11,4 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/planner/*")
 @AllArgsConstructor
 public class PlannerController {
-
-	@RequestMapping("/list.do")
-	public String list() {
-		return "planner/list";
-	}
 }

@@ -16,8 +16,8 @@
 	border-collapse: collapse;
 	margin-bottom:1%;
 }
-td{border: 1.2px solid #d9d9d9;padding:15px;}
-.td-subject{width:13%;font-size:18px;text-align:center;}
+td{border: 1.2px solid #d9d9d9;padding:11px;}
+.td-subject{width:13%;font-size:17px;text-align:center;}
 .td-option > div{color:#7f7f7f;margin-right:15px;float:left;cursor:pointer;}
 /*상단 플래너 설명*/
 .planner-info-img {
@@ -69,6 +69,7 @@ td{border: 1.2px solid #d9d9d9;padding:15px;}
 	border:none;
 	cursor:pointer;
 }
+.planner-info-btn-wrapper > button > img {width:17px;height:17px;margin-top:1px;margin-right:17px;}
 .planner-info-btn-wrapper > .create-plan-btn {margin-left:13%;margin-right:13%;}
 .planner-info-btn-wrapper > .my-plan-btn {margin-left:13%;margin-right:13%;}
 .planner-info-left {text-align:center;width:27%;height:100%;background-color:rgb(248, 248, 248, 0.5);}
@@ -82,27 +83,31 @@ td{border: 1.2px solid #d9d9d9;padding:15px;}
     background: #f3f3f3;
     height: 30px;
     line-height: 30px;
-    font-size: 16px;
     color: #808080;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 3px;
     margin-right: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display:none;
 }
 .f-text{
+	font-size: 15px;
 	color:#7f7f7f;
 	float:left;
 }
 .f-line{
 	background: #7f7f7f;
     width: 1px;
-    height: 15px;
+    height: 12px;
     margin-left: 8px;
     margin-right: 8px;
     float: left;
     margin-top: 10px;
 }
 .f-x-icon{
+	font-size:20px;
 	color:#7f7f7f;
 	float:left;
 }
@@ -134,7 +139,8 @@ td{border: 1.2px solid #d9d9d9;padding:15px;}
 .calendar-text-course{color:gray;text-align:left;font-size:13px;margin-bottom:7px;}
 .calendar-text-writer{display:inline-block;}
 .calendar-like-number-wrapper{float:right;margin-right:5px;}
-.calendar-text-like{display:inline-block;}
+.calendar-text-like{display:inline-block;cursor:pointer;}
+.calendar-text-like > .like-img{width:15px;height:15px;}
 .calendar-text-like-number{display:inline-block;}
 /*더보기 버튼*/
 .more-btn{

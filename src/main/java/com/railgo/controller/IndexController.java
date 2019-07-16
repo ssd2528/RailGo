@@ -17,4 +17,8 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
+	@RequestMapping("/planner")
+	public String plannerList() {
+		return "planner/list";
+	}
 }

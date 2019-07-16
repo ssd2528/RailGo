@@ -19,7 +19,7 @@
 		<script src="../js/planner.js" type="text/javascript"></script>
 	</head>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 	<div class="wrap">
 		<!-- header -->
 		<%@include file="../includes/header.jsp"%>
@@ -38,25 +38,65 @@
 						</div>
 					</div>
 					<div class="planner-info-btn-wrapper">
-						<button class="create-plan-btn">일정 만들기</button>
-						<button class="my-plan-btn">나의 일정</button>
+						<button class="create-plan-btn"><img src="../img/planner/wh_plus.png"></img>일정 만들기</button>
+						<button class="my-plan-btn"><img src="../img/planner/wh_search.png">나의 일정</button>
 					</div>
 				</div>
 				<!-- 플랜 일정 선택 체크박스 -->
 				<div class="section-main clearfix">	<!-- common.css -->
 					<div class="article-item article-concept">
 						<div class="filter-text">다른 내일러들의 일정은 어떨까요?</div>
+						<!-- 필터 테이블 -->
 						<table class="filter-table">
 							<tr>
 								<td class="td-subject">필 터</td>
 								<td>
-								<% for(int i = 0; i < 3; i++){ %>
-									<div class="filter-value">
-										<span class="f-text">둘이서</span>
+									<!-- 필터 선택하면 올라오는 여행 도시 폼 -->
+									<div id="f-city" class="filter-value">
+										<span class="f-text"></span>
 										<div class="f-line"></div>
-										<div class="f-x-icon">x</div>
+										<div class="f-x-icon">&times;</div>
 									</div>
-									<%} %>
+									<!-- 필터 선택하면 올라오는 여행 기간 폼 -->
+									<div id="f-days" class="filter-value">
+										<span class="f-text"></span>
+										<div class="f-line"></div>
+										<div class="f-x-icon">&times;</div>
+									</div>
+									<!-- 필터 선택하면 올라오는 여행 시기 폼 -->
+									<div id="f-period" class="filter-value">
+										<span class="f-text"></span>
+										<div class="f-line"></div>
+										<div class="f-x-icon">&times;</div>
+									</div>
+									<!-- 필터 선택하면 올라오는 여행 테마 폼 -->
+									<div id="f-theme-wrapper">
+										<div id="f-theme0" class="filter-value">
+											<span class="f-text"></span>
+											<div class="f-line"></div>
+											<div class="f-x-icon">&times;</div>
+										</div>
+										<div id="f-theme1" class="filter-value">
+											<span class="f-text"></span>
+											<div class="f-line"></div>
+											<div class="f-x-icon">&times;</div>
+										</div>
+										<div id="f-theme2" class="filter-value">
+											<span class="f-text"></span>
+											<div class="f-line"></div>
+											<div class="f-x-icon">&times;</div>
+										</div>
+										<div id="f-theme3" class="filter-value">
+											<span class="f-text"></span>
+											<div class="f-line"></div>
+											<div class="f-x-icon">&times;</div>
+										</div>
+										<div id="f-theme4" class="filter-value">
+											<span class="f-text"></span>
+											<div class="f-line"></div>
+											<div class="f-x-icon">&times;</div>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -109,7 +149,7 @@
 									<div class="calendar-text-course">서울-대전-대구-부산</div>
 									<div class="calendar-text-writer">씹찬우</div>
 									<div class="calendar-like-number-wrapper">
-										<div class="calendar-text-like" >♡</div>	
+										<div class="calendar-text-like" ><img class="like-img" src="../img/sns/heart.png"></img></div>	
 										<div class="calendar-text-like-number">111</div>
 									</div>
 								</div>
