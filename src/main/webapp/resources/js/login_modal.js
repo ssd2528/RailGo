@@ -1,44 +1,42 @@
-// Get the modal
-var modal = document.getElementById('Modal');
+$(document).ready(function(){
+	var modal = $('#Modal'); // Get the modal
+	var signinBtn = $('.signin-btn'); // Get the button that opens the modal
+	var closeBtn = $('.close'); // Get the <span> element that closes the modal
 
-// Get the button that opens the modal
-var btn = document.getElementById('button');
+	// When the user clicks on the button, open the modal 
+	$('.signin-btn').on('click', function(){
+		modal.css('display', 'block');
+		$('html').css('overflow', 'hidden');
+	}); 
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName('close')[0];
+	// When the user clicks on <span> (x), close the modal
+	closeBtn.on('click', function(){
+		modal.css('display', 'none');
+		//location.reload();
+		$('html').css('overflow', 'auto');
+	}); 
 
-// When the user clicks on the button, open the modal 
-btn.onclick = function() {
-	modal.style.display = 'block';
-	$('html').css('overflow', 'hidden');
-}
+	$('.password-find-tag').click(function() {
+		$('.modal-title').text('내일고 비밀번호 찾기');
+		$('.password-find-group').show();
+		$('.sign-in-group').hide();
+		$('.line').hide();
+		$('.sign-up').hide();
+	});
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-	modal.style.display = 'none';
-	location.reload();
-	$('html').css('overflow', 'auto');
-}
+	$('.sign-up-tag').click(function() {
+		$('.modal-title').text("내일고 회원가입");
+		$('.sign-up').show();
+		$('.sign-in-group').hide();
+		$('.line').hide();
+	});
 
-$('.password-find-tag').click(function() {
-	$('.modal-title').text('내일고 비밀번호 찾기');
-	$('.password-find-group').show();
-	$('.sign-in-group').hide();
-	$('.line').hide();
-	$('.sign-up').hide();
+	$('.sign-in-tag').click(function() {
+		$('.modal-title').text("내일고 로그인");
+		$('.sign-in-group').show();
+		$('.line').show();
+		$('.sign-up').hide();
+		$('.password-find-group').hide();
+	});
 });
 
-$('.sign-up-tag').click(function() {
-	$('.modal-title').text("내일고 회원가입");
-	$('.sign-up').show();
-	$('.sign-in-group').hide();
-	$('.line').hide();
-});
-
-$('.sign-in-tag').click(function() {
-	$('.modal-title').text("내일고 로그인");
-	$('.sign-in-group').show();
-	$('.line').show();
-	$('.sign-up').hide();
-	$('.password-find-group').hide();
-});

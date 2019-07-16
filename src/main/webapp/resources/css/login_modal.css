@@ -90,6 +90,7 @@ p {margin-top: 15px; margin-left: 40px;}
 	text-align: center; text-decoration: none; display: inline-block; font-size: 16px;}
 
 /* SIGN UP */
+.signup-form { margin-top:1px; }
 .sign-up-group {margin-left: 40px; margin-bottom: 15px;}
 
 .sign-up-btn {background-color: #009CE9; border: none; color: white; margin-top: 10px;
@@ -97,23 +98,16 @@ p {margin-top: 15px; margin-left: 40px;}
 	text-decoration: none; display: inline-block; font-size: 16px;}
 
 #sex-checkboxArea {margin-top: 10px;}
-
-input[type="checkbox"] {display: none;}
-
-input[id="men"]+label , input[id="women"]+label {display: inline-block; width: 1rem; height: 1rem;
+input[type="radio"],  input[type="radio"]{display: none;}
+input[id="male"]+label , input[id="female"]+label {display: inline-block; width: 1rem; height: 1rem;
 	cursor: pointer; border-radius: 3px; float: left; margin: 3px; border: 1px solid black;}
-
-input[id="men"]:checked+label , input[id="women"]:checked+label {background: url("../img/checkbox.jpg") no-repeat 50% 50%;
+input[id="male"]:checked+label , input[id="female"]:checked+label {background: url("../img/checkbox.jpg") no-repeat 50% 50%;
 	background-size: 1rem;}
 
 #agree-checkboxArea {margin-top: 10px;}
-
 input[type="checkbox"] {display: none;}
-
 input[id="agree"]+label {display: inline-block; margin-top: 15px; margin-right: 5px; width: 1rem;
 	height: 1rem; cursor: pointer; border-radius: 3px; float: left; border: 1px solid black;}
-
 input[id="agree"]:checked+label {background: url("../img/checkbox.jpg") no-repeat 50% 50%;
 	background-size: 1rem;}
-
 .agree-tag {color: #009CE9; margin-left: 10px;}
