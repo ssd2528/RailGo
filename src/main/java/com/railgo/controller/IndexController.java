@@ -17,4 +17,9 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
+	
+	@GetMapping("/pwd_setting")
+	public String pwd_setting() {
+		return "pwd_setting";
+	}
 }
