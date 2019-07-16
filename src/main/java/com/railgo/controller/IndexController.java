@@ -17,4 +17,9 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
+	
+	@GetMapping("/member")
+	public String member() {
+		return "member/member";
+	}
 }

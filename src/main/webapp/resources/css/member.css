@@ -1,0 +1,99 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('../font/12롯데마트행복Bold.ttf');
+
+.profile-img{
+	width:250px;
+	height:250px;
+	float:left;
+	margin-top:-120px;
+	margin-left:50px;
+	border-radius:150px;
+}
+.profile-info {
+	background:#FFFFFF;
+	height:200px;
+	margin:0px 163px 10px 163px;
+	position:relative;
+} 
+
+.row1 span, .row2 span {
+	text-align:center;
+	display:inline-block;
+	margin:30px 50px 0px 50px;
+	width:50px;
+}
+.row1 .user-name, .row2 .user-id {
+	margin-right:70px;
+	width:100px;
+}
+
+.tab-list {
+	position:absolute;
+	bottom:0px;
+	left:20px;
+}
+.tab-list a {	
+	display:inline-block;
+	margin:0 30px 10px 30px;
+}
+.section-profilebg {
+	width:100%;
+	height:350px;
+	min-height:350px;
+	background:#cfcfcf url('../img/member/winter.jpeg') no-repeat center center/cover;
+}
+/* section-main */
+.section-main {
+	margin: 0 auto;
+    max-width: 1280px;
+    padding:5px;
+}
+
+#profileUpdate{
+	width:20px;
+	height:20px;
+	margin-left:190px;
+}
+#profilePicUpdate{
+	width:20px;
+	height:20px;
+	float:right;
+	padding:10px;
+}
+.location-job-birth-intertest{
+	width:20px;
+	height:20px;
+	margin: 8px 10px 0px 0px;
+}
+.profile-detailInfo{
+	margin: -10px 0px 0px 0px;
+}
+.sns-user-img{
+	width:65px;
+	height:65px;
+	margin: 10px 20px 5px 0px;
+	float:left;
+}
+.sns-img{
+	width:895px;
+	height:400px;
+	margin: 15px 0px 15px 0px;
+}
+.sns-title{
+	margin: 10px 0px 0 10px;
+}
+.sns-content{
+	margin: 0px 0px 0 15px;
+	font-size: 18px;
+}
+#like-reply-share{
+	display :inline;s
+}
+.like-reply-share{
+	width:30px;
+	height:30px;
+	margin: 16px 10px 0 10px;
+}
+
+.
