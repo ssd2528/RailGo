@@ -32,4 +32,9 @@ public class IndexController {
 	public String error404() {
 		return "error404";
 	}
+	
+	@GetMapping("/member")
+	public String member() {
+		return "member/member";
+	}
 }

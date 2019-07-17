@@ -1,0 +1,49 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('../font/12롯데마트행복Bold.ttf');
+
+/* 		section-search 		*/
+.section-search {
+	width:100%;
+	height:350px;
+	min-height:350px;
+	background:#FFFFFF url('../img/default_summer.png') no-repeat center center/cover;
+	text-align:center;
+	vertical-align:middle;
+}
+.search-wrap {
+    width: 35%;
+    /* height: inherit; */
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.search-city {
+	align-items:center;
+	display:inline-block;
+	background:#009CE9;
+	color:#FFFFFF;
+	padding: 10px 30px;
+	font-size: 30px;
+	border-radius: 30px;
+	font-family: '12롯데마트행복Bold';
+	cursor:pointer;
+}
+.search-list {
+	background:rgba(255,255,255,0.7);
+	padding:20px 0px;
+	display:flex;
+	justify-content:space-evenly;
+	margin-top:60px;
+	margin-bottom:-100px;
+}
+.search-item *{
+	color:#595959;
+	text-align: center;
+}
+.search-icons {
+	padding:0px 30px;
+	width:50px; 
+	height:50px;
+}

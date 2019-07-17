@@ -1,19 +1,78 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('../font/12롯데마트행복Bold.ttf');
 
-/* 		section-search 		*/
-.sectoin-search {
-	width:100%;
-	height:350px;
-	min-height:350px;
+/* article-course */
+.article-item.article-course { padding: 10px; }
+.article-course { text-align:center; }
+.show-course:hover a { cursor: pointer; color:#009CE9; font-weight:bold; }
+.close-btn { float: right; margin-top: -10px; margin-right: 0px; }
+.close-btn:hover { cursor: pointer; color:#009CE9; font-weight:bold; }
+.course-wrap { text-align:left; }
+.course-title { margin:5px 0px; }
+.course-content { display: flex; justify-content: space-between; width: 100%; }
+.course-item { width:30%; background:#d9d9d9; }
+.course-detail { font-size:15px; }
+
+/* article-concept */
+.concept-title { margin:5px 0px; }
+.concept-content { display: flex; justify-content: space-between; width: 100%; }
+.concept-item { width:30%; background:#d9d9d9; }
+.concept-detail { font-size:15px; }
+
+/* article-sns-content */
+.sns-content-item { display: flex; justify-content: space-between; width:100%; margin:50px 0px; }
+.sns-content-item:first-child, .sns-content-item:last-child { margin:0; }
+.sns-content-item>div { display:inline-block; }
+.sns-content-img { height:400px; }
+.sns-content-user * { display: inline-block; vertical-align: middle; }
+.user-img{ width:60px; height:60px; margin-right:20px; }
+.sns-content-body { margin:10px 0px; width: 100%; height: 200px; overflow: auto; }
+.sns-content-body::-webkit-scrollbar { display: none !important; }
+.sns-content-reply a { text-decoration:underline; }
+.sns-icon { width:30px; height:30px; padding:10px 20px 0px 0px;}
+
+
+/* search-modal */
+.search-modal { 
+	visibility:hidden;
+	opacity:0;
+	position:fixed; 
+	z-index:201; 
+	/* padding-top:60px; */
+	top:0; left:0;  
+	width:100%; height:100%;
+	overflow:auto;
+	background-color:rgb(0,0,0);
+	background-color:rgba(0,0,0,0.85);
+	transform:scale(1.1);
+    transition:visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
 }
-.main-img {
-	/* position: absolute;*/
-	top: 0;
-    bottom: 0;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: 50% 50%;
-    padding: 0;
-    margin: 0;
+.modal-content {
+	position:absolute;
+	top:50%; left:50%;
+	transform:translate(-50%, -50%);
+	background:#FFF;
+	margin:auto;
+	padding:20px;
+	border:1px solid #888;
+	width:30%;
 }
+.close-btn { color:#aaa; float:right; font-size:28px; font-weight:bold; margin:-10px 0;}
+.close-btn:hover, .close-btn:focus { color:black; cursor:pointer; }
+.show-modal { opacity: 1; visibility: visible; transform: scale(1.0); transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s; }
+.search-text { width:100%; border:none; color:#595959; border-bottom:1px solid #e5e5e5; font-size:24px; line-height: 1.7em; }
+.search-text:focus { outline:none; }
+
+
+.region-item, .region-city-item { display:block; }
+.region-item { margin:20px 0; cursor:pointer; }
+.region-item:hover .region-name, .region-item:hover .toggle-btn { color:#009CE9; }
+.show-region-item { display:none; }
+.toggle-btn { float:right; margin:0 5px; font-size:18px; font-weight:bold; }
+.region-city-list { display:none; margin:0 10px;}
+.show-city-list { display:block; }
+.region-city-item { margin: 5px 0;}
+.region-city-item:hover { font-weight:bold; }
+.region-name { font-size:18px; font-weight:bold; }
+
