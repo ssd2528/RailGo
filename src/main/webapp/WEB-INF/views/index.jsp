@@ -249,7 +249,8 @@
 				<!-- ./content-wrapper -->
 			</div>
 			<!-- ./content -->
-			
+			<!-- login_modal -->
+			<%@include file="includes/login_modal.jsp"%>	
 			
 			
 			<!-- footer -->

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 			<!-- header -->
 			<header class="clearfix">
 				<div class="header-inner clearfix">
@@ -28,6 +29,9 @@
 									</ul>
 								</c:if>
 							</li>
+							
+							 <!-- Open The Modal -->
+    						<!--<li><button id="button">Sign In</button></li>-->
 						</ul>
 					</div>
 				</div>

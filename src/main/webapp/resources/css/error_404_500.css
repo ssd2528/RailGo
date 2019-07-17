@@ -1,0 +1,18 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('../font/12롯데마트행복Bold.ttf');
+
+body {text-align: center; margin: 0 auto;}
+
+.error404 , .error500 {position: absolute; width: 500px; height: 500px; left: 50%; top: 50%;
+	margin-left: -250px; margin-top: -250px; font-size: 23px; font-weight: 700}
+
+.icon {color: #009CE9; font-size: 125px;}
+
+.error404-title , .error500-title {color: #009CE9; margin-bottom: 15px; font-size: 150px;
+	font-weight: 900; text-shadow: 6px 4px 5px darkgrey;}
+
+.error404-content , .error500-content {margin-bottom: 15px; color: #eb7d31;}
+
+.error404-button , .error500-button {background-color: #009CE9; border: none; color: white; margin-top: 20px;
+	width: 120px; height: 50px; text-decoration: none; display: inline-block; font-size: 16px;}

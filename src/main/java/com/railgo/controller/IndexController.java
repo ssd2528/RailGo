@@ -22,6 +22,21 @@ public class IndexController {
 		return "planner/list";
 	}
 	
+	@GetMapping("/pwd_setting")
+	public String pwd_setting() {
+		return "pwd_setting";
+	}
+	
+	@GetMapping("/error500")
+	public String error500() {
+		return "error500";
+	}
+	
+	@GetMapping("/error404")
+	public String error404() {
+		return "error404";
+	}
+	
 	@GetMapping("/member")
 	public String member() {
 		return "member/member";
