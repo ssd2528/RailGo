@@ -148,6 +148,7 @@ $(document).ready(function(){
 			$('.plan-option-member-wrapper').hide();
 		}
 	});
+	
 	//달력 버튼 누를 시 달력 Jquery UI 생성
 	$('#datepicker').datetimepicker({
 		format:'Y/m/d',
