@@ -21,6 +21,7 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/font/**" location="/resources/font/" />
 	<resources mapping="/img/**" location="/resources/img/" />
+	<resources mapping="/calendarpicker/**" location="/resources/calendarpicker/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->

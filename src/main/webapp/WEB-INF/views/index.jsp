@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -14,11 +15,15 @@
 		<link href="../css/index.css" rel="stylesheet">
 		<link href="../css/section_search.css" rel="stylesheet">
 		<link href="../css/article_sns_user.css" rel="stylesheet">
+		<link href="../css/login_modal.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="../js/header.js" type="text/javascript"></script>
+		<script src="../js/index.js" type="text/javascript"></script>
 		<script src="../js/section_search.js" type="text/javascript"></script>
+		<script src="../js/login_modal.js" type="text/javascript"></script>
+
 	</head>
 	<body>
 		<div class="wrap">
@@ -54,6 +59,7 @@
 							</ul>
 						</div>
 					</div>
+					<!-- ./section-search -->
 					
 					<!-- section-main -->
 					<div class="section-main clearfix">
@@ -235,8 +241,17 @@
 						</div>
 					</div> <!-- ./section-main -->
 					
+					<!-- search-modal부분 -->
+					<%@include file="includes/search_modal.jsp"%>
+					<!-- login_modal -->
+					<%@include file="includes/login_modal.jsp"%>
 				</div>
+				<!-- ./content-wrapper -->
 			</div>
+			<!-- ./content -->
+			<!-- login_modal -->
+			<%@include file="includes/login_modal.jsp"%>	
+			
 			
 			<!-- footer -->
 			<%@include file="includes/footer.jsp"%>

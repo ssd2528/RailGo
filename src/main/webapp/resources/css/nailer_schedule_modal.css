@@ -1,0 +1,98 @@
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 102; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.85); /* Black w/ opacity */
+}
+/* Modal Content/Box */
+.nailer-schedule-modal-content {
+	overflow: hidden;
+	background-color: #fefefe;
+	margin: 100px auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 600px; /* Could be more or less, depending on screen size */
+}
+
+.modal_title {
+	margin-bottom: 15px;
+}
+
+.map-img {
+	margin-top: 15px;
+	float: left;
+	width: 250px;
+	height: 300px;
+}
+
+.schedule-title {
+	margin-top: 30px;
+	font-size: 30px;
+	margin-left: 320px;
+	margin-bottom: 15px;
+}
+
+.schedule-thema, .schedule {
+	font-size: 20px;
+	margin-left: 320px;
+	margin-bottom: 15px;
+}
+
+.heart-wrapper {
+	float: left;
+	width: 30%;
+	margin-top: 110px;
+}
+
+.heart-img {
+	width: 17px;
+	margin-left: 70px;
+}
+
+.heart-number {
+	font-size: 20px;
+	margin-left: 7px;
+}
+
+.nailer-schedule-group {
+	margin-bottom: 15px;
+	overflow: auto;
+	width: 600px;
+	height: 150px;
+}
+
+.button-wrapper {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.detail-view-button {
+	background-color: #eb7d31;
+	border: none;
+	color: white;
+	padding: 3px;
+	width: 100px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}
+
+.close-button {
+	background-color: #eb7d31;
+	border: none;
+	color: white;
+	margin-left: 15px;
+	padding: 3px;
+	width: 100px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}

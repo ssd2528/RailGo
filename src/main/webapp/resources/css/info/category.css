@@ -1,0 +1,334 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('../font/12롯데마트행복Bold.ttf');
+
+/*		 common.css		 */
+/*		BODY	 */
+* { margin:0; padding:0; list-style:none; font-family:'Noto Sans KR', sans-serif; }
+body { background:#F2F2F2; display:block; }
+.clearfix { *zoom:1; }
+.clearfix:after { content: ""; display:block; clear:both; }
+a { text-decoration:none; color:#000000; }
+a:hover { text-decoration:none; }
+img { max-width:100%; }
+li { display:inline-block; }
+
+/* 		HEADER 		*/
+header {
+	z-index:101;
+	width:100%;
+	height:61px;
+	background:#FFFFFF;
+	position:fixed;
+	box-sizing:border-box;
+	margin:0 auto;
+	border-bottom: 1px solid lightgray;
+	top:0; left:0;
+	padding:5px 10px;
+}
+.header-inner {
+	background:#FFFFFF;
+	margin: 0 auto;
+    max-width: 1280px;
+}
+.header-inner div { display:inline-block; height:50px; }
+
+.logo img { width:150px; height:50px; }
+.navi { float:right; margin-left:auto; text-align:center; }
+.navi li { display:inline-block; margin:0px 20px; vertical-align: middle; font-size:10px; }
+.navi li:last-child { margin-right:0; }
+.navi img { width:30px; height:30px; }
+.navi img.member-img { width:45px; height:45px; }
+
+/* section-main */
+.section-main {
+	margin: 0 auto;
+    max-width: 1280px;
+    padding:0px 24px 24px 24px;
+}
+.article-wrapper {
+	float:left;
+}
+.article-item {
+	background:#FFFFFF;
+	padding:10px 20px;
+	box-shadow:3px 3px 3px #bfbfbf;
+	margin:15px 10px;
+}
+.article-75 { width:75%; }
+.article-25 { width:25%; }
+
+
+/* 		FOOTER 		*/
+footer {
+	width:100%;
+	height:100px;
+	background:#D9D9D9;
+}
+
+
+
+
+
+/*      menu-bar        */
+.menu-bar {
+	top:0;
+	left:0;
+	padding-top:61px;
+	width:100%;
+	height:40px;
+	background:#FFFFFF;
+	vertical-align:middle;
+	position:fixed;
+	box-shadow: 1px 1px 3px #bfbfbf;
+}
+.menu-bar:after { content: ""; display:block; clear:both; }
+.menu-navi { 
+	vertical-align: middle; 
+	margin: 0px auto;
+	max-width: 1280px; 
+}
+.menu-navi li { display:inline-block; padding:0px 10px 6px 10px; }
+.menu-navi li:hover { color: #009CE9; }
+.menu-navi li:last-child { margin-right:0; }
+.menu-clicked {
+	border-bottom: solid 3px #009CE9;
+	width: 50px;
+	margin-top: 2px;
+}
+.menu-bar-ul { margin-top: 5px;}
+
+
+.search-city {
+	align-items:center;
+	display:inline-block;
+	background:#009CE9;
+	color:#FFFFFF;
+	padding: 7px 15px;
+	font-size: 17px;
+	border-radius: 20px;
+	font-family: '12롯데마트행복Bold';
+}
+
+/* 		category-info 		*/
+.category-info-top {
+	top:0;
+	left:0;
+	padding-top: 96px;
+	width:100%;
+	background:#FFFFFF;
+	padding-bottom: 25px;
+}
+
+.category-info-box {
+	margin: 0 auto;
+	max-width: 1280px;
+}
+
+.category-category {
+	float:left;
+	color: gray;
+	display: block;
+	padding-left: 10px;
+}
+
+.category-category span {
+	color: gray;
+}
+
+.category-category span:hover {
+	text-decoration:underline;
+	color: gray;
+}
+
+.category-name {
+	text-align: left;
+	margin:5px 0px;
+	display: block;
+	padding-left: 10px;
+}
+
+/* 		section-search 		*/
+.search-container {
+  display: flex;
+  padding: 0;
+  margin: 15px 10px 5px 10px;
+  border: 0;
+}
+
+
+.search-keyword {
+  border: 0;
+  width: 100%;
+  height: 40px;
+  padding: 2px 10px;
+  background: white;
+  transition: all 0.4s ease;
+  box-shadow:3px 3px 3px #bfbfbf;
+}
+
+.icon {
+  padding: 10px;
+  height: 20px;
+  background: dodgerblue;
+  color: white;
+  min-width: 10px;
+  text-align: center;
+  box-shadow:3px 3px 3px #bfbfbf;
+}
+
+/*		 checkbox-area 		*/
+.checkbox-title {
+	font-size : 20px;
+	margin-bottom: 5px;
+}
+
+.checkbox-chk {
+	margin: 2px 3px;
+}
+
+input[type="checkbox"] {
+    display:none;
+}
+
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    border: 1px solid gray;
+    cursor:pointer;
+}
+
+input[type="checkbox"]:checked + label span {
+    background: url("../../resources/img/info/checkbox.jpg") no-repeat 50% 50%;
+    background-size: 1rem;
+}
+
+.checkbox-hr {
+	border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    border-color: lightgray;
+    margin: 10px 0px;
+}
+
+#checkbox-more { 
+	margin-left: 5px;
+	cursor:pointer;
+	color: gray;
+}
+#checkbox-more:hover, #checkbox-fold:hover { text-decoration: underline; }
+#checkbox-chk-hide { display: none; }
+#checkbox-fold {
+	margin-left: 5px;
+	display: none;
+	cursor:pointer;
+	color: gray;
+}
+
+.checkbox-br {
+	padding-bottom: 10px;
+}
+/*		info-board		*/
+.info-top {
+	margin: 10px;
+	margin-bottom:20px;
+	font-size: 15px;
+	color: gray;
+}
+
+.info-group {
+	float: right;
+}
+
+.result-amount {
+	color: #009CE9;
+}
+
+/* 		info-list 		*/
+.info-list {
+	display: grid;
+	grid-template-columns: 200px 2fr;
+	margin-bottom: 15px;
+	margin-top: 20px;
+}
+
+.info-list-img{ 
+	margin-left: 20px; 
+	width:150px; 
+	height:100%;  
+}
+
+.info-list-title {
+	display: inline;
+}
+
+.info-list-title:hover {
+	text-decoration: underline;
+}
+
+.info-list-data {
+	padding-left: 10px;
+}
+
+.info-explain {
+	color: gray;
+}
+
+.info-category {
+	
+}
+
+.info-rating {
+	color: #ed7d31;
+}
+
+/*		 list-paging 		*/
+.paging {
+	text-align: center;
+	vertical-align: middle;
+	height: 30px;
+	padding: 5px 0px;
+}
+
+.pagination {
+	list-style: none;
+	padding: 0;
+}
+
+.pagination-prev {
+	margin-left: 5px;
+	float: left;
+	width: 40px !important;
+}
+
+.pagination-next {
+	margin-right: 5px;
+	float: right;
+	width: 40px !important;
+}
+
+.pagination li {
+	padding:4px;
+	padding-bottom: 0px;
+	text-align: center;
+	width:25px;
+	height:25px;
+	border:1px solid darkgray;
+	margin: 0px 3px;
+}
+
+.pagination a {
+	font-size: 14px;
+	text-decoration:none;
+}
+
+.pagination li:hover {
+	border:1px solid #009CE9;
+	background-color:#009CE9;
+	width:25px;
+	height:25px;
+	color: #fff;
+}

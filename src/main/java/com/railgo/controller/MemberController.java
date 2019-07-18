@@ -1,6 +1,7 @@
 package com.railgo.controller;
 
 import org.springframework.stereotype.Controller;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,4 +23,17 @@ public class MemberController {
 	public String schedule() {
 		return "member/schedule";
 	}
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+
+@Controller
+@Log4j
+@RequestMapping()
+@AllArgsConstructor
+public class MemberController {
+
+>>>>>>> branch 'master' of https://github.com/JaeHyeonKim19/RailGo
 }
