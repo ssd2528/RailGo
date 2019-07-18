@@ -95,7 +95,6 @@
 						</div>
 	
 						<div class="article-wrapper article-75">
-	
 							<!-- article-sns-content -->
 							<div class="article-item article-sns-content">
 								<!-- sns-content -->
