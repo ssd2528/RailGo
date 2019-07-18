@@ -5,7 +5,6 @@ $(function(){
 		 $('html').css('overflow', 'hidden');
 	});
 });
-
 // close the modal
 $(function(){
 	$('.close-button').click(function () {
