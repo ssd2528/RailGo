@@ -36,7 +36,6 @@ header {
 .navi { float:right; margin-left:auto; text-align:center; }
 .navi li { display:inline-block; margin:0px 20px; vertical-align: middle; font-size:10px; }
 .navi li:last-child { margin-right:0; }
-
 .navi img { width:30px; height:30px; }
 .navi img.member-img { width:45px; height:45px; }
 

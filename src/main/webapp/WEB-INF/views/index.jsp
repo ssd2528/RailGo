@@ -26,7 +26,7 @@
 							<div class="search-city">어디로 가시나요? &nbsp; ▼</div>
 							<ul class="search-list">
 								<li class="search-item search-accom"> 
-									<a href="#">
+									<a href="info/category">
 										<img src="../img/main/bed_dgray.png" class="search-icons" alt="bed" /><br>숙 박 
 									</a> 
 								</li>
