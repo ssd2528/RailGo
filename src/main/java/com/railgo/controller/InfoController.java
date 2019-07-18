@@ -9,15 +9,18 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping()
+@RequestMapping("/info")
 @AllArgsConstructor
 public class InfoController {
-	
-	@GetMapping("/info/detail")
+	@GetMapping("/info")
+	public String info() {
+		return "info/info";
+	}
+	@GetMapping("/detail")
 	public String detail() {
 		return "info/detail";
 	}
-	@GetMapping("/info/category")
+	@GetMapping("/category")
 	public String category() {
 		return "info/category";
 	}
