@@ -37,6 +37,8 @@ header {
 .navi li { display: inline-block; margin: 0px 5px; vertical-align: middle; font-size: 10px; padding: 0 10px; /* border-bottom: solid 3px #009CE9; */ padding-bottom: 7px; }
 .navi li:last-child { margin-right:0; }
 
+.signin-btn { background:#009CE9; color:#FFF; font-size:13px; padding:5px 15px; margin:0 5px; cursor:pointer;}
+
 .navi img { width:30px; height:30px; }
 .navi .member-img img { width:45px; height:45px; }
 
