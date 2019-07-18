@@ -14,9 +14,11 @@
 		<link href="../css/common.css" rel="stylesheet">
 		<link href="../css/index.css" rel="stylesheet">
 		<link href="../css/planner.css" rel="stylesheet">
+		<link href="../css/nailer_schedule_modal.css" rel="stylesheet">
 		<!-- JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="../js/planner.js" type="text/javascript"></script>
+		<script src="../js/nailer_schedule_modal.js" type="text/javascript"></script>
 	</head>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
@@ -161,6 +163,7 @@
 				</div>
 			</div>
 		</div>
+		<%@include file="nailer_schedule_modal.jsp" %>
 		<!-- footer -->
 		<%@include file="../includes/footer.jsp" %>
 	</div>
