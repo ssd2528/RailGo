@@ -1,0 +1,33 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('../font/12롯데마트행복Bold.ttf');
+
+/* article-course */
+.article-item.article-course { padding: 10px; }
+.article-course { text-align:center; }
+.show-course:hover a { cursor: pointer; color:#009CE9; font-weight:bold; }
+.close-btn { float: right; margin-top: -10px; margin-right: 0px; }
+.close-btn:hover { cursor: pointer; color:#009CE9; font-weight:bold; }
+.course-wrap { text-align:left; }
+.course-title { margin:5px 0px; }
+.course-content { display: flex; justify-content: space-between; width: 100%; }
+.course-item { width:30%; background:#d9d9d9; }
+.course-detail { font-size:15px; }
+
+/* article-concept */
+.concept-title { margin:5px 0px; }
+.concept-content { display: flex; justify-content: space-between; width: 100%; }
+.concept-item { width:30%; background:#d9d9d9; }
+.concept-detail { font-size:15px; }
+
+/* article-sns-content */
+.sns-content-item { display: flex; justify-content: space-between; width:100%; margin:50px 0px; }
+.sns-content-item:first-child, .sns-content-item:last-child { margin:0; }
+.sns-content-item>div { display:inline-block; }
+.sns-content-img { height:400px; }
+.sns-content-user * { display: inline-block; vertical-align: middle; }
+.user-img{ width:60px; height:60px; margin-right:20px; }
+.sns-content-body { margin:10px 0px; width: 100%; height: 200px; overflow: auto; }
+.sns-content-body::-webkit-scrollbar { display: none !important; }
+.sns-content-reply a { text-decoration:underline; }
+.sns-icon { width:30px; height:30px; padding:10px 20px 0px 0px;}

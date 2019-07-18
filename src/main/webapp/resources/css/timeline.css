@@ -1,0 +1,238 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('../font/12롯데마트행복Bold.ttf');
+
+/*  section-profile  */
+.section-profilebg {
+	width:100%;
+	height:350px;
+	min-height:350px;
+	background:#cfcfcf url('../img/member/winter.jpeg') no-repeat center center/cover;
+}
+.profile-img{
+	width:250px;
+	height:250px;
+	float:left;
+	margin-top:-120px;
+	margin-left:50px;
+	border-radius:150px;
+}
+.profile-info {
+	background:#FFFFFF;
+	height:200px;
+	max-width: 1260px;
+	margin: 0 auto;
+	position:relative;
+} 
+#profilePicUpdate{
+	width:20px;
+	height:20px;
+	float:right;
+	padding:10px;
+}
+.row1 span, .row2 span {
+	text-align:center;
+	display:inline-block;
+	margin:30px 50px 0px 50px;
+	width:50px;
+}
+.row1 .user-name, .row2 .user-id { margin-right:70px; width:100px; }
+
+/*  timeline,schedule tab  */
+.tab-list {
+	position:absolute;
+	bottom:0px;
+	left:20px;
+}
+.tab-list a {	
+	display:inline-block;
+	margin:0px 30px 0px 30px;
+}
+.timeline { 
+	font-weight:bold;
+	width:100px;
+	height:30px;
+	text-align:center;
+	border-bottom:4px solid #00c6ed;
+}
+
+/* section-main */
+.section-main {
+	margin: 0 auto;
+    max-width: 1280px;
+    padding:5px;
+}
+
+/* article-introduce */
+#profileUpdate{
+	width:20px;
+	height:20px;
+	margin-left:190px;
+}
+.location-job-birth-intertest{
+	width:20px;
+	height:20px;
+	margin: 8px 10px 0px 0px;
+}
+.profile-detailInfo { margin: -10px 0px 0px 0px; }
+
+/*  sns-contents  */
+.sns-user-img{
+	width:65px;
+	height:65px;
+	margin: 10px 20px 5px 0px;
+	float:left;
+}
+.sns-imgP { text-align:center; }
+.sns-imgC{
+	width:895px;
+	height:400px;
+	margin: 15px 0px 15px 0px;
+}
+.sns-title { margin: 10px 0px 0 10px; }
+.sns-menubar{
+	position: relative;
+    top:-20px;
+	float:right;
+	font-size:22px;
+}
+.sns-menubar li ul {
+	background:#ffffff;
+	height:auto;
+	padding:0px;
+	margin:0px;
+	border:2px solid #e6e6e6;
+	position:absolute;
+	width:100px;
+	z-index:200;
+}
+.sns-menubar ul li {
+	text-align:center;
+	display:block;
+}
+
+.hide{display:none;}
+#current, #sns-modify, #sns-delete{
+	background-color:white;
+	border: none;
+ 	color: black;
+  	padding: 10px 12px;
+  	text-align: center;
+  	text-decoration: none;
+ 	font-size: 20px;
+ 	cursor:pointer;
+}
+#like-reply-share { display :inline; }
+.likeImg, .replyImg, .shareImg{
+	width:30px;
+	height:30px;
+	margin: 16px 10px 0 15px;
+}
+.reply { text-align:center; }
+#reply{
+	width:880px;
+	margin: 0 auto;
+	height:40px;
+	border:2px solid #e6e6e6;
+	margin-top:10px;
+}
+.underline{
+	color:#e6e6e6;
+	border:thin solid;
+	max-width: 100%;
+	margin: 0 auto;
+	margin-top:15px;
+}
+.sns-user-reply { margin: 20px 0px 30px 0px; }
+.reply-user-img{
+	width:60px;
+	height:60px;
+	float:left;
+	margin: 0px 10px 0px 0px;
+}
+.reply-username{
+	font-size:19px;
+	margin: 20px 10px 0px 15px;
+}
+.reply-content { margin: 5px 0px 5px 13px; }
+.like-write_reply-write_date li{
+	margin: 4px 0px 0px 15px;
+}
+.reply-like,.reply-reply { color:#00c6ed; }
+.reply-content,.reply-write_date { color:#737373; }
+
+/*  see-more-button  */
+.see-more-buttondiv { text-align:center; }
+.see-more-button{
+	background-color:#00c6ed;
+	border: none;
+    color: white;
+    width:60%;
+    height:35px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+/* The Modal (background) */
+#myModal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    height: 70%;
+    width: 45%; /* Could be more or less, depending on screen size */                        
+}
+
+.modal-title{
+	font-size:25px;
+}
+.form-group{
+	height: 70%;
+	width: 100%;
+	margin: 0 auto;
+	margin:15px 0 15px 0;
+	padding:0px;
+}
+.form-control{
+	width: 100%;
+	height: 100%;
+	font-size:20px;
+}
+.modal-footer{
+	text-align:center;
+}
+.modal-footer hr{
+	margin:15px 0 15px 0;
+}
+#modalMoBtn, #modalCloseBtn{
+background-color:#00c6ed;
+	border: none;
+    color: white;
+    width:100px;
+    height:40px;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 auto;
+    margin:0px 20px 0px 0px;
+}
+
+
+
+.

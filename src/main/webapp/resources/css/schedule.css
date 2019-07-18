@@ -1,0 +1,103 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('../font/12롯데마트행복Bold.ttf');
+
+
+.article-item {
+	
+	width:1220px;
+	height:1400px;
+}
+/*  timeline,schedule tab  */
+
+.tab-list{
+	margin:0px 0px 0px 20px;
+}
+.schedule { 
+	font-weight:bold;
+	width:100px;
+	height:30px;
+	text-align:center;
+	border-bottom:4px solid #00c6ed;
+}
+.schedule-select{
+	margin:0px 0px 40px 20px;
+}
+.schedule-select a{
+	margin:0px 5px 0px 0px;
+}
+.my-schedule{
+	color:#00c6ed;
+}
+.dg_warning-div{
+	position: relative;
+    top:350px;
+	text-align:center;
+}
+.dg_warning{
+	width:200px;
+	height:200px;
+	margin:0px 0px 10px 0px;
+}
+.dg_warning-txt{
+	font-weight:bold;
+	font-size:22px;
+}
+.article-item{
+	
+}
+.schedule-lists{
+	display: inline-block;
+}
+.schedule-list-img{
+	background: url('../img/member/winter.jpeg') no-repeat;
+	background-size:100% 75%;
+    width: 37%;
+    height: 24%;
+    box-shadow: 3px 3px 3px #bfbfbf;
+    margin: 25px 45px 40px 45px;
+    display: inline-block;
+    padding:0px;
+}
+.schedule-list{
+	background: #ffffff;
+	width: 100%;
+    height: 25%;
+    position:relative;
+    top:75%;
+}
+.schedule-name{ 
+	font-size:20px; 
+	font-style:bold; 
+	font-weight:bold;
+	float:left;
+	margin: 3px 0px 0px 15px;
+	}
+.schedule-date{ 
+	font-size:13px;
+	margin: 0px 100px 0px 10px;
+	color:#bfbfbf; 
+	position:relative;
+	top:8px;
+}
+.MnD{ 
+	color:#ff8f2e; 
+	font-size:15px;
+	margin: 0px 0px 0px 5px;
+	position:relative;
+	top:8px;
+}
+.schedule-userImg{
+	float:left;
+	width: 30px;
+    height: 30px;
+    margin: 20px 0px 0px 0px;
+    position:relative;
+	right:17%;
+}
+.schedule-userName{
+	color:#bfbfbf; 
+	position:relative;
+	right: 15%;
+    top: 20px;
+}
