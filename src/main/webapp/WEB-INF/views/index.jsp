@@ -14,12 +14,14 @@
 		<link href="../css/index.css" rel="stylesheet">
 		<link href="../css/section_search.css" rel="stylesheet">
 		<link href="../css/article_sns_user.css" rel="stylesheet">
+		<link href="../css/login_modal.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="../js/header.js" type="text/javascript"></script>
 		<script src="../js/index.js" type="text/javascript"></script>
 		<script src="../js/section_search.js" type="text/javascript"></script>
+		<script src="../js/login_modal.js" type="text/javascript"></script>
 
 	</head>
 	<body>
