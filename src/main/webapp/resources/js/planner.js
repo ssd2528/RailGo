@@ -97,4 +97,63 @@ $(document).ready(function(){
 		$(this).hide();
 		$(this).find('span').text('');
 	});
+	// 일정만들기 버튼 클릭시 모달창 오픈
+	$('.planner-info-btn-wrapper').children('.create-plan-btn').on("click",function(){
+		   $("#modal-wrapper").css('display','flex');
+		   setTimeout(function() {
+		      $("#modal-wrapper").addClass('open');
+		   }, 1)
+		   $('body').css({'overflow':'hidden', 'height':'100%'});
+		});
+	// 바깥 화면 클릭시 modal 창 닫기
+	$('body').click(function(e){
+	   if($('#modal-wrapper').hasClass('open')){ // site 라는 특정영역이 열려있을 경우
+	      if(!$('#modal-wrapper').has(e.target).length){ // site에 클릭 이벤트가 발생되어 있는게 없다면 아래 내용을 실행.
+	         $('#modal-wrapper').removeClass('open');
+	         $('body').css({'overflow':'auto', 'height':'100%'});
+	         setTimeout(function() {
+	            $('#modal-wrapper').css('display','none');
+	         }, 50)
+	      }
+	   }
+	});
+	// 모달창 닫기 버튼 클릭시 modal 창 닫기
+	$("#plan-option-close-btn").on("click",function(){
+	   $('#modal-wrapper').removeClass('open');
+	   setTimeout(function() {
+	      $("#modal-wrapper").css('display','none');
+	   }, 1)
+	   $('body').css({'overflow':'auto', 'height':'100%'});
+	});
+	// 티켓 선택 했을때 박스 시그니처 색으로 칠하기
+	$('#plan-option-days').children().click(function(){
+		$('#plan-option-days').children().css('background-color', 'white');
+		$('#plan-option-days').children().css('color', '#7f7f7f');
+		$(this).css('background-color', '#009ce9');
+		$(this).css('color', 'white');
+		$('#datepicker').attr('disabled',false);
+	});
+	//인원수 체크
+	$('.plan-option-people').children('.plan-option-plus,.plan-option-minus').click(function(){
+		if($(this).attr('class') ==='plan-option-plus'){
+			$('.plan-option-number').text(parseInt($('.plan-option-number').text()) + 1);
+		}else{
+			if(parseInt($('.plan-option-number').text()) > 1){
+				$('.plan-option-number').text(parseInt($('.plan-option-number').text()) - 1);
+			}
+		}
+		if(parseInt($('.plan-option-number').text()) >= 2){
+			$('.plan-option-member-wrapper').show();
+		}else{
+			$('.plan-option-member-wrapper').hide();
+		}
+	});
+	//달력 버튼 누를 시 달력 Jquery UI 생성
+	$('#datepicker').datetimepicker({
+		format:'Y/m/d',
+		minDate:0,
+		timepicker:false
+	});
+
+	
 });

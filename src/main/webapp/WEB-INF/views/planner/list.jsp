@@ -22,7 +22,7 @@
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 	<div class="wrap">
 		<!-- header -->
-		<%@include file="../includes/header.jsp"%>
+		<%@include file="../includes/header.jsp"%>		
 		<!--  body  -->
 		<div class="content">
 			<div class="content-wrapper">
@@ -142,12 +142,12 @@
 						<div class="calendar-lists-wrapper">
 						<% for(int i = 0; i < 6; i++){ %>
 							<div class="calendar-lists">
-								<div class="calendar-map" onclick="location.href='#';"></div>
+								<div class="calendar-map"></div>
 								<div class="calendar-text-wrapper">
 									<div class="calendar-text-tag">#셋이서</div>
 									<div class="calendar-text-tag">#전국일주</div>
 									<div class="calendar-text-course">서울-대전-대구-부산</div>
-									<div class="calendar-text-writer">씹찬우</div>
+									<div class="calendar-text-writer">혐잉</div>
 									<div class="calendar-like-number-wrapper">
 										<div class="calendar-text-like" ><img class="like-img" src="../img/sns/heart.png"></img></div>	
 										<div class="calendar-text-like-number">111</div>
@@ -161,8 +161,14 @@
 				</div>
 			</div>
 		</div>
+		<!-- plan-create-modal -->
+		<%@include file="./plan_modal.jsp" %>
 		<!-- footer -->
 		<%@include file="../includes/footer.jsp" %>
 	</div>
 </body>
+		<!-- Calendar DatePicker import (download) Not CDN -->
+		<link rel="stylesheet" type="text/css" href="../calendarpicker/jquery.datetimepicker.css"/>
+		<script src="../calendarpicker/jquery.js"></script>
+		<script src="../calendarpicker/build/jquery.datetimepicker.full.min.js"></script>
 </html>
