@@ -18,7 +18,7 @@ $(document).ready(function(){
 	})
 });
 
-$(document).ready(function(){
+$(document).ready(function(){ 
     $("#current").click(function(){
         var submenu = $(this).next("ul");
 
