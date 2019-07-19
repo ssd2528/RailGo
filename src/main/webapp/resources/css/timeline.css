@@ -53,7 +53,7 @@
 	width:100px;
 	height:30px;
 	text-align:center;
-	border-bottom:4px solid #00c6ed;
+	border-bottom:4px solid #009CE9;
 }
 
 /* section-main */
@@ -121,6 +121,7 @@
   	text-decoration: none;
  	font-size: 20px;
  	cursor:pointer;
+ 	outline:0;
 }
 #like-reply-share { display :inline; }
 .likeImg, .replyImg, .shareImg{
@@ -158,16 +159,16 @@
 .like-write_reply-write_date li{
 	margin: 4px 0px 0px 15px;
 }
-.reply-like,.reply-reply { color:#00c6ed; }
+.reply-like,.reply-reply { color:#009CE9; }
 .reply-content,.reply-write_date { color:#737373; }
 
 /*  see-more-button  */
 .see-more-buttondiv { text-align:center; }
 .see-more-button{
-	background-color:#00c6ed;
+	background-color:#009CE9;
 	border: none;
     color: white;
-    width:60%;
+    width:20%;
     height:35px;
     text-align: center;
     text-decoration: none;
@@ -192,7 +193,7 @@
 /* Modal */
 .modal-content {
     background-color: #fefefe;
-    margin: 10% auto; /* 15% from the top and centered */
+    margin: 1% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     height: 70%;
@@ -221,7 +222,7 @@
 	margin:15px 0 15px 0;
 }
 #modalMoBtn, #modalCloseBtn{
-background-color:#00c6ed;
+background-color:#009CE9;
 	border: none;
     color: white;
     width:100px;

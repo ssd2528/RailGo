@@ -30,4 +30,8 @@ $(document).ready(function(){
         }
     })
 });
-
+$(document).ready(function(){
+	$(".likeImg").click(function(){
+		$(".likeImg").attr('src','../img/planner/heart_clicked.png')
+	})	
+});

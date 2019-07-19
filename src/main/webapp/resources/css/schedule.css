@@ -18,7 +18,7 @@
 	width:100px;
 	height:30px;
 	text-align:center;
-	border-bottom:4px solid #00c6ed;
+	border-bottom:4px solid #009CE9;
 }
 .schedule-select{
 	margin:0px 0px 40px 20px;
@@ -27,7 +27,7 @@
 	margin:0px 5px 0px 0px;
 }
 .my-schedule{
-	color:#00c6ed;
+	color:#009CE9;
 }
 .dg_warning-div{
 	position: relative;
@@ -47,7 +47,7 @@
 	
 }
 .schedule-lists{
-	display: inline-block;
+	
 }
 .schedule-list-img{
 	background: url('../img/member/winter.jpeg') no-repeat;
