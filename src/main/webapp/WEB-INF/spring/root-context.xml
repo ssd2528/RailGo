@@ -20,8 +20,8 @@
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:JAVA"></property>
-		<property name="username" value="spring"></property>
-		<property name="password" value="java"></property>
+		<property name="username" value="RailGo"></property>
+		<property name="password" value="RailGo"></property>
 	</bean>
 
 	<!-- HikariCP configuration -->
@@ -39,6 +39,23 @@
 	<!-- transactionManager -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- Mail 인증 관련 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="leeghrbs13@gmail.com" />
+		<property name="password" value="ekfldntm123!@#" />
+		<!-- EMAIL 요청시는 SMTP -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
 	</bean>
 
 	<tx:annotation-driven />

@@ -24,7 +24,7 @@
 									<ul class="member-submenu">
 										<li><a href="#" class="member-timeline">타임라인</a></li>
 										<li><a href="#" class="member-schedule">일정관리</a></li>
-										<li><a href="#" class="member-logout">로그아웃</a></li>
+										<li><a href="../signout?" class="member-logout">로그아웃</a></li>
 									</ul>
 								</c:if>
 							</li>
