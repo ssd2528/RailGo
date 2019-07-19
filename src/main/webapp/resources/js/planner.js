@@ -132,6 +132,8 @@ $(document).ready(function(){
 		$(this).css('background-color', '#009ce9');
 		$(this).css('color', 'white');
 		$('#datepicker').attr('disabled',false);
+		$('#datepicker').val('첫 날');
+		$('#last-option-days').text('마지막 날');
 	});
 	//인원수 체크
 	$('.plan-option-people').children('.plan-option-plus,.plan-option-minus').click(function(){
@@ -153,8 +155,28 @@ $(document).ready(function(){
 	$('#datepicker').datetimepicker({
 		format:'Y/m/d',
 		minDate:0,
-		timepicker:false
+		timepicker:false,
+		onSelectDate:function(dateText,inst){ 
+			$('#last-option-days').text('');
+			var year = dateText.getFullYear();
+			var month = dateText.getMonth() + 1;
+			var day = dateText.getDate();
+			var ymd = new Date(year,month,day);
+			if($('#third-days-option').css('color') === 'rgb(255, 255, 255)'){
+				ymd.setDate(ymd.getDate() + 2);
+				var mm = ymd.getMonth(); mm = (mm < 10) ? '0' + mm : mm;
+				var dd = ymd.getDate(); dd = (dd < 10) ? '0' + dd : dd;	
+			}else if($('#fifth-days-option').css('color') === 'rgb(255, 255, 255)'){
+				ymd.setDate(ymd.getDate() + 4);
+				var mm = ymd.getMonth(); mm = (mm < 10) ? '0' + mm : mm;
+				var dd = ymd.getDate(); dd = (dd < 10) ? '0' + dd : dd;	
+			}else{
+				ymd.setDate(ymd.getDate() + 6);
+				var mm = ymd.getMonth(); mm = (mm < 10) ? '0' + mm : mm;
+				var dd = ymd.getDate(); dd = (dd < 10) ? '0' + dd : dd;		
+			}
+			$('#last-option-days').text( ymd.getFullYear() +'/'+ mm +'/'+ dd);
+		}
 	});
-
 	
 });

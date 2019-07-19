@@ -13,11 +13,11 @@
 			</div>
 			<div class="plan-option-text">2.여행 시작 날짜를 선택해주세요.</div>
 			<div class="plan-option-days-wrapper">
-				<!--  <div id="datepicker" class="plan-option-days">1999-01-01</div> -->
-				<input type="text" id="datepicker" class="plan-option-days" placeholder="2019/07/17" disabled="" readonly>
+				<!--<div id="datepicker" class="plan-option-days">1999-01-01</div> -->
+				<input type="text" id="datepicker" class="plan-option-days" placeholder="첫 날" disabled="" readonly>
 				<div class="plan-option-days"
 					style="border: none; width: 5%; cursor: default;">~</div>
-				<div class="plan-option-days" style="cursor: default">2019/07/17</div>
+				<div id="last-option-days" class="plan-option-days" style="cursor: default">마지막 날</div>
 			</div>
 			<div class="plan-option-text">3.몇 명이서 가시나요.</div>
 			<div class="plan-option-people">
@@ -37,5 +37,3 @@
 		</div>
 	</div>
 </div>
-<!--  fade section -->
-<div id="mask"></div>
