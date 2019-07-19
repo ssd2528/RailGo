@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 			<!-- header -->
 			<header class="clearfix">
 				<div class="header-inner clearfix">
@@ -25,7 +24,7 @@
 									<ul class="member-submenu">
 										<li><a href="../member/timeline" class="member-timeline">타임라인</a></li>
 										<li><a href="../member/schedule" class="member-schedule">일정관리</a></li>
-										<li><a href="#" class="member-logout">로그아웃</a></li>
+										<li><a href="../signout" class="member-logout">로그아웃</a></li>
 									</ul>
 								</c:if>
 							</li>

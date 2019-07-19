@@ -81,6 +81,7 @@ header {
 .font-13 { font-size:13px; }
 .font-15 { font-size:15px; }
 
+label.error, .error_msg {font-size:11px; color:red;}
 
 /* 		FOOTER 		*/
 footer {
