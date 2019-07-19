@@ -18,14 +18,22 @@
 		<link href="../css/login_modal.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 		<script src="../js/header.js" type="text/javascript"></script>
 		<script src="../js/index.js" type="text/javascript"></script>
 		<script src="../js/section_search.js" type="text/javascript"></script>
 		<script src="../js/login_modal.js" type="text/javascript"></script>
+		<script src="../js/jquery.validate.min.js" type="text/javascript"></script>
 
 	</head>
 	<body>
+		<c:if test="${not empty authMsg}">
+			<script type="text/javascript">alert('${authMsg}');</script>
+		</c:if>
+		<!-- login_modal -->
+		<%@include file="includes/login_modal.jsp"%>
+		
 		<div class="wrap">
 			<!-- header -->
 			<%@include file="includes/header.jsp"%>
@@ -243,8 +251,6 @@
 					
 					<!-- search-modal부분 -->
 					<%@include file="includes/search_modal.jsp"%>
-					<!-- login_modal -->
-					<%@include file="includes/login_modal.jsp"%>
 				</div>
 				<!-- ./content-wrapper -->
 			</div>

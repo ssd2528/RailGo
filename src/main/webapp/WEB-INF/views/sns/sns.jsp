@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -11,12 +10,21 @@
 		<link href="../css/common.css" rel="stylesheet">
 		<link href="../css/sns.css" rel="stylesheet">
 		<link href="../css/article_sns_user.css" rel="stylesheet">
+		<link href="../css/login_modal.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="../js/sns.js" type="text/javascript"></script>
+		<script src="../js/login_modal.js" type="text/javascript"></script>
+		<script src="../js/jquery.validate.min.js" type="text/javascript"></script>
 	</head>
 	<body>
+		<c:if test="${not empty authMsg}">
+			<script type="text/javascript">alert('${authMsg}');</script>
+		</c:if>
+		<!-- login_modal -->
+		<%@include file="../includes/login_modal.jsp"%>
+		
 		<div class="wrap">
 			<!-- header -->
 			<%@include file="../includes/header.jsp"%>
