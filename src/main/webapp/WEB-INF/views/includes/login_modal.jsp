@@ -32,7 +32,6 @@
 					<button class="logGe" type="button">Google으로 로그인</button>
 				</div>
 				<!-- ./로그인 모달 (sign-in) -->
-
 				<!-- 비밀번호 찾기 모달 (password-find) -->
 				<div class="password-find-group">
 					<hr>
