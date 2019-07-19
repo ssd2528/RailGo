@@ -1,25 +1,30 @@
-// Get the modal
-var modal = document.getElementById('myModal');
- 
-        // Get the button that opens the modal
-var btn = document.getElementById("sns-modify");
- 
-        // Get the <span> element that closes the modal
-var close = document.getElementById('modalCloseBtn');                                       
- 
-        // When the user clicks on the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-        }
- 
-        // When the user clicks on <span> (x), close the modal
-close.onclick = function() {
-    modal.style.display = "none";
-        }
- 
-        // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+$(document).ready(function(){
+	// 모달창 오픈
+	$('#sns-modify').on('click',function(){
+		$('#hide_li').hide();
+		$('#myModal').css('display','flex');
+		setTimeout(function() {
+			$("#myModal").addClass('open');
+		}, 1)
+		$('body').css({'overflow':'hidden', 'height':'100%'});
+	});
+	// 바깥 화면 클릭시 modal 창 닫기
+	$('body').click(function(e){
+	   if($('#myModal').hasClass('open')){ // site 라는 특정영역이 열려있을 경우
+	      if(!$('#myModal').has(e.target).length){ // site에 클릭 이벤트가 발생되어 있는게 없다면 아래 내용을 실행.
+	         $('#myModal').removeClass('open');
+	         $('body').css({'overflow':'auto', 'height':'100%'});
+	         setTimeout(function() {
+	            $('#myModal').css('display','none');
+	         }, 50)
+	      }
+	   }
+	});
+	$('#modalCloseBtn').on('click',function(){
+		$('#myModal').css('display','none');
+		setTimeout(function() {
+			$("#myModal").removeClass('open');
+		}, 1)
+		$('body').css({'overflow':'auto', 'height':'100%'});
+	});
+});
