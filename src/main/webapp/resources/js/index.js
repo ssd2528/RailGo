@@ -18,7 +18,6 @@ $(document).ready(function(){
           $('body').css({'overflow':'auto', 'height':'100%'});
 	   }
 	}
-	
 	// 지역별 중 하나 클릭 시 하위 도시들 보이게 하기 
 	$('.region-item').bind('click change',function(){
 		$(this).children('.region-city-list').toggleClass("show-city-list");

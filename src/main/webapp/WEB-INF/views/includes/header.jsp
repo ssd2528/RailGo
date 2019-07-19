@@ -20,14 +20,17 @@
 								</c:if>
 								<!-- 사용자가 로그인을 한 상태인 경우 -->
 								<c:if test="${member ne null}">
-									<a href="../member" class="member-img"><img src="../img/member/default_profile_f.png" alt="프로필" ></a>
+									<a href="../member/timeline" class="member-img"><img src="../img/member/default_profile_f.png" alt="프로필" ></a>
 									<ul class="member-submenu">
-										<li><a href="#" class="member-timeline">타임라인</a></li>
-										<li><a href="#" class="member-schedule">일정관리</a></li>
-										<li><a href="../signout?" class="member-logout">로그아웃</a></li>
+										<li><a href="../member/timeline" class="member-timeline">타임라인</a></li>
+										<li><a href="../member/schedule" class="member-schedule">일정관리</a></li>
+										<li><a href="../signout" class="member-logout">로그아웃</a></li>
 									</ul>
 								</c:if>
 							</li>
+							
+							 <!-- Open The Modal -->
+    						<!--<li><button id="button">Sign In</button></li>-->
 						</ul>
 					</div>
 				</div>

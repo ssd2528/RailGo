@@ -16,4 +16,12 @@ public class InfoController {
 	public String info() {
 		return "info/info";
 	}
+	@GetMapping("/detail")
+	public String detail() {
+		return "info/detail";
+	}
+	@GetMapping("/category")
+	public String category() {
+		return "info/category";
+	}
 }
