@@ -18,7 +18,8 @@
 		<link href="../css/login_modal.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 		<script src="../js/header.js" type="text/javascript"></script>
 		<script src="../js/index.js" type="text/javascript"></script>
 		<script src="../js/section_search.js" type="text/javascript"></script>

@@ -12,8 +12,8 @@
 		<link href="../css/plan.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 	</head>
 	<body>
 		<div class="wrap">

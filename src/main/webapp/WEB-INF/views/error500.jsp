@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[RailGo] Main Page</title>
+<title>[RailGo] 에러 페이지</title>
 <link href="../css/error_404_500.css" rel="stylesheet">
 <script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
 <script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
