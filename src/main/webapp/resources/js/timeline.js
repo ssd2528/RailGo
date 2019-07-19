@@ -30,8 +30,24 @@ $(document).ready(function(){
         }
     })
 });
+//좋아요 클릭시 하트이미지 바꿈
+/*$(document).ready(function(){
+	$(".likeImg").on("click",function(e){
+		var $this = $(this);
+		
+		$this.find(">img").attr("src",function(index,attr){
+			if(attr.match('_clicked')){
+				return attr.replace("_clicked.png","_normal.png");
+			}else{
+				return attr.replace("_normal.png","_clicked.png");
+			}
+		})
+		//$(".likeImg").attr('src','../img/planner/heart_clicked.png')
+	})
+});*/
 $(document).ready(function(){
 	$(".likeImg").click(function(){
 		$(".likeImg").attr('src','../img/planner/heart_clicked.png')
-	})	
+	})
 });
+
