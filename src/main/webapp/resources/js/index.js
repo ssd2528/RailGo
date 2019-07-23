@@ -26,4 +26,14 @@ $(document).ready(function(){
 				$(this).children('.toggle-btn').text() == '<' ? '>' : '<'
 		);
 	});
+	
+	// search-modal에서 지역들 중 도시 클릭했을 때,
+	/*$('.region-city-item').on('click', function(){
+		var clickedCity = $(this).text(); // 클릭한 도시명
+		$.ajax({
+			url:'info/info',
+			type:'post',
+			dataType:
+		});
+	});*/
 });

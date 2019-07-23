@@ -46,29 +46,14 @@ $(document).ready(function(){
 		$('.password-find-group').hide();
 	});
 	
-	// 로그인
-	/*$('.logBtn').on('click', function(){
-		var email = $('#signin-email').val();
-		var pwd = $('#signin-pwd').val();
-		var loginCookie = $('#loginCookie').is(':checked');
-		alert(loginCookie);
-		$.ajax({
-			url:'signin',
-			type:'post',
-			dataType:'text',
-			data:{email:email, pwd:pwd, loginCookie:loginCookie},
-			success : function(result) {
-				if(result == 'success') {
-					alert('로그인 성공!');
-					location.href="../";
-				}else if(result == 'does not exit') {
-					$('.error_msg').html('존재하지 않는 아이디입니다.');
-				}else if(result == 'do not match') {
-					$('.error_msg').html('아이디와 비밀번호가 일치하지 않습니다.');
-				}
-			}
-		});
-	});*/
+
+	// 카카오 로그인 버튼 클릭 시 
+	$(document).on('click', '#signin-kakao', function(){
+		window.name = "parent";
+		window.open("https://kauth.kakao.com/oauth/authorize?client_id=96efae73b25f4b5afa4875a7d4a8839f&redirect_uri=http://localhost:8080/kakaoSignin&response_type=code", "kakao_signin", "width=400, height=700");
+		
+		return false;
+	});
 	
 });
 
