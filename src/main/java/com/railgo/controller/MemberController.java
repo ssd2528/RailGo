@@ -9,7 +9,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/member/")
+@RequestMapping("/member")
 @AllArgsConstructor
 public class MemberController {
 

@@ -31,7 +31,7 @@
 			<div class="content">
 				<!-- 일정 부분 -->
 				<div class="plan-wrap">
-					<!-- 일정 정보 부분(schedule-info-box) -->
+					<!-- 1. 일정 정보 부분(schedule-info-box) -->
 					<div class="schedule-info-box">
 						<!-- 전체 일정(plan-date)  -->
 						<div class="plan-date"> 07.05 ~ 07.07 </div> 
@@ -61,9 +61,15 @@
 						</ul>
 						<!-- ./상세 일정(plan-date-box) -->
 					</div>
-					<!-- ./일정 정보 부분(schedule-info-box) -->
+					<!-- ./ 1. 일정 정보 부분(schedule-info-box) -->
+					
+					<!-- 2. 상세 일정 정보(schedule-detail-box) -->
 					<div class="schedule-detail-box">
 						상세 일정 정보
+					</div>
+					<!-- ./ 2. 상세 일정 정보(schedule-detail-box) -->
+					<!-- 3.  -->
+					<div class="">
 					</div>
 				</div>
 				<!-- ./plan-wrap -->

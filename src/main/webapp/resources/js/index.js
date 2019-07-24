@@ -20,11 +20,22 @@ $(document).ready(function(){
 	}
 	// 지역별 중 하나 클릭 시 하위 도시들 보이게 하기 
 	$('.region-item').bind('click change',function(){
-		$(this).children('.region-city-list').toggleClass("show-city-list");
-		$('.region-item').not(this).toggleClass("show-region-item");
-		$(this).children('.toggle-btn').text(
-				$(this).children('.toggle-btn').text() == '<' ? '>' : '<'
-		);
+		if( $(this).children('.region-city-list').length > 0 ) {
+			$(this).children('.region-city-list').toggleClass("show-city-list");
+			$('.region-item').not(this).toggleClass("show-region-item");
+			$(this).children('.toggle-btn').text(
+					$(this).children('.toggle-btn').text() == '<' ? '>' : '<'
+			);
+		} else {
+			var areaName = $(this).text(); // 클릭한 도시명
+			location.href='info/'+areaName;
+		}
+	});
+	
+	// search-modal에서 지역들 중 도시 클릭했을 때,
+	$('.region-city-item').on('click', function(){
+		var areaName = $(this).text(); // 클릭한 도시명
+		location.href='info/'+areaName;
 	});
 	// 하위 도시 클릭시 파라미터 전달
 	$('.region-city-town').on('click', function(){

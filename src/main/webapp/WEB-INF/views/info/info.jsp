@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -22,39 +21,10 @@
 		<script src="../js/section_search.js" type="text/javascript"></script>
 	</head>
 	<body>
-	<script>
-	$(document).ready(function(){
-		var urlFood = $('.food').val();
-		$.getJSON(urlFood, null, function(data, status){
-            
-            $.each(data, function(index, entry){
-            
-                $('.fname1').text(entry.body.items.item[0].title); 
-                $('.fname2').text(entry.body.items.item[1].title);
-                $('.fname3').text(entry.body.items.item[2].title);
-                
-                var catergory = '';
-                
-                switch(entry.body.items.item[0].cat3) {
-                
-                	case 'A05020100': category = '한식'; break;
-                	default : category = '기타';
-                };
-                
-                var test = 1;
-                $('.fcategory'+test).text(category);
-                
-                $('.fimg1').attr('src', entry.body.items.item[0].firstimage);
-                $('.fimg2').attr('src', entry.body.items.item[1].firstimage);
-                $('.fimg3').attr('src', entry.body.items.item[2].firstimage);
- 	        });   
-	    });
-	});
-	</script>
 		<div class="wrap">
 			<!-- header -->
 			<%@include file="../includes/header.jsp"%>
-			<input type="hidden" class="food" value="${urlFood}"/>
+			
 			<!-- content -->
 			<div class="content">
 				<div class="content-wrapper">
@@ -62,7 +32,7 @@
 					<!-- section-search -->
 					<div class="section-search">
 						<div class="search-wrap clearfix">
-							<div class="search-city"> 서울 &nbsp; ▼</div>
+							<div class="search-city">${areaName}&nbsp; ▼</div>
 							<ul class="search-list">
 								<li class="search-item search-accom"> 
 									<a href="#">
@@ -90,7 +60,7 @@
 						<div class="article-wrapper article-75">
 							<!-- 지역정보 (article-info) -->
 							<div class="article-item article-info">
-								<div class="article-title"><h2>서울</h2></div>
+								<div class="article-title"><h2>${areaName}</h2></div>
 								<div class="info-detail">
 									대한민국의 수도인 서울은 현대적인 고층 빌딩, 첨단 기술의 지하철, 대중문화와 사찰, 고궁, 노점상이 공존하는 대도시입니다. 
 									주목할 만한 명소로는 곡선으로 이루어진 외관과 옥상 공원을 특징으로 하는 초현대적 디자인의 컨벤션 홀인 동대문디자인플라자, 
@@ -106,36 +76,25 @@
 						
 							<!-- 지역의 음식점 추천 (article-food) -->
 							<div class="article-item article-food">
-								<div class="article-title"><h2>서울, 이 음식점은 어때요?</h2></div>
+								<div class="article-title"><h2>${areaName}, 이 음식점은 어때요?</h2></div>
+								
 								<ul class="food-wrap">
+								<c:forEach items="${foodList}" var="foodItem">
 									<li class="food-item">
-										<div class="food-img" style="background:#d9d9d9 no-repeat center center/cover; width:100%; height:150px;"><img class="fimg1" src="../img/default.png"></div>
+										<div class="food-img" style="background:#d9d9d9  url('${foodItem.firstimage}') no-repeat center center/cover; width:100%; height:150px;"></div>
 										<div class="food-detail">
-											<div class="fname1">음식점이름</div>
-											<div class="fcategory1">카테고리</div>
+											<div class="fname">${foodItem.title}</div>
+											<div class="fcategory">${foodItem.cat3}</div>
 										</div>
 									</li>
-									<li class="food-item">
-										<img class="fimg2" src="../img/default.png">
-										<div class="food-detail">
-											<div class="fname2">음식점이름</div>
-											<div class="fcategory2">카테고리</div>
-										</div>									
-									</li>
-									<li class="food-item">
-										<div class="food-img" style="background:#d9d9d9 no-repeat center center/cover; width:100%; height:150px;"><img class="fimg3" src="../img/default.png"></div>
-										<div class="food-detail">
-											<div class="fname3">음식점이름</div>
-											<div class="fcategory3">카테고리</div>
-										</div>
-									</li>
+								</c:forEach>
 								</ul>
 							</div>
 							<!-- ./article-food -->
 							
 							<!-- 지역이 포함된 일정 추천(article-plan) -->
 							<div class="article-item article-plan">
-								<div class="article-title"><h2>서울이 포함된 다른 이용자들의 일정</h2></div>
+								<div class="article-title"><h2>${areaName}이 포함된 다른 이용자들의 일정</h2></div>
 								<ul class="plan-wrap">
 									<li class="plan-item">
 										<img class="plan-img" src="../img/default.png">
@@ -167,7 +126,7 @@
 							
 							<!-- 지역의 숙박 추천 (article-bed) -->
 							<div class="article-item article-bed">
-								<div class="article-title"><h2>서울, 이 숙박은 어때요?</h2></div>
+								<div class="article-title"><h2>${areaName}, 이 숙박은 어때요?</h2></div>
 								<ul class="bed-wrap">
 									<li class="bed-item">
 										<div class="bed-img" style="background:#d9d9d9  url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>

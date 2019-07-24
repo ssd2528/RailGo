@@ -56,6 +56,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public int findOne(MemberVO member) {
+		return memberMapper.findOne(member);
+	}
+	
+	@Override 
+	public void autoSignup(MemberVO member) {
+		memberMapper.signup(member);
+	}
+	
+	@Override
 	public MemberVO signin(MemberVO member) {
 		return memberMapper.signin(member);
 	}

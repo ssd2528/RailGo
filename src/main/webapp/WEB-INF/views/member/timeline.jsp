@@ -121,7 +121,7 @@
 									Holy Shit <br /> What the Fuck <br /> Oh my GOD<br /> #앙기모디
 								</div>
 								<div id="like-reply-share">
-									<a><img class="likeImg" src="../img/sns/heart.png"></a>
+									<img class="likeImg" src="../img/planner/heart_normal.png">
 									<a href="#"><img class="replyImg" src="../img/sns/chat.png"></a>
 									<a href="#"><img class="shareImg" src="../img/sns/share.png"></a>
 								</div>
