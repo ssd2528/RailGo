@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -21,10 +22,39 @@
 		<script src="../js/section_search.js" type="text/javascript"></script>
 	</head>
 	<body>
+	<script>
+	$(document).ready(function(){
+		var urlFood = $('.food').val();
+		$.getJSON(urlFood, null, function(data, status){
+            
+            $.each(data, function(index, entry){
+            
+                $('.fname1').text(entry.body.items.item[0].title); 
+                $('.fname2').text(entry.body.items.item[1].title);
+                $('.fname3').text(entry.body.items.item[2].title);
+                
+                var catergory = '';
+                
+                switch(entry.body.items.item[0].cat3) {
+                
+                	case 'A05020100': category = '한식'; break;
+                	default : category = '기타';
+                };
+                
+                var test = 1;
+                $('.fcategory'+test).text(category);
+                
+                $('.fimg1').attr('src', entry.body.items.item[0].firstimage);
+                $('.fimg2').attr('src', entry.body.items.item[1].firstimage);
+                $('.fimg3').attr('src', entry.body.items.item[2].firstimage);
+ 	        });   
+	    });
+	});
+	</script>
 		<div class="wrap">
 			<!-- header -->
 			<%@include file="../includes/header.jsp"%>
-			
+			<input type="hidden" class="food" value="${urlFood}"/>
 			<!-- content -->
 			<div class="content">
 				<div class="content-wrapper">
@@ -32,7 +62,7 @@
 					<!-- section-search -->
 					<div class="section-search">
 						<div class="search-wrap clearfix">
-							<div class="search-city">서울 &nbsp; ▼</div>
+							<div class="search-city"> 서울 &nbsp; ▼</div>
 							<ul class="search-list">
 								<li class="search-item search-accom"> 
 									<a href="#">
@@ -79,23 +109,24 @@
 								<div class="article-title"><h2>서울, 이 음식점은 어때요?</h2></div>
 								<ul class="food-wrap">
 									<li class="food-item">
-										<div class="food-img" style="background:#d9d9d9  url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+										<div class="food-img" style="background:#d9d9d9 no-repeat center center/cover; width:100%; height:150px;"><img class="fimg1" src="../img/default.png"></div>
 										<div class="food-detail">
-											<div class="fname">음식점이름</div>
-											<div class="fcategory">카테고리</div>
+											<div class="fname1">음식점이름</div>
+											<div class="fcategory1">카테고리</div>
 										</div>
 									</li>
 									<li class="food-item">
-										<div class="food-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+										<img class="fimg2" src="../img/default.png">
 										<div class="food-detail">
-											<div class="fname">음식점이름</div>
-											<div class="fcategory">카테고리</div>
-										</div>									</li>
+											<div class="fname2">음식점이름</div>
+											<div class="fcategory2">카테고리</div>
+										</div>									
+									</li>
 									<li class="food-item">
-										<div class="food-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+										<div class="food-img" style="background:#d9d9d9 no-repeat center center/cover; width:100%; height:150px;"><img class="fimg3" src="../img/default.png"></div>
 										<div class="food-detail">
-											<div class="fname">음식점이름</div>
-											<div class="fcategory">카테고리</div>
+											<div class="fname3">음식점이름</div>
+											<div class="fcategory3">카테고리</div>
 										</div>
 									</li>
 								</ul>
