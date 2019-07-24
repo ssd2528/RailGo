@@ -11,11 +11,13 @@
 		<link href="../css/sns.css" rel="stylesheet">
 		<link href="../css/article_sns_user.css" rel="stylesheet">
 		<link href="../css/login_modal.css" rel="stylesheet">
+		<link href="../css/sns_modal.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="../js/sns.js" type="text/javascript"></script>
 		<script src="../js/login_modal.js" type="text/javascript"></script>
+		<script src="../js/sns_modal.js" type="text/javascript"></script>
 		<script src="../js/jquery.validate.min.js" type="text/javascript"></script>
 	</head>
 	<body>
@@ -134,6 +136,9 @@
 							</div>
 							<!-- ./article-adsense -->
 						</div>
+					<!-- 글 작성 (+버튼) -->
+					<img class="sns-write-img" src="../img/sns/plus.png" alt="작성">
+					<!-- ./글 작성 (+버튼) -->
 					</div>
 					<!-- ./section-main -->
 				</div>
@@ -141,6 +146,8 @@
 			</div>
 			<!-- ./content -->
 			
+			<!-- sns write modal -->
+			<%@include file="sns_modal.jsp" %>	
 			<!-- footer -->
 			<%@include file="../includes/footer.jsp"%>
 		</div>

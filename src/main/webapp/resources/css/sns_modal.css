@@ -1,0 +1,134 @@
+/* The Modal (background) */
+.sns-write-modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	padding: 15px 15px;
+	background: rgba(0, 0, 0, 0.6);
+	opacity: 0;
+	-webkit-transition: opacity 0.15s linear;
+	transition: opacity 0.15s linear;
+	z-index: 1000;
+	/*     padding:400px; */
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+}
+/* Modal Content/Box */
+.sns-modal-content {
+	padding: 20px;
+	position: relative;
+	box-sizing: border-box;
+	margin: 0 auto;
+	width: 40%;
+	max-width: 100%;
+	border-radius: 5px;
+	background: #fff;
+	opacity: 0;
+	-webkit-transform: scale(0.8);
+	transform: scale(0.8);
+	-webkit-transition: 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+	transition: 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+	-webkit-transition-property: opacity, transform;
+	transition-property: opacity, transform;
+	background: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.sns-write-modal.open {
+	opacity: 1;
+}
+
+.sns-write-modal.open .sns-modal-content {
+	opacity: 1;
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+}
+
+.modal_title {
+	margin-bottom: 15px;
+}
+
+.sns-write-content {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	resize: none;
+	width: 100%;
+	height: 100px;
+}
+
+.file-upload {
+	margin-bottom: 15px;
+}
+
+.file-upload label {
+  display: inline-block;
+  padding: .5em .75em;
+  color: #fff;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #eb7d31;
+  cursor: pointer;
+  border: 1px solid #4cae4c;
+  border-radius: .25em;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.file-upload label:hover {
+  background-color: #6ed36e;
+}
+
+.file-upload label:active {
+  background-color: #367c36;
+}
+
+.file-upload input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.button-wrapper {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.ok-button {
+	background-color: #eb7d31;
+	border: none;
+	color: white;
+	padding: 3px;
+	width: 100px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}
+
+.close-button {
+	background-color: #eb7d31;
+	border: none;
+	color: white;
+	margin-left: 15px;
+	padding: 3px;
+	width: 100px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}

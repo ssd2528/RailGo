@@ -2,9 +2,6 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 @import url('../font/12롯데마트행복Bold.ttf');
 
-
-
-
 /* article-sns-content */
 .sns-content-item { margin:50px 0px; }
 .sns-content-item:first-child, .sns-content-item:last-child { margin:0; }
@@ -16,3 +13,4 @@
 .sns-content-reply a { text-decoration:underline; }
 .sns-icon { width:30px; height:30px; padding:10px 20px 0px 0px;}
 
+.sns-write-img {position: fixed; right: 3%; top: 85%; width: 70px; cursor: pointer;}

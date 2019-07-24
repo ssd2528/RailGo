@@ -1,5 +1,7 @@
 package com.railgo.service;
 
-public interface SNSService {
+import com.railgo.domain.SNSVO;
 
+public interface SNSService {
+	public void register(SNSVO sns);
 }
