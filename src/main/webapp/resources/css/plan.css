@@ -34,6 +34,7 @@ header div { display:inline-block; vertical-align:middle; }
 /* 		CONTENT		*/
 .content {
 	padding-top:60px;
+	height: calc(100% - 60px);
 }
 /* plan-wrap */
 .plan-wrap { float:left; height:100%; }

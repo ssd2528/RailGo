@@ -28,11 +28,11 @@
 				</div>
 				<hr class="line">
 				<div class="sign-in-group">
-					<button class="logFb" type="button">Facebook으로 로그인</button>
-					<button class="logGe" type="button">Google으로 로그인</button>
+					<!-- <button class="logFb" type="button">Facebook으로 로그인</button> -->
+					<button class="signin-kakao" id="signin-kakao" type="button"> <img src="../img/member/kakao_signin.png"></button>
+					<button class="logGe" type="button"><a href="${google_url}">Google으로 로그인</a></button>
 				</div>
 				<!-- ./로그인 모달 (sign-in) -->
-
 				<!-- 비밀번호 찾기 모달 (password-find) -->
 				<div class="password-find-group">
 					<hr>
@@ -75,7 +75,7 @@
 					</div>
 					<hr>
 					<div class="sign-up-group">
-						<button class="logFb" type="button">Facebook으로 로그인</button>
+						<button class="signin-kakao" id="signin-kakao" type="button"> <img src="../img/member/kakao_signin.png"></button>
 						<button class="logGe" type="button">Google으로 로그인</button>
 					</div>
 				</div>

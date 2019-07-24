@@ -1,6 +1,14 @@
 package com.railgo.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,10 +43,5 @@ public class IndexController {
 	@GetMapping("/error404")
 	public String error404() {
 		return "error404";
-	}
-	
-	@GetMapping("/member")
-	public String member() {
-		return "member/member";
 	}
 }
