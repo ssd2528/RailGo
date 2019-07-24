@@ -11,6 +11,7 @@
 <script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+	
 	<!-- 에러페이지 (error500)-->
 	<div class="error500">
 		<i class="fas fa-sad-tear icon">.</i>
