@@ -46,9 +46,9 @@ import lombok.extern.log4j.Log4j;
 public class LoginController {
 	
 	@Autowired
-	MemberService memberService;
+	private MemberService memberService;
 	@Autowired
-	PasswordEncoder passwordEncoder;	
+	private PasswordEncoder passwordEncoder;	
 	
 	// 이메일 중복 체크
 	@PostMapping("/checkEmail")
@@ -142,7 +142,7 @@ public class LoginController {
 	
 	
 	// KaKao Signin
-	@RequestMapping(value="/kakaoSignin", produces = "application/json")
+	@RequestMapping(value="/kakaoSignin", produces = "application/json; charset=utf-8")
 	public ModelAndView kakaoSignin(@RequestParam("code") String code) throws Exception {
 		System.out.println("## kakao code : " + code);
 		JsonNode jsonToken = KakaoAccessToken.getKakaoAccessToken(code); // JsonNode 트리형태로 토큰을 받아온다.
