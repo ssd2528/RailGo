@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	
 	//소개 창에 hover시 수정아이콘 출력
 	$('#profileUpdate').css('visibility', 'hidden');
 	$('#profilePicUpdate').css('visibility', 'hidden');

@@ -15,6 +15,17 @@ $(document).ready(function(){
 	$('.planner-img img').attr('src', '../img/header/planner_clicked.png');
 	planner.css('color', '#009CE9');
 	
+	$.ajax({
+		type: 'get',
+		url: '/planner/nailerSchedule',
+		dataType: 'json',
+		success: function(data){
+			console.log(data.response.body.items.item);
+			var myItem = data.response.body.items.item;
+			$('.calendar-map').css('background','url('+myItem.firstimage+')');
+		}
+	});
+	
 	// sns hover시 이미지 변환 
 	sns.hover(function(){
 		$('.sns-img img').attr('src', '../img/header/sns_clicked.png');
