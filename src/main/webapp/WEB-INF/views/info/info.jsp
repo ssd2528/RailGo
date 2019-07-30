@@ -32,7 +32,7 @@
 					<!-- section-search -->
 					<div class="section-search">
 						<div class="search-wrap clearfix">
-							<div class="search-city">서울 &nbsp; ▼</div>
+							<div class="search-city">${areaName}&nbsp; ▼</div>
 							<ul class="search-list">
 								<li class="search-item search-accom"> 
 									<a href="#">
@@ -60,7 +60,7 @@
 						<div class="article-wrapper article-75">
 							<!-- 지역정보 (article-info) -->
 							<div class="article-item article-info">
-								<div class="article-title"><h2>서울</h2></div>
+								<div class="article-title"><h2>${areaName}</h2></div>
 								<div class="info-detail">
 									대한민국의 수도인 서울은 현대적인 고층 빌딩, 첨단 기술의 지하철, 대중문화와 사찰, 고궁, 노점상이 공존하는 대도시입니다. 
 									주목할 만한 명소로는 곡선으로 이루어진 외관과 옥상 공원을 특징으로 하는 초현대적 디자인의 컨벤션 홀인 동대문디자인플라자, 
@@ -76,35 +76,25 @@
 						
 							<!-- 지역의 음식점 추천 (article-food) -->
 							<div class="article-item article-food">
-								<div class="article-title"><h2>서울, 이 음식점은 어때요?</h2></div>
+								<div class="article-title"><h2>${areaName}, 이 음식점은 어때요?</h2></div>
+								
 								<ul class="food-wrap">
+								<c:forEach items="${foodList}" var="foodItem">
 									<li class="food-item">
-										<div class="food-img" style="background:#d9d9d9  url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+										<div class="food-img" style="background:#d9d9d9  url('${foodItem.firstimage}') no-repeat center center/cover; width:100%; height:150px;"></div>
 										<div class="food-detail">
-											<div class="fname">음식점이름</div>
-											<div class="fcategory">카테고리</div>
+											<div class="fname">${foodItem.title}</div>
+											<div class="fcategory">${foodItem.cat3}</div>
 										</div>
 									</li>
-									<li class="food-item">
-										<div class="food-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-										<div class="food-detail">
-											<div class="fname">음식점이름</div>
-											<div class="fcategory">카테고리</div>
-										</div>									</li>
-									<li class="food-item">
-										<div class="food-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-										<div class="food-detail">
-											<div class="fname">음식점이름</div>
-											<div class="fcategory">카테고리</div>
-										</div>
-									</li>
+								</c:forEach>
 								</ul>
 							</div>
 							<!-- ./article-food -->
 							
 							<!-- 지역이 포함된 일정 추천(article-plan) -->
 							<div class="article-item article-plan">
-								<div class="article-title"><h2>서울이 포함된 다른 이용자들의 일정</h2></div>
+								<div class="article-title"><h2>${areaName}이 포함된 다른 이용자들의 일정</h2></div>
 								<ul class="plan-wrap">
 									<li class="plan-item">
 										<img class="plan-img" src="../img/default.png">
@@ -136,7 +126,7 @@
 							
 							<!-- 지역의 숙박 추천 (article-bed) -->
 							<div class="article-item article-bed">
-								<div class="article-title"><h2>서울, 이 숙박은 어때요?</h2></div>
+								<div class="article-title"><h2>${areaName}, 이 숙박은 어때요?</h2></div>
 								<ul class="bed-wrap">
 									<li class="bed-item">
 										<div class="bed-img" style="background:#d9d9d9  url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>

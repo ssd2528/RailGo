@@ -84,14 +84,14 @@
 .search-text:focus { outline:none; }
 
 
-.region-item, .region-city-item { display:block; }
+.region-item, .region-city-town { display:block; }
 .region-item { margin:20px 0; cursor:pointer; }
 .region-item:hover .region-name, .region-item:hover .toggle-btn { color:#009CE9; }
 .show-region-item { display:none; }
 .toggle-btn { float:right; margin:0 5px; font-size:18px; font-weight:bold; }
 .region-city-list { display:none; margin:0 10px;}
 .show-city-list { display:block; }
-.region-city-item { margin: 5px 0;}
-.region-city-item:hover { font-weight:bold; }
+.region-city-town { margin: 5px 0;}
+.region-city-town:hover { font-weight:bold; }
 .region-name { font-size:18px; font-weight:bold; }
 

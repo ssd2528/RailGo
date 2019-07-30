@@ -28,8 +28,8 @@
 
 	</head>
 	<body>
-		<c:if test="${not empty authMsg}">
-			<script type="text/javascript">alert('${authMsg}');</script>
+		<c:if test="${not empty msg}">
+			<script type="text/javascript">alert('${msg}');</script>
 		</c:if>
 		<!-- login_modal -->
 		<%@include file="includes/login_modal.jsp"%>
