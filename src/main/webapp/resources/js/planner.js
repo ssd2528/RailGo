@@ -120,22 +120,21 @@ $(document).ready(function(){
 	$('body').click(function(e){
 	   if($('#modal-wrapper').hasClass('open')){ // site 라는 특정영역이 열려있을 경우
 	      if(!$('#modal-wrapper').has(e.target).length){ // site에 클릭 이벤트가 발생되어 있는게 없다면 아래 내용을 실행.
-	         $('#modal-wrapper').removeClass('open');
-	         $('body').css({'overflow':'auto', 'height':'100%'});
-	         setTimeout(function() {
-	            $('#modal-wrapper').css('display','none');
-	         }, 50)
+	    	  removeModal();
 	      }
 	   }
 	});
 	// 모달창 닫기 버튼 클릭시 modal 창 닫기
-	$("#plan-option-close-btn").on("click",function(){
-	   $('#modal-wrapper').removeClass('open');
-	   setTimeout(function() {
-	      $("#modal-wrapper").css('display','none');
-	   }, 1)
-	   $('body').css({'overflow':'auto', 'height':'100%'});
+	$("#plan-option-close-btn").on('click',function(){
+		removeModal();
 	});
+	function removeModal(){
+		$('#modal-wrapper').removeClass('open');
+		setTimeout(function() {
+			$("#modal-wrapper").css('display','none');
+		}, 1)
+		$('body').css({'overflow':'auto', 'height':'100%'});
+	}
 	// 티켓 선택 했을때 박스 시그니처 색으로 칠하기
 	$('#plan-option-days').children().click(function(){
 		$('#plan-option-days').children().css('background-color', 'white');
@@ -189,5 +188,28 @@ $(document).ready(function(){
 			$('#last-option-days').text( ymd.getFullYear() +'/'+ mm +'/'+ dd);
 		}
 	});
-	
+	//모달창 확인 버튼 누를 시 조건 확인
+	$('#plan-option-ok-btn').on('click',function(){
+		var color = 'rgb(0, 156, 233)';	//rgb(0, 156, 233) - 시그니처 블루 색
+		var tt = $('#third-days-option').css('background-color');
+		var ft = $('#fifth-days-option').css('background-color'); 
+		var st = $('#seventh-days-option').css('background-color');
+		var cal = $('#last-option-days').text();
+		var ticket;
+		var startday;
+		if(tt != color && ft != color && st != color){
+			alert('티켓을 선택해주세요.');
+		}else{
+			if(tt === color){ticket = '3';}
+			else if(ft === color){ticket = '5';}
+			else if(st === color){ticket = '7';}
+			if(cal === '마지막 날'){alert('날짜를 선택해주세요.');
+			}else{
+				startday = $('#datepicker').val();
+				$('#tickets').attr('value',ticket);
+				$('#startday').attr('value',startday);
+				$('#plan-form').submit();
+			}
+		}
+	});
 });
