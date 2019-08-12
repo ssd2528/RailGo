@@ -4,25 +4,27 @@
 
 
 /* article-info */
-.info-imgs { width:100%; display:flex; justify-content:space-around; }
+.info-imgs { width:100%; display:flex; justify-content:space-around; margin-top:20px;}
 .info-imgs .info-img { width:30%; }
 
 /* article-food */
 .food-wrap { width:100%; display:flex; justify-content:space-around; }
-.food-item { width:30%; background:#d9d9d9; }
+.food-item { width:30%; background:#e6e6e6; }
 .food-detail { font-size:15px; }
+.food-detail>.fname { font-weight:bold; }
 .fcategory1, .fcategory2, .fcategory3 { font-size:13px; }
 .fimg1, .fimg2, .fimg3 { background:#d9d9d9 no-repeat center center/cover; width:100%; height:150px; }
 
 /* article-plan */
 .plan-wrap { width:100%; display:flex; justify-content:space-around; }
-.plan-item { width:30%; background:#d9d9d9; padding:3px;}
+.plan-item { width:30%; background:#e6e6e6; padding:3px;}
 .plan-img { width:100%; height:200px; }
 .plan-detail { font-size:15px; background:#FFF; }
 .plan-detail>span { display:block; }
 
 /* article-bed */
 .bed-wrap { width:100%; display:flex; justify-content:space-around; }
-.bed-item { width:30%; background:#d9d9d9; }
+.bed-item { width:30%; background:#e6e6e6; }
 .bed-detail { font-size:15px; }
+.bed-detail>.bname { font-weight:bold; }
 .bcategory { font-size:13px; }

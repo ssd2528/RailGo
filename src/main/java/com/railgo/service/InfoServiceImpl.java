@@ -1,8 +1,20 @@
 package com.railgo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.railgo.domain.CategoryVO;
 import com.railgo.mapper.CategoryMapper;
 
@@ -86,9 +98,120 @@ public class InfoServiceImpl implements InfoService {
 		return result;
 	}
 	
+	
+	@Override 
+	public String getResponseStr(String url) throws Exception {
+		URI uri = new URI(url); 
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		String responseStr = restTemplate.getForObject(uri, String.class); 
+		System.out.println("## responseStr : " + responseStr);
+		return responseStr;
+	}
+	
+	
+	@Override
+	public JsonObject getItemsObject(String responseStr) { // JsonParser를 이용해 필요한 JsonObject(item)를 추출해서 다시 JsonArray로 가공
+		JsonParser jsonParser = new JsonParser();
+		JsonObject jsonObject = (JsonObject) jsonParser.parse(responseStr);
+		JsonObject itemsObject = (JsonObject)((JsonObject)((JsonObject)jsonObject.get("response")).get("body")).get("items");
+		System.out.println("## itemsObject : " + itemsObject);
+		return itemsObject;
+	}
+	
+	@Override
+	public int getContentId(JsonObject itemObject) {
+		int contentId = itemObject.get("contentid").getAsInt();
+		System.out.println("## contentId : " + contentId);
+		return contentId;
+	}
+	
+	
+	@Override
+	public JsonArray makeItemsArray(JsonObject itemsObject) {
+		JsonArray itemsArray = null;
+		if(itemsObject.get("item").isJsonObject()) { // 배열이 아닌  {}로 둘러쌓여 있는 경우 
+			String itemsObjectStr = "[".concat(itemsObject.get("item").toString().concat("]"));
+			System.out.println("## itemsObjectStr : " + itemsObjectStr);
+			JsonParser jsonParser = new JsonParser();
+			itemsArray = (JsonArray) jsonParser.parse(itemsObjectStr);
+			System.out.println("## 가공된 itemsArray : " + itemsArray);
+		}else {
+			itemsArray = (JsonArray) itemsObject.get("item"); 
+		}
+		return itemsArray;
+	}
+	
 	@Override
 	public CategoryVO findCatNameByCat3(String cat3) {
 		return categoryMapper.findCatNameByCat3(cat3);
 	}
+
+	@Override
+	public ArrayList<Integer> findContentTypeId(String category) {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		if(category.equals("accom")) list.add(32); // 숙박
+		else if(category.equals("hotplace")) {
+			list.add(12); // 관광지
+			list.add(14); // 문화시설 
+			list.add(15); // 축제,공연,행사
+			list.add(28); // 레포츠
+			list.add(38); // 쇼핑 
+		}
+		else if(category.equals("food")) list.add(39); // 음식
+		return list;
+	}
+
+	
+	@Override
+	public int getTotalCount(String responseStr) {
+		JsonParser jsonParser = new JsonParser();
+		JsonObject jsonObject = (JsonObject) jsonParser.parse(responseStr);
+		JsonObject bodyObject = (JsonObject)((JsonObject)jsonObject.get("response")).get("body");
+		//System.out.println("## bodyObject : " + bodyObject);	
+		int totalCount = bodyObject.get("totalCount").getAsInt(); 
+		System.out.println("## categotyCount : " + totalCount);
+		return totalCount;
+	}
+	
+	@Override
+	public String getOverview(JsonObject itemsObject) {
+		String overview = ((JsonObject)itemsObject.get("item")).get("overview").getAsString();
+		System.out.println("## overview : " + overview);
+		return overview;
+	}
+
+
+	@Override
+	public ArrayList<CategoryVO> findCat3ListByContentType(String contentTypeName) {
+		return categoryMapper.findCat3ListByContentType(contentTypeName);
+	}
+	
+	@Override
+	public ArrayList<CategoryVO> findContentTypeList(ArrayList<Integer> contentTypeList) {
+		ArrayList<CategoryVO> list = new ArrayList<CategoryVO>();
+		for(int contentTypeId : contentTypeList) {
+			list.add(categoryMapper.findContentTypeList(contentTypeId));
+		}
+		return list;
+	}
+	
+	@Override 
+	public ArrayList<CategoryVO> findCat1List(int contentTypeId){
+		return categoryMapper.findCat1List(contentTypeId);
+	}
+	@Override 
+	public ArrayList<CategoryVO> findCat2List(int contentTypeId, String cat1){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("contentTypeId", contentTypeId);
+		map.put("cat1", cat1);
+		return categoryMapper.findCat2List(map);
+	}
+	@Override 
+	public ArrayList<CategoryVO> findCat3List(String cat2){
+		return categoryMapper.findCat3List(cat2);
+	}
+	
+	
 
 }

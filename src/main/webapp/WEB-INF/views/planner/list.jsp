@@ -14,14 +14,20 @@
 		<link href="../css/index.css" rel="stylesheet">
 		<link href="../css/planner.css" rel="stylesheet">
 		<link href="../css/nailer_schedule_modal.css" rel="stylesheet">
+		<link href="../css/login_modal.css" rel="stylesheet"> <!-- 로그인 모달창 -->
 		<!-- JavaScript -->
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 		<script src="../js/planner.js" type="text/javascript"></script>
 		<script src="../js/nailer_schedule_modal.js" type="text/javascript"></script>
+		<!-- 로그인 모달창 -->
+		<script src="../js/login_modal.js" type="text/javascript"></script>
+		<script src="../../js/jquery.validate.min.js" type="text/javascript"></script>
 	</head>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+	<!-- login_modal -->
+	<%@include file="../includes/login_modal.jsp"%>
+	
 	<div class="wrap">
 		<!-- header -->
 		<%@include file="../includes/header.jsp"%>

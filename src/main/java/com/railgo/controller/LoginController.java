@@ -28,10 +28,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.railgo.domain.MemberVO;
 import com.railgo.mapper.MailUtils;
 import com.railgo.oauth.KakaoAccessToken;
 import com.railgo.oauth.KakaoUserInfo;
+import com.railgo.oauth.NaverLoginBO;
 import com.railgo.service.MemberService;
 import com.sun.mail.iap.Response;
 
@@ -44,6 +48,12 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/")
 @AllArgsConstructor
 public class LoginController {
+	
+	private NaverLoginBO naverLoginBO;
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
 	
 	@Autowired
 	private MemberService memberService;
@@ -83,6 +93,9 @@ public class LoginController {
 			if(status.equals("kakao")) {
 				mv.addObject("email", member.getEmail());
 				mv.addObject("pwd", "kakao");
+			}else if(status.equals("naver")) {
+				mv.addObject("email", member.getEmail());
+				mv.addObject("pwd", "naver");
 			}
 			mv.addObject("request", "signin");
 		}
@@ -125,6 +138,7 @@ public class LoginController {
 					cookie.setPath("/"); // 쿠기를 찾을 경로를 컨텍스트 경로로 변경
 					cookie.setMaxAge(60*60*24*7); // 단위는 초(sec) 단위이므로 7일로  유효시간 설정
 					response.addCookie(cookie); // 쿠키 적용
+					
 				}else {
 					System.out.println("## 자동로그인 체크되어 있지 않음");
 				}
@@ -141,7 +155,7 @@ public class LoginController {
 	}
 	
 	
-	// KaKao Signin
+	// KaKao Signin Callback
 	@RequestMapping(value="/kakaoSignin", produces = "application/json; charset=utf-8")
 	public ModelAndView kakaoSignin(@RequestParam("code") String code) throws Exception {
 		System.out.println("## kakao code : " + code);
@@ -164,7 +178,65 @@ public class LoginController {
 	}
 	
 	
+	// Naver Signin
+	@RequestMapping("/naver_url")
+	@ResponseBody
+	public String getNaverURL(HttpSession session) {
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		return naverAuthUrl;
+	}
+	// Naver Signin Callback
+	@RequestMapping(value="/naverSignin", produces="application/text; charset=UTF-8")
+	public ModelAndView naverSignin(@RequestParam("code") String code, @RequestParam String state, HttpSession session) throws Exception {
+    	OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+    	ObjectNode userInfo = new ObjectMapper().readValue(naverLoginBO.getUserProfile(oauthToken), ObjectNode.class);
+		System.out.println("## userInfo : " + userInfo);
+    	
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("autosign");
+		mv.addObject("email", userInfo.path("response").path("id").asText());
+        mv.addObject("name", userInfo.path("response").path("nickname").asText());
+        mv.addObject("pwd", "naver");
+        mv.addObject("gender", userInfo.path("response").path("gender").asText().equals("F") ? "F" : "M");
+        //mv.addObject("profile_pic", userInfo.path("response").path("profile_image").asText());
+        
+        mv.addObject("status", "naver");
+        mv.addObject("request", "signup");
+		
+		return mv;
+    }
 	
+	
+	// 이메일 보내기 (+인증번호)
+	@PostMapping("/sendUUID")
+	@ResponseBody
+	public ResponseEntity<String> findPassword(@RequestParam("email") String email) throws Exception{
+		int check = memberService.checkEmail(email);
+		if(check == 0) { // 회원가입을 하지 않았을 경우
+			return new ResponseEntity<String>("does not exit", HttpStatus.OK);
+		}else {
+			memberService.sendEmailByPwd(email);
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		}
+	}
+	
+	// 비밀번호 재설정으로 이동
+	@PostMapping("/settingPwd")
+	public ModelAndView goPwdSetting(@RequestParam("email") String email, @RequestParam("uuid") String uuid) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("includes/pwd_setting");
+		mv.addObject("email", email);
+		mv.addObject("uuid", uuid);
+		return mv;
+	}
+	
+	// 비밀번호 재설정
+	@PostMapping("/updatePassword")
+	public ResponseEntity<String> updatePassword(@RequestParam("email") String email, @RequestParam("pwd") String pwd) {
+		System.out.println(email + ' ' + pwd);
+		memberService.updatePwd(email, pwd);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 
 	
 	
