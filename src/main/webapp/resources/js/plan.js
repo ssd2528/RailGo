@@ -66,28 +66,31 @@ $(document).ready(function() {
 	// ------ page init start ----------------
 	calDate(dateText, day);
 	$('.plan-date-box').children('.plan-date-list1').css('background-color','#009ce9');
-	toggleCityList(80,350,'show');
 	var str = $('.'+planDateBox).find('.region').text();
 	setZoomforSelectedLoc(str);
 	setTitleName(str);
 	// ------ page init end-------------------
-	
-	//DAY1~DAY7 버튼 누를 때 색상 변경 이벤트
-	$('.plan-date-box').children().on('click', function() {// #009ce9
+
+	// DAY 누를 시 도시 리스트(지역 선택 리스트) 출력
+	$('.plan-date-box').children('li').on('click', function(){
+		planDateBox = $(this).attr('class');
+		let region = $(this).find('.region').text();
+		let day = $(this).find('.day').text().toLowerCase();
+		//색상 변경--------------------------------
 		$('.plan-date-box').children().css('background-color', '#7F7F7F');
 		$(this).css('background-color', '#009ce9');
-		var locName = $(this).find('.region').text();
-		planDateBox = $(this).attr('class');
-		setZoomforSelectedLoc(locName);
-		setTitleName(locName);
+		//city list에 지역 이름 세팅 and 지역이름 위치로 줌인
+		setZoomforSelectedLoc(region);
+		setTitleName(region);
+		//상세 스케쥴 구역 초기화-----------------------
+		if(region === '지역을 선택하세요.'){initScheduleDetailBox(null);}
+		else{initScheduleDetailBox(day);}
+		toggleCityList(80,350,'show');
+		//---------------------------------------
 	});
 	// > 버튼 누르면 검색 도시 리스트 출력
 	$('.list-cover').on('click', function(){
 		toggleCityList(80,350,'toggle');
-	});
-	// DAY 누를 시 도시 리스트(지역 선택 리스트) 출력
-	$('.plan-date-box').children('li').on('click', function(){
-		toggleCityList(80,350,'show');
 	});
 	// < 버튼 누르면 검색 도시 리스트 숨김
 	$('.list-close').on('click', function(){
@@ -100,7 +103,7 @@ $(document).ready(function() {
 	//지역을 선택하세요.의 지역 목록에서 지역 선택할때 발생하는 이벤트
 	$('.city-item').on('click',function(){
 		var name = $(this).text();
-		$('.title-name').text(name);
+		$('.title-name').text(name+' ▼');
 		$('.'+planDateBox).find('.region').text(name);
 		toggleSelectCity();
 		setZoomforSelectedLoc(name);
@@ -121,11 +124,128 @@ $(document).ready(function() {
 			}
 		}
 	})
+	//day-spot-item 클래스(Tour api를 이용해 가져온 정보들)를 호버할시 그에 맞는 마커를 활성화 시키는 이벤트
+	$(document).on('mouseenter','.day-spot-item,.schedule-item-wrapper', function(){
+		var id = $(this).attr('id');
+		MarkerHoverColorChange(id,'in');
+	});
+	//day-spot-item 클래스(Tour api를 이용해 가져온 정보들)를 호버에서 벗어날시 그에 맞는 마커를 활성화 시키는 이벤트
+	$(document).on('mouseleave','.day-spot-item,.schedule-item-wrapper',function(){
+		var id = $(this).attr('id');
+		MarkerHoverColorChange(id,'out');
+	});
+	//city-list 에서 숙박 식당 관광 리스트들의 +버튼 눌렀을때 발생하는 이벤트
+	$(document).on('click','.item-insert-box',function(){
+		var id,img,name,addrStr,addr;
+		var day = null;
+		for(i = 1; i <= 7; i++){
+			var color = $('#day'+i).parent('li').css('background-color');
+			if(color == 'rgb(0, 156, 233)'){
+				day = 'day'+i;
+				break;
+			}else{continue;}
+		}
+		var edb = $('.empty-detail-box').css('display');
+		if(edb == 'inline-block'){
+			 $('.empty-detail-box').css('display','none');
+		}
+		id = $(this).parent().attr('id');
+		img = $(this).parent().children('.item-img-box').children('.img-size').attr('src');
+		name = $(this).parent().children('.item-info-box').text();
+		addrStr = $(this).parent().children('.item-info-box').children('.item-sub').text();
+		name = name.split(addrStr);
+		name = name[0];
+		addrStr = addrStr.split('조회수 :');
+		addr = addrStr[0];
+		insertItemInScheduleDetailBox(id,img,name,addr,day);
+	});
+	//상세일정에 추가된 목록들에 삭제 이미지를 클릭했을때 목록에서 삭제하는 이벤트
+	$(document).on('click','.delete-box',function(){
+		let id = $(this).parent().attr('id');
+		let day = $(this).parent().attr('name');
+		$(this).parent().remove();
+		initScheduleDetailBox(day);
+		MarkerHoverColorChange(id,'out');
+	});
 });
-var map;
+let map;
 var markers = [];
 var tourMarkers = [];
 var stationLocations = [];
+//DAY1~7버튼 클릭시 schedule detail box 초기화 메소드
+//선택된 일정 삭제 버튼 누를 시 더이상 남은 일정이 없을시 empty detail box 출력 기능.
+function initScheduleDetailBox(day){
+	let count = 0;
+	$('.schedule-detail-box').children().hide();
+	if(day === null){
+		$('.schedule-detail-box').children('.empty-detail-box').show();
+	}else{
+		let items = $('.schedule-item-wrapper');
+		for(let item of items){
+			let itemDay = $(item).attr('name');
+			if(day === itemDay){
+				count++;
+				$(item).show();
+			}
+		}
+		if(count === 0){initScheduleDetailBox(null);}
+	}
+}
+//city list에서 item 선택시 schedule detail box 안에 넣는 메소드
+function insertItemInScheduleDetailBox(id,img,name,addr,day){
+	$('.schedule-detail-box').append('<div id="'+id+'" name="'+day+'" class="schedule-item-wrapper">'
+			+ '<div class="schedule-item-img"><img style="width:60px; height:60px;" src="'+img+'" ></div>'
+			+ '<div class="schedule-item-name">' + name
+			+ '<div class="schedule-item-addr">'+ addr +'</div>'
+			+ '</div>'
+			+ '<div class="delete-box"title="삭제"><img style="width:15px;height:15px;" src="../img/planner/delete.png"></div>'
+			+ '</div>');
+}
+//마커 호버,도시 리스트 시 marker focus 메소드
+function MarkerHoverColorChange(id,action){	// action parameter -> mouseenter면 in / mouseleave면 out
+	var url;
+	var markerUrl;
+	var sizex;
+	var sizey;
+	var zindex;
+	for(i = 0; i < tourMarkers.length; i++){
+		if(id == tourMarkers[i].id){
+			if(action == 'in'){
+				url = (tourMarkers[i].getIcon().url).split('.png');
+				markerUrl = url[0]+'_hover.png';
+				sizex = 40;
+				sizey = 50;
+				zindex = 9999;
+			}else{
+				url = (tourMarkers[i].getIcon().url).split('_hover.png');
+				markerUrl = url[0]+'.png';
+				sizex = 30;
+				sizey = 40;
+				zindex = 999;
+			}
+			var icon = {
+				url : markerUrl,
+				scaledSize: new google.maps.Size(sizex,sizey),
+				origin: new google.maps.Point(0,0),
+				anchor: new google.maps.Point(0,0),
+			}
+			tourMarkers[i].setZIndex(zindex);
+			tourMarkers[i].setIcon(icon);
+		}
+	}	
+}
+//지도를 드래그를 이용해 위치를 이동 하였을때 발생하는 이벤트를 처리하는 메소드.
+function dragMapEvent(){
+	if(map.getZoom() > 10){
+		var accomColor = $('.list-theme-wrapper').children('.list-theme-accom').css('border-color');	//색칠된 rgb(0, 156, 233)
+		var foodColor = $('.list-theme-wrapper').children('.list-theme-food').css('border-color');	//색칠된 rgb(0, 156, 233)
+		var tourColor = $('.list-theme-wrapper').children('.list-theme-tour').css('border-color');	//색칠된 rgb(0, 156, 233)
+		if(accomColor === 'rgb(0, 156, 233)'){setSelectedTheme('accom');}
+		else if(foodColor === 'rgb(0, 156, 233)'){setSelectedTheme('food');}
+		else if(tourColor === 'rgb(0, 156, 233)'){setSelectedTheme('tour');}
+		else{}
+	}
+}
 // 지역을 선택하세요.의 지역 목록에서 지역 선택할때 지역에 따라 지도를 해당 지역으로 줌인 해주는 메소드
 function setZoomforSelectedLoc(locName){
 	if(locName !== null){
@@ -185,6 +305,7 @@ function themeAjaxInfo(theme){	//파라메터 -> accom, food, tour 문자열이 
 		contentType : 'application/json',
 		data : JSON.stringify(param),
 		success : function(data) {
+			var viewOrTel;
 			$('.day-spot-item').remove();
 			$('.item-img-box').remove();
 			$('.item-info-box').remove();
@@ -195,12 +316,18 @@ function themeAjaxInfo(theme){	//파라메터 -> accom, food, tour 문자열이 
 			} else {
 				delTourMarkers();
 				for (i = 0; i < myItem.length; i++) {
+					//32 39 제외는 관광이므로 viewcount를 content에 삽입
+					if(parseInt(myItem[i].contenttypeid) == 32 || parseInt(myItem[i].contenttypeid) == 39){
+						viewOrTel = '조회수 : ' + myItem[i].readcount + '<br/>' + 'tel : ' + myItem[i].tel;
+					}else{
+						viewOrTel = '조회수 : ' + myItem[i].readcount;
+					}
 					if(myItem[i].firstimage == null){myItem[i].firstimage = '../img/default.png';}
 					addTourMarker(myItem[i].mapx, myItem[i].mapy,
-							myItem[i].title, myItem[i].firstimage);
-					$('.selected-theme-list').append('<div class="day-spot-item">'
+							myItem[i].title, myItem[i].firstimage,theme,myItem[i].contentid);
+					$('.selected-theme-list').append('<div id="'+myItem[i].contentid+'" class="day-spot-item">'
 							+'<div class="item-img-box"><img class="img-size" src='+myItem[i].firstimage+'>'
-							+'</div><div class="item-info-box">'+myItem[i].title+'<div class="item-sub">'+myItem[i].addr1+'<br/>'+myItem[i].tel+'</div></div>'
+							+'</div><div class="item-info-box">'+myItem[i].title+'<div class="item-sub">'+myItem[i].addr1+'<br/>'+viewOrTel+'</div></div>'
 							+'<div class="item-insert-box"><img style="width:30px; height:30px" src="../img/planner/wh_plus.png"></div></div>');
 				}
 				setTourMarker();
@@ -209,6 +336,8 @@ function themeAjaxInfo(theme){	//파라메터 -> accom, food, tour 문자열이 
 		error : function(data, status, error) {
 			alert('code :' + data.status + ', ' + data);
 			console.log(data);
+		},complete:function(){
+			$('.selected-theme-list').scrollTop(0);
 		}
 	});
 }
@@ -218,7 +347,7 @@ function setTitleName(loc){
 		$('.title-name').text(loc + '▼');
 		setSelectedTheme(null);
 	}else{
-		$('.title-name').text(loc);
+		$('.title-name').text(loc + ' ▼');
 		setSelectedTheme('accom');
 	}
 }
@@ -234,11 +363,22 @@ function toggleSelectCity(){
 }
 //도시리스트 좌->우 토글 메소드
 function toggleCityList(setTime,mapPos,tog){
+	var width;
 	// list 출력시 속도 80, 감출 때 속도 100 /  list 출력시 map 위치 350px, 감출 때 map 위치 0px
 	$('.city-list').animate({
 	      width: tog
 	},setTime);
-	$('.map-wrap').css('left', mapPos+'px');
+	//350px 일때 map 크기 -350px 0px 일때 map 크기 +350px;
+	var widthBefore = ($('#map').css('width')).split('px');
+	if(parseInt(mapPos) == 350 && widthBefore[0] > 999){
+		width = parseInt(widthBefore[0]) - 350;
+	}else if(parseInt(mapPos) == 0){
+		width = parseInt(widthBefore[0]) + 350;
+	}
+	$('#map').css('width', width+'px');
+	google.maps.event.trigger(map, 'resize');
+	map.setCenter(map.getCenter());
+	$('#map').css('left', mapPos+'px');
 }
 // DAY의 날짜 설정 메소드.
 function calDate(dateText, day) {
@@ -278,14 +418,20 @@ function markerListener(localmarker, infoWindow) {
 }
 function tourMarkerListener(localmarker, infoWindow) {
 	google.maps.event.addListener(localmarker, 'click', function() {
-		map.setCenter(localmarker.getPosition());
-		infoWindow.close();
+		//스트롤 top이 277.5에 위치하게 하기
+		//selected-theme-list 의 top값은 260.5
+		var id = '#'+localmarker.id;
+		var scroll_h = $('.selected-theme-list').scrollTop()+$(id).offset().top;
+		$('.selected-theme-list').animate({
+			scrollTop: scroll_h-277.5},500);
 	});
 	google.maps.event.addListener(localmarker, 'mouseover', function() {
 		infoWindow.open(map, localmarker);
+		MarkerHoverColorChange(localmarker.id,'in');
 	});
 	google.maps.event.addListener(localmarker, 'mouseout', function() {
 		infoWindow.close();
+		MarkerHoverColorChange(localmarker.id,'out');
 	});
 }
 // 맵에 주요 역 정보 마커를 찍어주는 메소드 - 파라메터는 갯수
@@ -307,19 +453,26 @@ function addStationsMarker(num) {
 	}
 }
 // 맵의 줌이 13 이상일때 해당 구역의 숙/관/식들의 마커를 추가해주는 메소드 - 파라메터는 갯수
-function addTourMarker(xpos, ypos, tourContent, tourImg) {
+function addTourMarker(xpos, ypos, tourContent, tourImg, theme, contentId) {
 	// console.log('x : '+xpos+', y : '+ypos+', c: '+tourContent);
+	var imgUrl = "../img/planner/"+theme+"_marker.png";
 	var marker = new google.maps.Marker({
+		id : contentId,
 		position : new google.maps.LatLng(ypos, xpos),
 		map : map,
+		zIndex : 999,
 		icon : {
-			url : "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+			url : imgUrl,
+			scaledSize: new google.maps.Size(30,40),
+			origin: new google.maps.Point(0,0),
+			anchor: new google.maps.Point(0,0)			
 		}
 	});
 	var infoWindow = new google.maps.InfoWindow({
-		content : '<h2 style="size:10px;">' + tourContent + '</h2>' + '<br/>'
-				+ '<img style="width:250px;height:180px;" src="' + tourImg
-				+ '"' + '</img>',
+		content :'<div style="display:inline-block;font-size:15px;font-weight:bold;width:150px;margin-bottom:10px;">' + tourContent + '</div>' + '<br/>'
+				+ '<div style="display:inline-block;margin-right:10px;">'
+				+'<img style="width:150px;height:100px;" src="' + tourImg
+				+ '"' + '<div>',
 		map : map
 	});
 	tourMarkers.push(marker);
@@ -400,7 +553,7 @@ function setLocMarker() {
 				for (i = 0; i < myItem.length; i++) {
 					if(myItem[i].firstimage == null){myItem[i].firstimage = '../img/default.png';}
 					addTourMarker(myItem[i].mapx, myItem[i].mapy,
-							myItem[i].title, myItem[i].firstimage);
+							myItem[i].title, myItem[i].firstimage,null);
 				}
 				setTourMarker();
 			}

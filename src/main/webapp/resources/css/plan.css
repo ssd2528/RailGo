@@ -38,25 +38,30 @@ header div { display:inline-block; vertical-align:middle; }
 	height: calc(100% - 60px);
 }
 /* plan-wrap */
-.plan-wrap { float:left;width:25vw;height:92vh; }
+.plan-wrap {position:absolute; float:left;width:400px;;height:700px; }
 
-.schedule-info-box { float:left; width:40%;background:#7F7F7F; height:100%;}
+.schedule-info-box { float:left; width:150px;background:#7F7F7F; height:100%;}
 .schedule-info-box * { color:#FFF; }
 .plan-date { width:100%; height:50px; line-height:50px; text-align:center; border-bottom: solid 1px #909090; cursor:pointer; }
 .plan-date-box { max-height:500px; width:100%; height:100%; overflow:hidden; }
 .plan-date-box li { width: 100%; height: 70px; /* text-align: center; */ font-size: 12px; cursor: pointer; border-bottom: solid 1px #909090; visibility:hidden;}
-.plan-date-box li .detail-box { margin:12px; width:100%; height:100%; vertical-align:middle;}
+.plan-date-box li .detail-box { margin:12px 0px 12px 12px; width:136px; height:100%; vertical-align:middle;}
 .plan-date-box li div:not(.region) { display:inline-block; }
 .plan-date-box li div.day { font-size: 18px; font-weight: bold; }
 .plan-date-box li div.date { margin-left:10px; }
 .plan-date-box li div.region {width:100%; font-size:14px; }
-
-.schedule-detail-box {float:left; width:60%;height:100%; background:#D9D9D9; overflow:auto;}
+/* 상세일정 css */
+.schedule-detail-box {float:left; width:250px;height:100%; background:#D9D9D9; overflow-x:hidden; overflow-y:scroll;}
+.schedule-detail-box > .schedule-item-wrapper {width:205px;height:60px;padding:15px;background-color:white;border-top:1px solid gray;}
+.schedule-detail-box > .schedule-item-wrapper > .schedule-item-img {display:inline-block;width:60px; height:60px;margin-right:10px;}
+.schedule-detail-box > .schedule-item-wrapper > .schedule-item-name {display:inline-block;overflow: hidden;  white-space: nowrap; text-overflow: ellipsis; width:130px;height:60px;font-size:13px;}
+.schedule-detail-box > .schedule-item-wrapper > .schedule-item-name > .schedule-item-addr {margin-top:5px; width:130px;height:30px;font-size:6px;color:#7f7f7f;}
+.schedule-detail-box > .schedule-item-wrapper > .delete-box {position:relative;left:190px; top:-15px; cursor:pointer;}
 .empty-detail-box { display:inline-block; width:80%;height:55%; border:3px dashed white; color:white; vertical-align:middle; text-align:center; margin:10%;padding-top:70%;}
 
-.map-search-view-cover { float:left; width:75vw; height:92vh; position:absolute; top:60px; left:25vw;}
+.map-search-view-cover { float:left; width:1200px; height:700px; position:absolute; top:60px; left:400px;}
 .map-search-view-cover > .list-cover{ position:absolute; margin-top:10px; z-index:999; display:block; padding-top:5px; width:40px; height:35px; text-align:center; background-color:rgba(0,0,0,0.8); color:white; cursor:pointer;}
-.city-list{display:block; background-color:white; position:absolute; z-index:9999;width:350px;height:92vh;}
+.city-list{display:block; background-color:white; position:absolute; z-index:9999;width:350px;height:700px;}
 .list-title{display:inline-block;background-color:rgb(0, 156, 233);width:350px;height:60px;}
 .list-title > .title-name { display:inline-block; color:white; margin-left:10px; font-size:15px; line-height:60px; font-weight:bold; cursor:pointer;}
 .city-list > .list-close{ position:absolute; margin-top:10px;z-index:9999; display:block; left:350px; padding-top:5px; width:40px; height:35px; text-align:center; background-color:rgba(0,0,0,0.8); color:white; cursor:pointer; }
@@ -74,11 +79,11 @@ header div { display:inline-block; vertical-align:middle; }
 .city-list-body > .selected-theme-list{width:100%;height:70%; overflow-y:auto; overflow-x:hidden;}
 .city-list-body > .selected-theme-list > .day-spot-item{display:flex; width:305px;padding:15px; border-bottom:1px solid gray;}
 .img-size{ width:90px; height:90px;}
-.city-list-body > .selected-theme-list > .day-spot-item > .item-img-box{z-index:10004;display:inline-block;width:90px; height:90px; margin-right:10px;overflow:hidden;}
-.city-list-body > .selected-theme-list > .day-spot-item > .item-info-box{z-index:10004;display:inline-block;font-size:13px;text-align:left; width:150px; height:90px;margin-right:20px;}
-.city-list-body > .selected-theme-list > .day-spot-item > .item-info-box > .item-sub {color:#7f7f7f; font-size:10px;width:120px;height:80px;}
+.city-list-body > .selected-theme-list > .day-spot-item > .item-img-box{z-index:10004;display:inline-block;width:90px; height:90px; margin-right:10px;overflow:hidden;cursor:pointer;}
+.city-list-body > .selected-theme-list > .day-spot-item > .item-info-box{z-index:10004;display:inline-block; overflow: hidden;  white-space: nowrap; text-overflow: ellipsis; font-size:13px;text-align:left; width:150px; height:90px;margin-right:20px;cursor:pointer;}
+.city-list-body > .selected-theme-list > .day-spot-item > .item-info-box > .item-sub {color:#7f7f7f; font-size:10px;width:120px;height:69px;cursor:default;}
 .city-list-body > .selected-theme-list > .day-spot-item > .item-insert-box{z-index:10004;display:inline-block;width:30px; height:30px; margin-top:25px; background-color:#d9d9d9; border:1px solid #d9d9d9;cursor:pointer;}
-#map {display:block; position:absolute;width:100%; height:92vh; }
+#map {display:block; position:relative;width:100%; height:700px; }
 
 
 

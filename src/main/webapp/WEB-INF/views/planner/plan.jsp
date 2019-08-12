@@ -98,7 +98,15 @@
 					
 					<!-- 2. 상세 일정 정보(schedule-detail-box) -->
 					<div class="schedule-detail-box">
-						<div class="empty-detail-box">상세일정정보</div>				
+						<div class="empty-detail-box">상세일정정보</div>	
+						<!-- 
+						<div class="schedule-item-wrapper">
+							<div class="schedule-item-img"></div>
+							<div class="schedule-item-name">
+								<div class="schedule-item-addr"></div>
+							</div>
+						</div>
+						 -->			
 					</div>
 					<!-- ./ 2. 상세 일정 정보(schedule-detail-box) -->
 					<!-- 3.  -->
@@ -214,6 +222,9 @@
 			        zoom: 7,
 			        minZoom:7
 			    });	
+			    google.maps.event.addListener(map,'dragend', function() {  
+			   		dragMapEvent()
+			      });  
 				google.maps.event.addListener(map, 'zoom_changed', function() {
 				    var zoomLevel = map.getZoom();
 				    /*
@@ -231,6 +242,7 @@
 				});
 				//addStationsMarker(stationLocations.length);
 				//setStationMarker(7);
+				toggleCityList(80,350,'show');
 			}
 		</script>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdFDMU_KU_Ro2hPEPNNJw0ub3Zv21X-CY&sensor=false&callback=initMap"async defer></script>

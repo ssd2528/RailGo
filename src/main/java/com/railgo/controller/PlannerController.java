@@ -62,7 +62,7 @@ public class PlannerController {
 			  		+ "openapi/service/rest/KorService/"
 			  		+ "locationBasedList"
 			  		+ "?serviceKey=" + key
-			  		+ "&numOfRows=30"
+			  		+ "&numOfRows=50"
 			  		+ "&pageNo=1&MobileOS=ETC&MobileApp=AppTest"
 			  		+ "&arrange=B"
 			  		+ "&contentTypeId=" + themeCode
