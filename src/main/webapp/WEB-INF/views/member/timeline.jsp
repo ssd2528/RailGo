@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -28,62 +29,64 @@
 			<!-- content -->
 			<div class="content">
 				<div class="content-wrapper">
-	
-					<!-- profile-background -->
-					<div class="section-profilebg">
-						<a href="#"><img id="profilePicUpdate" src="../img/member/edit.png" alt="프로필 사진 수정"
-						onmouseover="this.src='../img/member/edit_hover.png'" onmouseout="this.src='../img/member/edit.png'"></a>
-					</div>
-					<!-- /profile-background -->
-	
-					<!-- profile-info -->
-					<div class="profile-info">
-						<!-- profile-img -->
-						<div class="profile-img clearfix">
-							<img src="../img/member/default_profile_f.png" alt="프로필">
-						</div>
-						<!-- /profile-img -->
-	
-						<!-- profile-detail -->
-						<div class="profile-detail">
-							<div class="row1">
-								<span class="user-name">사용자 닉네임</span> <span>포스팅</span> <span>팔로워</span>
-								<span>팔로잉</span>
-							</div>
-							<div class="row2">
-								<span class="user-id">@UserId</span> <span class="posting">0</span>
-								<span class="follower">0</span> <span class="following">0</span>
-							</div>
-						</div>
-						<!-- /profile-detail -->
-	
-						<!-- tab-list -->
-						<div class="tab-list">
-							<a href="../member/timeline" class="timeline">타임라인</a> 
-							<a href="../member/schedule" class="schedule">일정관리</a>
-						</div>
-						<!-- /tab-list -->
-					</div>
-					<!-- /profile-info -->
-	
+				<!-- member-info -->
+				<%@include file="../includes/member_info.jsp"%>
 					<!-- section-main -->
 					<div class="section-main clearfix">
 						<div class="article-wrapper article-25">
 							<!-- article-introduce -->
-							<div class="article-item article-sns-user">
-								<h2>
-									<a href="#">소개<img id="profileUpdate" src="../img/member/edit.png" alt="정보수정"
-									onmouseover="this.src='../img/member/edit_hover.png'" onmouseout="this.src='../img/member/edit.png'"></a>
-								</h2><br>
-								<a><img class="location-job-birth-intertest" src="../img/member/info_location.png" alt="지역"> 서울,대한민국</a><br>
-								<a><img class="location-job-birth-intertest"src="../img/member/info_job.png" alt="직업"> 직업</a><br> 
-								<a><img class="location-job-birth-intertest" src="../img/member/info_birth.png" alt="생일"> 0000년 0월 00일</a><br>
-								<a><img class="location-job-birth-intertest" src="../img/member/info_interests.png" alt="관심사"> 관심사</a>
-								<div class="profile-detailInfo">
-									<br> 앙기무띠 앙기무띠 앙기무띠 앙기무띠 앙기무띠 앙기무띠 앙기무띠 앙기무띠
-								</div>
+							<div class="article-item article-sns-user1">
+								<h2>소개</h2>
+								<img class="profileUpdate" src="../img/member/edit.png" alt="정보수정"
+								onmouseover="this.src='../img/member/edit_hover.png'" onmouseout="this.src='../img/member/edit.png'"><br>
+								<img class="location-job-birth-intertest" src="../img/member/info_location.png" alt="지역">
+								<c:choose>
+								<c:when test="${memadd.address != null}"><span class="profile-content">${memadd.address}</span><br></c:when>
+								<c:when test="${memadd.address == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								</c:choose>
+								<img class="location-job-birth-intertest"src="../img/member/info_job.png" alt="직업">
+								<c:choose>
+								<c:when test="${memadd.job != null}"><span class="profile-content">${memadd.job}</span><br></c:when>
+								<c:when test="${memadd.job == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								</c:choose>
+								<img class="location-job-birth-intertest" src="../img/member/info_birth.png" alt="생일">
+								<c:choose>
+								<c:when test="${memadd.birth != null}"><span class="profile-content">${memadd.birth}</span><br></c:when>
+								<c:when test="${memadd.birth == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								</c:choose>
+								<img class="location-job-birth-intertest" src="../img/member/info_interests.png" alt="관심사">
+								<c:choose>
+								<c:when test="${memadd.interest != null}"><span class="profile-content">${memadd.interest}</span><br></c:when>
+								<c:when test="${memadd.interest == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								</c:choose>						
 							</div>
-							<!-- /article-introduce -->
+							<div class="article-item article-sns-user2">
+								<h2>소개</h2>
+								<form action="/member/updateMemadd" method="GET" name="profileDetail">
+									<input type="image" class="profileUpdate" src="../img/member/edit.png" name="profileUpdate" value="Submit"
+									onmouseover="this.src='../img/member/edit_hover.png'" onmouseout="this.src='../img/member/edit.png'"><br>
+									<input type="hidden" name="mem_code" value="${member.mem_code}">
+									<!--<c:choose>
+									<c:when test="${memadd.profile != null}">--><input type="hidden" name="profile" value="${memadd.profile}"><!--</c:when>
+									<c:when test="${memadd.profile == null}"><input type="hidden" name="profile" value=""></c:when>
+									</c:choose>
+									<c:choose>
+									<c:when test="${memadd.backImage != null}">--><input type="hidden" name="backImage" value="${memadd.backImage}"><!--</c:when>
+									<c:when test="${memadd.backImage == null}"><input type="hidden" name="backImage" value=""></c:when>
+									</c:choose>-->
+									<img class="location-job-birth-intertest" src="../img/member/info_location.png" alt="지역">
+									<input type="text" name="address" class="profile-text1" value="${memadd.address}"><br>
+									<img class="location-job-birth-intertest"src="../img/member/info_job.png" alt="직업">
+									<input type="text" name="job" class="profile-text" value="${memadd.job}"><br> 
+									<img class="location-job-birth-intertest" src="../img/member/info_birth.png" alt="생일">
+									<input type="text" name="birth" class="profile-text" value="${memadd.birth}"><br>
+									<img class="location-job-birth-intertest" src="../img/member/info_interests.png" alt="관심사">
+									<input type="text" name="interest" class="profile-text" value="${memadd.interest}"><br>							
+								</form>
+							<div class="profile-detailInfo">
+						</div>
+					</div>
+					<!-- /article-introduce -->
 	
 							<!-- article-sns-user -->
 							<%@include file="../includes/article_sns_user.jsp"%>

@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
+import com.railgo.domain.MemberAddVO;
 import com.railgo.domain.MemberVO;
 import com.railgo.mapper.MailUtils;
 import com.railgo.service.MemberService;
@@ -89,9 +90,9 @@ public class LoginController {
 		if(session.getAttribute("member") != null) { // 기존에 member란 세션 값이 존재한다면
 			session.removeAttribute("member"); // 기존 세션 값을 제거
 		}
-		
 		String rawPwd = vo.getPwd();
 		MemberVO member = memberService.signin(vo);
+		MemberAddVO memadd = memberService.selMemadd(member);
 		
 		if(member!=null) {
 			log.info("## 사용자 확인 ");
@@ -100,6 +101,7 @@ public class LoginController {
 			if(passwordEncoder.matches(rawPwd, encPwd) && member!=null) {  // 로그인 성공
 				log.info("## 로그인 성공!");
 				session.setAttribute("member", member);
+				session.setAttribute("memadd", memadd);
 				if(request.getParameter("loginCookie").equals("true")) { 
 					// 로그인 성공 후, 자동로그인이 체크되어 있으면 (쿠키를 사용할 거라면)
 					log.info("## 자동로그인 체크되어 있음 : " + request.getParameter("loginCookie"));
