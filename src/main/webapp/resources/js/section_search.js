@@ -1,8 +1,8 @@
 $(document).ready(function(){
 	/***** 		section-search 		*****/
 	// '어디로 가시나요' 클릭시 search-modal 보이게 하기
-	$('.search-city').on("click",function(){
-		   $(".search-modal").css('display','flex');
+	$('.search-city').on('click',function(){
+		   $('.search-modal').css('display','flex');
 		   setTimeout(function() {
 		      $(".search-modal").addClass('show-modal');
 		      $('.search-text').focus();
