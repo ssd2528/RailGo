@@ -6,20 +6,20 @@ $(document).ready(function(){
 	
 	// sns hover시 이미지 변환 
 	sns.hover(function(){
-		$('.sns-img img').attr('src', '../img/header/sns_clicked.png');
+		$('.sns-img img').attr('src', '/img/header/sns_clicked.png');
 		sns.css('color', '#009CE9');
 	}, function(){
-		$('.sns-img img').attr('src', '../img/header/sns.png');
+		$('.sns-img img').attr('src', '/img/header/sns.png');
 		sns.css('color', 'black');
 		
 	});
 	
 	// planner hover시 이미지 변환 
 	planner.hover(function(){
-		$('.planner-img img').attr('src', '../img/header/planner_clicked.png');
+		$('.planner-img img').attr('src', '/img/header/planner_clicked.png');
 		planner.css('color', '#009CE9');
 	}, function(){
-		$('.planner-img img').attr('src', '../img/header/planner.png');
+		$('.planner-img img').attr('src', '/img/header/planner.png');
 		planner.css('color', 'black');
 	});
 	

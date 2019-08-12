@@ -14,4 +14,7 @@ public interface MemberService {
 	MemberAddVO selMemadd(String mem_code);
 	void updateMemadd(MemberAddVO member);
 	void updateMemImage(MemberAddVO member);
+	
+	void sendEmailByPwd(String email) throws Exception;
+	void updatePwd(String email, String pwd);
 }

@@ -27,11 +27,9 @@
 			if('${request}' == 'signup') {
 				$("form#signup").submit();
 			} else if('${request}' == 'signin') {
-				$("form#signin").submit();
+				$('form#signin').submit();
 				self.close();
 				window.opener.location.href='../';
-				self.close();
-				
 			}
 		});
 	</script>

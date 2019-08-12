@@ -1,7 +1,13 @@
 package com.railgo.service;
 
+import java.util.HashMap;
+import java.util.UUID;
+
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +30,8 @@ public class MemberServiceImpl implements MemberService {
 	private MemberMapper memberMapper;
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+	private PasswordEncoder passwordEncoder;	
 
 	@Override
 	public int checkEmail(String email) { // 이메일 중복 체크
@@ -69,6 +77,48 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO signin(MemberVO member) {
 		return memberMapper.signin(member);
+	}
+	
+	@Override 
+	public void sendEmailByPwd(String email) throws Exception {
+		String uuid = UUID.randomUUID().toString().replace("-", "");
+		uuid = uuid.substring(0, 10);
+		MailUtils sendMail = new MailUtils(mailSender);
+		sendMail.setSubject("[RailGo] 비밀번호 재설정 관련 메일");
+		sendMail.setText(new StringBuffer().append("<h1></h1>")
+						.append("<p>이 메일은 비밀번호 재설정을 위해 발송된 메일입니다.</p>")
+						.append("<p>비밀번호 재설정을 위한 인증번호는 '" +uuid+"' 이며, 아래 링크로 들어가 인증번호와 새로운 비밀번호를 입력해주세요.</p><br>")
+						
+						.append("<form name='f' method='post' action='http://localhost:8080/settingPwd'>")
+						.append("<input type='hidden' name='email' value='"+email+"'>")
+						.append("<input type='hidden' name='uuid' value='"+uuid+"'>")
+						.append("<input type='submit' value='비밀번호 재설정하러 가기'>")
+						.append("</form>")
+						//.append("<a href='http://localhost:8080' target='_blenk'>비밀번호 재설정 링크</a>")
+						.toString()
+				);
+		sendMail.setFrom("leeghrbs13@gmail.com", "내일고");
+		sendMail.setTo(email);
+		sendMail.send();
+		
+		/*
+		String encPwd = passwordEncoder.encode(uuid);
+		System.out.println("## 원래 비밀번호: " + uuid + " / 암호화된 비밀번호 : " + encPwd);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);	map.put("pwd", encPwd);
+		System.out.println("## email : " + email + ", uuid : " + uuid);
+		memberMapper.updatePwd(map);
+		*/
+	}
+	
+	@Override
+	public void updatePwd(String email, String pwd) {
+		String encPwd = passwordEncoder.encode(pwd);
+		System.out.println("## 원래 비밀번호: " + pwd + " / 암호화된 비밀번호 : " + encPwd);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);	map.put("pwd", encPwd);
+		System.out.println("## email : " + email + ", pwd : " + pwd);
+		memberMapper.updatePwd(map);
 	}
 
 	@Override
