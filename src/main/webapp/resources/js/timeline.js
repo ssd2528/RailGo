@@ -4,7 +4,7 @@ $(document).ready(function(){
 	$('.schedule').css('border-bottom','none');
 });
 
-//소개 창에 hover시 수정아이콘 출력
+// 소개 창에 hover시 수정아이콘 출력
 $(document).ready(function(){
 	$('.profileUpdate').css('visibility', 'hidden');
 	$('.article-sns-user1').hover(function(){
@@ -18,8 +18,7 @@ $(document).ready(function(){
 		$('.profileUpdate').css('visibility', 'hidden');
 	})
 });
-
-//프로필사진에 hover시 수정아이콘 출력
+// 프로필사진에 hover시 수정아이콘 출력
 $(document).ready(function(){
 	$('#back-img-update').css('visibility', 'hidden');
 	$('.section-back-img').hover(function(){
@@ -27,12 +26,9 @@ $(document).ready(function(){
 	},function(){
 		$('#back-img-update').css('visibility', 'hidden');
 	})
-});
-
-$(document).ready(function(){ 
-    $("#current").click(function(){
+ 
+   $("#current").click(function(){
         var submenu = $(this).next("ul");
-
         // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
         if( submenu.is(":visible") ){
             submenu.slideUp();
@@ -40,29 +36,25 @@ $(document).ready(function(){
             submenu.slideDown();
         }
     })
-});
-//좋아요 클릭시 하트이미지 바꿈
-/*$(document).ready(function(){
-	$(".likeImg").on("click",function(e){
-		var $this = $(this);
-		
-		$this.find(">img").attr("src",function(index,attr){
-			if(attr.match('_clicked')){
-				return attr.replace("_clicked.png","_normal.png");
-			}else{
-				return attr.replace("_normal.png","_clicked.png");
-			}
-		})
-		//$(".likeImg").attr('src','../img/planner/heart_clicked.png')
-	})
-});*/
-$(document).ready(function(){
+    $('#sns-modify, #sns-delete').hover(function(){
+    	$(this).css('color','#ed7d31');
+    },function(){
+    	$(this).css('color','black');
+    });
+    
+    // 좋아요 클릭시 하트이미지 바꿈
 	$(".likeImg").click(function(){
-		$(".likeImg").attr('src','../img/planner/heart_clicked.png')
-	})
+		var img = $(this).attr('src');
+		if(img === '../img/planner/heart_normal.png'){
+			$(".likeImg").attr('src','../img/planner/heart_clicked.png');
+		}else{
+			$(".likeImg").attr('src','../img/planner/heart_normal.png');
+		}
+	});
 });
 
-//추가정보 수정 클릭시 정보가 텍스트필드로 바뀜
+
+// 추가정보 수정 클릭시 정보가 텍스트필드로 바뀜
 $(document).ready(function(){
 	$(".article-sns-user2").css("display","none");
 	$(".profileUpdate").click(function(){
@@ -98,21 +90,14 @@ $.fn.selectRange = function(start, end) {
      });
 
  };
- //엔터 submit
+ // 엔터 submit
  function press(f){
-	 if(f.keyCode == 13){ //javascript에서는 13이 enter키를 의미함 
-		 profile-content.submit(); //formname에 사용자가 지정한 form의 name입력
+	 if(f.keyCode == 13){ // javascript에서는 13이 enter키를 의미함
+		 profile-content.submit(); // formname에 사용자가 지정한 form의 name입력
 	 } 
  }
- //배경화면 변경
+ // 배경화면 변경
  $(document).ready(function(){
-	/* $("#back-img-update").on("click", function(e) {
-		 //$("#uploadFile").attr('id','uploadBtn');
-		// $(".uplabel").attr('for','uploadBtn');
-		 $("#back-img-update").attr('id','update-btn');
-		 $(".uplabel").attr('for','upload');
-	 })
-	 $("#update-btn").on("click", function(e) {*/
 	 $("#uploadFile").on("change", function(e) {
 		 
 		var formData = new FormData();
@@ -129,7 +114,7 @@ $.fn.selectRange = function(start, end) {
 		
 		console.log(files);
 		
-		//add filedate to formdata
+		// add filedate to formdata
 		for(var i = 0; i < files.length; i++){
 			
 			formData.append("uploadFile",files[i]);
@@ -149,15 +134,15 @@ $.fn.selectRange = function(start, end) {
 			data: formData,
 			type: 'POST',
 			success: function(result){
-				//alert("Uplaoded");
+				// alert("Uplaoded");
 				window.location.replace('/member/timeline');
 			}
-		}); //$.ajax
+		}); // $.ajax
 		
 	 });
  });
- //프로필사진 변경
- $(document).ready(function(){
+ // 프로필사진 변경
+$(document).ready(function(){
 		 $("#uploadFile2").on("change", function(e) {
 			 
 			var formData = new FormData();
@@ -174,7 +159,7 @@ $.fn.selectRange = function(start, end) {
 			
 			console.log(files);
 			
-			//add filedate to formdata
+			// add filedate to formdata
 			for(var i = 0; i < files.length; i++){
 				
 				formData.append("uploadFile",files[i]);
@@ -193,19 +178,12 @@ $.fn.selectRange = function(start, end) {
 				data: formData,
 				type: 'POST',
 				success: function(result){
-					//alert("Uplaoded");
+					// alert("Uplaoded");
 					window.location.replace('/member/timeline');
 				}
-			}); //$.ajax
+			}); // $.ajax
 			
 		 });
-	 });
+	});
 
-/*$(document).ready(function(){
-	$(".profile-text").css('visibility', 'hidden');
-	$("#profileUpdate").click(function(){
-		$(".profile-content").css('visibility', 'hidden');
-		$(".profile-text").css('visibility', 'visible');
-	})
-});*/
 

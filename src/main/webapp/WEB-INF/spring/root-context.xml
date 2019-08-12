@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
@@ -56,6 +57,19 @@
 				<prop key="mail.debug">true</prop>
 			</props>
 		</property>
+	</bean>
+
+	<!-- google Class Bean설정 추가 -->
+	<!-- 클라이언트ID와 보안비밀 세팅 -->
+	<bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<constructor-arg value="1025619676757-14ctfmi8pubi442iluj3fb482413bt9h.apps.googleusercontent.com" />
+		<constructor-arg value="UOKOhzp7Xgg66rdLxKhw4gFQ" />
+	</bean>
+	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+	<bean id="googleOAuth2Parameters"
+		class="org.springframework.social.oauth2.OAuth2Parameters">
+		<property name="scope" value="https://www.googleapis.com/auth/plus.login" />
+		<property name="redirectUri" value="http://localhost:8080/googleSigninCallback" />
 	</bean>
 
 	<tx:annotation-driven />
