@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.railgo.domain.MemberAddVO;
 import com.railgo.domain.MemberVO;
 import com.railgo.mapper.MailUtils;
 import com.railgo.mapper.MemberMapper;
@@ -118,6 +119,26 @@ public class MemberServiceImpl implements MemberService {
 		map.put("email", email);	map.put("pwd", encPwd);
 		System.out.println("## email : " + email + ", pwd : " + pwd);
 		memberMapper.updatePwd(map);
+	}
+
+	@Override
+	public MemberAddVO selMemadd(MemberVO member) {
+		return memberMapper.selMemadd(member);
+	}
+	
+	@Override
+	public MemberAddVO selMemadd(String mem_code) {
+		return memberMapper.selMemadd(mem_code);
+	}
+	
+	@Override
+	public void updateMemadd(MemberAddVO member) {
+		memberMapper.updateMemadd(member);
+	}
+	
+	@Override
+	public void updateMemImage(MemberAddVO member) {
+		memberMapper.updateMemImage(member);
 	}
 
 }

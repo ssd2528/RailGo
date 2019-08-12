@@ -40,7 +40,7 @@ header {
 .signin-btn { background:#009CE9; color:#FFF; font-size:13px; padding:5px 15px; margin:0 5px; cursor:pointer;}
 
 .navi img { width:30px; height:30px; }
-.navi .member-img img { width:45px; height:45px; }
+#member-img { width:45px; height:45px; object-fit: cover; border-radius:50%; }
 
 .member-submenu { display:none; position:absolute; background:#595959; width:80px; min-width:80px; z-index:999;}
 .member-submenu li { display:block; margin:0; font-size:13px; padding:10px; border-bottom:1px solid #FFF; }

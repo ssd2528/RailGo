@@ -1,5 +1,6 @@
 package com.railgo.service;
 
+import com.railgo.domain.MemberAddVO;
 import com.railgo.domain.MemberVO;
 
 public interface MemberService {
@@ -9,6 +10,10 @@ public interface MemberService {
 	void autoSignup(MemberVO member); // 메일보내지 않고 회원 insert
 	
 	MemberVO signin(MemberVO vo); // 로그인 
+	MemberAddVO selMemadd(MemberVO member);
+	MemberAddVO selMemadd(String mem_code);
+	void updateMemadd(MemberAddVO member);
+	void updateMemImage(MemberAddVO member);
 	
 	void sendEmailByPwd(String email) throws Exception;
 	void updatePwd(String email, String pwd);

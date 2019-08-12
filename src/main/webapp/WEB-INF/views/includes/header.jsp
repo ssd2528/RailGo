@@ -20,7 +20,17 @@
 								</c:if>
 								<!-- 사용자가 로그인을 한 상태인 경우 -->
 								<c:if test="${member ne null}">
-									<a href="../member/timeline" class="member-img"><img src="/img/member/default_profile_f.png" alt="프로필" ></a>
+									<c:choose>
+										<c:when test="${memadd.profile != null}"><img id="member-img" src='/member/display?fileName=${memadd.profile}' alt="프로필"></c:when>
+										<c:when test="${memadd.profile == null}">
+											<c:choose>
+												<c:when test="${member.gender eq 'M'}"><a href="../member/timeline" class="member-img">
+												<img src="../img/member/default_profile_m.png" alt="프로필 남" ></a></c:when>
+												<c:when test="${member.gender eq 'F'}"><a href="../member/timeline" class="member-img">
+												<img src="../img/member/default_profile_f.png" alt="프로필 여" ></a></c:when>
+											</c:choose>	
+										</c:when>
+									</c:choose>
 									<ul class="member-submenu">
 										<li><a href="../member/timeline" class="member-timeline">타임라인</a></li>
 										<li><a href="../member/schedule" class="member-schedule">일정관리</a></li>

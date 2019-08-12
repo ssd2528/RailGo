@@ -31,6 +31,7 @@ import org.springframework.web.util.WebUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.railgo.domain.MemberAddVO;
 import com.railgo.domain.MemberVO;
 import com.railgo.mapper.MailUtils;
 import com.railgo.oauth.KakaoAccessToken;
@@ -119,9 +120,9 @@ public class LoginController {
 		if(session.getAttribute("member") != null) { // 기존에 member란 세션 값이 존재한다면
 			session.removeAttribute("member"); // 기존 세션 값을 제거
 		}
-		
 		String rawPwd = vo.getPwd();
 		MemberVO member = memberService.signin(vo);
+		MemberAddVO memadd = memberService.selMemadd(member);
 		
 		if(member!=null) {
 			System.out.println("## 사용자 확인 ");
@@ -130,6 +131,7 @@ public class LoginController {
 			if(passwordEncoder.matches(rawPwd, encPwd) && member!=null) {  // 로그인 성공
 				System.out.println("## 로그인 성공!");
 				session.setAttribute("member", member);
+				session.setAttribute("memadd", memadd);
 				/* ------------------------------ 자동 로그인 부분 ------------------------------ 
 				if(request.getParameter("loginCookie").equals("true")) { 
 					// 로그인 성공 후, 자동로그인이 체크되어 있으면 (쿠키를 사용할 거라면)
@@ -138,7 +140,6 @@ public class LoginController {
 					cookie.setPath("/"); // 쿠기를 찾을 경로를 컨텍스트 경로로 변경
 					cookie.setMaxAge(60*60*24*7); // 단위는 초(sec) 단위이므로 7일로  유효시간 설정
 					response.addCookie(cookie); // 쿠키 적용
-					
 				}else {
 					System.out.println("## 자동로그인 체크되어 있지 않음");
 				}
