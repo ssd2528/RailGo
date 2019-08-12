@@ -245,7 +245,8 @@
 				toggleCityList(80,350,'show');
 			}
 		</script>
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdFDMU_KU_Ro2hPEPNNJw0ub3Zv21X-CY&sensor=false&callback=initMap"async defer></script>
+		<% String RailGoKey = "AIzaSyAdFDMU_KU_Ro2hPEPNNJw0ub3Zv21X-CY"; %>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%=RailGoKey%>&sensor=false&callback=initMap"async defer></script>
 				
 	</body>
 </html>

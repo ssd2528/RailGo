@@ -76,6 +76,8 @@ $(document).ready(function() {
 		planDateBox = $(this).attr('class');
 		let region = $(this).find('.region').text();
 		let day = $(this).find('.day').text().toLowerCase();
+		//city-list item들 초기화-------------------
+		$('.selected-theme-list').children().remove();
 		//색상 변경--------------------------------
 		$('.plan-date-box').children().css('background-color', '#7F7F7F');
 		$(this).css('background-color', '#009ce9');
@@ -86,7 +88,6 @@ $(document).ready(function() {
 		if(region === '지역을 선택하세요.'){initScheduleDetailBox(null);}
 		else{initScheduleDetailBox(day);}
 		toggleCityList(80,350,'show');
-		//---------------------------------------
 	});
 	// > 버튼 누르면 검색 도시 리스트 출력
 	$('.list-cover').on('click', function(){
