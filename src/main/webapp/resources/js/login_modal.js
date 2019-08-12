@@ -23,6 +23,7 @@ $(document).ready(function(){
 		$('html').css('overflow', 'auto');
 		
 	}); 
+	
 	$('.password-find-tag').click(function() {
 		$('form').each(function(){this.reset();})
 		$('label.error').css('display', 'none');

@@ -103,9 +103,9 @@
 									<div class="sns-menubar">
 									   <ul>
 									      <li><button id="current">···</button>
-									         <ul class="hide">
+									         <ul id="hide_li" class="hide">
 									           <li><button id="sns-modify">수정</button></li>
-									           <li><a>-----</a></li>
+									           <li><hr style="border:none;border:0.5px solid gray;"></li>
 									           <li><button id="sns-delete">삭제</button></li>
 									         </ul>
 									      </li>
@@ -171,28 +171,24 @@
 				<!-- modal -->
 				<div class ="modal fade" id='myModal' tabindex="-1" role="dialog" 
 				aria-labelledby="myModalLabel" aria-hidden="true">
-					<!-- modal-dialog -->	
-					<div class="modal-dialog">
-						<!-- modal-content -->	
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4 class="modal-title clearfix" id="myModalLabel">게시글 수정</h4>
-								<hr class="underline">
-							</div>
-							<div class="modal-body">
-								<div class="form-group">	
-									<textarea class="form-control" rows="1" cols="1">수정할 내용</textarea>							
-								</div>
-							</div>
-							<div class="modal-footer">
-								<hr class="underline">
-								<button id='modalMoBtn' type="button" class="btn btn-warning">수정</button>
-								<button id='modalCloseBtn' type="button" class="btn btn-default">닫기</button>
+					<!-- modal-content -->	
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title clearfix" id="myModalLabel">게시글 수정</h4>
+							<hr class="underline">
+						</div>
+						<div class="modal-body">
+							<div class="form-group">	
+								<textarea class="form-control" rows="1" cols="1" placeholder="수정할 내용"></textarea>							
 							</div>
 						</div>
-						<!-- /modal-content -->	
+						<div class="modal-footer">
+							<hr class="underline">
+							<button id='modalMoBtn' type="button" class="btn btn-warning">수정</button>
+							<button id='modalCloseBtn' type="button" class="btn btn-default">닫기</button>
+						</div>
 					</div>
-					<!-- /modal-dialog -->	
+					<!-- /modal-content -->	
 				</div>
 				<!-- /modal-->	
 			</div>

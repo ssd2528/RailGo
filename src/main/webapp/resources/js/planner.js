@@ -15,6 +15,17 @@ $(document).ready(function(){
 	$('.planner-img img').attr('src', '../img/header/planner_clicked.png');
 	planner.css('color', '#009CE9');
 	
+	$.ajax({
+		type: 'get',
+		url: '/planner/nailerSchedule',
+		dataType: 'json',
+		success: function(data){
+			console.log(data.response.body.items.item);
+			var myItem = data.response.body.items.item;
+			$('.calendar-map').css('background','url('+myItem.firstimage+')');
+		}
+	});
+	
 	// sns hover시 이미지 변환 
 	sns.hover(function(){
 		$('.sns-img img').attr('src', '../img/header/sns_clicked.png');
@@ -109,22 +120,21 @@ $(document).ready(function(){
 	$('body').click(function(e){
 	   if($('#modal-wrapper').hasClass('open')){ // site 라는 특정영역이 열려있을 경우
 	      if(!$('#modal-wrapper').has(e.target).length){ // site에 클릭 이벤트가 발생되어 있는게 없다면 아래 내용을 실행.
-	         $('#modal-wrapper').removeClass('open');
-	         $('body').css({'overflow':'auto', 'height':'100%'});
-	         setTimeout(function() {
-	            $('#modal-wrapper').css('display','none');
-	         }, 50)
+	    	  removeModal();
 	      }
 	   }
 	});
 	// 모달창 닫기 버튼 클릭시 modal 창 닫기
-	$("#plan-option-close-btn").on("click",function(){
-	   $('#modal-wrapper').removeClass('open');
-	   setTimeout(function() {
-	      $("#modal-wrapper").css('display','none');
-	   }, 1)
-	   $('body').css({'overflow':'auto', 'height':'100%'});
+	$("#plan-option-close-btn").on('click',function(){
+		removeModal();
 	});
+	function removeModal(){
+		$('#modal-wrapper').removeClass('open');
+		setTimeout(function() {
+			$("#modal-wrapper").css('display','none');
+		}, 1)
+		$('body').css({'overflow':'auto', 'height':'100%'});
+	}
 	// 티켓 선택 했을때 박스 시그니처 색으로 칠하기
 	$('#plan-option-days').children().click(function(){
 		$('#plan-option-days').children().css('background-color', 'white');
@@ -132,6 +142,8 @@ $(document).ready(function(){
 		$(this).css('background-color', '#009ce9');
 		$(this).css('color', 'white');
 		$('#datepicker').attr('disabled',false);
+		$('#datepicker').val('첫 날');
+		$('#last-option-days').text('마지막 날');
 	});
 	//인원수 체크
 	$('.plan-option-people').children('.plan-option-plus,.plan-option-minus').click(function(){
@@ -153,8 +165,51 @@ $(document).ready(function(){
 	$('#datepicker').datetimepicker({
 		format:'Y/m/d',
 		minDate:0,
-		timepicker:false
+		timepicker:false,
+		onSelectDate:function(dateText,inst){ 
+			$('#last-option-days').text('');
+			var year = dateText.getFullYear();
+			var month = dateText.getMonth() + 1;
+			var day = dateText.getDate();
+			var ymd = new Date(year,month,day);
+			if($('#third-days-option').css('color') === 'rgb(255, 255, 255)'){
+				ymd.setDate(ymd.getDate() + 2);
+				var mm = ymd.getMonth(); mm = (mm < 10) ? '0' + mm : mm;
+				var dd = ymd.getDate(); dd = (dd < 10) ? '0' + dd : dd;	
+			}else if($('#fifth-days-option').css('color') === 'rgb(255, 255, 255)'){
+				ymd.setDate(ymd.getDate() + 4);
+				var mm = ymd.getMonth(); mm = (mm < 10) ? '0' + mm : mm;
+				var dd = ymd.getDate(); dd = (dd < 10) ? '0' + dd : dd;	
+			}else{
+				ymd.setDate(ymd.getDate() + 6);
+				var mm = ymd.getMonth(); mm = (mm < 10) ? '0' + mm : mm;
+				var dd = ymd.getDate(); dd = (dd < 10) ? '0' + dd : dd;		
+			}
+			$('#last-option-days').text( ymd.getFullYear() +'/'+ mm +'/'+ dd);
+		}
 	});
-
-	
+	//모달창 확인 버튼 누를 시 조건 확인
+	$('#plan-option-ok-btn').on('click',function(){
+		var color = 'rgb(0, 156, 233)';	//rgb(0, 156, 233) - 시그니처 블루 색
+		var tt = $('#third-days-option').css('background-color');
+		var ft = $('#fifth-days-option').css('background-color'); 
+		var st = $('#seventh-days-option').css('background-color');
+		var cal = $('#last-option-days').text();
+		var ticket;
+		var startday;
+		if(tt != color && ft != color && st != color){
+			alert('티켓을 선택해주세요.');
+		}else{
+			if(tt === color){ticket = '3';}
+			else if(ft === color){ticket = '5';}
+			else if(st === color){ticket = '7';}
+			if(cal === '마지막 날'){alert('날짜를 선택해주세요.');
+			}else{
+				startday = $('#datepicker').val();
+				$('#tickets').attr('value',ticket);
+				$('#startday').attr('value',startday);
+				$('#plan-form').submit();
+			}
+		}
+	});
 });
