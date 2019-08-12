@@ -3,47 +3,46 @@
 @import url('../font/12롯데마트행복Bold.ttf');
 
 /* 		section-search 		*/
-.section-search {
-	width:100%;
-	height:350px;
-	min-height:350px;
-	background:#FFFFFF url('../img/default_summer.png') no-repeat center center/cover;
-	text-align:center;
-	vertical-align:middle;
+.section-search { width:100%; height:350px; min-height:350px; background:#FFFFFF url('/img/default_summer.png') no-repeat center center/cover; text-align:center; }
+.search-wrap { width: 35%; position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+.search-city { align-items:center; display:inline-block; background:#009CE9; color:#FFFFFF; padding: 10px 30px; font-size: 30px; border-radius: 30px; font-family: '12롯데마트행복Bold'; cursor:pointer; }
+
+.search-list { background:rgba(255,255,255,0.7); padding:20px 0px; display:flex; justify-content:space-evenly; margin-top:60px; margin-bottom:-100px; }
+.search-item { cursor: pointer; color:#595959; }
+.search-item:hover { color:#000; }
+.search-item *{ color:#595959; text-align: center; }
+.search-icons { padding:0px 30px; width:50px;  height:50px; }
+
+
+
+
+
+/* search-modal */
+.search-modal { 
+	visibility:hidden; opacity:0; position:fixed; z-index:201; top:0; left:0; width:100%; height:100%; 
+	overflow:auto; background-color:rgb(0,0,0); background-color:rgba(0,0,0,0.85);
+	transform:scale(1.1); transition:visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
 }
-.search-wrap {
-    width: 35%;
-    /* height: inherit; */
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.modal-content {
+	position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+	background:#FFF; margin:auto; padding:20px; border:1px solid #888; width:30%;
 }
-.search-city {
-	align-items:center;
-	display:inline-block;
-	background:#009CE9;
-	color:#FFFFFF;
-	padding: 10px 30px;
-	font-size: 30px;
-	border-radius: 30px;
-	font-family: '12롯데마트행복Bold';
-	cursor:pointer;
-}
-.search-list {
-	background:rgba(255,255,255,0.7);
-	padding:20px 0px;
-	display:flex;
-	justify-content:space-evenly;
-	margin-top:60px;
-	margin-bottom:-100px;
-}
-.search-item *{
-	color:#595959;
-	text-align: center;
-}
-.search-icons {
-	padding:0px 30px;
-	width:50px; 
-	height:50px;
-}
+.close-btn { color:#aaa; float:right; font-size:28px; font-weight:bold; margin:-10px 0;}
+.close-btn:hover, .close-btn:focus { color:black; cursor:pointer; }
+.show-modal { opacity: 1; visibility: visible; transform: scale(1.0); transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s; }
+.search-text { width:100%; border:none; color:#595959; border-bottom:1px solid #e5e5e5; font-size:24px; line-height: 1.7em; }
+.search-text:focus { outline:none; }
+
+
+.region-item, .region-city-item { display:block; }
+.region-item { margin:20px 0; cursor:pointer; }
+.region-item:hover .region-name, .region-item:hover .toggle-btn { color:#009CE9; }
+.show-region-item { display:none; }
+.toggle-btn { float:right; margin:0 5px; font-size:18px; font-weight:bold; }
+.region-city-list { display:none; margin:0 10px;}
+.show-city-list { display:block; }
+.region-city-item { margin: 5px 0;}
+.region-city-item:hover { font-weight:bold; }
+.region-name { font-size:18px; font-weight:bold; }
+

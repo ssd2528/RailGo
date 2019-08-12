@@ -9,4 +9,7 @@ public interface MemberService {
 	void autoSignup(MemberVO member); // 메일보내지 않고 회원 insert
 	
 	MemberVO signin(MemberVO vo); // 로그인 
+	
+	void sendEmailByPwd(String email) throws Exception;
+	void updatePwd(String email, String pwd);
 }

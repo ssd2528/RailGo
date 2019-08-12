@@ -11,20 +11,19 @@
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		
 		<!-- CSS -->
-		<link href="../css/common.css" rel="stylesheet">
-		<link href="../css/index.css" rel="stylesheet">
-		<link href="../css/section_search.css" rel="stylesheet">
-		<link href="../css/article_sns_user.css" rel="stylesheet">
-		<link href="../css/login_modal.css" rel="stylesheet">
+		<link href="/css/common.css" rel="stylesheet">
+		<link href="/css/index.css" rel="stylesheet">
+		<link href="/css/section_search.css" rel="stylesheet">
+		<link href="/css/article_sns_user.css" rel="stylesheet">
+		<link href="/css/login_modal.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
-		<script src="../js/header.js" type="text/javascript"></script>
-		<script src="../js/index.js" type="text/javascript"></script>
-		<script src="../js/section_search.js" type="text/javascript"></script>
-		<script src="../js/login_modal.js" type="text/javascript"></script>
-		<script src="../js/jquery.validate.min.js" type="text/javascript"></script>
+		<script src="/js/header.js" type="text/javascript"></script>
+		<script src="/js/index.js" type="text/javascript"></script>
+		<script src="/js/section_search.js" type="text/javascript"></script>
+		<script src="/js/login_modal.js" type="text/javascript"></script>
+		<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 
 	</head>
 	<body>
@@ -47,22 +46,16 @@
 						<div class="search-wrap clearfix">
 							<div class="search-city">어디로 가시나요? &nbsp; ▼</div>
 							<ul class="search-list">
-								<li class="search-item search-accom"> 
-									<a href="#">
-										<img src="../img/main/bed.png" class="search-icons" alt="bed" /><br>숙 박 
-									</a> 
+								<li class="search-item search-bed"> 
+									<img src="/img/main/bed.png" class="search-icons" alt="bed" /><br>숙 박 
 								</li>
 								<hr color="#595959" noshade>
-								<li class="search-item search-place"> 
-									<a href="#">
-										<img src="../img/main/hotplace.png" class="search-icons" alt="hotplace" /><br>관광 명소 
-									</a> 
+								<li class="search-item search-hotplace"> 
+									<img src="/img/main/hotplace.png" class="search-icons" alt="hotplace" /><br>관광 명소 
 								</li>
 								<hr color="#595959" noshade>
 								<li class="search-item search-food"> 
-									<a href="#">
-										<img src="../img/main/food.png" class="search-icons" alt="food" /><br>맛 집 
-									</a> 
+									<img src="/img/main/food.png" class="search-icons" alt="food" /><br>맛 집 
 								</li>
 							</ul>
 						</div>
@@ -80,15 +73,15 @@
 									<div class="course-title"><h2>초보자를 위한 내일로 코스 추천</h2></div>
 									<ul class="course-content">
 										<li class="course-item">
-											<div class="course-img" style="background:#d9d9d9  url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="course-img" style="background:#d9d9d9  url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
 											<div class="course-detail">#초보자_코스추천</div>
 										</li>
 										<li class="course-item">
-											<div class="course-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="course-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
 											<div class="course-detail">#초보자_코스추천</div>
 										</li>
 										<li class="course-item">
-											<div class="course-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="course-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
 											<div class="course-detail">#초보자_코스추천</div>
 										</li>
 									</ul>
@@ -104,15 +97,15 @@
 									<div class="concept-title">"나홀로 떠나는 여행"에 대한 추천 코스</div>
 									<ul class="concept-content">
 										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9  url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="concept-img" style="background:#d9d9d9  url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
 											<div class="concept-detail">#나홀로_내일로</div>
 										</li>
 										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
 											<div class="concept-detail">#나홀로_내일로</div>
 										</li>
 										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
 											<div class="concept-detail">#나홀로_내일로</div>
 										</li>
 									</ul>
@@ -122,15 +115,15 @@
 									<div class="concept-title">"커플과 함께 떠나는 여행"에 대한 추천 코스</div>
 									<ul class="concept-content">
 										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9  url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="concept-img" style="background:#d9d9d9  url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
 											<div class="concept-detail">#나홀로_내일로</div>
 										</li>
 										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
 											<div class="concept-detail">#나홀로_내일로</div>
 										</li>
 										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
+											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
 											<div class="concept-detail">#나홀로_내일로</div>
 										</li>
 									</ul>
@@ -146,10 +139,10 @@
 								<div class="sns-content-list">
 									<!-- 각 SNS 게시글 (sns-content-item) -->
 									<div class="sns-content-item">
-										<div class="sns-content-img col-50" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover;">게시글 이미지</div>
+										<div class="sns-content-img col-50" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover;">게시글 이미지</div>
 										<div class="col-45" style="padding:5px 0px;">
 											<div class="sns-content-user">
-												<img class="user-img" src="../img/header/default_profile_m.png">
+												<img class="user-img" src="/img/header/default_profile_m.png">
 												<div class="user-name">사용자 닉네임</div>
 											</div>
 											<div class="sns-content-body font-13">
@@ -165,9 +158,9 @@
 											</div>
 											<div class="sns-content-reply font-13"><a href="#">3개의 댓글 모두보기</a></div>
 											<ul class="icon-list">
-												<li> <img class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
-												<li> <img class="sns-icon sns-chat" src="../img/sns/chat.png" alt="댓글달기"> </li>
-												<li> <img class="sns-icon sns-share" src="../img/sns/share.png" alt="공유하기"> </li>
+												<li> <img class="sns-icon sns-heart" src="/img/sns/heart.png" alt="좋아요"> </li>
+												<li> <img class="sns-icon sns-chat" src="/img/sns/chat.png" alt="댓글달기"> </li>
+												<li> <img class="sns-icon sns-share" src="/img/sns/share.png" alt="공유하기"> </li>
 											</ul>
 											<div class="sns-heart-count font-13">좋아요 5개</div>
 											<div class="sns-content-regDate font-13">작성일자</div>
@@ -176,10 +169,10 @@
 									<!-- ./sns-content-item -->
 									<!-- 각 SNS 게시글 (sns-content-item) -->
 									<div class="sns-content-item">
-										<div class="sns-content-img col-50" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover;">게시글 이미지</div>
+										<div class="sns-content-img col-50" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover;">게시글 이미지</div>
 										<div class="col-45" style="padding:5px 0px;">
 											<div class="sns-content-user">
-												<img class="user-img" src="../img/header/default_profile_m.png">
+												<img class="user-img" src="/img/header/default_profile_m.png">
 												<div class="user-name">사용자 닉네임</div>
 											</div>
 											<div class="sns-content-body font-13">
@@ -189,9 +182,9 @@
 											</div>
 											<div class="sns-content-reply font-13"><a href="#">3개의 댓글 모두보기</a></div>
 											<ul class="icon-list">
-												<li> <img class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
-												<li> <img class="sns-icon sns-chat" src="../img/sns/chat.png" alt="댓글달기"> </li>
-												<li> <img class="sns-icon sns-share" src="../img/sns/share.png" alt="공유하기"> </li>
+												<li> <img class="sns-icon sns-heart" src="/img/sns/heart.png" alt="좋아요"> </li>
+												<li> <img class="sns-icon sns-chat" src="/img/sns/chat.png" alt="댓글달기"> </li>
+												<li> <img class="sns-icon sns-share" src="/img/sns/share.png" alt="공유하기"> </li>
 											</ul>
 											<div class="sns-heart-count font-13">좋아요 5개</div>
 											<div class="sns-content-regDate font-13">작성일자</div>
@@ -200,10 +193,10 @@
 									<!-- ./sns-content-item -->
 									<!-- 각 SNS 게시글 (sns-content-item) -->
 									<div class="sns-content-item">
-										<div class="sns-content-img col-50" style="background:#d9d9d9 url('../img/default.png') no-repeat center center/cover;">게시글 이미지</div>
+										<div class="sns-content-img col-50" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover;">게시글 이미지</div>
 										<div class="col-45" style="padding:5px 0px;">
 											<div class="sns-content-user">
-												<img class="user-img" src="../img/header/default_profile_m.png">
+												<img class="user-img" src="/img/header/default_profile_m.png">
 												<div class="user-name">사용자 닉네임</div>
 											</div>
 											<div class="sns-content-body font-13">
@@ -219,9 +212,9 @@
 											</div>
 											<div class="sns-content-reply font-13"><a href="#">3개의 댓글 모두보기</a></div>
 											<ul class="icon-list">
-												<li> <img class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
-												<li> <img class="sns-icon sns-chat" src="../img/sns/chat.png" alt="댓글달기"> </li>
-												<li> <img class="sns-icon sns-share" src="../img/sns/share.png" alt="공유하기"> </li>
+												<li> <img class="sns-icon sns-heart" src="/img/sns/heart.png" alt="좋아요"> </li>
+												<li> <img class="sns-icon sns-chat" src="/img/sns/chat.png" alt="댓글달기"> </li>
+												<li> <img class="sns-icon sns-share" src="/img/sns/share.png" alt="공유하기"> </li>
 											</ul>
 											<div class="sns-heart-count font-13">좋아요 5개</div>
 											<div class="sns-content-regDate font-13">작성일자</div>

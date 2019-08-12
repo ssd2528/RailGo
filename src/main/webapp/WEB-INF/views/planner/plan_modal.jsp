@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<div id="modal-wrapper" class=modal-wrapper>
+<div id="modal-wrapper" class="modal-wrapper">
 	<div class="plan-modal-content">
 		<div class="plan-create-text">일정 만들기</div>
 		<div class="plan-option-wrap">
