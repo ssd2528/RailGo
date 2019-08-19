@@ -82,9 +82,13 @@ public class LoginController {
 		ModelAndView mv = new ModelAndView();
 		if(status == null) {
 			System.out.println("### 내일고에서 회원가입 ");
-			memberService.signup(member); // 회원가입
+			if(memberService.signup(member)) { // 회원가입
+				rttr.addFlashAttribute("msg", "가입시 사용한 이메일로 인증해주세요.");
+			}else {
+				rttr.addFlashAttribute("msg", "Error");
+			}
 			mv.setViewName("redirect:/");
-			rttr.addFlashAttribute("msg", "가입시 사용한 이메일로 인증해주세요.");
+			
 		} else if(status.equals("kakao") || status.equals("naver")) {
 			System.out.println("### 소셜에서 회원가입 ");
 			int check = memberService.findOne(member);
@@ -122,7 +126,9 @@ public class LoginController {
 		}
 		String rawPwd = vo.getPwd();
 		MemberVO member = memberService.signin(vo);
+		System.out.println("## member : " + member);
 		MemberAddVO memadd = memberService.selMemadd(member);
+		System.out.println("## memadd : " + memadd);
 		
 		if(member!=null) {
 			System.out.println("## 사용자 확인 ");
@@ -250,7 +256,7 @@ public class LoginController {
 			MemberVO vo = (MemberVO) obj;
 			session.removeAttribute("member");
 			session.invalidate(); // 세션 전체 날리기
-			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			Cookie loginCookie = WebUtils.getCookie(request, "remember-me");
 			if(loginCookie != null){
                 loginCookie.setPath("/");
                 loginCookie.setMaxAge(0);

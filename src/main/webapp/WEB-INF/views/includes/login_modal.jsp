@@ -14,10 +14,11 @@
 				<!-- 로그인 모달 (sign-in) -->
 				<div class="sign-in-group">
 					<form id="signin-form" class="signin-form" method="POST" action="signin">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<input class="inform" type='email' name='email' id='signin-email' class='signin-email' placeholder='이메일 주소'>
 						<input class="inform" type='password' name='pwd' id='signin-pwd' class='signin-pwd' placeholder='비밀번호'>
 						<div id="checkboxArea">
-							<input type='checkbox' name="loginCookie" id="loginCookie" class="loginCookie"> <label for="loginCookie"></label>자동로그인
+							<input type='checkbox' name="remember-me" id="remember-me" class="remember-me"> <label for="remember-me"></label>자동로그인
 						</div>
 						<div class="error_msg"></div>
 						<button class="logBtn" type="submit">로그인</button>
@@ -53,6 +54,7 @@
 					<div class="sign-up-group">
 						<form name="signupF" method="POST" id="signup-form" class="signup-form" action="signup">
 							<div class="infoArea">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								<input class="inform" type='text' name='name' id="name" placeholder='이름'>
 								<input class="inform" type='email' name='email' id="email" placeholder='이메일 주소'> 
 								<input class="inform" type='password' name='pwd' id="pwd" placeholder='비밀번호'> 

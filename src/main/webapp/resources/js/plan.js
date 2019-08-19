@@ -68,7 +68,7 @@ $(document).ready(function() {
 	$('.plan-date-box').children('.plan-date-list1').css('background-color','#009ce9');
 	var str = $('.'+planDateBox).find('.region').text();
 	setZoomforSelectedLoc(str);
-	setTitleName(str);
+	setTitleName(str);	
 	// ------ page init end-------------------
 
 	// DAY 누를 시 도시 리스트(지역 선택 리스트) 출력
@@ -299,7 +299,8 @@ function initScheduleDetailBox(day){
 }
 //city list에서 item 선택시 schedule detail box 안에 넣는 메소드
 function insertItemInScheduleDetailBox(id,img,name,addr,day,mapxy){
-	$('.schedule-detail-box').append('<div id="'+id+'" name="'+day+'" class="schedule-item-wrapper">'
+	$('.item-detail-box').css('display','inline-block');
+	$('.item-detail-box').append('<div id="'+id+'" name="'+day+'" class="schedule-item-wrapper">'
 			+ '<div class="schedule-item-img" name="'+mapxy+'"><img style="width:60px; height:60px;" src="'+img+'" ></div>'
 			+ '<div class="schedule-item-name">' + name
 			+ '<div class="schedule-item-addr">'+ addr +'</div>'
@@ -474,14 +475,12 @@ function toggleCityList(setTime,mapPos,tog){
 	$('.city-list').animate({
 	      width: tog
 	},setTime);
-	//350px 일때 map 크기 -350px 0px 일때 map 크기 +350px;
-	var widthBefore = ($('#map').css('width')).split('px');
-	if(parseInt(mapPos) == 350 && widthBefore[0] > 999){
-		width = parseInt(widthBefore[0]) - 350;
-	}else if(parseInt(mapPos) == 0){
-		width = parseInt(widthBefore[0]) + 350;
+	if(parseInt(mapPos) == 350){ // > 클릭 시 
+		$('#map').attr('style', 'width:-webkit-calc(100% - 350px) !important; width:calc(100% - 350px) !important; position:relative; overflow:hidden;');
+	}else if(parseInt(mapPos) == 0){ // < 클릭 시 
+		$('#map').attr('style', 'width: 100% !important; position:relative; overflow:hidden;');
 	}
-	$('#map').css('width', width+'px');
+	//$('#map').css('width', '100%');
 	google.maps.event.trigger(map, 'resize');
 	map.setCenter(map.getCenter());
 	$('#map').css('left', mapPos+'px');
