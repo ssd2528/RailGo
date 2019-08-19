@@ -120,7 +120,7 @@
 						<div class="origin"></div>
 						<div class=transit-find-text>도착지</div>
 						<div class="destination"></div>
-						<div class="find">길 찾기</div>
+						<div class="transit-find-btn">길 찾기</div>
 					</div>
 					<div class="city-list" style="display:none;">
 						<div class="list-close"> &lt;</div>
