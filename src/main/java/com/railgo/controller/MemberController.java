@@ -71,7 +71,7 @@ public class MemberController {
 		
 		log.info("update ajax post........");
 		
-		String uploadFolder = "C:\\Upload\\temp";
+		String uploadFolder = "C:\\upload\\temp";
 		
 		for (MultipartFile multipartFile : uploadFile) {
 			

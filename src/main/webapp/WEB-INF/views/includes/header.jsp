@@ -25,9 +25,9 @@
 										<c:when test="${memadd.profile == null}">
 											<c:choose>
 												<c:when test="${member.gender eq 'M'}"><a href="../member/timeline" class="member-img">
-												<img src="../img/member/default_profile_m.png" alt="프로필 남" ></a></c:when>
+												<img src="/img/member/default_profile_m.png" alt="프로필 남" ></a></c:when>
 												<c:when test="${member.gender eq 'F'}"><a href="../member/timeline" class="member-img">
-												<img src="../img/member/default_profile_f.png" alt="프로필 여" ></a></c:when>
+												<img src="/img/member/default_profile_f.png" alt="프로필 여" ></a></c:when>
 											</c:choose>	
 										</c:when>
 									</c:choose>

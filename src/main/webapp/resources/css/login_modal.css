@@ -49,8 +49,8 @@
 
 #checkboxArea {margin-top: 5px; padding-top: 4px;}
 input[type="checkbox"] {display: none;}
-input[id="loginCookie"]+label {display: inline-block; width: 1rem; height: 1rem; cursor: pointer; border-radius: 3px; float: left; margin: 2px; border: 1px solid black;}
-input[id="loginCookie"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%; background-size: 1rem;}
+input[id="remember-me"]+label {display: inline-block; width: 1rem; height: 1rem; cursor: pointer; border-radius: 3px; float: left; margin: 2px; border: 1px solid black;}
+input[id="remember-me"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%; background-size: 1rem;}
 .logBtn {background-color: #009CE9; border: none; color: white; margin-top: 10px;
 	margin-bottom: 10px; padding: 3px; width: 250px; text-align: center;
 	text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer; }

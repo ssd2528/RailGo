@@ -39,29 +39,34 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	@Transactional
-	public void signup(MemberVO member) throws Exception {
-		memberMapper.signup(member); // 회원가입
+	public boolean signup(MemberVO member){
 		//String authKey = new TempKey().getKey(50, false); // 임의의 authKey 생성
 		//log.info("## authKey : " + authKey);
 		//member.setAuthKey(authKey);
 		//memberMapper.updateAuthKey(member); // 인증키 DB에 저장
 		
 		// 메일 작성 관련
-		MailUtils sendMail = new MailUtils(mailSender);
-		sendMail.setSubject("[RailGo] 회원가입 이메일 인증");
-		sendMail.setText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
-						.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
-						.append("<a href='http://localhost:8080/emailConfirm?email=")
-						.append(member.getEmail())
-						//.append("&authKey=")
-						//.append(authKey)
-						.append("' target='_blenk'>이메일 인증 확인</a>")
-						.toString()
-				);
-		sendMail.setFrom("leeghrbs13@gmail.com", "내일고");
-		sendMail.setTo(member.getEmail());
-		sendMail.send();
+		try {
+			MailUtils sendMail = new MailUtils(mailSender);
+			sendMail.setSubject("[RailGo] 회원가입 이메일 인증");
+			sendMail.setText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
+							.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
+							.append("<a href='http://localhost:8080/emailConfirm?email=")
+							.append(member.getEmail())
+							//.append("&authKey=")
+							//.append(authKey)
+							.append("' target='_blenk'>이메일 인증 확인</a>")
+							.toString()
+					);
+			sendMail.setFrom("leeghrbs13@gmail.com", "내일고");
+			sendMail.setTo(member.getEmail());
+			sendMail.send();
+			memberMapper.signup(member); // 회원가입
+			return true;
+		}catch(Exception e) {
+			System.out.println("## 에러 발생!! : " + e);
+			return false;
+		}
 	}
 	
 	@Override
