@@ -98,7 +98,8 @@
 					
 					<!-- 2. 상세 일정 정보(schedule-detail-box) -->
 					<div class="schedule-detail-box">
-						<div class="empty-detail-box">상세일정정보</div>	
+						<div class="empty-detail-box">상세일정정보</div>
+						<div class="item-detail-box"></div>	
 						<!-- ./ 2. 상세 일정 정보(schedule-detail-box)
 						<div class="schedule-item-wrapper">
 							<div class="schedule-item-img"></div>
@@ -116,11 +117,22 @@
 				<div class="map-search-view-cover">
 					<div class="list-cover"> &gt; </div>
 					<div class="transit-find" style="display:none;">
-						<div class=transit-find-text>출발지</div>
-						<div class="origin"></div>
-						<div class=transit-find-text>도착지</div>
-						<div class="destination"></div>
-						<div class="find">길 찾기</div>
+						<div class="transit-info-box">출발지와 도착지를 설정해주세요.</div>
+						<div class="transit-set-box">
+							<div class="transit-origin">
+								<span class="transit-find-text">출발지</span>
+								<input type="text" class="origin transit-find-input" readonly />
+							</div>
+							<div class="transit-destination">
+								<span class="transit-find-text">도착지</span>
+								<input type="text" class="destination transit-find-input" readonly />
+							</div>
+							
+							<div class="transit-find-btn">길 찾기</div>
+						</div>
+						<div class="transit-result-box">
+							출발지와 도착지 경로 부분
+						</div>
 					</div>
 					<div class="city-list" style="display:none;">
 						<div class="list-close"> &lt;</div>

@@ -37,7 +37,7 @@ public class PlannerController {
 		return mv;
 	}
 
-	// 카테고리 클릭 시, 클릭된 카테고리에 대한 리스트 목록 50개 뿌리기 
+	// [위치기반] 카테고리 클릭 시, 클릭된 카테고리에 대한 리스트 목록 50개 뿌리기 
 	@RequestMapping(value = "/plan/dataForTheme", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String dataForTheme(@RequestBody Map<String, String> param) {
