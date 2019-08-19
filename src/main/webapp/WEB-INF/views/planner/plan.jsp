@@ -99,25 +99,29 @@
 					<!-- 2. 상세 일정 정보(schedule-detail-box) -->
 					<div class="schedule-detail-box">
 						<div class="empty-detail-box">상세일정정보</div>	
-						<!-- 
+						<!-- ./ 2. 상세 일정 정보(schedule-detail-box)
 						<div class="schedule-item-wrapper">
 							<div class="schedule-item-img"></div>
 							<div class="schedule-item-name">
 								<div class="schedule-item-addr"></div>
 							</div>
 						</div>
-						 -->			
-					</div>
-					<!-- ./ 2. 상세 일정 정보(schedule-detail-box) -->
-					<!-- 3.  -->
-					<div class="">
-					</div>
+						 -->	
+						 <div class="get-directions">여행지 길 찾기</div>		
+					</div>		
 				</div>
 				<!-- ./plan-wrap -->
 				
 				<!-- 지도 부분 -->
 				<div class="map-search-view-cover">
 					<div class="list-cover"> &gt; </div>
+					<div class="transit-find" style="display:none;">
+						<div class=transit-find-text>출발지</div>
+						<div class="origin"></div>
+						<div class=transit-find-text>도착지</div>
+						<div class="destination"></div>
+						<div class="find">길 찾기</div>
+					</div>
 					<div class="city-list" style="display:none;">
 						<div class="list-close"> &lt;</div>
 						<div class="list-title">
@@ -191,9 +195,9 @@
 						<div class="city-list-body">
 							<input type="search" class="list-search" placeholder="장소검색">
 							<div class="list-theme-wrapper">
-								<div class="list-theme-accom"></div>
-								<div class="list-theme-food"></div>
 								<div class="list-theme-tour"></div>
+								<div class="list-theme-accom"></div>
+								<div class="list-theme-food"></div>	
 							</div>
 							<div class="selected-theme-list">
 							<!-- 
@@ -222,6 +226,10 @@
 			        zoom: 7,
 			        minZoom:7
 			    });	
+			    // Create a renderer for directions and bind it to the map.
+			    directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+				// Instantiate a directions service.
+		        directionsService = new google.maps.DirectionsService;
 			    google.maps.event.addListener(map,'dragend', function() {  
 			   		dragMapEvent()
 			      });  
