@@ -147,10 +147,7 @@ $(document).ready(function() {
 				break;
 			}else{continue;}
 		}
-		var edb = $('.empty-detail-box').css('display');
-		if(edb == 'inline-block'){
-			 $('.empty-detail-box').css('display','none');
-		}
+		initScheduleDetailBox($('.'+planDateBox).children('.detail-box').attr('id'));
 		id = $(this).parent().attr('id');
 		img = $(this).parent().children('.item-img-box').children('.img-size').attr('src');
 		name = $(this).parent().children('.item-info-box').text();
@@ -281,12 +278,14 @@ function calculateAndDisplayRoute(originLat, originLng, destLat, destLng) {
 //선택된 일정 삭제 버튼 누를 시 더이상 남은 일정이 없을시 empty detail box 출력 기능.
 function initScheduleDetailBox(day){
 	let count = 0;
-	$('.schedule-detail-box').children().hide();
-	$('.schedule-detail-box').children('.get-directions').show();
 	if(day === null){
+		$('.item-detail-box').hide();
 		$('.schedule-detail-box').children('.empty-detail-box').show();
 	}else{
+		$('.schedule-detail-box').children('.empty-detail-box').hide();
+		$('.item-detail-box').show();
 		let items = $('.schedule-item-wrapper');
+		items.hide();
 		for(let item of items){
 			let itemDay = $(item).attr('name');
 			if(day === itemDay){
@@ -299,6 +298,7 @@ function initScheduleDetailBox(day){
 }
 //city list에서 item 선택시 schedule detail box 안에 넣는 메소드
 function insertItemInScheduleDetailBox(id,img,name,addr,day,mapxy){
+	$('.empty-detail-box').css('display','none');
 	$('.item-detail-box').css('display','inline-block');
 	$('.item-detail-box').append('<div id="'+id+'" name="'+day+'" class="schedule-item-wrapper">'
 			+ '<div class="schedule-item-img" name="'+mapxy+'"><img style="width:60px; height:60px;" src="'+img+'" ></div>'
