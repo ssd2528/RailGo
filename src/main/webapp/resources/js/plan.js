@@ -69,6 +69,7 @@ $(document).ready(function() {
 	var str = $('.'+planDateBox).find('.region').text();
 	setZoomforSelectedLoc(str);
 	setTitleName(str);	
+	$('.return-btn').css('display','none'); // 초기값 안보이게 ※
 	// ------ page init end-------------------
 
 	// DAY 누를 시 도시 리스트(지역 선택 리스트) 출력
@@ -102,7 +103,7 @@ $(document).ready(function() {
 	$('.title-name').on('click',function(){
 		toggleSelectCity();
 	});
-	//지역을 선택하세요.의 지역 목록에서 지역 선택할때 발생하는 이벤트
+	// 지역을 선택하세요.의 지역 목록에서 지역 선택할때 발생하는 이벤트
 	$('.city-item').on('click',function(){
 		var name = $(this).text();
 		$('.title-name').text(name+' ▼');
@@ -111,7 +112,7 @@ $(document).ready(function() {
 		setZoomforSelectedLoc(name);
 		setSelectedTheme('tour');
 	});
-	//숙박,식당,관광 테마 버튼 선택시 발생하는 이벤트
+	// 숙박,식당,관광 테마 버튼 선택시 발생하는 이벤트
 	$('.list-theme-wrapper').children().on('click',function(){
 		if($('.list-title').children('.title-name').text() == '지역을 선택하세요.▼'){
 			alert('지역을 먼저 선택해주세요.');
@@ -233,6 +234,11 @@ function setGetDirectionBtn(planDateBox){
 function toggleTransitFind(transWidth,listWidth){
 	$('.transit-find').children('.origin').text('');
 	$('.transit-find').children('.destination').text('');
+	$('.transit-find').animate({width:'show'},80);
+	$('.city-list').animate({width:'hide'},100);
+	
+	$('.return-btn').animate({width:'show'},100); // ※
+	$('.return-btn').css('display','block'); // return-btn 보이게하기 ※
 	$('.transit-find').animate({
 	      width: transWidth
 	},80);
@@ -248,6 +254,7 @@ function hideTransitFind(){
 	},80);
 	$('.schedule-item-wrapper').css('cursor','default');
 }
+
 //교통 길찾기 경로 거리 계산 메소드
 function calculateAndDisplayRoute(originLat, originLng, destLat, destLng) {
 	console.log(originLat+','+originLng+','+destLat+','+destLng);
@@ -669,3 +676,17 @@ function setLocMarker() {
 		}
 	});
 }
+
+
+$(document).ready(function(){
+	// 장소 검색 (list-search-text)
+	if($('.title-name').text()=='지역을 선택하세요.▼') {
+		$('.list-search-text').attr('readonly',true);
+		$('.list-search-text').css({'outline':'0', 'cursor':'default'});
+	}
+	
+	$('.list-search-text').keypress(function(){
+		var searchText = $('.list-search-text').val();
+		console.log(searchText);
+	});
+});
