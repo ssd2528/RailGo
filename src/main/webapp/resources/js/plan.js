@@ -69,6 +69,8 @@ $(document).ready(function() {
 	var str = $('.'+planDateBox).find('.region').text();
 	setZoomforSelectedLoc(str);
 	setTitleName(str);	
+	
+	$('.return-btn').css('display','none'); // 초기값 안보이게 ※
 	// ------ page init end-------------------
 
 	// DAY 누를 시 도시 리스트(지역 선택 리스트) 출력
@@ -101,7 +103,7 @@ $(document).ready(function() {
 	$('.title-name').on('click',function(){
 		toggleSelectCity();
 	});
-	//지역을 선택하세요.의 지역 목록에서 지역 선택할때 발생하는 이벤트
+	// 지역을 선택하세요.의 지역 목록에서 지역 선택할때 발생하는 이벤트
 	$('.city-item').on('click',function(){
 		var name = $(this).text();
 		$('.title-name').text(name+' ▼');
@@ -110,7 +112,7 @@ $(document).ready(function() {
 		setZoomforSelectedLoc(name);
 		setSelectedTheme('tour');
 	});
-	//숙박,식당,관광 테마 버튼 선택시 발생하는 이벤트
+	// 숙박,식당,관광 테마 버튼 선택시 발생하는 이벤트
 	$('.list-theme-wrapper').children().on('click',function(){
 		if($('.list-title').children('.title-name').text() == '지역을 선택하세요.▼'){
 			alert('지역을 먼저 선택해주세요.');
@@ -169,7 +171,8 @@ $(document).ready(function() {
 		initScheduleDetailBox(day);
 		MarkerHoverColorChange(id,'out');
 	});
-	// 여행지 길 찾기 누를시 해당하는 DAY에 추가된 일정들의 거리를 계산해서 보여주기 위한 이벤트 메소드
+	
+	// '여행지 길 찾기' 누를시 해당하는 DAY에 추가된 일정들의 거리를 계산해서 보여주기 위한 이벤트 메소드
 	$('.get-directions').click(function(){
 		let day = $('.'+planDateBox).children('.detail-box').attr('id');
 		console.log(day);
@@ -180,6 +183,7 @@ $(document).ready(function() {
 		destmapxy = destmapxy.split(',');
 		calculateAndDisplayRoute(parseFloat(orimapxy[1]),parseFloat(orimapxy[0]),parseFloat(destmapxy[1]),parseFloat(destmapxy[0]));
 	});
+	
 });
 let map;
 var markers = [];
@@ -189,13 +193,13 @@ let directDisplay;
 let directionsService;
 //길 찾기를 눌렀을때 출발지와 도착지를 입력받기 위한 창 출력 메소드
 function showTransitFind(){
-	$('.transit-find').animate({
-	      width: 'show'
-	},80);
-	$('.city-list').animate({
-	      width: 'hide'
-	},100);
+	$('.transit-find').animate({width:'show'},80);
+	$('.city-list').animate({width:'hide'},100);
+	
+	$('.return-btn').animate({width:'show'},100); // ※
+	$('.return-btn').css('display','block'); // return-btn 보이게하기 ※
 }
+
 //교통 길찾기 경로 거리 계산 메소드
 function calculateAndDisplayRoute(originLat, originLng, destLat, destLng) {
 	console.log(originLat+','+originLng+','+destLat+','+destLng);
@@ -222,6 +226,7 @@ function calculateAndDisplayRoute(originLat, originLng, destLat, destLng) {
 	    }
 	});
 }
+
 //DAY1~7버튼 클릭시 schedule detail box 초기화 메소드
 //선택된 일정 삭제 버튼 누를 시 더이상 남은 일정이 없을시 empty detail box 출력 기능.
 function initScheduleDetailBox(day){
@@ -230,6 +235,7 @@ function initScheduleDetailBox(day){
 	if(day === null){
 		$('.schedule-detail-box').children('.empty-detail-box').show();
 	}else{
+		$('.item-detail-box').css('display','inline-block');
 		let items = $('.schedule-item-wrapper');
 		for(let item of items){
 			let itemDay = $(item).attr('name');
@@ -613,3 +619,17 @@ function setLocMarker() {
 		}
 	});
 }
+
+
+$(document).ready(function(){
+	// 장소 검색 (list-search-text)
+	if($('.title-name').text()=='지역을 선택하세요.▼') {
+		$('.list-search-text').attr('readonly',true);
+		$('.list-search-text').css({'outline':'0', 'cursor':'default'});
+	}
+	
+	$('.list-search-text').keypress(function(){
+		var searchText = $('.list-search-text').val();
+		console.log(searchText);
+	});
+});

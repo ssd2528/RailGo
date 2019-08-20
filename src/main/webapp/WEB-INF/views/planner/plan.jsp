@@ -116,16 +116,20 @@
 				<!-- 지도 부분 -->
 				<div class="map-search-view-cover">
 					<div class="list-cover"> &gt; </div>
+					
+					<!-- 길찾기 부분 -->
 					<div class="transit-find" style="display:none;">
 						<div class="transit-info-box">출발지와 도착지를 설정해주세요.</div>
 						<div class="transit-set-box">
 							<div class="transit-origin">
 								<span class="transit-find-text">출발지</span>
-								<input type="text" class="origin transit-find-input" readonly />
+								<input type="text" class="origin transit-find-input" readonly /> 
+								<span class="reset-btn">&times;</span>
 							</div>
 							<div class="transit-destination">
 								<span class="transit-find-text">도착지</span>
 								<input type="text" class="destination transit-find-input" readonly />
+								<span class="reset-btn">&times;</span>
 							</div>
 							
 							<div class="transit-find-btn">길 찾기</div>
@@ -134,6 +138,9 @@
 							출발지와 도착지 경로 부분
 						</div>
 					</div>
+					<div class="return-btn">&lt;</div>
+					<!-- ./길찾기 부분 -->
+					
 					<div class="city-list" style="display:none;">
 						<div class="list-close"> &lt;</div>
 						<div class="list-title">
@@ -205,7 +212,7 @@
 							<!-- <input type="text" class="place-search-bar"> -->
 						</div>
 						<div class="city-list-body">
-							<input type="search" class="list-search" placeholder="장소검색">
+							<input type="search" class="list-search-text" placeholder="장소검색">
 							<div class="list-theme-wrapper">
 								<div class="list-theme-tour"></div>
 								<div class="list-theme-accom"></div>

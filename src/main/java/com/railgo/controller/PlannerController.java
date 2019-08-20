@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -61,7 +62,7 @@ public class PlannerController {
 		try {
 			String key = "5J1arCmxYhNIW8f4XlwopZ1O6GyDwUvcAFiUcxYHXROD95kIiO7pfYTye2eDqw551CuepQ1D3goC3BHHQptHCQ%3D%3D";
 			String urlStr = "http://api.visitkorea.or.kr/" + "openapi/service/rest/KorService/" + "locationBasedList"
-					+ "?serviceKey=" + key + "&numOfRows=50" + "&pageNo=1&MobileOS=ETC&MobileApp=AppTest" + "&arrange=B"
+					+ "?serviceKey=" + key + "&numOfRows=50" + "&pageNo=1&MobileOS=ETC&MobileApp=RailGo" + "&arrange=B"
 					+ "&contentTypeId=" + themeCode + "&mapX=" + xpos + "&mapY=" + ypos + "&radius=5000" + "&listYN=Y"
 					+ "&_type=json";
 			URL url = new URL(urlStr);
@@ -77,9 +78,17 @@ public class PlannerController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value="/searchKeyword")
+	@ResponseBody
+	public void searchKeyword(@RequestParam("keyword") String keyword) {
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?"
+				+ "ServiceKey=5J1arCmxYhNIW8f4XlwopZ1O6GyDwUvcAFiUcxYHXROD95kIiO7pfYTye2eDqw551CuepQ1D3goC3BHHQptHCQ%3D%3D"
+				+ "&keyword="+keyword+"&listYN=Y&MobileOS=ETC&MobileApp=RailGo&arrange=B&numOfRows=50&pageNo=1&_type=json";
+	}
 
 	
-	@RequestMapping(value = "/map/locData", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/map/locData", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String test5(@RequestBody Map<String, String> json) {
 		Map<String, String> m = json;
@@ -106,9 +115,9 @@ public class PlannerController {
 			System.out.println("error : " + e.getMessage());
 			return null;
 		}
-	}
+	}*/
 
-	@RequestMapping(value = "/nailerSchedule", produces = "text/html;charset=UTF-8")
+	/*@RequestMapping(value = "/nailerSchedule", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String test4() {
 		BufferedReader br = null;
@@ -130,5 +139,6 @@ public class PlannerController {
 			System.out.println("error : " + e.getMessage());
 			return null;
 		}
-	}
+	}*/
+	
 }
