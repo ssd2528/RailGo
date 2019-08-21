@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.railgo.service.APIService;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
@@ -25,6 +31,9 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/planner/*")
 @AllArgsConstructor
 public class PlannerController {
+	
+	@Autowired
+	private APIService apiService;
 
 	@RequestMapping("/plan")
 	public ModelAndView plan(HttpServletRequest request) {
@@ -79,16 +88,23 @@ public class PlannerController {
 		}
 	}
 	
-	@RequestMapping(value="/searchKeyword")
+	@RequestMapping(value="/searchKeyword", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public void searchKeyword(@RequestParam("keyword") String keyword) {
-		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?"
+	public String searchKeyword(@RequestParam("areaName") String areaName, @RequestParam("keyword") String keyword) throws Exception {
+		String areaCode = apiService.findAreaCode(areaName); // areaName을 받아서 areaCode 받는 부분
+		keyword = URLEncoder.encode(keyword, "UTF-8");
+		String urlStr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?"
 				+ "ServiceKey=5J1arCmxYhNIW8f4XlwopZ1O6GyDwUvcAFiUcxYHXROD95kIiO7pfYTye2eDqw551CuepQ1D3goC3BHHQptHCQ%3D%3D"
-				+ "&keyword="+keyword+"&listYN=Y&MobileOS=ETC&MobileApp=RailGo&arrange=B&numOfRows=50&pageNo=1&_type=json";
+				+ "&keyword="+keyword+areaCode+"&listYN=Y&MobileOS=ETC&MobileApp=RailGo&arrange=B&numOfRows=50&pageNo=1&_type=json";
+		System.out.println("## url : " + urlStr);
+		
+		String responseStr=null; 
+		responseStr = apiService.getResponseStr(urlStr);
+		return responseStr;
 	}
 
 	
-	/*@RequestMapping(value = "/map/locData", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
+	@RequestMapping(value = "/map/locData", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String test5(@RequestBody Map<String, String> json) {
 		Map<String, String> m = json;
@@ -115,9 +131,9 @@ public class PlannerController {
 			System.out.println("error : " + e.getMessage());
 			return null;
 		}
-	}*/
+	}
 
-	/*@RequestMapping(value = "/nailerSchedule", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/nailerSchedule", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String test4() {
 		BufferedReader br = null;
@@ -139,6 +155,6 @@ public class PlannerController {
 			System.out.println("error : " + e.getMessage());
 			return null;
 		}
-	}*/
+	}
 	
 }
