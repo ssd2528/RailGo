@@ -34,6 +34,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.railgo.domain.InfoItemDTO;
 import com.railgo.domain.CategoryVO;
+import com.railgo.service.APIService;
 import com.railgo.service.InfoService;
 
 import lombok.AllArgsConstructor;
@@ -45,6 +46,8 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class InfoController {
 	
+	@Autowired
+	private APIService apiService;
 	@Autowired
 	private InfoService infoService;
 	
@@ -65,26 +68,25 @@ public class InfoController {
 		
 		/*** TourAPI를 이용해 JSON데이터 추출하는 부분 ***/
 		String responseStr=null; JsonObject itemsObject=null; JsonArray itemsArray = null;
-		String areaCode = infoService.findAreaCode(areaName); // areaName을 받아서 areaCode 받는 부분
+		String areaCode = apiService.findAreaCode(areaName); // areaName을 받아서 areaCode 받는 부분
 		
 		String areaURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 				+ "ServiceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
 				+ "&listYN=Y&MobileOS=ETC&MobileApp=RailGo"
 				+ "&contentTypeId=12&cat1=B03&cat1=B03&arrange=B&numOfRows=1" + areaCode + "&_type=json";
 		System.out.println("## areaURL : " + areaURL);
-		responseStr = infoService.getResponseStr(areaURL);
-		itemsObject = infoService.getItemsObject(responseStr);
+		responseStr = apiService.getResponseStr(areaURL);
+		itemsObject = apiService.getItemsObject(responseStr);
 		int contentId = ((JsonObject) (itemsObject.get("item"))).get("contentid").getAsInt();
 		String areaOverviewURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
 				+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
 				+ "&MobileOS=ETC&MobileApp=RailGo&contentId="+contentId+"&overviewYN=Y&_type=json";
-		responseStr = infoService.getResponseStr(areaOverviewURL);
-		itemsObject = infoService.getItemsObject(responseStr);
-		String overview = infoService.getOverview(itemsObject);
+		responseStr = apiService.getResponseStr(areaOverviewURL);
+		itemsObject = apiService.getItemsObject(responseStr);
+		String overview = apiService.getOverview(itemsObject);
 		String overviews[] = overview.split("<br");
 		mv.addObject("overview", overviews[0]);
 		System.out.println("## overview : " + overviews[0] + "\n");
-		
 		
 		
 		String foodURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
@@ -92,9 +94,9 @@ public class InfoController {
 				+ "&numOfRows=3&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=P"
 				+ "&contentTypeId=39" // 음식점
 				+ areaCode + "&_type=json";
-		responseStr = infoService.getResponseStr(foodURL);
-		itemsObject = infoService.getItemsObject(responseStr);
-		itemsArray = infoService.makeItemsArray(itemsObject);
+		responseStr = apiService.getResponseStr(foodURL);
+		itemsObject = apiService.getItemsObject(responseStr);
+		itemsArray = apiService.makeItemsArray(itemsObject);
 		ArrayList<InfoItemDTO> foodList = makeDTOList(itemsArray);
 		mv.addObject("foodList", foodList);
 		
@@ -103,9 +105,9 @@ public class InfoController {
 				+ "&numOfRows=3&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=P"
 				+ "&contentTypeId=32" // 숙박
 				+ areaCode + "&_type=json";
-		responseStr = infoService.getResponseStr(accommURL);
-		itemsObject = infoService.getItemsObject(responseStr);
-		itemsArray = infoService.makeItemsArray(itemsObject);
+		responseStr = apiService.getResponseStr(accommURL);
+		itemsObject = apiService.getItemsObject(responseStr);
+		itemsArray = apiService.makeItemsArray(itemsObject);
 		ArrayList<InfoItemDTO> accomList = makeDTOList(itemsArray);		
 		mv.addObject("accomList", accomList);
 		
@@ -137,8 +139,6 @@ public class InfoController {
 		ArrayList<CategoryVO> cat3List = infoService.findCat3List(cat2);
 		return cat3List;
 	}	
-	
-	
 	// [관광명소] Filtering List
 	@GetMapping(value="/filter/{category}/{areaName}", produces = "application/json; charset=utf-8")
 	public ModelAndView filterHotplace(@PathVariable("category") String category, @PathVariable("areaName") String areaName, 
@@ -159,20 +159,20 @@ public class InfoController {
 		if(arrange==null) arrange="C";		mv.addObject("arrange", arrange);
 		if(pageNo==null) pageNo="1";		mv.addObject("currentPage", pageNo);
 		
-		String areaCode = infoService.findAreaCode(areaName); 
+		String areaCode = apiService.findAreaCode(areaName); 
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 				+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
 				+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=" + arrange + "&contentTypeId="+ contentTypeId + areaCode 
 				+ "&cat1="+cat1+"&cat2="+cat2+"&cat3="+cat3
 				+ "&pageNo=1&numOfRows=9999&_type=json";
 		System.out.println("## url : "  + url);
-		String responseStr = infoService.getResponseStr(url);
+		String responseStr = apiService.getResponseStr(url);
 		
-		int totalCount = infoService.getTotalCount(responseStr); mv.addObject("totalCount", totalCount); 
+		int totalCount = apiService.getTotalCount(responseStr); mv.addObject("totalCount", totalCount); 
 		if(totalCount==0) return mv;
 		
-		JsonObject itemsObject = infoService.getItemsObject(responseStr);
-		JsonArray itemsArray = infoService.makeItemsArray(itemsObject);
+		JsonObject itemsObject = apiService.getItemsObject(responseStr);
+		JsonArray itemsArray = apiService.makeItemsArray(itemsObject);
 		ArrayList<InfoItemDTO> resultList = makeDTOList(itemsArray);
 		mv.addObject("list", resultList);
 		return mv;
@@ -198,7 +198,7 @@ public class InfoController {
 		// arrange 
 		if(arrange==null) arrange = "C"; mv.addObject("arrange", arrange);		
 
-		String areaCode = infoService.findAreaCode(areaName); 
+		String areaCode = apiService.findAreaCode(areaName); 
 		ArrayList<Integer> categoryList = infoService.findContentTypeId(category);
 		int numOfRows = category.equals("hotplace") ? 9999 : 10;
 		
@@ -211,10 +211,10 @@ public class InfoController {
 					+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=C" + "&contentTypeId="+ contentTypeId + areaCode 
 					+ "&pageNo=" + pageNo +"&numOfRows=" + numOfRows + "&_type=json";
 			System.out.println("## url : " + url);
-			responseStr = infoService.getResponseStr(url);
-			totalCount += infoService.getTotalCount(responseStr);
-			itemsObject = infoService.getItemsObject(responseStr);
-			itemsArray = infoService.makeItemsArray(itemsObject);
+			responseStr = apiService.getResponseStr(url);
+			totalCount += apiService.getTotalCount(responseStr);
+			itemsObject = apiService.getItemsObject(responseStr);
+			itemsArray = apiService.makeItemsArray(itemsObject);
 			System.out.println("## itemsArray : " + itemsArray + "\n\n");
 			resultArray.addAll(itemsArray);
 		}
@@ -259,7 +259,7 @@ public class InfoController {
 		mv.addObject("currentPage", pageNo);
 		pageNo = category.equals("hotplace") ? 1 : pageNo; 
 		
-		String areaCode = infoService.findAreaCode(areaName); 
+		String areaCode = apiService.findAreaCode(areaName); 
 		ArrayList<Integer> categoryList = infoService.findContentTypeId(category);
 		int numOfRows = category.equals("hotplace") ? 9999 : 10;
 		
@@ -272,10 +272,10 @@ public class InfoController {
 					+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange="+ arrange + "&contentTypeId="+ contentTypeId + areaCode 
 					+ "&pageNo=" + pageNo + "&numOfRows=" + numOfRows + "&_type=json";
 			//System.out.println("## url : " + url);
-			responseStr = infoService.getResponseStr(url);
-			totalCount += infoService.getTotalCount(responseStr);
-			itemsObject = infoService.getItemsObject(responseStr);
-			itemsArray = infoService.makeItemsArray(itemsObject);
+			responseStr = apiService.getResponseStr(url);
+			totalCount += apiService.getTotalCount(responseStr);
+			itemsObject = apiService.getItemsObject(responseStr);
+			itemsArray = apiService.makeItemsArray(itemsObject);
 			System.out.println("## itemsArray : " + itemsArray + "\n\n");
 			resultArray.addAll(itemsArray);
 		}
@@ -317,7 +317,7 @@ public class InfoController {
 		if(arrange==null) arrange = "C"; // 초기값은 최신순(C)
 		mv.addObject("arrange", arrange);		
 		
-		String areaCode = infoService.findAreaCode(areaName); 
+		String areaCode = apiService.findAreaCode(areaName); 
 		ArrayList<Integer> categoryList = infoService.findContentTypeId(category);
 		int numOfRows = category.equals("hotplace") ? 9999 : 10;
 		
@@ -332,8 +332,8 @@ public class InfoController {
 					+ "&pageNo=" + pageNo +"&numOfRows=" + numOfRows 
 					+ "&cat1=" + cat1 + "&cat2=" + cat2 + "&cat3=" + cat3 +"&_type=json";
 			System.out.println("## url : " + url);
-			responseStr = infoService.getResponseStr(url);
-			totalCount += infoService.getTotalCount(responseStr);
+			responseStr = apiService.getResponseStr(url);
+			totalCount += apiService.getTotalCount(responseStr);
 		}
 		mv.addObject("totalCount", totalCount); 
 		if(totalCount==0) return mv; // 조회수가 0개이면 바로 return;
@@ -345,14 +345,14 @@ public class InfoController {
 					+ "&pageNo=" + pageNo +"&numOfRows=" + numOfRows 
 					+ "&cat1=" + cat1 + "&cat2=" + cat2 + "&cat3=" + cat3 +"&_type=json";
 			System.out.println("## url : " + url);
-			responseStr = infoService.getResponseStr(url);
+			responseStr = apiService.getResponseStr(url);
 			//totalCount += infoService.getTotalCount(responseStr);
-			itemsObject = infoService.getItemsObject(responseStr);
+			itemsObject = apiService.getItemsObject(responseStr);
 			
 			if(totalCount == 1) {
 				resultArray.add(itemsObject.get("item"));
 			}else {
-				itemsArray = infoService.makeItemsArray(itemsObject);
+				itemsArray = apiService.makeItemsArray(itemsObject);
 				System.out.println("## itemsArray : " + itemsArray + "\n\n");
 				resultArray.addAll(itemsArray);
 			}
@@ -395,9 +395,9 @@ public class InfoController {
 			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
 				+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
 				+ "&MobileOS=ETC&MobileApp=RailGo&contentId="+contentId+"&overviewYN=Y&_type=json";
-			responseStr = infoService.getResponseStr(url);
-			itemsObject = infoService.getItemsObject(responseStr);
-			overview = infoService.getOverview(itemsObject);
+			responseStr = apiService.getResponseStr(url);
+			itemsObject = apiService.getItemsObject(responseStr);
+			overview = apiService.getOverview(itemsObject);
 			dto.setOverview(overview); */
 			
 			list.add(dto);
