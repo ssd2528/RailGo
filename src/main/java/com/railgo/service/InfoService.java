@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.railgo.domain.CategoryVO;
+import com.railgo.domain.ReviewJoinDTO;
+import com.railgo.domain.ReviewVO;
+import com.railgo.domain.TripImageVO;
 
 public interface InfoService {
 	CategoryVO findCatNameByCat3(String cat3); // cat3을 통해 cat1Name, cat2Name, cat3Name 찾는 메소드
 	 
 	ArrayList<Integer> findContentTypeId(String category); // category로 contentTypeId 찾는 메소드
 		
-	ArrayList<CategoryVO> findCat3ListByContentType(String contentTypeName); // contentTypeName으로 cat3, cat3Name 목록 받기
+	ArrayList<CategoryVO> findCat3ListByContentType(String contentTypeName); // contentTypeName으로 cat3, cat3Name 목록 받는 메소드
 	ArrayList<CategoryVO> findContentTypeList(ArrayList<Integer> contentTypeList);
 
 	ArrayList<CategoryVO> findCat1List(int contentTypeId); 

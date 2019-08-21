@@ -45,13 +45,13 @@
 	
 	
 	<!-- web socket -->
-	<websocket:handlers>
+	<!-- <websocket:handlers>
 		<websocket:mapping handler="webSocketHandler" path="/socket"/>
 		<websocket:handshake-interceptors>
 			<beans:bean class="com.railgo.socket.HandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
-	<beans:bean id="webSocketHandler" class="com.railgo.socket.WebSocketHandler" />
+	<beans:bean id="webSocketHandler" class="com.railgo.socket.WebSocketHandler" /> -->
 
 
 </beans:beans>

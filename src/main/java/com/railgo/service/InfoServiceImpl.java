@@ -16,7 +16,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.railgo.domain.CategoryVO;
+import com.railgo.domain.ReviewJoinDTO;
+import com.railgo.domain.ReviewVO;
+import com.railgo.domain.TripImageVO;
 import com.railgo.mapper.CategoryMapper;
+import com.railgo.mapper.ReviewMapper;
+import com.railgo.mapper.TripImageMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -28,7 +33,9 @@ public class InfoServiceImpl implements InfoService {
 
 	@Autowired
 	private CategoryMapper categoryMapper;
+	@Autowired
 	private ReviewMapper reviewMapper;
+	@Autowired
 	private TripImageMapper imgMapper;
 	
 	@Override

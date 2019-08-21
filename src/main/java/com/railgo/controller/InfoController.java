@@ -396,8 +396,8 @@ public class InfoController {
 				+ "&MobileOS=ETC&MobileApp=RailGo&listYN=Y" + "&contentId=" + contentid // 컨텐트id 매칭
 				+ "&contentTypeId=" + contenttypeid // 컨텐트타입 매칭
 				+ "&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y" + "&_type=json";
-		responseStr = infoService.getResponseStr(baseURL);
-		itemsObject = infoService.getItemsObject(responseStr);
+		responseStr = apiService.getResponseStr(baseURL);
+		itemsObject = apiService.getItemsObject(responseStr);
 		itemObject = (JsonObject) itemsObject.get("item");
 
 		InfoItemDTO dto = new Gson().fromJson(itemObject, InfoItemDTO.class); // itemObject를 AreaBasedItemDTO에 담기 ( Json
@@ -415,8 +415,8 @@ public class InfoController {
 				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
 				+ "&numOfRows=10&MobileOS=ETC&MobileApp=RailGo" + "&contentId=" + contentid + "&contentTypeId="
 				+ contenttypeid + "&_type=json";
-		responseStr = infoService.getResponseStr(detailURL);
-		itemsObject = infoService.getItemsObject(responseStr);
+		responseStr = apiService.getResponseStr(detailURL);
+		itemsObject = apiService.getItemsObject(responseStr);
 		itemObject = (JsonObject) itemsObject.get("item");
 		if (contenttypeid == 39) {
 			if(itemObject.get("opentimefood")!=null) {
@@ -433,19 +433,19 @@ public class InfoController {
 				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
 				+ "&numOfRows=2&MobileOS=ETC&MobileApp=RailGo" + "&contentId=" + contentid + "&imageYN=Y"
 				+ "&_type=json";
-		responseStr = infoService.getResponseStr(imageURL);
-		int total = infoService.getTotalCount(responseStr);
+		responseStr = apiService.getResponseStr(imageURL);
+		int total = apiService.getTotalCount(responseStr);
 		if (total == 0) {
 			mv.addObject("img1", null);
 			mv.addObject("img2", null);
 		} else if (total == 1) {
-			itemsObject = infoService.getItemsObject(responseStr);
+			itemsObject = apiService.getItemsObject(responseStr);
 			itemObject = (JsonObject) itemsObject.get("item");
 			mv.addObject("img1", itemObject.get("originimgurl").getAsString());
 			mv.addObject("img2", null);
 		} else {
-			itemsObject = infoService.getItemsObject(responseStr);
-			itemsArray = infoService.makeItemsArray(itemsObject);
+			itemsObject = apiService.getItemsObject(responseStr);
+			itemsArray = apiService.makeItemsArray(itemsObject);
 			mv.addObject("img1", ((JsonObject) itemsArray.get(0)).get("originimgurl").getAsString());
 			mv.addObject("img2", ((JsonObject) itemsArray.get(1)).get("originimgurl").getAsString());
 		}
@@ -454,9 +454,9 @@ public class InfoController {
 				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
 				+ "&numOfRows=3&MobileOS=ETC&MobileApp=RailGo&arrange=E" + "&contentTypeId=" + contenttypeid + "&mapX="
 				+ mapx + "&mapY=" + mapy + "&radius=100000000&listYN=Y" + "&_type=json";
-		responseStr = infoService.getResponseStr(locURL);
-		itemsObject = infoService.getItemsObject(responseStr);
-		itemsArray = infoService.makeItemsArray(itemsObject);
+		responseStr = apiService.getResponseStr(locURL);
+		itemsObject = apiService.getItemsObject(responseStr);
+		itemsArray = apiService.makeItemsArray(itemsObject);
 		for (int i = 1; i < itemsArray.size(); i++) { // 거리순이라 0번째는 자기 자신이기 때문에 1부터 추출
 			JsonObject locObject = (JsonObject) itemsArray.get(i); // 각 locObject 추출
 			InfoItemDTO infoDto = new Gson().fromJson(locObject, InfoItemDTO.class); // 각 locObject를 infoItemDTO에 담기 (
