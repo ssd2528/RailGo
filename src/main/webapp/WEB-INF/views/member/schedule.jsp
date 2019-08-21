@@ -30,43 +30,8 @@
 			<!-- content -->
 			<div class="content">
 				<div class="content-wrapper">
-	
-					<!-- profile-background -->
-					<div class="section-profilebg">
-						<a href="#"><img id="profilePicUpdate" src="../img/member/edit.png" alt="프로필 사진 수정"
-						onmouseover="this.src='../img/member/edit_hover.png'" onmouseout="this.src='../img/member/edit.png'"></a>
-					</div>
-					<!-- /profile-background -->
-	
-					<!-- profile-info -->
-					<div class="profile-info">
-						<!-- profile-img -->
-						<div class="profile-img clearfix">
-							<img src="../img/member/default_profile_f.png" alt="프로필">
-						</div>
-						<!-- /profile-img -->
-	
-						<!-- profile-detail -->
-						<div class="profile-detail">
-							<div class="row1">
-								<span class="user-name">사용자 닉네임</span> <span>포스팅</span> <span>팔로워</span>
-								<span>팔로잉</span>
-							</div>
-							<div class="row2">
-								<span class="user-id">@UserId</span> <span class="posting">0</span>
-								<span class="follower">0</span> <span class="following">0</span>
-							</div>
-						</div>
-						<!-- /profile-detail -->
-	
-						<!-- tab-list -->
-						<div class="tab-list">
-							<a href="../member/timeline" class="timeline1">타임라인</a> 
-							<a href="../member/schedule" class="schedule">일정관리</a>
-						</div>
-						<!-- /tab-list -->
-					</div>
-					<!-- /profile-info -->
+				<!-- member-info -->
+				<%@include file="../includes/member_info.jsp"%>
 					<!-- section-main -->
 					<div class="section-main clearfix">
 						<div class="article-wrapper">

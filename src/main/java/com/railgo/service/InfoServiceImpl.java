@@ -1,8 +1,10 @@
 package com.railgo.service;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.railgo.domain.CategoryVO;
@@ -134,7 +137,16 @@ public class InfoServiceImpl implements InfoService {
 	
 	@Override
 	public JsonArray makeItemsArray(JsonObject itemsObject) {
-		JsonArray itemsArray = (JsonArray) itemsObject.get("item"); 
+		JsonArray itemsArray = null;
+		if(itemsObject.get("item").isJsonObject()) { // 배열이 아닌  {}로 둘러쌓여 있는 경우 
+			String itemsObjectStr = "[".concat(itemsObject.get("item").toString().concat("]"));
+			System.out.println("## itemsObjectStr : " + itemsObjectStr);
+			JsonParser jsonParser = new JsonParser();
+			itemsArray = (JsonArray) jsonParser.parse(itemsObjectStr);
+			System.out.println("## 가공된 itemsArray : " + itemsArray);
+		}else {
+			itemsArray = (JsonArray) itemsObject.get("item"); 
+		}
 		return itemsArray;
 	}
 	
@@ -178,9 +190,37 @@ public class InfoServiceImpl implements InfoService {
 	}
 
 
-	@Override
+	/*@Override
 	public ArrayList<CategoryVO> findCat3List(String contentTypeName) {
 		return categoryMapper.findCat3List(contentTypeName);
+	}*/
+	@Override
+	public ArrayList<CategoryVO> findCat3ListByContentType(String contentTypeName) {
+		return categoryMapper.findCat3ListByContentType(contentTypeName);
+	}
+	@Override
+	public ArrayList<CategoryVO> findContentTypeList(ArrayList<Integer> contentTypeList) {
+		ArrayList<CategoryVO> list = new ArrayList<CategoryVO>();
+		for(int contentTypeId : contentTypeList) {
+			list.add(categoryMapper.findContentTypeList(contentTypeId));
+		}
+		return list;
+	}
+	
+	@Override 
+	public ArrayList<CategoryVO> findCat1List(int contentTypeId){
+		return categoryMapper.findCat1List(contentTypeId);
+	}
+	@Override 
+	public ArrayList<CategoryVO> findCat2List(int contentTypeId, String cat1){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("contentTypeId", contentTypeId);
+		map.put("cat1", cat1);
+		return categoryMapper.findCat2List(map);
+	}
+	@Override 
+	public ArrayList<CategoryVO> findCat3List(String cat2){
+		return categoryMapper.findCat3List(cat2);
 	}
 	
 	@Override

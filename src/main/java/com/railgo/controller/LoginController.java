@@ -28,10 +28,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.railgo.domain.MemberAddVO;
 import com.railgo.domain.MemberVO;
 import com.railgo.mapper.MailUtils;
 import com.railgo.oauth.KakaoAccessToken;
 import com.railgo.oauth.KakaoUserInfo;
+import com.railgo.oauth.NaverLoginBO;
 import com.railgo.service.MemberService;
 import com.sun.mail.iap.Response;
 
@@ -44,6 +49,12 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/")
 @AllArgsConstructor
 public class LoginController {
+	
+	private NaverLoginBO naverLoginBO;
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
 	
 	@Autowired
 	private MemberService memberService;
@@ -71,9 +82,13 @@ public class LoginController {
 		ModelAndView mv = new ModelAndView();
 		if(status == null) {
 			System.out.println("### 내일고에서 회원가입 ");
-			memberService.signup(member); // 회원가입
+			if(memberService.signup(member)) { // 회원가입
+				rttr.addFlashAttribute("msg", "가입시 사용한 이메일로 인증해주세요.");
+			}else {
+				rttr.addFlashAttribute("msg", "Error");
+			}
 			mv.setViewName("redirect:/");
-			rttr.addFlashAttribute("msg", "가입시 사용한 이메일로 인증해주세요.");
+			
 		} else if(status.equals("kakao") || status.equals("naver")) {
 			System.out.println("### 소셜에서 회원가입 ");
 			int check = memberService.findOne(member);
@@ -83,6 +98,9 @@ public class LoginController {
 			if(status.equals("kakao")) {
 				mv.addObject("email", member.getEmail());
 				mv.addObject("pwd", "kakao");
+			}else if(status.equals("naver")) {
+				mv.addObject("email", member.getEmail());
+				mv.addObject("pwd", "naver");
 			}
 			mv.addObject("request", "signin");
 		}
@@ -106,9 +124,11 @@ public class LoginController {
 		if(session.getAttribute("member") != null) { // 기존에 member란 세션 값이 존재한다면
 			session.removeAttribute("member"); // 기존 세션 값을 제거
 		}
-		
 		String rawPwd = vo.getPwd();
 		MemberVO member = memberService.signin(vo);
+		System.out.println("## member : " + member);
+		MemberAddVO memadd = memberService.selMemadd(member);
+		System.out.println("## memadd : " + memadd);
 		
 		if(member!=null) {
 			System.out.println("## 사용자 확인 ");
@@ -117,6 +137,7 @@ public class LoginController {
 			if(passwordEncoder.matches(rawPwd, encPwd) && member!=null) {  // 로그인 성공
 				System.out.println("## 로그인 성공!");
 				session.setAttribute("member", member);
+				session.setAttribute("memadd", memadd);
 				/* ------------------------------ 자동 로그인 부분 ------------------------------ 
 				if(request.getParameter("loginCookie").equals("true")) { 
 					// 로그인 성공 후, 자동로그인이 체크되어 있으면 (쿠키를 사용할 거라면)
@@ -141,7 +162,7 @@ public class LoginController {
 	}
 	
 	
-	// KaKao Signin
+	// KaKao Signin Callback
 	@RequestMapping(value="/kakaoSignin", produces = "application/json; charset=utf-8")
 	public ModelAndView kakaoSignin(@RequestParam("code") String code) throws Exception {
 		System.out.println("## kakao code : " + code);
@@ -164,7 +185,65 @@ public class LoginController {
 	}
 	
 	
+	// Naver Signin
+	@RequestMapping("/naver_url")
+	@ResponseBody
+	public String getNaverURL(HttpSession session) {
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		return naverAuthUrl;
+	}
+	// Naver Signin Callback
+	@RequestMapping(value="/naverSignin", produces="application/text; charset=UTF-8")
+	public ModelAndView naverSignin(@RequestParam("code") String code, @RequestParam String state, HttpSession session) throws Exception {
+    	OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+    	ObjectNode userInfo = new ObjectMapper().readValue(naverLoginBO.getUserProfile(oauthToken), ObjectNode.class);
+		System.out.println("## userInfo : " + userInfo);
+    	
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("autosign");
+		mv.addObject("email", userInfo.path("response").path("id").asText());
+        mv.addObject("name", userInfo.path("response").path("nickname").asText());
+        mv.addObject("pwd", "naver");
+        mv.addObject("gender", userInfo.path("response").path("gender").asText().equals("F") ? "F" : "M");
+        //mv.addObject("profile_pic", userInfo.path("response").path("profile_image").asText());
+        
+        mv.addObject("status", "naver");
+        mv.addObject("request", "signup");
+		
+		return mv;
+    }
 	
+	
+	// 이메일 보내기 (+인증번호)
+	@PostMapping("/sendUUID")
+	@ResponseBody
+	public ResponseEntity<String> findPassword(@RequestParam("email") String email) throws Exception{
+		int check = memberService.checkEmail(email);
+		if(check == 0) { // 회원가입을 하지 않았을 경우
+			return new ResponseEntity<String>("does not exit", HttpStatus.OK);
+		}else {
+			memberService.sendEmailByPwd(email);
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		}
+	}
+	
+	// 비밀번호 재설정으로 이동
+	@PostMapping("/settingPwd")
+	public ModelAndView goPwdSetting(@RequestParam("email") String email, @RequestParam("uuid") String uuid) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("includes/pwd_setting");
+		mv.addObject("email", email);
+		mv.addObject("uuid", uuid);
+		return mv;
+	}
+	
+	// 비밀번호 재설정
+	@PostMapping("/updatePassword")
+	public ResponseEntity<String> updatePassword(@RequestParam("email") String email, @RequestParam("pwd") String pwd) {
+		System.out.println(email + ' ' + pwd);
+		memberService.updatePwd(email, pwd);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 
 	
 	
@@ -177,7 +256,7 @@ public class LoginController {
 			MemberVO vo = (MemberVO) obj;
 			session.removeAttribute("member");
 			session.invalidate(); // 세션 전체 날리기
-			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			Cookie loginCookie = WebUtils.getCookie(request, "remember-me");
 			if(loginCookie != null){
                 loginCookie.setPath("/");
                 loginCookie.setMaxAge(0);

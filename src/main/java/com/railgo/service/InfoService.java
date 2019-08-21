@@ -24,7 +24,13 @@ public interface InfoService {
 	
 	String getOverview(JsonObject itemsObject);
 	
-	ArrayList<CategoryVO> findCat3List(String contentTypeName); // contentTypeName으로 cat3, cat3Name 목록 받기
+	//--ArrayList<CategoryVO> findCat3List(String contentTypeName); // contentTypeName으로 cat3, cat3Name 목록 받기
+	ArrayList<CategoryVO> findCat3ListByContentType(String contentTypeName); // contentTypeName으로 cat3, cat3Name 목록 받기
+	ArrayList<CategoryVO> findContentTypeList(ArrayList<Integer> contentTypeList);
+
+	ArrayList<CategoryVO> findCat1List(int contentTypeId); 
+	ArrayList<CategoryVO> findCat2List(int contentTypeId, String cat1); 
+	ArrayList<CategoryVO> findCat3List(String cat2);
 	ArrayList<String> findContentTypeName(ArrayList<Integer> contentTypeList);
 	
 	ArrayList<ReviewJoinDTO> findAllReview(int contentid); // contentid로 리뷰 찾기

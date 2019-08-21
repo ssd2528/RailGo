@@ -18,8 +18,9 @@
 	width:100px;
 	height:30px;
 	text-align:center;
-	border-bottom:4px solid #009CE9;
+	/* border-bottom:4px solid #009CE9; */
 }
+
 .schedule-select{
 	margin:0px 0px 40px 20px;
 }

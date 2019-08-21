@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
@@ -70,6 +71,8 @@
 		<property name="scope" value="https://www.googleapis.com/auth/plus.login" />
 		<property name="redirectUri" value="http://localhost:8080/googleSigninCallback" />
 	</bean>
+	
+	<bean id="NaverLoginBO" class="com.railgo.oauth.NaverLoginBO"/>
 
 	<tx:annotation-driven />
 

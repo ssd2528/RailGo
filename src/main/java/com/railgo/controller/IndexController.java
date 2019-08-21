@@ -8,7 +8,6 @@ import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,6 +24,7 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
+
 	@RequestMapping("/planner")
 	public String plannerList() {
 		return "planner/list";
