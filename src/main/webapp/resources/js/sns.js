@@ -17,4 +17,13 @@ $(document).ready(function(){
 		planner.css('color', 'black');
 	});
 	
+	// 이미지 슬라이더
+	$('.bxslider').bxSlider({
+        speed: 500,  // 애니메이션 속도
+        mode: 'horizontal', // 슬라이드 모드 ('fade', 'horizontal', 'vertical' 이 있음)
+        pager: false,
+        slideHeight: 500,
+        infiniteLoop: false,
+        hideControlOnEnd: true
+    });
 });

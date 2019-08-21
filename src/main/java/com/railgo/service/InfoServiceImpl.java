@@ -28,6 +28,8 @@ public class InfoServiceImpl implements InfoService {
 
 	@Autowired
 	private CategoryMapper categoryMapper;
+	private ReviewMapper reviewMapper;
+	private TripImageMapper imgMapper;
 	
 	@Override
 	public CategoryVO findCatNameByCat3(String cat3) {
@@ -76,6 +78,28 @@ public class InfoServiceImpl implements InfoService {
 	@Override 
 	public ArrayList<CategoryVO> findCat3List(String cat2){
 		return categoryMapper.findCat3List(cat2);
+	}
+	
+	/* 찬우 */
+	@Override
+	public ArrayList<ReviewJoinDTO> findAllReview(int contentid){
+		return reviewMapper.findAllReview(contentid);
+	}
+	@Override
+	public void insertReview(ReviewVO vo) {
+		reviewMapper.insertReview(vo);
+	}
+	@Override
+	public ArrayList<TripImageVO> findReviewImg(String code) {
+		return imgMapper.findReviewImg(code);
+	}
+	@Override
+	public void insertReviewImg(TripImageVO vo) {
+		imgMapper.insertReview(vo);
+	}
+	@Override
+	public void deleteReview(String r_code) {
+		reviewMapper.deleteReview(r_code);
 	}
 
 }
