@@ -3,7 +3,7 @@ package com.railgo.domain;
 import lombok.Data;
 
 @Data
-public class AreaBasedItemDTO {
+public class InfoItemDTO {
 	private String addr1;
 	private String addr2;
 	private int areacode;
@@ -16,12 +16,13 @@ public class AreaBasedItemDTO {
 	private String firstimage;
 	private String firstimage2;
 	private String mapx;
-	private double mapy;
+	private String mapy;
 	private int mlevel;
 	private long modifiedtime;
 	private long readcount;
 	private int sigungucode;
 	private String tel;
 	private String title;
-	private int zipcode;
+	private String zipcode;
+	private String overview;
 }
