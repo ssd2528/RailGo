@@ -127,10 +127,12 @@ public class LoginController {
 		String rawPwd = vo.getPwd();
 		MemberVO member = memberService.signin(vo);
 		System.out.println("## member : " + member);
-		MemberAddVO memadd = memberService.selMemadd(member);
-		System.out.println("## memadd : " + memadd);
+		
 		
 		if(member!=null) {
+			MemberAddVO memadd = memberService.selMemadd(member);
+			System.out.println("## memadd : " + memadd);
+			
 			System.out.println("## 사용자 확인 ");
 			String encPwd = member.getPwd();
 			System.out.println("## 암호화된 비밀번호 : " + encPwd + " / 입력한 비밀번호 : " + rawPwd); 
