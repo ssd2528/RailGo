@@ -24,9 +24,5 @@ public class InfoItemDTO {
 	private String tel;
 	private String title;
 	private String zipcode;
-<<<<<<< HEAD
-=======
-	
->>>>>>> branch 'master' of https://github.com/JaeHyeonKim19/RailGo
 	private String overview;
 }
