@@ -60,10 +60,9 @@ public class InfoController {
 	@Autowired
 	private InfoService infoService;
 	
-	// Info
+	// [InfoAreaName]
 	@GetMapping(value="/{areaName}", produces = "application/json; charset=utf-8")
 	public ModelAndView infoAreaName(@PathVariable("areaName") String areaName) throws Exception {
-		
 		System.out.println("-------------------------------------- infoAreaName() --------------------------------------");
 		
 		ModelAndView mv = new ModelAndView();
@@ -370,27 +369,26 @@ public class InfoController {
 	}
 	
 	
+	// Detail
 	@PostMapping(value = "/detail/{title}", produces = "text/plain; charset=utf-8")
 	public ModelAndView detail(@PathVariable("title") String title, @RequestParam("contentid") int contentid,
 			@RequestParam("contenttypeid") int contenttypeid, @RequestParam("mapx") String mapx,
-			@RequestParam("mapy") String mapy, @RequestParam("areaName") String areaName) throws Exception {
+			@RequestParam("mapy") String mapy, @RequestParam("areaName") String areaName, @RequestParam("category") String category) throws Exception {
 		System.out.println("## info title : " + title);
 		System.out.println("## info contentid : " + contentid);
 		System.out.println("## info contenttypeid : " + contenttypeid);
 		System.out.println("## info mapx : " + mapx);
 		System.out.println("## info mapy : " + mapy);
 		System.out.println("## info areaName : " + areaName);
+		System.out.println("## info category : " + category);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/detail");
-		mv.addObject("areaName", areaName);
+		mv.addObject("areaName", areaName);		mv.addObject("category", category);
 
-		/*** TourAPI를 이용해 JSON데이터 추출하는 부분 ***/
-		String responseStr = null;
-		JsonObject itemsObject = null;
-		JsonArray itemsArray = null;
-		JsonObject itemObject = null;
+		String responseStr = null; JsonObject itemsObject = null; JsonArray itemsArray = null; JsonObject itemObject = null;
 		ArrayList<InfoItemDTO> list = new ArrayList<InfoItemDTO>();
 
+		// [공통정보 조회]
 		String baseURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
 				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
 				+ "&MobileOS=ETC&MobileApp=RailGo&listYN=Y" + "&contentId=" + contentid // 컨텐트id 매칭
@@ -399,18 +397,14 @@ public class InfoController {
 		responseStr = apiService.getResponseStr(baseURL);
 		itemsObject = apiService.getItemsObject(responseStr);
 		itemObject = (JsonObject) itemsObject.get("item");
-
-		InfoItemDTO dto = new Gson().fromJson(itemObject, InfoItemDTO.class); // itemObject를 AreaBasedItemDTO에 담기 ( Json
-																				// => Object )
-		// System.out.println("## cat코드변경 전 AreaBasedItemDTO : " + dto);
-		CategoryVO vo = infoService.findCatNameByCat3(itemObject.get("cat3").getAsString()); // cat3를 통해 itemObject의
-																								// CatName 추출
+		InfoItemDTO dto = new Gson().fromJson(itemObject, InfoItemDTO.class); 
+		CategoryVO vo = infoService.findCatNameByCat3(itemObject.get("cat3").getAsString()); 
 		dto.setCat1(vo.getCat1Name());
 		dto.setCat2(vo.getCat2Name());
 		dto.setCat3(vo.getCat3Name()); // cat코드를 catName으로 변경
-		// System.out.println("## cat코드 이름으로 변경 후 AreaBasedItemDTO : " + dto);
 		mv.addObject("detail", dto);
 
+		// [소개정보 조회] 
 		String detailURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?"
 				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
 				+ "&numOfRows=10&MobileOS=ETC&MobileApp=RailGo" + "&contentId=" + contentid + "&contentTypeId="
@@ -418,21 +412,18 @@ public class InfoController {
 		responseStr = apiService.getResponseStr(detailURL);
 		itemsObject = apiService.getItemsObject(responseStr);
 		itemObject = (JsonObject) itemsObject.get("item");
-		if (contenttypeid == 39) {
-			if(itemObject.get("opentimefood")!=null) {
-				mv.addObject("opentime", itemObject.get("opentimefood").getAsString());
-			}else {
-				mv.addObject("opentime", null);
-			}
-		} else if (contenttypeid == 32) {
+		if (contenttypeid == 39) { // 카테고리가 '맛집'인 경우에는 '오픈시간' 추가
+			if(itemObject.get("opentimefood")!=null) mv.addObject("opentime", itemObject.get("opentimefood").getAsString());
+			else  mv.addObject("opentime", null);
+		} else if (contenttypeid == 32) { // 카테고리가 '숙박'인 경우에는 '체크인/아웃  시간' 추가
 			mv.addObject("chkintime", itemObject.get("checkintime").getAsString());
 			mv.addObject("chkouttime", itemObject.get("checkouttime").getAsString());
 		}
 
+		// [이미지정보 조회]
 		String imageURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage?"
 				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
-				+ "&numOfRows=2&MobileOS=ETC&MobileApp=RailGo" + "&contentId=" + contentid + "&imageYN=Y"
-				+ "&_type=json";
+				+ "&numOfRows=2&MobileOS=ETC&MobileApp=RailGo" + "&contentId=" + contentid + "&imageYN=Y" + "&_type=json";
 		responseStr = apiService.getResponseStr(imageURL);
 		int total = apiService.getTotalCount(responseStr);
 		if (total == 0) {
@@ -450,6 +441,7 @@ public class InfoController {
 			mv.addObject("img2", ((JsonObject) itemsArray.get(1)).get("originimgurl").getAsString());
 		}
 
+		// [근처 컨텐츠 정보 조회]
 		String locURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?"
 				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
 				+ "&numOfRows=3&MobileOS=ETC&MobileApp=RailGo&arrange=E" + "&contentTypeId=" + contenttypeid + "&mapX="
@@ -459,35 +451,42 @@ public class InfoController {
 		itemsArray = apiService.makeItemsArray(itemsObject);
 		for (int i = 1; i < itemsArray.size(); i++) { // 거리순이라 0번째는 자기 자신이기 때문에 1부터 추출
 			JsonObject locObject = (JsonObject) itemsArray.get(i); // 각 locObject 추출
-			InfoItemDTO infoDto = new Gson().fromJson(locObject, InfoItemDTO.class); // 각 locObject를 infoItemDTO에 담기 (
-																						// Json => Object )
-			CategoryVO catVo = infoService.findCatNameByCat3(locObject.get("cat3").getAsString()); // cat3를 통해
-																									// locObject의
-																									// CatName 추출
-			infoDto.setCat1(catVo.getCat1Name());
-			infoDto.setCat2(catVo.getCat2Name());
-			infoDto.setCat3(catVo.getCat3Name()); // cat코드를 catName으로 변경
-			list.add(infoDto);
+			InfoItemDTO infoDto = new Gson().fromJson(locObject, InfoItemDTO.class); 
+			System.out.println("## 근처 컨텐츠 : " + infoDto);
+			if(! locObject.get("cat1").getAsString().equals("B03")) {
+				CategoryVO catVo = infoService.findCatNameByCat3(locObject.get("cat3").getAsString()); 
+				infoDto.setCat1(catVo.getCat1Name());
+				infoDto.setCat2(catVo.getCat2Name());
+				infoDto.setCat3(catVo.getCat3Name()); // cat코드를 catName으로 변경
+				list.add(infoDto);
+			}
 		}
 		mv.addObject("locList", list);
 
-		ArrayList<ReviewJoinDTO> reList = null;
-		reList = infoService.findAllReview(contentid);
+		// [리뷰 목록 조회]
+		ArrayList<ReviewJoinDTO> reList = infoService.findAllReview(contentid);
+		int ratingTotal = 0; // 총 평점
 		for(ReviewJoinDTO reviewJoinDTO : reList) {
 			String r_code = reviewJoinDTO.getR_code();
+			ratingTotal += reviewJoinDTO.getRating();
 			ArrayList<TripImageVO> reviewImgList =  infoService.findReviewImg(r_code);
 			if(reviewImgList!=null) {
 				reviewJoinDTO.setImgList(reviewImgList);
 			}
 		}
 		log.info("## reList: " + reList);
+		float ratingAvg = ratingTotal/(float)reList.size();
+		//log.info("## ratingAvg: " + ratingAvg + " / ratingTotal : " + ratingTotal + " / reList.size() : " + reList.size());
+		mv.addObject("ratingAvg" , ratingAvg);
 		mv.addObject("reList", reList);
+		
+		// [리뷰 평균평점 조회]
 		
 		
 		return mv;
 	}
 	
-	/* 이미지 업로드 */
+	// 이미지 업로드 
 	@PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public void upload(MultipartFile[] uploadFile) {
@@ -529,20 +528,18 @@ public class InfoController {
 		}
 	}
 	
+	// 리뷰 작성 
 	@PostMapping("/insertReview")
 	public void insertReview(ReviewVO vo) {
 		log.info("## ReviewVO: " + vo);
 		infoService.insertReview(vo);
 	}
-	
-	
-	/* 업로드 된 이미지를 썸네일로 보여주는 부분 */
+	// 업로드 된 이미지를 썸네일로 보여주는 부분 
 	@GetMapping("/display")	  
 	@ResponseBody 
 	public ResponseEntity<byte[]> getFile(String fileName){ 
 	File file = new File("C:\\upload\\" + fileName); 
 	ResponseEntity<byte[]> result = null;
-		  
 		try { 
 			HttpHeaders header = new HttpHeaders(); 
 			header.add("Content-Type", Files.probeContentType(file.toPath())); 
@@ -553,7 +550,7 @@ public class InfoController {
 		return result; 
 	}
 	 
-	/* 리뷰 삭제 */
+	// 리뷰 삭제 
 	@PostMapping("/deleteReview")
 	public String remove(@RequestBody Map<String,String> r_code) {
 		Map<String,String> code = new HashMap<String,String>();
@@ -563,7 +560,6 @@ public class InfoController {
 		infoService.deleteReview(code.get("r_code"));
 		return "성공";
 	}
-	
 	
 	
 	
@@ -579,43 +575,38 @@ public class InfoController {
 			System.out.println("## cat코드변경 전 AreaBasedItemDTO : " + dto);
 			if(dto.getCat3() == null || dto.getCat1()=="B03") continue;
 			CategoryVO vo = infoService.findCatNameByCat3(itemObject.get("cat3").getAsString());  // cat3를 통해 itemObject의 CatName 추출
-			dto.setCat1(vo.getCat1Name());		dto.setCat2(vo.getCat2Name());		dto.setCat3(vo.getCat3Name());  // cat코드를 catName으로 변경
-			//System.out.println("## cat코드 이름으로 변경 후 AreaBasedItemDTO : " + dto);
-			
-			// overview 추출 후 dto.setOverview()
-			/*contentId = infoService.getContentId(itemObject); 
-			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
-				+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
-				+ "&MobileOS=ETC&MobileApp=RailGo&contentId="+contentId+"&overviewYN=Y&_type=json";
-			responseStr = apiService.getResponseStr(url);
-			itemsObject = apiService.getItemsObject(responseStr);
-			overview = apiService.getOverview(itemsObject);
-			dto.setOverview(overview); */
-			
-			list.add(dto);
+			if(vo!=null) {
+				dto.setCat1(vo.getCat1Name());		dto.setCat2(vo.getCat2Name());		dto.setCat3(vo.getCat3Name());  // cat코드를 catName으로 변경
+				
+				// overview 추출 후 dto.setOverview()
+				/*contentId = infoService.getContentId(itemObject); 
+				url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
+					+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
+					+ "&MobileOS=ETC&MobileApp=RailGo&contentId="+contentId+"&overviewYN=Y&_type=json";
+				responseStr = apiService.getResponseStr(url);
+				itemsObject = apiService.getItemsObject(responseStr);
+				overview = apiService.getOverview(itemsObject);
+				dto.setOverview(overview); */
+				
+				list.add(dto);
+			}
 		}
 		return list;
 	}
 
-	/* 날짜별로 이미지 저장 폴더 생성해주는 메소드 */
+	/*** 날짜별로 이미지 저장 폴더 생성해주는 메소드 ***/
 	private String getFolder() {
-
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
 		Date date = new Date();
-
 		String str = sdf.format(date);
-
 		return str.replace("-", File.separator);
 	}
 
-	/* 이미지 파일을 판단해주는 메소드 */
+	/*** 이미지 파일을 판단해주는 메소드 ***/
 	private boolean checkImageType(File file) {
 		try {
 			String contentType = Files.probeContentType(file.toPath());
-
 			return contentType.startsWith("image");
-
 		} catch (IOException ie) {
 			log.info("## checkImageType Exception: " + ie);
 		}

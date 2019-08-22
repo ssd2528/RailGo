@@ -94,7 +94,6 @@ footer {
 .menu-navi li:last-child { margin-right:0; }
 .menu-clicked {
 	border-bottom: solid 3px #009CE9;
-	width: 50px;
 	margin-top: 2px;
 }
 .menu-bar-ul { margin-top: 5px;}
@@ -137,7 +136,8 @@ footer {
 	color: gray;
 }
 
-.place-category span:hover {
+.place-category span.link:hover {
+	cursor:pointer;
 	text-decoration:underline;
 	color: gray;
 }

@@ -133,7 +133,7 @@ public class APIServiceImpl implements APIService {
 		JsonObject bodyObject = (JsonObject)((JsonObject)jsonObject.get("response")).get("body");
 		//System.out.println("## bodyObject : " + bodyObject);	
 		int totalCount = bodyObject.get("totalCount").getAsInt(); 
-		System.out.println("## categotyCount : " + totalCount);
+		System.out.println("## categoryCount : " + totalCount);
 		return totalCount;
 	}
 	

@@ -9,8 +9,8 @@
 
 /* article-food */
 .food-wrap { width:100%; display:flex; justify-content:space-around; }
-.food-item { width:30%; background:#e6e6e6; cursor:pointer; }
-.food-item:hover { text-decoration:underline; }
+.food-item { width:30%; background:#e6e6e6; }
+.food-item:hover { cursor:pointer; }
 .food-detail { font-size:15px; }
 .food-detail>.fname { font-weight:bold; }
 .fcategory1, .fcategory2, .fcategory3 { font-size:13px; }
@@ -25,8 +25,8 @@
 
 /* article-bed */
 .bed-wrap { width:100%; display:flex; justify-content:space-around; }
-.bed-item { width:30%; background:#e6e6e6; cursor:pointer; }
-.bed-item:hover { text-decoration:underline; }
+.bed-item { width:30%; background:#e6e6e6; }
+.bed-item:hover { cursor:pointer; }
 .bed-detail { font-size:15px; }
 .bed-detail>.bname { font-weight:bold; }
 .bcategory { font-size:13px; }
