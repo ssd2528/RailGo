@@ -70,6 +70,8 @@ $(document).ready(function() {
 	setZoomforSelectedLoc(str);
 	setTitleName(str);	
 	$('.return-btn').css('display','none'); // 초기값 안보이게 ※
+	checkActiveListSearchText(); // ※
+	$('.list-search-text').val(''); // ※
 	// ------ page init end-------------------
 
 	$('.plan-name').click(function(){
@@ -127,6 +129,8 @@ $(document).ready(function() {
 		toggleSelectCity();
 		setZoomforSelectedLoc(name);
 		setSelectedTheme('tour');
+		checkActiveListSearchText(); // ※
+		$('.list-search-text').val(''); // ※
 	});
 	// 숙박,식당,관광 테마 버튼 선택시 발생하는 이벤트
 	$('.list-theme-wrapper').children().on('click',function(){
@@ -413,6 +417,8 @@ function initScheduleDetailBox(day){
 		}
 		if(count === 0){initScheduleDetailBox(null);}
 	}
+	checkActiveListSearchText(); // ※
+	$('.list-search-text').val(''); // ※
 }
 //city list에서 item 선택시 schedule detail box 안에 넣는 메소드
 function insertItemInScheduleDetailBox(id,img,name,addr,day,mapxy){
@@ -574,6 +580,7 @@ function setTitleName(loc){
 	}else{
 		$('.title-name').text(loc + ' ▼');
 		setSelectedTheme('tour');
+		
 	}
 }
 	
@@ -788,16 +795,65 @@ function setLocMarker() {
 	});
 }
 
-
-$(document).ready(function(){
-	// 장소 검색 (list-search-text)
+// 장소검색 활성화 메소드 ※
+function checkActiveListSearchText(){
 	if($('.title-name').text()=='지역을 선택하세요.▼') {
 		$('.list-search-text').attr('readonly',true);
-		$('.list-search-text').css({'outline':'0', 'cursor':'default'});
+		$('.list-search-text').css({'outline': 'none', 'cursor':'default'});
+	}else {
+		$('.list-search-text').attr('readonly',false);
+		$('.list-search-text').css({'outline':'', 'cursor':'text'});
 	}
-	
-	$('.list-search-text').keypress(function(){
+}
+
+$(document).ready(function(){
+	$('.list-search-text').keyup(function(){
+		var areaName = $('.title-name').text().replace(' ▼', '');
 		var searchText = $('.list-search-text').val();
-		console.log(searchText);
+		//console.log(areaName + ", " + searchText);
+		if(searchText.length >= 2){
+			$.ajax({
+				url:'/planner/searchKeyword',
+				type:'get',
+				data:{areaName:areaName, keyword:searchText},
+				dataType:'json',
+				contentType : 'application/json',
+				success:function(data){
+					var viewOrTel;
+					$('.day-spot-item').remove();
+					$('.item-img-box').remove();
+					$('.item-info-box').remove();
+					$('.item-insert-box').remove();
+					//console.log(data.response.body.items.item);
+					var myItem = data.response.body.items.item;
+					if (myItem == null) {
+					} else {
+						delTourMarkers();
+						for (i = 0; i < myItem.length; i++) {
+							//32 39 제외는 관광이므로 viewcount를 content에 삽입
+							if(parseInt(myItem[i].contenttypeid) == 32 || parseInt(myItem[i].contenttypeid) == 39){
+								viewOrTel = '조회수 : ' + myItem[i].readcount + '<br/>' + 'tel : ' + myItem[i].tel;
+							}else{
+								viewOrTel = '조회수 : ' + myItem[i].readcount;
+							}
+							if(myItem[i].firstimage == null){myItem[i].firstimage = '../img/default.png';}
+							
+							
+							var theme; var contenttypeid=myItem[i].contenttypeid; 
+							if(contenttypeid==12 || contenttypeid==14 || contenttypeid==15 || contenttypeid==28 || contenttypeid==38) theme='tour';
+							else if(contenttypeid==32) theme='accom';
+							else if(contenttypeid==39) theme='food';
+							addTourMarker(myItem[i].mapx, myItem[i].mapy, myItem[i].title, myItem[i].firstimage,theme,myItem[i].contentid);
+							
+							$('.selected-theme-list').append('<div id="'+myItem[i].contentid+'" class="day-spot-item">'
+									+'<div class="item-img-box" name="'+myItem[i].mapx+','+myItem[i].mapy+'"><img class="img-size" src='+myItem[i].firstimage+'>'
+									+'</div><div class="item-info-box">'+myItem[i].title+'<div class="item-sub">'+myItem[i].addr1+'<br/>'+viewOrTel+'</div></div>'
+									+'<div class="item-insert-box"><img style="width:30px; height:30px" src="../img/planner/wh_plus.png"></div></div>');
+						}
+						setTourMarker();
+					}
+				}
+			});
+		}
 	});
 });

@@ -543,4 +543,10 @@ $(document).ready(function(){
 	});
 	
 	
+	// 컨텐츠 클릭 시, 상세정보페이지(detail)로 이동하는 부분
+	$('.info-list').click(function(){
+		$(this).find('.detailForm').submit();
+	});
+
+	
 });

@@ -12,4 +12,6 @@ public interface CategoryMapper {
 	ArrayList<CategoryVO> findCat1List(int contentTypeId);
 	ArrayList<CategoryVO> findCat2List(HashMap<String, Object> map);
 	ArrayList<CategoryVO> findCat3List(String cat2);
+	//ArrayList<CategoryVO> findCat3List(String contentTypeName);
+	String findContentTypeName(int contentTypeId);
 }

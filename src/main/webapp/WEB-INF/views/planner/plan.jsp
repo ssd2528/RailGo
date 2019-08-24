@@ -212,7 +212,7 @@
 							<!-- <input type="text" class="place-search-bar"> -->
 						</div>
 						<div class="city-list-body">
-							<input type="search" class="list-search-text" placeholder="장소검색">
+							<input type="search" class="list-search-text" placeholder="장소검색(2글자 이상)">
 							<div class="list-theme-wrapper">
 								<div class="list-theme-tour"></div>
 								<div class="list-theme-accom"></div>

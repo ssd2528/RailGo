@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>[RailGo] Category Page</title>
+	<title>[RailGo] Info Category Page</title>
 	
 	<!-- CSS -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -57,7 +57,8 @@
 			<div class="category-info-box">
 				<br>
 				<div class="category-category">
-					<a href="http://localhost:8080/info/${areaName}"><span>${areaName}</span></a> <i class="fas fa-angle-right"></i>
+					<a href="http://localhost:8080/info/${areaName}"><span class="link-areaName">${areaName}</span></a> 
+					<i class="fas fa-angle-right"></i>
 					<span>${category}</span>
 				</div>
 				<br> <br> <br>
@@ -98,9 +99,16 @@
 
 						<!-- info-list -->
 						<c:forEach items="${list}" var="item" varStatus="status">
-							<input type="hidden" value="${status.count}">
 							<c:if test="${(status.count >= ((currentPage-1)*10 + 1) && status.count <= currentPage*10) || category=='숙박' || category=='맛집'}">
 								<div class="info-list">
+									<form class="detailForm" method="post" action="../detail/${item.title}" style="display:none;">
+										<input type="hidden" value="${item.contentid}" name="contentid"> 
+										<input type="hidden" value="${item.contenttypeid}" name="contenttypeid">
+										<input type="hidden" value="${item.mapx}" name="mapx">
+										<input type="hidden" value="${item.mapy}" name="mapy">
+										<input type="hidden" value="${areaName}" name="areaName">
+										<input type="hidden" value="${category}" name="category">
+									</form>
 									<c:choose>
 										<c:when test="${item.firstimage eq null}"> 
 											<img class="info-list-img" src="/img/default.png">
@@ -111,7 +119,7 @@
 									</c:choose>
 										
 									<div class="info-list-data">
-										<a href="/info/detail"><h2 class="info-list-title">${item.title}</h2></a>
+										<h2 class="info-list-title">${item.title}</h2>
 										<div class="info-explain">${item.overview}</div>
 										<div class="info-category">
 											<i class="fas fa-map-marker-alt"></i> ${item.addr1} &nbsp; ${item.addr2}
@@ -141,7 +149,6 @@
 
 	<!-- footer -->
 	<%@include file="../includes/footer.jsp"%>
-	
 	
 </body>
 </html>

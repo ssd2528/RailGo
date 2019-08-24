@@ -9,7 +9,6 @@ public class MemberAddVO {
 	private String job; // 직업
 	private String birth; // 생년월일
 	private String interest; // 관심사
-	private String phone; // 폰 번호
 	private String profile; // 프로필 경로
 	private String backImage; // 배경사진 경로
 }

@@ -138,7 +138,7 @@ $(function(){
 			var loginCookie = $('#loginCookie').is(':checked');
 			//alert(loginCookie);
 			$.ajax({
-				url:'signin',
+				url:'/signin',
 				type:'post',
 				dataType:'text',
 				data:{email:email, pwd:pwd, loginCookie:loginCookie},
@@ -168,7 +168,7 @@ $(function(){
 		},submitHandler:function(form){
 			var email = $('.inform-addr').val();
 			$.ajax({
-				url:'sendUUID',
+				url:'/sendUUID',
 				type:'post',
 				dataType:'text',
 				data:{email:email},
