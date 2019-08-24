@@ -33,6 +33,7 @@ import com.google.gson.JsonObject;
 import com.railgo.service.APIService;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -40,8 +41,8 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/planner/*")
 @AllArgsConstructor
 public class PlannerController {
-
-	
+	@Autowired
+	private PlannerService plannerService;
 	@Autowired
 	private APIService apiService;
 	@RequestMapping("/plan")
@@ -67,7 +68,6 @@ public class PlannerController {
 		System.out.println(xpos + ", " + ypos);
 		System.out.println("dataForTheme method : " + theme);
 		int themeCode = 0;
-
 		int[] contentTypeId = { 12, 14, 15, 28, 38, 25, 32, 39 }; // 32 - 숙 39 - 식 / 나머지 관광
 		if (theme.equals("accom")) {
 			themeCode = contentTypeId[6];
