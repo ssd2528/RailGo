@@ -72,6 +72,22 @@ $(document).ready(function() {
 	$('.return-btn').css('display','none'); // 초기값 안보이게 ※
 	// ------ page init end-------------------
 
+	$('.plan-name').click(function(){
+		$(this).hide();
+		$('.plan-name-text').show();
+		$('.plan-name-text-btn').show();
+	});
+	$(document).on('click','.plan-name-text-btn',function(){
+		if($('.plan-name-text').val() !== ''){
+			$('.plan-name').text($('.plan-name-text').val());
+			$('.plan-name-text').hide();
+			$('.plan-name-text-btn').hide();
+			$('.plan-name').show();
+		}
+	});
+	$('.closeBtn').click(function(){
+		temporarySaveAndClose();
+	});
 	// DAY 누를 시 도시 리스트(지역 선택 리스트) 출력
 	$('.plan-date-box').children('li').on('click', function(){
 		planDateBox = $(this).attr('class');
@@ -185,29 +201,40 @@ $(document).ready(function() {
 		//schedule detail box에 있는 일정의 이름만 split하기 위한 변수.
 		subject = ($(this).children('.schedule-item-name').text()).split($(this).children('.schedule-item-name').children('.schedule-item-addr').text());
 		if($('.transit-find').css('display') === 'block'){
-			if($('.transit-find').children('.origin').text() === ''){
-				$('.transit-find').children('.origin').text(subject[0]);
-				$('.transit-find').children('.origin').attr('name',name);
-			}else{
-				$('.transit-find').children('.destination').text(subject[0]);
-				$('.transit-find').children('.destination').attr('name',name);
+			if( $('.transit-origin').children('input').val() === ''){	//출발지의 input tag value가 공백일시
+				$('.transit-origin').children('input').val(subject[0]);
+				 $('.transit-origin').children('input').attr('name',name);
+			}else{	// 나머지
+				$('.transit-destination').children('input').val(subject[0]);
+				$('.transit-destination').children('input').attr('name',name);
 			}
 		}
 	});
 	$(document).on('click','.transit-find-btn',function(){
-		let origin = $('.origin').text();
-		let dest = $('.destination').text();
+		let origin = $('.transit-origin').children('input').val();
+		let dest = $('.transit-destination').children('input').val();
 		//console.log('origin : '+origin+', destination : '+dest);
 		if(origin === '' || dest === ''){
 			alert('출발지와 도착지 설정을 해주세요.');
 		}else{
-			let orimapxy = $('.origin').attr('name');
-			let destmapxy = $('.destination').attr('name');
+			setMapDirectionsDisplay(map);
+			let orimapxy = $('.transit-origin').children('input').attr('name');
+			let destmapxy = $('.transit-destination').children('input').attr('name');
 	 		orimapxy = orimapxy.split(',');
 	 		destmapxy = destmapxy.split(',');		
 	 		calculateAndDisplayRoute(parseFloat(orimapxy[1]),parseFloat(orimapxy[0]),parseFloat(destmapxy[1]),parseFloat(destmapxy[0]));
 		}
 	});
+	$(document).on('click','.return-btn',function(){
+		toggleTransitFind('hide','show');
+		setMapDirectionsDisplay(null);
+    	//경로 창 닫을때 그래그 금지 해제, 마크 표시
+    	setTourMarkerMapOnAll(map);
+    	map.setOptions({draggable: true});
+	});
+	$('.transit-set-box').children('div').children('.reset-btn').click(function(){
+		$(this).prev().val('');
+	})
 });
 let map;
 var markers = [];
@@ -215,9 +242,89 @@ var tourMarkers = [];
 var stationLocations = [];
 let directDisplay;
 let directionsService;
+
+//저장하기 위해 현재 페이지의 데이터를 추출하는 메소드
+function extractDataForSave(){
+	let saveJsonData = new Object();
+	let dayArr = new Array();
+	let detailItemArr = new Array();
+	let planCode = '001';
+	let memberCode = '00001';
+	//여행 플래너 테이블에 저장할 배열에 넣음
+	let subject = $('.plan-name').text();
+	let planner = {
+			'plan_code' : planCode,
+			'mem_code' : memberCode,
+			'subject' : subject,
+			'hash_tag' : 'none'
+	};
+	saveJsonData.planner = planner;
+	//여행의 DAY들과 DAY들에 대한 날짜 위치를 배열에 넣음
+	let items = $('.plan-date-box').children('li');	
+	for(let item of items){
+		if($(item).css('visibility') === 'visible'){
+			let day = {	'plan_code' : planCode,
+						'days' : $(item).children('.detail-box').children('.day').text(),
+						'trip_date': $(item).children('.detail-box').children('.date').text(),
+						'region': $(item).children('.detail-box').children('.region').text()
+						};
+			dayArr.push(day);
+		}
+	}
+	saveJsonData.plannerDate = dayArr;
+	//상세일정 데이터 배열에 넣음
+	let detailScheduleItems = $('.item-detail-box').children();
+	if(detailScheduleItems.length === 0){
+		//saveJsonData.detailScheduleItem = 'none';
+	}else{
+		for(let item of detailScheduleItems){
+			let detail = {
+					'plan_code' : planCode,
+					'content_id' : $(item).attr('id'),
+					'days' : $(item).attr('name'),
+					'content_position' : $(item).children('.schedule-item-img').attr('name'),
+					'content_img' : $(item).children('.schedule-item-img').children('img').attr('src'),
+					'content_name' : ($(item).children('.schedule-item-name').text().split($(item).children('.schedule-item-name').children('.schedule-item-addr').text()))[0] ,
+					'content_addr' : $(item).children('.schedule-item-name').children('.schedule-item-addr').text() 
+			};
+			detailItemArr.push(detail);
+		}
+		saveJsonData.plannerSchedule = detailItemArr;
+	}
+	console.log(saveJsonData);
+	return saveJsonData;
+}
+//저장&닫기를 했을때 계획들을 Ajax를 이용해 디비에 저장하는 메소드
+function temporarySaveAndClose(){
+	let param = extractDataForSave();
+	$.ajax({
+		type : 'post',
+		async : true,
+		url : '/planner/plan/saveAndClose',
+		dataType : 'json',
+		contentType : 'application/json',
+		data : JSON.stringify(param),
+		success : function(data) {
+			if(data === 'success'){
+				alert('저장을 완료했습니다.');
+			}
+			
+		},
+		error : function(data, status, error) {
+			alert('fail code :' + data.status + ', ' + data);
+			console.log(data);
+		}
+	});
+}
+//교통 길찾기에 대한 결과를 google 맵에 보여 줄지 말지 결정하는 메소드
+function setMapDirectionsDisplay(map){
+	directionsDisplay.setMap(map);
+	$('.transit-result-box').show();
+	if(map !== null){directionsDisplay.setPanel(document.getElementById('transit-result-box'));}
+	else{directionsDisplay.setPanel(null);}
+}
 //get-directions 버튼이 상세일정이 2개 이상일때만 활성화 시키는 메소드
 function setGetDirectionBtn(planDateBox){
-	console.log(planDateBox);
 	let count = 0;
 	let day = $('.'+planDateBox).children('.detail-box').attr('id');
 	let items = $('.schedule-item-wrapper');
@@ -231,21 +338,24 @@ function setGetDirectionBtn(planDateBox){
 	else{ return false;}
 }
 //길 찾기를 눌렀을때 출발지와 도착지를 입력받기 위한 창 출력 메소드 / 파라메터 trans-find width , city-list width
-function toggleTransitFind(transWidth,listWidth){
-	$('.transit-find').children('.origin').text('');
-	$('.transit-find').children('.destination').text('');
-	$('.transit-find').animate({width:'show'},80);
-	$('.city-list').animate({width:'hide'},100);
+function toggleTransitFind(transitWidth,listWidth){
+	let transitSpeed;
+	let displayreturnBtn;
+	let listSpeed;
+	let toggleCursor;
+	//toggle을 위한 세팅
+	if(transitWidth === 'show'){transitSpeed = 80; listSpeed = 100; displayreturnBtn = 'block'; toggleCursor = 'pointer';}
+	else{transitSpeed = 100; listSpeed = 80; displayreturnBtn = 'none'; toggleCursor = 'default';}
+	//출발지 도착지 text field 초기화
+	$('.transit-origin').children('input').val('');
+	$('.transit-destination').children('input').val('');
 	
-	$('.return-btn').animate({width:'show'},100); // ※
-	$('.return-btn').css('display','block'); // return-btn 보이게하기 ※
-	$('.transit-find').animate({
-	      width: transWidth
-	},80);
-	$('.city-list').animate({
-	      width: listWidth
-	},100);
-	$('.schedule-item-wrapper').css('cursor','pointer');
+	$('.transit-find').animate({width : transitWidth},transitSpeed);
+	$('.city-list').animate({width : listWidth},listSpeed);
+	
+	$('.return-btn').animate({width:transitWidth},transitSpeed); // ※
+	$('.return-btn').css('display',displayreturnBtn); // return-btn 보이게하기 ※
+	$('.schedule-item-wrapper').css('cursor',toggleCursor);
 }
 //길 찾기를 눌렀을때 출발지와 도착지를 입력받기 위한 창 닫기 메소드
 function hideTransitFind(){
@@ -253,6 +363,10 @@ function hideTransitFind(){
 	      width: 'hide'
 	},80);
 	$('.schedule-item-wrapper').css('cursor','default');
+	setMapDirectionsDisplay(null);
+	//DAY를 바꿨을때 경로 창 닫고 그래그 금지 해제, 마크 제거 후 초기화
+	delTourMarkers();
+	map.setOptions({draggable: true});
 }
 
 //교통 길찾기 경로 거리 계산 메소드
@@ -260,22 +374,19 @@ function calculateAndDisplayRoute(originLat, originLng, destLat, destLng) {
 	console.log(originLat+','+originLng+','+destLat+','+destLng);
 	let oriLatLng = new google.maps.LatLng(originLat,originLng);
 	let destLatLng = new google.maps.LatLng(destLat,destLng);
-	console.log('oriLatLng : '+oriLatLng+', destLatLng : '+destLatLng);
-	  // Retrieve the start and end locations and create a DirectionsRequest using
-	let request = {
+	//console.log('oriLatLng : '+oriLatLng+', destLatLng : '+destLatLng);
+	let request = {	//google transit route에 요청할 내용
 			origin : oriLatLng,
 			destination : destLatLng,
 			travelMode: google.maps.DirectionsTravelMode.TRANSIT
 	};
 	directionsService.route(request, function(response, status) {
 	    if (status === google.maps.DirectionsStatus.OK) {
-	    	console.log(response);
+	    	//console.log(response);
+	    	//경로 보여줄때 그래그 금지, 마크 제거
+	    	setTourMarkerMapOnAll(null);
+	    	map.setOptions({draggable: false});
 	    	directionsDisplay.setDirections(response);
-	    	/*
-	      document.getElementById('warnings-panel').innerHTML =
-	          '<b>' + response.routes[0].warnings + '</b>';
-	      directionsDisplay.setDirections(response);
-	      showSteps(response, markerArray, stepDisplay, map);*/
 	    } else {
 	    	window.alert('해당 경로 길찾기를 할 수 없습니다.');
 	    }

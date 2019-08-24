@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.railgo.domain.PlannerDateVO;
+import com.railgo.domain.PlannerJsonDTO;
+import com.railgo.domain.PlannerScheduleVO;
+import com.railgo.domain.PlannerVO;
+import com.railgo.service.MemberService;
+import com.railgo.service.PlannerService;
+import com.railgo.service.PlannerServiceImpl;
+
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -25,7 +36,9 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/planner/*")
 @AllArgsConstructor
 public class PlannerController {
-
+	@Setter(onMethod_=@Autowired)
+	PlannerService plannerService;
+	
 	@RequestMapping("/plan")
 	public ModelAndView plan(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
@@ -87,6 +100,28 @@ public class PlannerController {
 				+ "&keyword="+keyword+"&listYN=Y&MobileOS=ETC&MobileApp=RailGo&arrange=B&numOfRows=50&pageNo=1&_type=json";
 	}
 
+	@RequestMapping(value="/plan/saveAndClose")
+	@ResponseBody
+	public String saveAndClose(@RequestBody PlannerJsonDTO dto) {
+		PlannerJsonDTO pjd = dto;
+		log.info("##saveAndClose : "+pjd);
+		PlannerVO planner = pjd.getPlanner();
+		ArrayList<PlannerDateVO> plannerDateArr = pjd.getPlannerDate();
+		ArrayList<PlannerScheduleVO> plannerScheduleArr = pjd.getPlannerSchedule();
+		log.info("####planner : "+planner);
+		log.info("####plannerDateArr : "+plannerDateArr);
+		log.info("####plannerScheduleArr : "+plannerScheduleArr);
+		plannerService.insertPlanner(planner);
+		for(PlannerDateVO vo : plannerDateArr) {
+			plannerService.insertPlannerDate(vo);
+		}
+		if(plannerScheduleArr != null) {
+			for(PlannerScheduleVO vo : plannerScheduleArr) {
+				plannerService.insertPlannerSchedule(vo);
+			}
+		}
+		return "success";
+	}
 	
 	/*@RequestMapping(value = "/map/locData", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
