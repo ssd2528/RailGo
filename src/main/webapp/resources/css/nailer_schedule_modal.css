@@ -1,5 +1,5 @@
 /* The Modal (background) */
-.modal {
+#modal {
 	display: none;
 	position: fixed;
 	top: 0;
@@ -21,7 +21,7 @@
 	justify-content: center;
 }
 /* Modal Content/Box */
-.nailer-schedule-modal-content {
+#modal > .nailer-schedule-modal-content {
 	padding:20px;
     position: relative;
     box-sizing: border-box;
@@ -42,15 +42,15 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-.modal.show{
+#modal.show{
 	opacity:1;
 }
-.modal.show .nailer-schedule-modal-content{
+#modal.show .nailer-schedule-modal-content{
 	opacity:1;
     -webkit-transform: translateY(0);
     transform: translateY(0);	
 } 
-.modal_title {
+#modal > .modal_title {
 	margin-bottom: 15px;
 }
 .schedule-img-text-wrapper{

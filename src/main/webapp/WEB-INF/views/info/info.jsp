@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>[RailGo] Info Page</title>
+	<link rel="icon" href="/img/favicon.ico">
 	
 	<!-- CSS -->
 	<link href="/css/common.css" rel="stylesheet">

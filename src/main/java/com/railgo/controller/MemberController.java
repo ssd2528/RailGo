@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,7 @@ public class MemberController {
 	LoginController loginController;
 	
 	@GetMapping("/timeline")
-	public String timeline() {
-		
+	public String timeline(HttpServletRequest request) {
 		return "member/timeline";
 	}
 	
@@ -51,10 +51,10 @@ public class MemberController {
 	public String schedule() {
 		return "member/schedule";
 	}
+	
 	//추가정보 수정
 	@GetMapping("/updateMemadd")
 	public String updateMemadd(MemberAddVO member,HttpSession session, RedirectAttributes rttr) {
-		
 		System.out.println(member);
 		memberService.updateMemadd(member);
 		session.setAttribute("memadd", member);
@@ -67,7 +67,6 @@ public class MemberController {
 	@PostMapping("/updateMemImage")
 	//@RequestMapping(value="/uploadAjaxAction" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String updateMemImage(MultipartFile[] uploadFile, MemberAddVO member, HttpSession session) {
-		
 		
 		log.info("update ajax post........");
 		

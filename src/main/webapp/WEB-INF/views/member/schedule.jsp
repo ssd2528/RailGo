@@ -6,6 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>[RailGo] Schedule Page</title>
+		<link rel="icon" href="/img/favicon.ico">
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		
 		<!-- Css -->
@@ -23,6 +24,11 @@
 		<script src="../js/schedule.js" type="text/javascript"></script>
 	</head>
 	<body>
+		<!-- 비정상적 URL 직접 접근 차단 -->
+		<% if(request.getHeader("referer") == null) {  %>
+			<script> alert('정상적인 경로를 통해 다시 접근해 주세요.'); location.href='/'; </script>
+		<% } %>
+		
 		<div class="wrap">
 			<!-- header -->
 			<%@include file="../includes/header.jsp"%>

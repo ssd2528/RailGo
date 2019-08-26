@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>[RailGo] 비밀번호 재설정 </title>
+	<link rel="icon" href="/img/favicon.ico">
 	<link href="/css/pwd_setting.css" rel="stylesheet">
 	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 </head>
