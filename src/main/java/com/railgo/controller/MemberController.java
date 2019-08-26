@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,8 +51,7 @@ public class MemberController {
 	PlannerService plannerService;
 	
 	@GetMapping("/timeline")
-	public String timeline() {
-		
+	public String timeline(HttpServletRequest request) {
 		return "member/timeline";
 	}
 	
@@ -81,7 +80,6 @@ public class MemberController {
 	//추가정보 수정
 	@GetMapping("/updateMemadd")
 	public String updateMemadd(MemberAddVO member,HttpSession session, RedirectAttributes rttr) {
-		
 		System.out.println(member);
 		memberService.updateMemadd(member);
 		session.setAttribute("memadd", member);
@@ -94,7 +92,6 @@ public class MemberController {
 	@PostMapping("/updateMemImage")
 	//@RequestMapping(value="/uploadAjaxAction" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String updateMemImage(MultipartFile[] uploadFile, MemberAddVO member, HttpSession session) {
-		
 		
 		log.info("update ajax post........");
 		

@@ -8,20 +8,18 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>[RailGo] Planner list Page</title>
+		<link rel="icon" href="/img/favicon.ico">
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		<!-- CSS -->
-		<link href="../css/common.css" rel="stylesheet">
-		<link href="../css/index.css" rel="stylesheet">
-		<link href="../css/planner.css" rel="stylesheet">
-		<link href="../css/nailer_schedule_modal.css" rel="stylesheet">
-		<link href="../css/login_modal.css" rel="stylesheet"> <!-- 로그인 모달창 -->
+		<link href="/css/common.css" rel="stylesheet">
+		<link href="/css/index.css" rel="stylesheet">
+		<link href="/css/planner.css" rel="stylesheet">
+		<link href="/css/nailer_schedule_modal.css" rel="stylesheet">
+		<link href="/css/login_modal.css" rel="stylesheet"> <!-- 로그인 모달창 -->
 		<!-- JavaScript -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
-		<script src="../js/planner.js" type="text/javascript"></script>
-		<script src="../js/nailer_schedule_modal.js" type="text/javascript"></script>
-		<!-- 로그인 모달창 -->
-		<script src="../js/login_modal.js" type="text/javascript"></script>
-		<script src="../../js/jquery.validate.min.js" type="text/javascript"></script>
+		<script src="/js/planner.js" type="text/javascript"></script>
+		<script src="/js/nailer_schedule_modal.js" type="text/javascript"></script>
 	</head>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
@@ -47,7 +45,12 @@
 						</div>
 					</div>
 					<div class="planner-info-btn-wrapper">
-						<button class="create-plan-btn"><img src="../img/planner/wh_plus.png"></img>일정 만들기</button>
+						<c:if test="${member ne null}">
+							<button class="create-plan-btn" id="create-plan-btn"><img src="../img/planner/wh_plus.png"></img>일정 만들기</button>
+						</c:if>
+						<c:if test="${member eq null}">
+							<button class="create-plan-btn" id="before-create-plan-btn"><img src="../img/planner/wh_plus.png"></img>일정 만들기</button>
+						</c:if>
 						<button class="my-plan-btn"><img src="../img/planner/wh_search.png">나의 일정</button>
 					</div>
 				</div>
@@ -170,6 +173,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<!-- nailer schedule modal -->
 		<%@include file="nailer_schedule_modal.jsp" %>
 		<!-- plan-create-modal -->
@@ -182,4 +186,6 @@
 		<link rel="stylesheet" type="text/css" href="../calendarpicker/jquery.datetimepicker.css"/>
 		<script src="../calendarpicker/jquery.js"></script>
 		<script src="../calendarpicker/build/jquery.datetimepicker.full.min.js"></script>
+		<script src="/js/login_modal.js" type="text/javascript"></script>
+		<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 </html>

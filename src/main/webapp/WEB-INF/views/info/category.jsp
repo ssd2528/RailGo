@@ -8,22 +8,35 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>[RailGo] Info Category Page</title>
+	<link rel="icon" href="/img/favicon.ico">
 	
 	<!-- CSS -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/common.css" rel="stylesheet">
 	<link href="/css/section_search.css" rel="stylesheet">
 	<link href="/css/info/category.css" rel="stylesheet">
+	<link href="/css/login_modal.css" rel="stylesheet">
 	
 	<!-- JS -->
 	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 	<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
-	<script src="/js/header.js" type="text/javascript"></script>
+	<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="/js/login_modal.js" type="text/javascript"></script>
 	<script src="/js/section_search.js" type="text/javascript"></script>
+	<script src="/js/header.js" type="text/javascript"></script>
 	<script src="/js/info/category.js"></script>
 	
 </head>
 <body>
+	<c:if test="${not empty msg}">
+		<script type="text/javascript">
+			alert('${msg}');
+		</script>
+	</c:if>
+	<!-- login_modal -->
+	<%@include file="../includes/login_modal.jsp"%>
+	
+	
 	<input type="hidden" name="category" id="category" class="category" value="${category}" />
 	<input type="hidden" name="areaName" id="areaName" class="areaName" value="${areaName}" />
 	<input type="hidden" name="currentPage" id="currentPage" class="currentPage" value="${currentPage}" />
@@ -44,7 +57,7 @@
 			<!-- navi -->
 			<div class="menu-navi">
 				<ul class="menu-bar-ul">
-					<li><a href="#"><span class="search-city">${areaName} &nbsp;▼</span></a></li>
+					<li><a><span class="search-city">${areaName} &nbsp;▼</span></a></li>
 					<a href="http://localhost:8080/info/accom/${areaName}"><li class="${category eq '숙박' ? 'menu-clicked' : ''}">숙 &nbsp;&nbsp;&nbsp; 박</li></a>
 					<a href="http://localhost:8080/info/hotplace/${areaName}"><li class="${category eq '관광명소' ? 'menu-clicked' : ''}">관광명소</li></a>
 					<a href="http://localhost:8080/info/food/${areaName}"><li class="${category eq '맛집' ? 'menu-clicked' : ''}">맛 &nbsp;&nbsp;&nbsp;집</li></a>

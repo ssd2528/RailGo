@@ -151,7 +151,7 @@ public class InfoController {
 			@RequestParam(value="arrange", required=false) String arrange, @RequestParam(value="pageNo", required=false) String pageNo) throws Exception {
 		
 		System.out.println("-------------------------------------- filterHotplace() --------------------------------------");
-		System.out.println("## contentTypeId:"+contentTypeId+" / cat1:"+cat1+" / cat2:"+cat2+" / cat3:"+cat3);
+		//System.out.println("## contentTypeId:"+contentTypeId+" / cat1:"+cat1+" / cat2:"+cat2+" / cat3:"+cat3);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/category_list");
@@ -168,7 +168,7 @@ public class InfoController {
 				+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=" + arrange + "&contentTypeId="+ contentTypeId + areaCode 
 				+ "&cat1="+cat1+"&cat2="+cat2+"&cat3="+cat3
 				+ "&pageNo=1&numOfRows=9999&_type=json";
-		System.out.println("## url : "  + url);
+		//System.out.println("## url : "  + url);
 		String responseStr = apiService.getResponseStr(url);
 		
 		int totalCount = apiService.getTotalCount(responseStr); mv.addObject("totalCount", totalCount); 
@@ -188,7 +188,7 @@ public class InfoController {
 			@PathVariable Optional<Integer> currentPage, @RequestParam(value="arrange", required=false) String arrange) throws Exception {
 		
 		System.out.println("-------------------------------------- category() --------------------------------------");
-		System.out.println("## category : " + category + " / areaName : " + areaName + " / arrange : " + arrange) ;
+		//System.out.println("## category : " + category + " / areaName : " + areaName + " / arrange : " + arrange) ;
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/category"); 
 		mv.addObject("category", category);		mv.addObject("areaName", areaName);
@@ -213,17 +213,17 @@ public class InfoController {
 					+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
 					+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=C" + "&contentTypeId="+ contentTypeId + areaCode 
 					+ "&pageNo=" + pageNo +"&numOfRows=" + numOfRows + "&_type=json";
-			System.out.println("## url : " + url);
+			//System.out.println("## url : " + url);
 			responseStr = apiService.getResponseStr(url);
 			totalCount += apiService.getTotalCount(responseStr);
 			itemsObject = apiService.getItemsObject(responseStr);
 			itemsArray = apiService.makeItemsArray(itemsObject);
-			System.out.println("## itemsArray : " + itemsArray + "\n\n");
+			//System.out.println("## itemsArray : " + itemsArray + "\n\n");
 			resultArray.addAll(itemsArray);
 		}
 		
 		mv.addObject("totalCount", totalCount); 
-		System.out.println("## resultArray : " + resultArray);
+		//System.out.println("## resultArray : " + resultArray);
 		ArrayList<InfoItemDTO> resultList = makeDTOList(resultArray);
 		mv.addObject("list", resultList);
 		
@@ -251,7 +251,7 @@ public class InfoController {
 			@PathVariable Optional<Integer> currentPage, @RequestParam("arrange") String arrange) throws Exception {
 		
 		System.out.println("-------------------------------------- arrangeCategory() --------------------------------");
-		System.out.println("## category : " + category + " / areaName : " + areaName + " / arrange : " + arrange);
+		//System.out.println("## category : " + category + " / areaName : " + areaName + " / arrange : " + arrange);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/category_list");
 		mv.addObject("category", category);		mv.addObject("areaName", areaName);		mv.addObject("arrange", arrange);
@@ -279,11 +279,11 @@ public class InfoController {
 			totalCount += apiService.getTotalCount(responseStr);
 			itemsObject = apiService.getItemsObject(responseStr);
 			itemsArray = apiService.makeItemsArray(itemsObject);
-			System.out.println("## itemsArray : " + itemsArray + "\n\n");
+			//System.out.println("## itemsArray : " + itemsArray + "\n\n");
 			resultArray.addAll(itemsArray);
 		}
 		mv.addObject("totalCount", totalCount); 
-		System.out.println("## resultArray : " + resultArray);
+		//System.out.println("## resultArray : " + resultArray);
 		ArrayList<InfoItemDTO> resultList = makeDTOList(resultArray);
 		mv.addObject("list", resultList);
 		
@@ -301,19 +301,19 @@ public class InfoController {
 		
 		System.out.println("-------------------------------------- filterCategory() --------------------------------");
 		
-		System.out.println("## category : " + category + " / areaName : " + areaName + " / cat3 : " + cat3 + " / arrange : " + arrange);
+		//System.out.println("## category : " + category + " / areaName : " + areaName + " / cat3 : " + cat3 + " / arrange : " + arrange);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/category_list");
 		mv.addObject("category", category);		mv.addObject("areaName", areaName);		
 		mv.addObject("cat3", cat3);		
 		
 		String cat1 = cat3.substring(0, 3); 	String cat2 = cat3.substring(0, 5);
-		System.out.println("## cat1 : " + cat1 + " / cat2 : " + cat2);
+		//System.out.println("## cat1 : " + cat1 + " / cat2 : " + cat2);
 		
 		// pageNo 
 		int pageNo=1;
 		if(currentPage.isPresent()) pageNo = currentPage.get();
-		System.out.println("## pageNo : " + pageNo);
+		//System.out.println("## pageNo : " + pageNo);
 		mv.addObject("currentPage", pageNo);
 		
 		// arrange 
@@ -334,7 +334,7 @@ public class InfoController {
 					+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=" + arrange + "&contentTypeId="+ contentTypeId + areaCode 
 					+ "&pageNo=" + pageNo +"&numOfRows=" + numOfRows 
 					+ "&cat1=" + cat1 + "&cat2=" + cat2 + "&cat3=" + cat3 +"&_type=json";
-			System.out.println("## url : " + url);
+			//System.out.println("## url : " + url);
 			responseStr = apiService.getResponseStr(url);
 			totalCount += apiService.getTotalCount(responseStr);
 		}
@@ -347,7 +347,7 @@ public class InfoController {
 					+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=" + arrange + "&contentTypeId="+ contentTypeId + areaCode 
 					+ "&pageNo=" + pageNo +"&numOfRows=" + numOfRows 
 					+ "&cat1=" + cat1 + "&cat2=" + cat2 + "&cat3=" + cat3 +"&_type=json";
-			System.out.println("## url : " + url);
+			//System.out.println("## url : " + url);
 			responseStr = apiService.getResponseStr(url);
 			//totalCount += infoService.getTotalCount(responseStr);
 			itemsObject = apiService.getItemsObject(responseStr);
@@ -356,12 +356,12 @@ public class InfoController {
 				resultArray.add(itemsObject.get("item"));
 			}else {
 				itemsArray = apiService.makeItemsArray(itemsObject);
-				System.out.println("## itemsArray : " + itemsArray + "\n\n");
+				//System.out.println("## itemsArray : " + itemsArray + "\n\n");
 				resultArray.addAll(itemsArray);
 			}
 		}
 
-		System.out.println("## resultArray : " + resultArray);
+		//System.out.println("## resultArray : " + resultArray);
 		ArrayList<InfoItemDTO> resultList = makeDTOList(resultArray);
 		mv.addObject("list", resultList);
 		
@@ -374,13 +374,15 @@ public class InfoController {
 	public ModelAndView detail(@PathVariable("title") String title, @RequestParam("contentid") int contentid,
 			@RequestParam("contenttypeid") int contenttypeid, @RequestParam("mapx") String mapx,
 			@RequestParam("mapy") String mapy, @RequestParam("areaName") String areaName, @RequestParam("category") String category) throws Exception {
-		System.out.println("## info title : " + title);
-		System.out.println("## info contentid : " + contentid);
-		System.out.println("## info contenttypeid : " + contenttypeid);
-		System.out.println("## info mapx : " + mapx);
-		System.out.println("## info mapy : " + mapy);
-		System.out.println("## info areaName : " + areaName);
-		System.out.println("## info category : " + category);
+		/*
+		 * System.out.println("## info title : " + title);
+		 * System.out.println("## info contentid : " + contentid);
+		 * System.out.println("## info contenttypeid : " + contenttypeid);
+		 * System.out.println("## info mapx : " + mapx);
+		 * System.out.println("## info mapy : " + mapy);
+		 * System.out.println("## info areaName : " + areaName);
+		 * System.out.println("## info category : " + category);
+		 */
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/detail");
 		mv.addObject("areaName", areaName);		mv.addObject("category", category);
@@ -452,7 +454,7 @@ public class InfoController {
 		for (int i = 1; i < itemsArray.size(); i++) { // 거리순이라 0번째는 자기 자신이기 때문에 1부터 추출
 			JsonObject locObject = (JsonObject) itemsArray.get(i); // 각 locObject 추출
 			InfoItemDTO infoDto = new Gson().fromJson(locObject, InfoItemDTO.class); 
-			System.out.println("## 근처 컨텐츠 : " + infoDto);
+			//System.out.println("## 근처 컨텐츠 : " + infoDto);
 			if(! locObject.get("cat1").getAsString().equals("B03")) {
 				CategoryVO catVo = infoService.findCatNameByCat3(locObject.get("cat3").getAsString()); 
 				infoDto.setCat1(catVo.getCat1Name());
@@ -474,15 +476,11 @@ public class InfoController {
 				reviewJoinDTO.setImgList(reviewImgList);
 			}
 		}
-		log.info("## reList: " + reList);
+		//log.info("## reList: " + reList);
 		float ratingAvg = ratingTotal/(float)reList.size();
 		//log.info("## ratingAvg: " + ratingAvg + " / ratingTotal : " + ratingTotal + " / reList.size() : " + reList.size());
 		mv.addObject("ratingAvg" , ratingAvg);
 		mv.addObject("reList", reList);
-		
-		// [리뷰 평균평점 조회]
-		
-		
 		return mv;
 	}
 	
@@ -501,8 +499,8 @@ public class InfoController {
 
 		for (MultipartFile multipartFile : uploadFile) {
 			TripImageVO imgvo = new TripImageVO();
-			log.info("## Upload File Name: " + multipartFile.getOriginalFilename());
-			log.info("## Upload File Size: " + multipartFile.getSize());
+			//log.info("## Upload File Name: " + multipartFile.getOriginalFilename());
+			//log.info("## Upload File Size: " + multipartFile.getSize());
 			String uploadFileName = multipartFile.getOriginalFilename();
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 			imgvo.setFileName(uploadFileName);
@@ -531,7 +529,7 @@ public class InfoController {
 	// 리뷰 작성 
 	@PostMapping("/insertReview")
 	public void insertReview(ReviewVO vo) {
-		log.info("## ReviewVO: " + vo);
+		//log.info("## ReviewVO: " + vo);
 		infoService.insertReview(vo);
 	}
 	// 업로드 된 이미지를 썸네일로 보여주는 부분 
@@ -545,7 +543,7 @@ public class InfoController {
 			header.add("Content-Type", Files.probeContentType(file.toPath())); 
 			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 		}catch(IOException ie) { 
-			log.info("## display exception: " + ie); 
+			//log.info("## display exception: " + ie); 
 		} 
 		return result; 
 	}
@@ -555,7 +553,7 @@ public class InfoController {
 	public String remove(@RequestBody Map<String,String> r_code) {
 		Map<String,String> code = new HashMap<String,String>();
 		code = r_code;
-		log.info("## delete: " + code.get("r_code"));
+		//log.info("## delete: " + code.get("r_code"));
 		if(r_code == null) return null;
 		infoService.deleteReview(code.get("r_code"));
 		return "성공";
@@ -566,13 +564,13 @@ public class InfoController {
 	/*** makeDTOList(JsonArray jsonArray) : cat1,2,3 코드를 catName으로 바꿔서 다시 가공하는 일반 메소드  ***/
 	public ArrayList<InfoItemDTO> makeDTOList(JsonArray jsonArray) throws Exception {
 		ArrayList<InfoItemDTO> list = new ArrayList<InfoItemDTO>();
-		System.out.println("## jsonArray size : " + jsonArray.size());
+		//System.out.println("## jsonArray size : " + jsonArray.size());
 		int contentId=0; String url=null; String responseStr=null; JsonObject itemsObject=null; String overview=null;
 		for(int i=0; i<jsonArray.size(); i++) {
 			JsonObject itemObject = (JsonObject)jsonArray.get(i); // 각 itemObject 추출
-			System.out.println("## itemObject : " + itemObject);
+			//System.out.println("## itemObject : " + itemObject);
 			InfoItemDTO dto = new Gson().fromJson(itemObject, InfoItemDTO.class); // 각 itemObject를 AreaBasedItemDTO에 담기  ( Json => Object )
-			System.out.println("## cat코드변경 전 AreaBasedItemDTO : " + dto);
+			//System.out.println("## cat코드변경 전 AreaBasedItemDTO : " + dto);
 			if(dto.getCat3() == null || dto.getCat1()=="B03") continue;
 			CategoryVO vo = infoService.findCatNameByCat3(itemObject.get("cat3").getAsString());  // cat3를 통해 itemObject의 CatName 추출
 			if(vo!=null) {

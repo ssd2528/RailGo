@@ -45,13 +45,15 @@
 	
 	
 	<!-- web socket -->
-	<!-- <websocket:handlers>
+	<websocket:handlers>
 		<websocket:mapping handler="webSocketHandler" path="/socket"/>
 		<websocket:handshake-interceptors>
 			<beans:bean class="com.railgo.socket.HandshakeInterceptor"/>
+			<!-- <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/> -->
 		</websocket:handshake-interceptors>
+		<!-- <websocket:sockjs></websocket:sockjs> -->
 	</websocket:handlers>
-	<beans:bean id="webSocketHandler" class="com.railgo.socket.WebSocketHandler" /> -->
+	<beans:bean id="webSocketHandler" class="com.railgo.socket.WebSocketHandler" />
 
 
 </beans:beans>
