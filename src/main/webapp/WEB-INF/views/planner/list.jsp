@@ -32,6 +32,7 @@
 		<!-- header -->
 		<%@include file="../includes/header.jsp"%>
 		<!--  body  -->
+		<form class="mem-code"><input type="hidden" value="${member.mem_code}"></form>
 		<div class="content">
 			<div class="content-wrapper">
 				<!-- 여행 플래너 설명  -->

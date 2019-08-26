@@ -19,6 +19,7 @@ import lombok.extern.log4j.Log4j;
 public class PlannerMapperTests {
 	@Autowired
 	private PlannerMapper mapper;
+	/*
 	@Test
 	public void testInsertPlanner() {
 		PlannerVO vo = new PlannerVO();
@@ -28,9 +29,10 @@ public class PlannerMapperTests {
 		vo.setHash_tag("couple");
 		mapper.insertPlanner(vo);
 		log.info("success");
-	}/*
-	@Test
-	public void testInsertDetailPlanner() {
-		
 	}*/
+	@Test
+	public void testPlannerList() {
+		mapper.plannerList("AA000001");
+		log.info("##test planner list : ");
+	}
 }

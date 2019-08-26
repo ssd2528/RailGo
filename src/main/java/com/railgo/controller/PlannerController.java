@@ -112,7 +112,7 @@ public class PlannerController {
 		return responseStr;
 	}
 
-	@RequestMapping(value="/plan/saveAndClose")
+	@RequestMapping(value="/plan/saveAndClose", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String saveAndClose(@RequestBody PlannerJsonDTO dto) {
 		PlannerJsonDTO pjd = dto;
@@ -132,7 +132,7 @@ public class PlannerController {
 				plannerService.insertPlannerSchedule(vo);
 			}
 		}
-		return "success";
+		return "save";
 	}
 	
 	@RequestMapping(value = "/map/locData", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
