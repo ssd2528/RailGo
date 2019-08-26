@@ -25,6 +25,8 @@
 				<!-- logo -->
 				<div class="logo"> <a href="/"><img src="../img/logo_default.png" alt="내일고"></a></div>
 				<div class="plan-name">일정 제목</div>
+				<input type="text" style="display:none;" maxlength="15" class="plan-name-text">
+				<div class="plan-name-text-btn" style="display:none;">확인</div>
 				<div class="btn-group">
 					<div class="closeBtn">저장&닫기</div>
 					<div class="completeBtn">완료</div>
@@ -119,7 +121,7 @@
 					
 					<!-- 길찾기 부분 -->
 					<div class="transit-find" style="display:none;">
-						<div class="transit-info-box">출발지와 도착지를 설정해주세요.</div>
+						<div class="transit-info-box">출발지와 도착지를 선택해주세요.</div>
 						<div class="transit-set-box">
 							<div class="transit-origin">
 								<span class="transit-find-text">출발지</span>
@@ -134,9 +136,7 @@
 							
 							<div class="transit-find-btn">길 찾기</div>
 						</div>
-						<div class="transit-result-box">
-							출발지와 도착지 경로 부분
-						</div>
+						<div id="transit-result-box" class="transit-result-box"></div>
 					</div>
 					<div class="return-btn">&lt;</div>
 					<!-- ./길찾기 부분 -->
@@ -246,7 +246,7 @@
 			        minZoom:7
 			    });	
 			    // Create a renderer for directions and bind it to the map.
-			    directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+			    directionsDisplay = new google.maps.DirectionsRenderer();
 				// Instantiate a directions service.
 		        directionsService = new google.maps.DirectionsService;
 			    google.maps.event.addListener(map,'dragend', function() {  

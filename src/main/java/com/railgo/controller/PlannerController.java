@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.net.URLEncoder;
 import java.util.Map;
 
@@ -19,11 +20,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.railgo.domain.PlannerDateVO;
+import com.railgo.domain.PlannerJsonDTO;
+import com.railgo.domain.PlannerScheduleVO;
+import com.railgo.domain.PlannerVO;
+import com.railgo.service.MemberService;
+import com.railgo.service.PlannerService;
+import com.railgo.service.PlannerServiceImpl;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.railgo.service.APIService;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -31,10 +41,10 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/planner/*")
 @AllArgsConstructor
 public class PlannerController {
-	
+	@Autowired
+	private PlannerService plannerService;
 	@Autowired
 	private APIService apiService;
-
 	@RequestMapping("/plan")
 	public ModelAndView plan(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
@@ -58,7 +68,6 @@ public class PlannerController {
 		System.out.println(xpos + ", " + ypos);
 		System.out.println("dataForTheme method : " + theme);
 		int themeCode = 0;
-
 		int[] contentTypeId = { 12, 14, 15, 28, 38, 25, 32, 39 }; // 32 - 숙 39 - 식 / 나머지 관광
 		if (theme.equals("accom")) {
 			themeCode = contentTypeId[6];
@@ -103,6 +112,28 @@ public class PlannerController {
 		return responseStr;
 	}
 
+	@RequestMapping(value="/plan/saveAndClose")
+	@ResponseBody
+	public String saveAndClose(@RequestBody PlannerJsonDTO dto) {
+		PlannerJsonDTO pjd = dto;
+		log.info("##saveAndClose : "+pjd);
+		PlannerVO planner = pjd.getPlanner();
+		ArrayList<PlannerDateVO> plannerDateArr = pjd.getPlannerDate();
+		ArrayList<PlannerScheduleVO> plannerScheduleArr = pjd.getPlannerSchedule();
+		log.info("####planner : "+planner);
+		log.info("####plannerDateArr : "+plannerDateArr);
+		log.info("####plannerScheduleArr : "+plannerScheduleArr);
+		plannerService.insertPlanner(planner);
+		for(PlannerDateVO vo : plannerDateArr) {
+			plannerService.insertPlannerDate(vo);
+		}
+		if(plannerScheduleArr != null) {
+			for(PlannerScheduleVO vo : plannerScheduleArr) {
+				plannerService.insertPlannerSchedule(vo);
+			}
+		}
+		return "success";
+	}
 	
 	@RequestMapping(value = "/map/locData", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
