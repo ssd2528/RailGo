@@ -226,4 +226,12 @@ $(document).ready(function(){
 			}
 		}
 	});
+	$('.planner-info-btn-wrapper').children('.my-plan-btn').click(function(){
+		let mem = $('.mem-code').children('input').val();
+		if(mem === '' || mem === null){
+			alert('로그인을 해주세요.');
+		}else{
+			window.location.href = '../member/schedule';
+		}
+	});
 });

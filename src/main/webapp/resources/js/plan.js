@@ -252,8 +252,8 @@ function extractDataForSave(){
 	let saveJsonData = new Object();
 	let dayArr = new Array();
 	let detailItemArr = new Array();
-	let planCode = '001';
-	let memberCode = '00001';
+	let planCode = '002';
+	let memberCode = $('.member-code').children('input').val();
 	//여행 플래너 테이블에 저장할 배열에 넣음
 	let subject = $('.plan-name').text();
 	let planner = {
@@ -305,12 +305,13 @@ function temporarySaveAndClose(){
 		type : 'post',
 		async : true,
 		url : '/planner/plan/saveAndClose',
-		dataType : 'json',
+		dataType : 'text',
 		contentType : 'application/json',
 		data : JSON.stringify(param),
 		success : function(data) {
-			if(data === 'success'){
+			if(data === 'save'){
 				alert('저장을 완료했습니다.');
+				window.location.replace("../");
 			}
 			
 		},

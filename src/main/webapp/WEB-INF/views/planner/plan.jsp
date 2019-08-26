@@ -20,6 +20,9 @@
 		<script src="../js/plan.js" type="text/javascript"></script>
 	</head>
 	<body>
+		<form class="member-code">
+			<input type="hidden" value="${member.mem_code}">
+		</form>
 		<div class="wrap">
 			<!-- header -->
 			<header class="clearfix">
