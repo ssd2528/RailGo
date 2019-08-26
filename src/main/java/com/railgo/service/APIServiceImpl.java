@@ -89,7 +89,7 @@ public class APIServiceImpl implements APIService {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 		String responseStr = restTemplate.getForObject(uri, String.class); 
-		System.out.println("## responseStr : " + responseStr);
+		//System.out.println("## responseStr : " + responseStr);
 		return responseStr;
 	}
 	
@@ -99,14 +99,14 @@ public class APIServiceImpl implements APIService {
 		JsonParser jsonParser = new JsonParser();
 		JsonObject jsonObject = (JsonObject) jsonParser.parse(responseStr);
 		JsonObject itemsObject = (JsonObject)((JsonObject)((JsonObject)jsonObject.get("response")).get("body")).get("items");
-		System.out.println("## itemsObject : " + itemsObject);
+		//System.out.println("## itemsObject : " + itemsObject);
 		return itemsObject;
 	}
 	
 	@Override
 	public int getContentId(JsonObject itemObject) {
 		int contentId = itemObject.get("contentid").getAsInt();
-		System.out.println("## contentId : " + contentId);
+		//System.out.println("## contentId : " + contentId);
 		return contentId;
 	}
 	
@@ -116,10 +116,10 @@ public class APIServiceImpl implements APIService {
 		JsonArray itemsArray = null;
 		if(itemsObject.get("item").isJsonObject()) { // 배열이 아닌  {}로 둘러쌓여 있는 경우 
 			String itemsObjectStr = "[".concat(itemsObject.get("item").toString().concat("]"));
-			System.out.println("## itemsObjectStr : " + itemsObjectStr);
+			//System.out.println("## itemsObjectStr : " + itemsObjectStr);
 			JsonParser jsonParser = new JsonParser();
 			itemsArray = (JsonArray) jsonParser.parse(itemsObjectStr);
-			System.out.println("## 가공된 itemsArray : " + itemsArray);
+			//System.out.println("## 가공된 itemsArray : " + itemsArray);
 		}else {
 			itemsArray = (JsonArray) itemsObject.get("item"); 
 		}
@@ -133,14 +133,14 @@ public class APIServiceImpl implements APIService {
 		JsonObject bodyObject = (JsonObject)((JsonObject)jsonObject.get("response")).get("body");
 		//System.out.println("## bodyObject : " + bodyObject);	
 		int totalCount = bodyObject.get("totalCount").getAsInt(); 
-		System.out.println("## categoryCount : " + totalCount);
+		//System.out.println("## categoryCount : " + totalCount);
 		return totalCount;
 	}
 	
 	@Override
 	public String getOverview(JsonObject itemsObject) {
 		String overview = ((JsonObject)itemsObject.get("item")).get("overview").getAsString();
-		System.out.println("## overview : " + overview);
+		//System.out.println("## overview : " + overview);
 		return overview;
 	}
 

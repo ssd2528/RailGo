@@ -12,18 +12,28 @@
 	<!-- CSS -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/common.css" rel="stylesheet">
-	<link href="/css/section_search.css" rel="stylesheet">
 	<link href="/css/info/category.css" rel="stylesheet">
+	<link href="/css/login_modal.css" rel="stylesheet">
 	
 	<!-- JS -->
 	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 	<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
+	<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="/js/login_modal.js" type="text/javascript"></script>
 	<script src="/js/header.js" type="text/javascript"></script>
-	<script src="/js/section_search.js" type="text/javascript"></script>
 	<script src="/js/info/category.js"></script>
 	
 </head>
 <body>
+	<c:if test="${not empty msg}">
+		<script type="text/javascript">
+			alert('${msg}');
+		</script>
+	</c:if>
+	<!-- login_modal -->
+	<%@include file="../includes/login_modal.jsp"%>
+	
+	
 	<input type="hidden" name="category" id="category" class="category" value="${category}" />
 	<input type="hidden" name="areaName" id="areaName" class="areaName" value="${areaName}" />
 	<input type="hidden" name="currentPage" id="currentPage" class="currentPage" value="${currentPage}" />

@@ -13,7 +13,7 @@ $(document).ready(function() {
 		$(this).find('.detailForm').submit();
 	});
 	
-	// 게시글 등록 이후 새로고침
+	// 게시글 댓글 등록 이후 새로고침
 	$('.review-register-btn').click(function(){
 		if($('.mem_code').val()==null){
 			alert("세션이 만료되었습니다. 다시 로그인 해주세요.");
@@ -25,7 +25,6 @@ $(document).ready(function() {
         }	
         
 		var formData = $('.review-form').serialize();
-		
 		$.ajax({
 			url:'/info/insertReview', 
 			data: formData,
@@ -33,8 +32,11 @@ $(document).ready(function() {
 			success: function(data){
 				console.log(data);
 			}
-		})
+		});
 		$('.page-reload').submit();
+		sendAlarm($('.review-textarea').val()); // 알람기능 보내기 ※
+		
+		
 	});
 	
 	// 이미지 업로드
@@ -120,4 +122,19 @@ function handleImgsFilesSelect(e){
 		}
 		reader.readAsDataURL(f);
 	});
+}
+
+
+
+// 알람 보내기 기능
+var websocket;
+websocket = new WebSocket("ws://localhost:8080/socket"); // 웹 소켓을 지정한 URL로 연결
+websocket.onopen = function(){ console.log("연결 성공"); }
+websocket.onmessage = function(e) {
+	var text = e.data;
+	console.log(text);
+}
+websocket.onclose = function(e) { console.log("연결 끊김"); }
+function sendAlarm(review) {
+	websocket.send(review);
 }

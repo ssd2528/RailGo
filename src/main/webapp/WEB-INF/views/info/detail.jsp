@@ -12,15 +12,29 @@
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/info/detail.css" rel="stylesheet">
 	<link href="/css/common.css" rel="stylesheet">
+	<link href="/css/login_modal.css" rel="stylesheet">
 	
 	
 	<!-- JS -->
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 	<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.js"></script>
+	<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="/js/login_modal.js" type="text/javascript"></script>
 	<script type="text/javascript" src="/js/info/detail.rating.min.js"></script>
 	<script src="/js/info/detail.js"></script>
+	
 </head>
 <body>
+	<c:if test="${not empty msg}">
+		<script type="text/javascript">
+			alert('${msg}');
+		</script>
+	</c:if>
+	<!-- login_modal -->
+	<%@include file="../includes/login_modal.jsp"%>
+	
 	<div class="wrap">
 		<!-- header -->
 		<%@include file="../includes/header.jsp"%>
@@ -174,10 +188,8 @@
 								<input type="hidden" class="r_code" value="${detail.contentid}" name="contentid" />
 								<input type="hidden" class="mem_code" value="${member.mem_code}" name="mem_code" />
 								<div class="review-table">
-								
-								<!-- 멤버애드 프로필 수정요망 -->
-									<img class="reviewer-img"
-										src="/img/info/default_profile_f.png">
+									<!-- 멤버애드 프로필 수정요망 -->
+									<img class="reviewer-img" src="/img/info/default_profile_f.png">
 									<div class="review-rating">
 										<select id="example" name="rating">
 											<option value="1">1</option>
@@ -189,8 +201,7 @@
 									</div>
 								</div>
 								<div class="review-register-box">
-									<textarea class="review-textarea" rows="3" name='review'
-										placeholder="&nbsp;&nbsp; 리뷰를 남겨주세요."></textarea>
+									<textarea class="review-textarea" rows="3" name="review" placeholder="&nbsp;&nbsp; 리뷰를 남겨주세요."></textarea>
 									<div class="review-grid-right">
 										<button type="button" class="review-register-btn" id="uploadBtn">등록</button>
 										<label for="review_file">사진 업로드</label>
