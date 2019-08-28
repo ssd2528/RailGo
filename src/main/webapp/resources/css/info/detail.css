@@ -428,7 +428,7 @@ footer {
 	font-weight: bold;
 	font-size: 16px;
 	float: left;
-	margin-left: 7px;
+	margin-left: 15px;
 }
 
 .recommend-title:hover {
@@ -444,6 +444,12 @@ footer {
 
 .recommend-rating {
 	color: #ed7d31;
+}
+.recommend-readcount {
+    font-size: 12px;
+    margin: 4px 20px 0 0;
+    float: right;
+    color: #595959;
 }
 /*		 media query 		*/
 @media screen and (max-width: 700px) {

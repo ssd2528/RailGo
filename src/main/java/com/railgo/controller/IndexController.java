@@ -27,4 +27,8 @@ public class IndexController {
 	public String planner() {
 		return "planner/list";
 	}
+	@RequestMapping("course")
+	public String course() {
+		return "info/one_course_info";
+	}
 }

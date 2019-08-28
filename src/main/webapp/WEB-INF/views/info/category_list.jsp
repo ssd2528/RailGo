@@ -89,7 +89,8 @@
 							&nbsp;&nbsp;
 							<i class="fas fa-list"></i> ${item.cat3}
 						</div>
-						<div class="info-rating">★★★★</div>
+						<!-- <div class="info-rating">★★★★</div> -->
+						<div class="info-readcount">[조회수 : ${item.readcount}]</div>
 					</div>
 				</div>
 				<hr class="checkbox-hr">
