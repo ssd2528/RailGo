@@ -196,7 +196,8 @@ public class InfoController {
 		itemsObject = apiService.getItemsObject(responseStr);
 		itemsArray = apiService.makeItemsArray(itemsObject);
 		ArrayList<InfoItemDTO> courseList = makeInfoItemDTOList(itemsArray, "Y");
-	}
+	} 
+	
 	
 	
 	// [관광명소] CheckBox - FindCat1List
