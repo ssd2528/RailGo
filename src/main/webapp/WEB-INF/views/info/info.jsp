@@ -9,6 +9,7 @@
 	<link rel="icon" href="/img/favicon.ico">
 	
 	<!-- CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/common.css" rel="stylesheet">
 	<link href="/css/info.css" rel="stylesheet">
 	<link href="/css/section_search.css" rel="stylesheet">
@@ -17,6 +18,7 @@
 	
 	<!-- JavaScript -->
 	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
+	<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
 	<script src="/js/info.js" type="text/javascript"></script>
 	<script src="/js/header.js" type="text/javascript"></script>
 	<script src="/js/section_search.js" type="text/javascript"></script>
@@ -77,79 +79,80 @@
 						<div class="article-item article-food">
 							<div class="article-title"><h2>${areaName}, 이 음식점은 어때요?</h2></div>
 							<ul class="food-wrap">
-								<c:forEach items="${foodList}" var="foodItem">
-									<li class="food-item">
-										<form class="detailForm" method="post" action="./detail/${foodItem.title}">
-											<input type="hidden" value="${foodItem.contentid}" name="contentid"> 
-											<input type="hidden" value="${foodItem.contenttypeid}" name="contenttypeid">
-											<input type="hidden" value="${foodItem.mapx}" name="mapx">
-											<input type="hidden" value="${foodItem.mapy}" name="mapy">
-											<input type="hidden" value="${areaName}" name="areaName">
-											<input type="hidden" value="음식점" name="category">
-											<div class="food-img" style="background:#d9d9d9  url('${foodItem.firstimage}') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="food-detail">
-												<div class="fname">${foodItem.title}</div>
-												<div class="fcategory">${foodItem.cat3}</div>
-											</div>
-										</form>
-									</li>
+								<c:forEach items="${foodList}" var="foodItem" varStatus="status">
+									<c:if test="${status.count <= 3}">
+										<li class="food-item">
+											<form class="detailForm" method="post" action="./detail/${foodItem.title}">
+												<input type="hidden" value="${foodItem.contentid}" name="contentid"> 
+												<input type="hidden" value="${foodItem.contenttypeid}" name="contenttypeid">
+												<input type="hidden" value="${foodItem.mapx}" name="mapx">
+												<input type="hidden" value="${foodItem.mapy}" name="mapy">
+												<input type="hidden" value="${areaName}" name="areaName">
+												<input type="hidden" value="음식점" name="category">
+												<div class="food-img" style="background:#d9d9d9  url('${foodItem.firstimage}') no-repeat center center/cover; width:100%; height:170px;"></div>
+												<div class="food-detail">
+													<div class="fname">${foodItem.title}</div>
+													<div class="fcategory">${foodItem.cat3}</div>
+												</div>
+											</form>
+										</li>
+									</c:if>
 								</c:forEach>
 							</ul>
 						</div>
 						<!-- ./article-food -->
-
-						<!-- 지역이 포함된 일정 추천(article-plan) -->
-						<div class="article-item article-plan">
-							<div class="article-title"> <h2>${areaName}이포함된다른 이용자들의 일정</h2> </div>
-							<ul class="plan-wrap">
-								<li class="plan-item">
-									<img class="plan-img" src="/img/default.png">
-									<div class="plan-detail">
-										<span class="plan-hashtag">#해시태그 #해시태그</span> 
-										<span class="plan-course">서울-전주-순천-여수-부산-강릉</span> 
-										<span class="plan-user">글쓴이</span>
-									</div>
-								</li>
-								<li class="plan-item">
-									<img class="plan-img" src="/img/default.png">
-									<div class="plan-detail">
-										<span class="plan-hashtag">#해시태그 #해시태그</span> 
-										<span class="plan-course">서울-전주-순천-여수-부산-강릉</span> 
-										<span class="plan-user">글쓴이</span>
-									</div>
-								</li>
-								<li class="plan-item">
-									<img class="plan-img" src="/img/default.png">
-									<div class="plan-detail">
-										<span class="plan-hashtag">#해시태그 #해시태그</span> 
-										<span class="plan-course">서울-전주-순천-여수-부산-강릉</span> 
-										<span class="plan-user">글쓴이</span>
-									</div>
-								</li>
+						
+						<!-- 특정 지역이 포함된 일일 코스 추천(article-course) -->
+						<div class="article-item article-course">
+							<div class="article-title"> <h2>${areaName}이 포함된 일일 코스 추천</h2> </div>
+							<ul class="one-course-wrap">
+								<c:forEach items="${courseList}" var="courseItem" varStatus="status">
+									<c:if test="${status.count <= 2}">
+										<li class="one-course-item">
+											<img class="one-course-img" src="${courseItem.firstimage}">
+											<div class="one-course-info">
+												<div class="one-course-title"> [ ${courseItem.title} ] <span class="one-course-cat3">${courseItem.cat3}</span></div>
+												<div class="one-course-detail">${courseItem.courseSubNames}</div>
+												<div class="one-course-overview">${courseItem.overview}</div>
+												<div class="one-course-readcount">조회수 : ${courseItem.readcount}</div> 
+												
+											</div>
+											<form class="courseForm" method="post" action="/info/courseDetail">
+												<input type="hidden" name="areaName" value="${areaName}">
+												<input type="hidden" name="firstimage" value="${courseItem.firstimage}">
+												<input type="hidden" name="title"  value="${courseItem.title}">
+												<input type="hidden" name="overview"  value="${courseItem.overview}">
+												<input type="hidden" name="contentId"  value="${courseItem.contentid}">
+											</form>
+										</li>
+									</c:if>
+								</c:forEach>
 							</ul>
 						</div>
-						<!-- ./article-plan -->
+						<!-- ./article-course -->
 
 						<!-- 지역의 숙박 추천 (article-bed) -->
 						<div class="article-item article-bed">
 							<div class="article-title"> <h2>${areaName},이숙박은 어때요?</h2> </div>
 							<ul class="bed-wrap">
-								<c:forEach items="${accomList}" var="accomItem">
-									<li class="bed-item">
-										<form class="detailForm" method="post" action="./detail/${accomItem.title}">
-											<input type="hidden" value="${accomItem.contentid}" name="contentid"> 
-											<input type="hidden" value="${accomItem.contenttypeid}" name="contenttypeid">
-											<input type="hidden" value="${accomItem.mapx}" name="mapx">
-											<input type="hidden" value="${accomItem.mapy}" name="mapy">
-											<input type="hidden" value="${areaName}" name="areaName">
-											<input type="hidden" value="숙박" name="category">
-											<div class="bed-img" style="background:#d9d9d9  url('${accomItem.firstimage}') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="bed-detail">
-												<div class="bname">${accomItem.title}</div>
-												<div class="bcategory">${accomItem.cat3}</div>
-											</div>
-										</form>
-									</li>
+								<c:forEach items="${accomList}" var="accomItem" varStatus="status">
+									<c:if test="${status.count <= 3}">
+										<li class="bed-item">
+											<form class="detailForm" method="post" action="./detail/${accomItem.title}">
+												<input type="hidden" value="${accomItem.contentid}" name="contentid"> 
+												<input type="hidden" value="${accomItem.contenttypeid}" name="contenttypeid">
+												<input type="hidden" value="${accomItem.mapx}" name="mapx">
+												<input type="hidden" value="${accomItem.mapy}" name="mapy">
+												<input type="hidden" value="${areaName}" name="areaName">
+												<input type="hidden" value="숙박" name="category">
+												<div class="bed-img" style="background:#d9d9d9  url('${accomItem.firstimage}') no-repeat center center/cover; width:100%; height:170px;"></div>
+												<div class="bed-detail">
+													<div class="bname">${accomItem.title}</div>
+													<div class="bcategory">${accomItem.cat3}</div>
+												</div>
+											</form>
+										</li>
+									</c:if>
 								</c:forEach>
 							</ul>
 						</div>
@@ -158,6 +161,12 @@
 
 
 					<div class="article-wrapper article-25">
+						<!-- article-search -->
+						<div class="search-container">
+							<input type="text" name="keyword" class="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
+							<input type="hidden" name="areaName" value="${areaName}">
+						</div>
+					
 						<!-- article-sns-user -->
 						<%@include file="../includes/article_sns_user.jsp"%>
 						<!-- ./article-sns-user -->

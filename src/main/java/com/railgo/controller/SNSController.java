@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,7 +31,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.railgo.domain.CommJoinDTO;
+import com.railgo.domain.CommVO;
+import com.railgo.domain.MemberVO;
 import com.railgo.domain.SNSJoinDTO;
+import com.railgo.domain.SNSLikeVO;
 import com.railgo.domain.SNSVO;
 import com.railgo.domain.TripImageVO;
 import com.railgo.service.SNSService;
@@ -47,24 +53,50 @@ public class SNSController {
 	private SNSService snsService;
 
 	@GetMapping("/sns")
-	public void snsList(Model model) {
+	public void snsList(Model model, HttpSession session) {
+		Object obj = session.getAttribute("member");
+		
 		List<SNSJoinDTO> getList = snsService.getList();
+		
 		for(SNSJoinDTO snsJoinDTO : getList) {
 			String sns_code = snsJoinDTO.getSns_code();
+			
+			/* SNS 이미지 */
 			ArrayList<TripImageVO> snsImgList = snsService.findSNSImg(sns_code);
 			snsJoinDTO.setImgList(snsImgList);
+			
+			/* 댓글 갯수 */
+			int commCount = snsService.commCount(sns_code);
+			snsJoinDTO.setCommCount(commCount);
+			
+			/* 좋아요 갯수 */
+			int snsLikeCount = snsService.snsLikeCount(sns_code);
+			snsJoinDTO.setSnsLikeCount(snsLikeCount);
+			
+			/* 좋아요 체크 */
+			if(obj!=null) { // 멤버세션이 null이면 발동X
+				MemberVO memVO = (MemberVO) obj;
+				String mem_code = memVO.getMem_code();
+				SNSLikeVO snsLikeVO = new SNSLikeVO(sns_code, mem_code);
+				boolean snsLikeCheck = snsService.snsLikeCheck(snsLikeVO);
+				snsJoinDTO.setSnsLikeCheck(snsLikeCheck);
+			}
 		}
 		model.addAttribute("sns", getList);
 	}
-
-	@PostMapping("/sns")
-	public String register(SNSVO sns, RedirectAttributes rttr) {
-		log.info("register: " + sns);
-		snsService.register(sns);
-		rttr.addFlashAttribute("result", sns.getSns_code());
-		return "redirect:/sns/sns";
+	
+	// 글쓰기
+	@PostMapping("/register")
+	@ResponseBody
+	public ResponseEntity<String> register(String mem_code, String content) {
+		SNSVO vo = new SNSVO(null, mem_code, content, null);
+		snsService.register(vo);
+		
+		ResponseEntity<String> result = new ResponseEntity<>("good", HttpStatus.OK);
+		return result;
 	}
 	
+	// 글 삭제
 	@PostMapping("/remove")
 	public String remove(String sns_code) {
 		log.info("remove..." + sns_code);
@@ -72,32 +104,76 @@ public class SNSController {
 		snsService.remove(sns_code);
 		return "redirect:/sns/sns";
 	}
-	@PostMapping("/modify")
-	public String modify(SNSVO vo, RedirectAttributes rttr) {
-		if(snsService.modify(vo)) {
-			rttr.addFlashAttribute("result", "success");
-		}
-		return "redirect:/sns/sns";
+	
+	// 수정할 글 불러오기
+	@PostMapping("/modifyContent")
+	@ResponseBody
+	public ResponseEntity<SNSVO> modifyContent(@RequestParam(value="sns_code") String sns_code){
+		log.info("## sns_code: " + sns_code);
+		SNSVO vo = snsService.modifyContent(sns_code);
+		ResponseEntity<SNSVO> result = new ResponseEntity<>(vo, HttpStatus.OK);
+		
+		return result;
 	}
 	
+	// 게시글 수정
+	@PostMapping("/modify")
+	@ResponseBody
+	public ResponseEntity<String> modify(String sns_code, String mem_code, String content) {
+		SNSVO vo = new SNSVO(sns_code, mem_code, content, null);
+		snsService.modify(vo);
+		
+		ResponseEntity<String> result = new ResponseEntity<>("good", HttpStatus.OK);
+		return result;
+	}
+	
+	/* 게시글 상세보기 */
 	@RequestMapping("/content")
-	public ResponseEntity<SNSJoinDTO> content(@RequestBody Map<String,String> sns_code, Model model) {
-		Map<String,String> code = new HashMap<String,String>();
-		code = sns_code;
-		log.info("## content: " + code.get("sns_code"));
-		SNSJoinDTO snsList = snsService.content(code.get("sns_code"));
-		ArrayList<TripImageVO> snsImgList = snsService.findSNSImg(code.get("sns_code"));
-		if(snsImgList!=null) {
-			snsList.setImgList(snsImgList);
+	public ModelAndView content(String sns_code, HttpSession session) {
+		Object obj = session.getAttribute("member");
+		log.info("## content sns_code: " + sns_code);
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("sns/content");
+	  
+		// SNS 내용 가져오기
+		SNSJoinDTO content = snsService.content(sns_code); 
+		mv.addObject("content", content);
+		
+		// 이미지리스트 가져오기
+		ArrayList<TripImageVO> snsImgList = snsService.findSNSImg(sns_code);
+		mv.addObject("imgList", snsImgList);
+		
+		// 댓글&대댓글 가져오기
+		ArrayList<CommJoinDTO> commList = snsService.getCommList(sns_code);
+		
+		for(CommJoinDTO commJoinDTO : commList) {
+			int origin_code = commJoinDTO.getComm_code();
+			ArrayList<CommJoinDTO> rereList = snsService.getRereList(origin_code);
+			commJoinDTO.setRereList(rereList);
 		}
-		ResponseEntity<SNSJoinDTO> content = new ResponseEntity<>(snsList, HttpStatus.OK);
-		return content;
+		mv.addObject("commList", commList);
+		
+		// 좋아요 갯수
+		int snsLikeCount = snsService.snsLikeCount(sns_code);
+		mv.addObject("likeCount", snsLikeCount);
+		
+		// 좋아요 체크
+		if(obj!=null) { // 멤버세션이 null이면 발동X
+			MemberVO memVO = (MemberVO) obj;
+			String mem_code = memVO.getMem_code();
+			SNSLikeVO snsLikeVO = new SNSLikeVO(sns_code, mem_code);
+			boolean snsLikeCheck = snsService.snsLikeCheck(snsLikeVO);
+			mv.addObject("likeCheck", snsLikeCheck);
+		}
+	  
+	  	return mv;
+		 
 	}
 	
 	/* 이미지 업로드 */
 	@PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public void upload(MultipartFile[] uploadFile) {
+	public ResponseEntity<String> upload(MultipartFile[] uploadFile) {
 		String uploadFolder = "C:\\upload";
 		String uploadFolderPath = getFolder();
 		
@@ -124,11 +200,18 @@ public class SNSController {
 				multipartFile.transferTo(saveFile);
 				imgvo.setUuid(uuid.toString());
 				imgvo.setImagePath(uploadFolderPath);
+				
+				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+				Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 800, 500);
+				thumbnail.close();
+				
 				snsService.insertSNSImg(imgvo);
 			} catch (Exception e) {
 				log.info("## upload Exception: " + e);
 			}
 		}
+		ResponseEntity<String> result = new ResponseEntity<>("성공", HttpStatus.OK);
+		return result;
 	}
 	
 	/* 업로드 된 이미지를 썸네일로 보여주는 부분 */
@@ -146,6 +229,49 @@ public class SNSController {
 			log.info("## display exception: " + ie); 
 		} 
 		return result; 
+	}
+	
+	/* 댓글 달기 */
+	@PostMapping("/insertReply")
+	@ResponseBody
+	public ResponseEntity<CommJoinDTO> insertReply(String content, String mem_code, String sns_code, int comm_code){
+		log.info("## comm_code : " + comm_code);
+		ResponseEntity<CommJoinDTO> result = null;
+		
+		CommVO vo = new CommVO(-1, sns_code, mem_code, comm_code, content, null); 
+		snsService.commRegister(vo);
+	  
+		CommJoinDTO commCheck = snsService.commCheck();
+		result = new ResponseEntity<CommJoinDTO>(commCheck, HttpStatus.OK);
+		
+		return result;
+	}
+	
+	/* 댓글 삭제 */
+	@PostMapping(value="/commDelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> commDelete(int comm_code){
+		snsService.commDelete(comm_code);
+		ResponseEntity<String> result = null;
+		result = new ResponseEntity<String>("성공", HttpStatus.OK);
+		
+		return result;
+	}
+	
+	/* 좋아요 클릭 */
+	@PostMapping(value="/snsLike", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> snsLike(String sns_code, String mem_code, String check){
+		log.info("##### snsLike: " + sns_code + mem_code + check);
+		SNSLikeVO vo = new SNSLikeVO(sns_code, mem_code);
+		
+		if(check.equals("plus")) {
+			snsService.snsLikePlus(vo);
+		}else if(check.equals("minus")) {
+			snsService.snsLikeMinus(vo);
+		}
+		ResponseEntity<String> result = new ResponseEntity<>("성공", HttpStatus.OK);
+		return result;
 	}
 	
 	/* 날짜별로 이미지 저장 폴더 생성해주는 메소드 */

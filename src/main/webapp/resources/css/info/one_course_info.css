@@ -1,0 +1,37 @@
+@charset "UTF-8";
+/***	article-course-info		***/
+.article-course-info { position:relative; z-index:1; width:100%; height:350px; }
+.article-course-info:after { position:absolute; z-index:-1; width:100%; height:350px; top:0; left:0; content:""; }
+.article-course-info > div { padding:5px 0px; }
+.article-course-info > .course-info-box { padding:60px 75px; margin: 0 auto; max-width: 1280px; }
+.article-course-info  .firstimage{ width: 100%; height: 100%; position: absolute; z-index: -1; opacity:0.6; }
+.article-course-info  .course-title { font-size:40px; font-weight:bold; }
+.article-course-info  .course-overview { font-size:18px; font-weight:600; width:80%; margin:15px 0 10px 0; }
+.article-course-info  .course-intro { font-size:17px; }
+
+/***	article-course-detail	***/
+.article-course-detail .next-icon { text-align:center; font-size:30px; color:#009CE9; }
+.article-course-detail .course-list { width:100%; }
+.article-course-detail .course-item { display:flex; justify-content: space-around; padding:20px 0; border-bottom: 1px solid #7f7f7f; cursor: pointer;}
+.article-course-detail .course-item:last-child { border-bottom: none; }
+/*	course-item-left */
+.article-course-detail .course-item-left { width:50%; height:320px; }
+.article-course-detail .course-item-subdetailimg { width:100%; height:100%; }
+/*	course-item-right */
+.article-course-detail .course-item-right { width:45%; height:310px; padding:5px 0px; }
+.article-course-detail .course-item-right .course-item-subname { font-size: 30px; font-weight: bold; margin-bottom: 10px; height: 45px; width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.article-course-detail .course-item-right .course-item-subdetailoverview { height:230px; overflow:auto; color:#595959;}
+.article-course-detail .course-item-right .course-item-subdetailoverview::-webkit-scrollbar { display: none; }
+.course-item-detail-btn { text-align: right; display: none; color: #eb7d31; font-weight: bold; }
+
+
+/***	recommend-area 		***/
+.recommend-item {cursor:pointer; margin:5px 0;}
+.recommend-item:hover {background:#efefef;}
+.recommend-area {margin: 15px 0px;}
+.recommend-img {margin-top: 10px;width: 90%;height: 150px;display: block;margin-left: 5%;}
+.recommend-info{margin-left:13px;}
+.recommend-title {font-weight: bold;font-size: 16px;}
+.recommend-category {font-size: 12px;}
+.recommend-rating {color: #ed7d31;}
+.recommend-readcount {font-size: 13px;margin-right:10px;float: right;color: #595959;}

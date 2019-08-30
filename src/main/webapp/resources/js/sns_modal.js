@@ -1,46 +1,53 @@
 $(document).ready(function(){
 	var sns_modal = $('#sns-modal');
 	var closeBtn = $('.sns-close');
-	// 게시글 상세보기
-	$('.sns-content-modal').on('click', function(){
-		var sns_code = $(this).closest('div.article-item').find('input[name="sns_code"]').val();
-		console.log(sns_code);
-		var param = {'sns_code':sns_code};
-		$.ajax({
-			url:'/sns/content',
-			type: 'POST',
-			data: JSON.stringify(param),
-			contentType: 'application/json',
-			dataType: 'json',
-			success: function(result){
-				console.log(result);
-				$('.sns-writer-name').text(result.name);
-				$('.sns-write-date').text(result.regDate);
-				/*$('.sns-substance').text(result.content);*/
-				for(var i = 0; i<result.imgList.length; i++){
-					$('.sns-substance').text(result.imgList[i].fileName);
-					console.log(result.imgList[i].fileName);
-					console.log(result.imgList[i].uuid);
-				}
-			},
-			error: function(xhr) {
-				return false;
-			}
-		});
-		sns_modal.css('display', 'block');
-		$('html').css('overflow', 'hidden');
-		$('.sns-modal-content').show();
-	});
 	
 	// 게시글 쓰기 모달창
 	$('.sns-write-img').on("click",function(){
-		console.log('버튼 클릭');
+		$('input[name="uploadFile"]').val('');
+		
+		$('.sns-uploadResult ul li').remove();
+		$("#sns-write-modal").css('display','flex');
+		$('html').css('overflow', 'hidden');
+		$('.modal-title').text('게시글 작성');	
+		$('.sns-write-content').text('');
+		$('.ok-button').text('작성');
+		$('label[for="sns_file"]').css('display', 'inline-block');
+		setTimeout(function() {
+			$("#sns-write-modal").addClass('open');
+		}, 1)
+		$('body').css({'overflow':'hidden', 'height':'100%'});
+	});
+	
+	// 글 수정 모달창
+	$('.sns-content-edit').click(function(){
+		var sns_code = $(this).closest('div.article-item').find('input[name="sns_code"]').val();
+		formData = new FormData;
+		formData.append('sns_code', sns_code);
+		
+		$.ajax({
+			url:'../sns/modifyContent',
+			processData: false,
+			contentType: false, 
+			data: formData,
+			type: 'POST',
+			dataType: 'json',
+			success: function(result){
+				console.log(result);
+				var content = result.content.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+				$('.sns-write-content').val(content);
+			}
+		});
 		
 		$("#sns-write-modal").css('display','flex');
 		$('html').css('overflow', 'hidden');
-		$('.modal-title').text('게시물 작성');	
-		$('.sns-write-content').text('');
-		$('.ok-button').text('작성');
+		$('.modal-title').text('게시글 수정');
+		$('.ok-button').text('수정');
+		$('.sns_code').val(sns_code);
+		$('label[for="sns_file"]').css('display', 'none');
+		
+		var html = '<li>수정시에는 이미지 변경을 하실 수 없습니다.</li>';
+		$('.sns-uploadResult ul').append(html)
 		setTimeout(function() {
 			$("#sns-write-modal").addClass('open');
 		}, 1)
@@ -49,34 +56,83 @@ $(document).ready(function(){
 	
 	// 글 쓰기 및 수정
 	$('.ok-button').click(function(e){
+		// 글 수정
 		if($('.ok-button').text()=='수정') {
-			var snscode = $('#sns-forms').children('.sns_code').val();
-			$('#sns-form').children('.sns_code').val(snscode);
-			$('.mod_content').val($('.sns-write-content').val());
-			$('.sns-form').attr('action','../sns/modify');
-			$(this).closest('form').submit();
-			alert("게시글 수정 완료");
+			formData = new FormData();
+			
+			var sns_code = $('input[name="sns_code"]').val();
+			var text = $('.sns-write-content').val(); 
+			var content = text.replace(/(\n|\r\n)/g, '<br>');
+			var mem_code = $('input[name="mem_code"]').val();
+			
+			console.log(content);
+			console.log(sns_code);
+			console.log(mem_code);
+			
+			formData.append('content', content);
+			formData.append('sns_code', sns_code);
+			formData.append('mem_code', mem_code);
+			
+			$.ajax({
+				url:'../sns/modify',
+				processData: false,
+				contentType: false, 
+				data: formData,
+				type: 'POST',
+				dataType: 'text',
+				success: function(result){
+					console.log(result);
+					alert("게시글 수정 완료");
+					location.href='../sns/sns';
+				}
+			});
+			
+		// 글 쓰기 및 이미지 업로드	
 		}else {
-			// 이미지 업로드
-			var formData = new FormData();
-			var inputFile = $("input[name='uploadFile']");
-			var files = inputFile[0].files;
-			console.log(files);
-			for(var i = 0; i < files.length; i++){
-				formData.append("uploadFile", files[i]);
+			var mem_code = $('input[name="mem_code"]').val();
+			var text = $('.sns-write-content').val();
+			var content = text.replace(/(\n|\r\n)/g, '<br>');
+			writeData = new FormData();
+			writeData.append('mem_code', mem_code);
+			writeData.append('content', content);
+			
+			if($('.sns-write-content').val().length < 10) {
+	            alert('내용은 10글자 이상 입력해주세요.');
+	            return false;
+		    }
+			if(img_files.length==0){
+				alert('이미지가 한장 이상 존재해야 합니다.');
+				return false;
 			}
+			var formData = new FormData();
+			for(var i=0, len=img_files.length; i<len; i++){
+				var uploadFile = 'image_'+i;
+				formData.append('uploadFile', img_files[i]);
+			}
+			$.ajax({
+				url:'/sns/register',
+				processData: false,
+				contentType: false, 
+				data: writeData,
+				type: 'POST',
+				dataType: 'text',
+				success: function(result){
+					console.log(result);
+				}
+			});
 			$.ajax({
 				url:'/sns/upload',
 				processData: false,
 				contentType: false, 
 				data: formData,
 				type: 'POST',
-				dataType: 'json',
+				dataType: 'text',
 				success: function(result){
 					console.log(result);
 				}
 			})
 			alert("게시글 작성 완료");
+			location.href='../sns/sns';
 		}
 	});
 	
@@ -125,9 +181,10 @@ $(document).ready(function(){
 		}
 	});
 	
-	var img_files=[];
 	$('#sns_file').on('change', handleImgsFilesSelect);
+	
 });
+var img_files=[];
 //이미지 선택 시 썸네일 생성
 function handleImgsFilesSelect(e){
 	img_files=[];
@@ -157,23 +214,10 @@ function handleImgsFilesSelect(e){
 		
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			var img_html = "<li><img src=\""+e.target.result+"\"id=\"img-"+index+"\"/>";
-				img_html += "<a href=\"javascript:void(0);\" onclick=\"deleteImage("+index+")\" id=\"img-"+index+"\">삭제</a></li>";
+			var img_html = "<li><img src=\""+e.target.result+"\"id=\"img-"+index+"\"/></li>";
 			$('.sns-uploadResult ul').append(img_html);
 			index++;
 		}
 		reader.readAsDataURL(f);
 	});
-}
-
-// 썸네일 삭제
-function deleteImage(index) {
-	console.log("index: " + index);
-	img_files.splice(index, 1);
-	
-	var img_id = "#img-"+ index;
-	$(img_id).remove();
-	$(img_id).hide();
-	console.log(img_files);
-	
 }

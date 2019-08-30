@@ -13,7 +13,7 @@ $(document).ready(function() {
 		$(this).find('.detailForm').submit();
 	});
 	
-	// 게시글 댓글 등록 이후 새로고침
+	// 게시글 등록 이후 새로고침
 	$('.review-register-btn').click(function(){
 		if($('.mem_code').val()==null){
 			alert("세션이 만료되었습니다. 다시 로그인 해주세요.");
@@ -42,25 +42,23 @@ $(document).ready(function() {
 	// 이미지 업로드
 	$("#uploadBtn").on("click", function(e){
 		var formData = new FormData();
-		var inputFile = $("input[name='uploadFile']");
-		var files = inputFile[0].files;
-		console.log(files);
-		for(var i = 0; i < files.length; i++){
-			formData.append("uploadFile", files[i]);
+		for(var i=0, len=img_files.length; i<len; i++){
+			var uploadFile = 'image_'+i;
+			formData.append('uploadFile', img_files[i]);
 		}
+		
 		$.ajax({
 			url:'/info/upload',
 			processData: false,
 			contentType: false, 
 			data: formData,
 			type: 'POST',
-			dataType: 'json',
+			dataType: 'text',
 			success: function(result){
 				console.log(result);
 			}
 		})
 	})
-	var img_files=[];
 	$('#review_file').on('change', handleImgsFilesSelect);
 	
 	// 리뷰 삭제
@@ -87,6 +85,7 @@ $(document).ready(function() {
 		}
 	});
 });
+var img_files=[];
 // 이미지 선택 시 썸네일 생성
 function handleImgsFilesSelect(e){
 	img_files=[];
@@ -123,8 +122,6 @@ function handleImgsFilesSelect(e){
 		reader.readAsDataURL(f);
 	});
 }
-
-
 
 // 알람 보내기 기능
 var websocket;

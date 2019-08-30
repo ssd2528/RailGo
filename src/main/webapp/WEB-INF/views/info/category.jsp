@@ -90,9 +90,9 @@
 
 				<div class="article-wrapper article-25">
 					<!-- article-search -->
-					<div class="search-container">
+					<!-- <div class="search-container">
 						<input type="text" class="search-keyword" name="keyword" placeholder="검색"> <a href="#"><i class="fa fa-search icon"></i></a>
-					</div>
+					</div> -->
 					
 					<!-- checkbox -->
 					<%@include file="checkbox.jsp"%>
@@ -139,7 +139,8 @@
 											&nbsp;&nbsp;
 											<i class="fas fa-list"></i> ${item.cat3}
 										</div>
-										<div class="info-rating">★★★★</div>
+										<div class="info-readcount">[조회수 : ${item.readcount}]</div>
+										<!-- <div class="info-rating">★★★★</div> -->
 									</div>
 								</div>
 								<hr class="checkbox-hr">

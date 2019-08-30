@@ -1,0 +1,63 @@
+.section-main { padding-bottom:0px; !important;}
+
+/* SNS-CONTENT */
+.sns-content-wrapper { padding-top:37px; height:74%; }
+.close { position:absolute; font-size:25px; right:10px; cursor:pointer; }
+.close:hover { font-size:27px; }
+
+/* SNS-IMG */
+.sns-modal-imgs { float:left; width:65%;}
+
+/* SNS-Writer */
+.sns-article-right { float:left; width:33%; background:white; box-shadow: 0 0 5px #ccc; position:relative; padding-left:12px; height:510px;}
+.sns-content-write { display:grid; grid-template-columns: 70px 1fr; }
+.sns-write-box { margin-left:15px; padding-top:15px; }
+.sns-writer-profile { margin: 5px auto; width:70px; height:70px; object-fit:cover; border-radius:50%; }
+.sns-write-explain { font-size: 18px; font-weight: bold; }
+.sns-write-date { font-size: 13px; color: #7f7f7f; }
+
+/* SNS-CONTENT */
+.sns-content{ margin-right:5px; margin-top:5px; }
+.sns-content-substance { height:35%; margin-right:5px; }
+.sns-substance { margin: 10px 0px; width: 100%; height: 97%; overflow-x: hidden; overflow-y: auto; }
+
+/* SNS-Reply */
+.sns-reply-container { overflow-x: hidden; overflow-y: auto; height:27%; margin-right: 5px; }
+.sns-reply-box { margin-bottom:15px; display:grid; grid-template-columns: 40px 1fr; }
+.sns-replyer-profile { width:40px; height:40px; object-fit:cover; border-radius:50%; margin:auto; }
+.sns-reply-writer { font-size:15px; }
+.sns-reply-substance { font-size:15px; }
+.sns-reply-reply { font-size:10px; }
+.sns-reply-reply span { color:#009CE9; cursor:pointer; }
+.sns-reply-date { font-size:10px; color:#7f7f7f; }
+.sns-reply-content th { width:80px; }
+.sns-reply-write:hover { text-decoration:underline; }
+.sns-icon { width:30px; height:30px; padding:10px 20px 0px 0px;}
+.sns-icon { cursor:pointer; }
+.delete-btn { font-size:10px; cursor:pointer; color:#7f7f7f; }
+.delete-btn:hover { text-decoration:underline; }
+
+/* SNS-Rereply */
+.sns-rereply { height: 40px; vertical-align:middle; margin-top: 10px; margin-bottom: 5px; display:grid; grid-template-columns:90px 1fr;}
+.sns-rereply-left { display:grid; grid-template-columns:40px 40px; }
+.sns-rereply-icon { width:30px; height:30px; padding-right: 5px; padding-bottom: 10px; }
+.sns-rereplyer-profile { width:40px; height:40px; object-fit:cover; border-radius:50%; margin:auto; margin-right: 5px;}
+.sns-rereply-textarea { resize:none; overflow-y:auto; border: none; vertical-align:middle; width:67%; height:40px; line-height:40px; outline:none;}
+.sns-rereply-btn {color: #96ccff; background-color: white; border: none; cursor: pointer; width: 10%; height: 40px; -webkit-transition: background-color 0.2s; transition: background-color 0.2s; outline:none;}
+.sns-rereply-writer { font-size:15px; }
+.sns-rereply-substance { font-size:15px; }
+.sns-rereply-date { font-size:10px; color:#7f7f7f; }
+.sns-rereply-content th { width:60px; }
+
+/* SNS-Bottom */
+.sns-heart-count { display:inline; }
+.sns-bottom { position:absolute; bottom:0px; width:95%; padding-bottom:15px; }
+.sns-icon-list { margin-bottom:5px; }
+.sns-reply-register { vertical-align:middle; height:30px }
+.sns-reply-textarea { resize:none; overflow-y:auto; border: none; vertical-align:middle; width:88%; height:102%; line-height:25px; outline:none;}
+.sns-reply-btn {color: #96ccff; background-color: white; border: none; cursor: pointer; width: 10%; height: 100%; -webkit-transition: background-color 0.2s; transition: background-color 0.2s; outline:none;}
+
+/**************** bxslider.css 변경 부분 ****************/
+.bx-viewport { height: 500px; }
+.bx-wrapper .bx-controls-direction a{ z-index:11; }
+.bx-wrapper img{ margin:auto; height:100%; }

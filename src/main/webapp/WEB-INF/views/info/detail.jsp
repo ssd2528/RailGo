@@ -236,11 +236,9 @@
 				
 				<div class="article-wrapper article-25">
 					<!-- article-search -->
-					<div class="search-container">
-						<input type="text" class="search-keyword" name="keyword"
-							placeholder="검색"> <a href="#"><i
-							class="fa fa-search icon"></i></a>
-					</div>
+					<!-- <div class="search-container">
+						<input type="text" class="search-keyword" name="keyword" placeholder="검색"> <a href="#"><i class="fa fa-search icon"></i></a>
+					</div> -->
 					<!-- recommend-area -->
 					<div class="article-item">
 						<h3>근처 다른 ${detail.cat2}</h3>
@@ -262,9 +260,10 @@
 										<a href="#"><img class="recommend-img" src="${locList.firstimage}"></a>
 									</c:if>
 										<div class="recommend-info">
-											<a href="#"><span class="recommend-title">${locList.title}</span></a> <span
-												class="recommend-category">${locList.cat3}</span> <span
-												class="recommend-rating">★★★★</span>
+											<span class="recommend-title">${locList.title}</span> 
+											<span class="recommend-category">${locList.cat3}</span> 
+											<span class="recommend-readcount">[조회수: ${locList.readcount}]</span>
+											<!-- <span class="recommend-rating">★★★★</span> -->
 										</div>
 									</div>
 									</form>
