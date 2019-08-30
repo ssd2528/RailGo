@@ -41,6 +41,7 @@ import com.railgo.domain.ReviewJoinDTO;
 import com.railgo.domain.ReviewVO;
 import com.railgo.domain.TripImageVO;
 import com.railgo.domain.CategoryVO;
+import com.railgo.domain.DetailInfoDTO;
 import com.railgo.service.APIService;
 import com.railgo.service.InfoService;
 
@@ -50,7 +51,7 @@ import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
-@Log4j
+//@Log4j
 @RequestMapping("/info")
 @AllArgsConstructor
 public class InfoController {
@@ -60,63 +61,143 @@ public class InfoController {
 	@Autowired
 	private InfoService infoService;
 	
-	// Info
+	// [InfoAreaName]
 	@GetMapping(value="/{areaName}", produces = "application/json; charset=utf-8")
 	public ModelAndView infoAreaName(@PathVariable("areaName") String areaName) throws Exception {
-		
 		System.out.println("-------------------------------------- infoAreaName() --------------------------------------");
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/info");
 		mv.addObject("areaName", areaName);
 		
-		/*** TourAPI를 이용해 JSON데이터 추출하는 부분 ***/
 		String responseStr=null; JsonObject itemsObject=null; JsonArray itemsArray = null;
 		String areaCode = apiService.findAreaCode(areaName); // areaName을 받아서 areaCode 받는 부분
 		
+		// 지역 정보 조회
 		String areaURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
-				+ "ServiceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
+				+ "ServiceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 				+ "&listYN=Y&MobileOS=ETC&MobileApp=RailGo"
 				+ "&contentTypeId=12&cat1=B03&cat1=B03&arrange=B&numOfRows=1" + areaCode + "&_type=json";
-		System.out.println("## areaURL : " + areaURL);
 		responseStr = apiService.getResponseStr(areaURL);
 		itemsObject = apiService.getItemsObject(responseStr);
 		int contentId = ((JsonObject) (itemsObject.get("item"))).get("contentid").getAsInt();
 		String areaOverviewURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
-				+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 				+ "&MobileOS=ETC&MobileApp=RailGo&contentId="+contentId+"&overviewYN=Y&_type=json";
 		responseStr = apiService.getResponseStr(areaOverviewURL);
 		itemsObject = apiService.getItemsObject(responseStr);
 		String overview = apiService.getOverview(itemsObject);
 		String overviews[] = overview.split("<br");
 		mv.addObject("overview", overviews[0]);
-		System.out.println("## overview : " + overviews[0] + "\n");
+		//System.out.println("## overview : " + overviews[0] + "\n");
 		
-		
+		// 지역에 따른 맛집 추천
 		String foodURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
-				+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
-				+ "&numOfRows=3&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=P"
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
+				+ "&numOfRows=12&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=P"
 				+ "&contentTypeId=39" // 음식점
 				+ areaCode + "&_type=json";
 		responseStr = apiService.getResponseStr(foodURL);
 		itemsObject = apiService.getItemsObject(responseStr);
 		itemsArray = apiService.makeItemsArray(itemsObject);
-		ArrayList<InfoItemDTO> foodList = makeDTOList(itemsArray);
-		mv.addObject("foodList", foodList);
+		ArrayList<InfoItemDTO> foodList = makeInfoItemDTOList(itemsArray, "N");
+		Collections.shuffle(foodList); mv.addObject("foodList", foodList);
 		
+		// 지역에 따른 코스 추천
+		String courseURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
+				+ "&numOfRows=12&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=P"
+				+ "&contentTypeId=25" // 추천 코스
+				+ areaCode + "&_type=json";
+		responseStr = apiService.getResponseStr(courseURL);
+		itemsObject = apiService.getItemsObject(responseStr);
+		itemsArray = apiService.makeItemsArray(itemsObject);
+		ArrayList<InfoItemDTO> courseList = makeInfoItemDTOList(itemsArray, "Y");
+		for(InfoItemDTO course : courseList) {
+			course.setCourseSubNames(getSubNamesByCourse(course));
+		}
+		Collections.shuffle(courseList); mv.addObject("courseList", courseList);
+		
+		// 지역에 따른 숙박 추천
 		String accommURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
-				+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
-				+ "&numOfRows=3&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=P"
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
+				+ "&numOfRows=12&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=P"
 				+ "&contentTypeId=32" // 숙박
 				+ areaCode + "&_type=json";
 		responseStr = apiService.getResponseStr(accommURL);
 		itemsObject = apiService.getItemsObject(responseStr);
 		itemsArray = apiService.makeItemsArray(itemsObject);
-		ArrayList<InfoItemDTO> accomList = makeDTOList(itemsArray);		
-		mv.addObject("accomList", accomList);
+		ArrayList<InfoItemDTO> accomList = makeInfoItemDTOList(itemsArray, "N");	
+		Collections.shuffle(accomList); mv.addObject("accomList", accomList);
 		
 		return mv;
 	}
+	
+	// [일일코스 정보 조회]
+	@PostMapping(value="/courseDetail")
+	public ModelAndView courseDetail(@RequestParam("areaName") String areaName, 
+			@RequestParam("title") String title, @RequestParam("overview") String overview, 
+			@RequestParam("firstimage") String firstimage, @RequestParam("contentId") String contentId) throws Exception {
+		System.out.println("-------------------------------------- courseDetail() --------------------------------------");
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("info/one_course_info");
+		mv.addObject("areaName", areaName); mv.addObject("title", title); mv.addObject("overview", overview); mv.addObject("firstimage", firstimage); 
+		
+		String responseStr=null; JsonObject itemsObject=null; JsonArray itemsArray = null;
+		// 소개정보 조회
+		String detailIntro_URL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?"
+				+ "ServiceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
+				+ "&MobileApp=RailGo&MobileOS=ETC&introYN=Y"
+				+ "&contentTypeId=25&contentId="+contentId+"&_type=json";
+		responseStr = apiService.getResponseStr(detailIntro_URL);
+		itemsObject = apiService.getItemsObject(responseStr);
+		String distance = ((JsonObject)itemsObject.get("item")).get("distance").getAsString(); // 코스 총 거리
+		String taketime = ((JsonObject)itemsObject.get("item")).get("taketime").getAsString(); // 코스 총 소요시간
+		mv.addObject("distance", distance);	mv.addObject("taketime", taketime);
+		
+		// 일일 코스에 대한 코스들 정보 조회
+		String detailInfo_URL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo?"
+				+ "ServiceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
+				+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y"
+				+ "&contentTypeId=25&contentId="+contentId+"&_type=json";
+		responseStr = apiService.getResponseStr(detailInfo_URL);
+		itemsObject = apiService.getItemsObject(responseStr);
+		itemsArray = apiService.makeItemsArray(itemsObject);
+		ArrayList<DetailInfoDTO> detailInfoList = makeDetailInfoDTOList(itemsArray);
+		System.out.println("## detailInfoList : " + detailInfoList);
+		mv.addObject("list", detailInfoList);
+		
+		
+		String areaCode = apiService.findAreaCode(areaName); 
+		String courseURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
+				+ "&numOfRows=4&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=P"
+				+ "&contentTypeId=25" // 추천 코스
+				+ areaCode + "&_type=json";
+		responseStr = apiService.getResponseStr(courseURL);
+		itemsObject = apiService.getItemsObject(responseStr);
+		itemsArray = apiService.makeItemsArray(itemsObject);
+		ArrayList<InfoItemDTO> courseList = makeInfoItemDTOList(itemsArray, "Y");
+		Collections.shuffle(courseList); mv.addObject("recommedList", courseList);
+		
+		return mv;
+	}
+	
+	// [키워드를 통해 컨텐츠 찾기]
+	@PostMapping(value="/search/{keyword}")
+	public void findCategoryListByKeyword(@PathVariable("keyword") String keyword, @RequestParam("areaName") String areaName) throws Exception {
+		String areaCode = apiService.findAreaCode(areaName); 
+		String accomKeyword_URL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?"
+				+ "ServiceKey=인증키&keyword=%EA%B4%91%EC%A3%BC"
+				+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=C"
+				+ areaCode+"&listYN=Y&numOfRows=10&pageNo=1";
+		String responseStr=null; JsonObject itemsObject=null; JsonArray itemsArray = null;
+		responseStr = apiService.getResponseStr(accomKeyword_URL);
+		itemsObject = apiService.getItemsObject(responseStr);
+		itemsArray = apiService.makeItemsArray(itemsObject);
+		ArrayList<InfoItemDTO> courseList = makeInfoItemDTOList(itemsArray, "Y");
+	} 
+	
 	
 	
 	// [관광명소] CheckBox - FindCat1List
@@ -152,7 +233,7 @@ public class InfoController {
 			@RequestParam(value="arrange", required=false) String arrange, @RequestParam(value="pageNo", required=false) String pageNo) throws Exception {
 		
 		System.out.println("-------------------------------------- filterHotplace() --------------------------------------");
-		System.out.println("## contentTypeId:"+contentTypeId+" / cat1:"+cat1+" / cat2:"+cat2+" / cat3:"+cat3);
+		//System.out.println("## contentTypeId:"+contentTypeId+" / cat1:"+cat1+" / cat2:"+cat2+" / cat3:"+cat3);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/category_list");
@@ -165,11 +246,11 @@ public class InfoController {
 		
 		String areaCode = apiService.findAreaCode(areaName); 
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
-				+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 				+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=" + arrange + "&contentTypeId="+ contentTypeId + areaCode 
 				+ "&cat1="+cat1+"&cat2="+cat2+"&cat3="+cat3
 				+ "&pageNo=1&numOfRows=9999&_type=json";
-		System.out.println("## url : "  + url);
+		//System.out.println("## url : "  + url);
 		String responseStr = apiService.getResponseStr(url);
 		
 		int totalCount = apiService.getTotalCount(responseStr); mv.addObject("totalCount", totalCount); 
@@ -177,7 +258,7 @@ public class InfoController {
 		
 		JsonObject itemsObject = apiService.getItemsObject(responseStr);
 		JsonArray itemsArray = apiService.makeItemsArray(itemsObject);
-		ArrayList<InfoItemDTO> resultList = makeDTOList(itemsArray);
+		ArrayList<InfoItemDTO> resultList = makeInfoItemDTOList(itemsArray, "Y");
 		mv.addObject("list", resultList);
 		return mv;
 	}
@@ -189,7 +270,7 @@ public class InfoController {
 			@PathVariable Optional<Integer> currentPage, @RequestParam(value="arrange", required=false) String arrange) throws Exception {
 		
 		System.out.println("-------------------------------------- category() --------------------------------------");
-		System.out.println("## category : " + category + " / areaName : " + areaName + " / arrange : " + arrange) ;
+		//System.out.println("## category : " + category + " / areaName : " + areaName + " / arrange : " + arrange) ;
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/category"); 
 		mv.addObject("category", category);		mv.addObject("areaName", areaName);
@@ -211,21 +292,21 @@ public class InfoController {
 		
 		for(int contentTypeId : categoryList) {
 			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
-					+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
+					+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 					+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=C" + "&contentTypeId="+ contentTypeId + areaCode 
 					+ "&pageNo=" + pageNo +"&numOfRows=" + numOfRows + "&_type=json";
-			System.out.println("## url : " + url);
+			//System.out.println("## url : " + url);
 			responseStr = apiService.getResponseStr(url);
 			totalCount += apiService.getTotalCount(responseStr);
 			itemsObject = apiService.getItemsObject(responseStr);
 			itemsArray = apiService.makeItemsArray(itemsObject);
-			System.out.println("## itemsArray : " + itemsArray + "\n\n");
+			//System.out.println("## itemsArray : " + itemsArray + "\n\n");
 			resultArray.addAll(itemsArray);
 		}
 		
 		mv.addObject("totalCount", totalCount); 
-		System.out.println("## resultArray : " + resultArray);
-		ArrayList<InfoItemDTO> resultList = makeDTOList(resultArray);
+		//System.out.println("## resultArray : " + resultArray);
+		ArrayList<InfoItemDTO> resultList = makeInfoItemDTOList(resultArray, "Y");
 		mv.addObject("list", resultList);
 		
 		ArrayList<CategoryVO> cat3List = null;
@@ -252,7 +333,7 @@ public class InfoController {
 			@PathVariable Optional<Integer> currentPage, @RequestParam("arrange") String arrange) throws Exception {
 		
 		System.out.println("-------------------------------------- arrangeCategory() --------------------------------");
-		System.out.println("## category : " + category + " / areaName : " + areaName + " / arrange : " + arrange);
+		//System.out.println("## category : " + category + " / areaName : " + areaName + " / arrange : " + arrange);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/category_list");
 		mv.addObject("category", category);		mv.addObject("areaName", areaName);		mv.addObject("arrange", arrange);
@@ -272,7 +353,7 @@ public class InfoController {
 		
 		for(int contentTypeId : categoryList) {
 			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
-					+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
+					+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 					+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange="+ arrange + "&contentTypeId="+ contentTypeId + areaCode 
 					+ "&pageNo=" + pageNo + "&numOfRows=" + numOfRows + "&_type=json";
 			//System.out.println("## url : " + url);
@@ -280,12 +361,12 @@ public class InfoController {
 			totalCount += apiService.getTotalCount(responseStr);
 			itemsObject = apiService.getItemsObject(responseStr);
 			itemsArray = apiService.makeItemsArray(itemsObject);
-			System.out.println("## itemsArray : " + itemsArray + "\n\n");
+			//System.out.println("## itemsArray : " + itemsArray + "\n\n");
 			resultArray.addAll(itemsArray);
 		}
 		mv.addObject("totalCount", totalCount); 
-		System.out.println("## resultArray : " + resultArray);
-		ArrayList<InfoItemDTO> resultList = makeDTOList(resultArray);
+		//System.out.println("## resultArray : " + resultArray);
+		ArrayList<InfoItemDTO> resultList = makeInfoItemDTOList(resultArray, "Y");
 		mv.addObject("list", resultList);
 		
 		return mv;
@@ -302,19 +383,19 @@ public class InfoController {
 		
 		System.out.println("-------------------------------------- filterCategory() --------------------------------");
 		
-		System.out.println("## category : " + category + " / areaName : " + areaName + " / cat3 : " + cat3 + " / arrange : " + arrange);
+		//System.out.println("## category : " + category + " / areaName : " + areaName + " / cat3 : " + cat3 + " / arrange : " + arrange);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/category_list");
 		mv.addObject("category", category);		mv.addObject("areaName", areaName);		
 		mv.addObject("cat3", cat3);		
 		
 		String cat1 = cat3.substring(0, 3); 	String cat2 = cat3.substring(0, 5);
-		System.out.println("## cat1 : " + cat1 + " / cat2 : " + cat2);
+		//System.out.println("## cat1 : " + cat1 + " / cat2 : " + cat2);
 		
 		// pageNo 
 		int pageNo=1;
 		if(currentPage.isPresent()) pageNo = currentPage.get();
-		System.out.println("## pageNo : " + pageNo);
+		//System.out.println("## pageNo : " + pageNo);
 		mv.addObject("currentPage", pageNo);
 		
 		// arrange 
@@ -331,11 +412,11 @@ public class InfoController {
 		// totalCount먼저 구하기
 		for(int contentTypeId : categoryList) {
 			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
-					+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
+					+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 					+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=" + arrange + "&contentTypeId="+ contentTypeId + areaCode 
 					+ "&pageNo=" + pageNo +"&numOfRows=" + numOfRows 
 					+ "&cat1=" + cat1 + "&cat2=" + cat2 + "&cat3=" + cat3 +"&_type=json";
-			System.out.println("## url : " + url);
+			//System.out.println("## url : " + url);
 			responseStr = apiService.getResponseStr(url);
 			totalCount += apiService.getTotalCount(responseStr);
 		}
@@ -344,11 +425,11 @@ public class InfoController {
 		
 		for(int contentTypeId : categoryList) {
 			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
-					+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
+					+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 					+ "&MobileApp=RailGo&MobileOS=ETC&listYN=Y&arrange=" + arrange + "&contentTypeId="+ contentTypeId + areaCode 
 					+ "&pageNo=" + pageNo +"&numOfRows=" + numOfRows 
 					+ "&cat1=" + cat1 + "&cat2=" + cat2 + "&cat3=" + cat3 +"&_type=json";
-			System.out.println("## url : " + url);
+			//System.out.println("## url : " + url);
 			responseStr = apiService.getResponseStr(url);
 			//totalCount += infoService.getTotalCount(responseStr);
 			itemsObject = apiService.getItemsObject(responseStr);
@@ -357,82 +438,104 @@ public class InfoController {
 				resultArray.add(itemsObject.get("item"));
 			}else {
 				itemsArray = apiService.makeItemsArray(itemsObject);
-				System.out.println("## itemsArray : " + itemsArray + "\n\n");
+				//System.out.println("## itemsArray : " + itemsArray + "\n\n");
 				resultArray.addAll(itemsArray);
 			}
 		}
 
-		System.out.println("## resultArray : " + resultArray);
-		ArrayList<InfoItemDTO> resultList = makeDTOList(resultArray);
+		//System.out.println("## resultArray : " + resultArray);
+		ArrayList<InfoItemDTO> resultList = makeInfoItemDTOList(resultArray, "Y");
 		mv.addObject("list", resultList);
 		
 		return mv;
 	}
 	
+	@PostMapping(value = "/detailInfo")
+	public ModelAndView detail(@RequestParam("areaName") String areaName, @RequestParam("contentid") int contentid) throws Exception {
+		System.out.println("## info contentid : " + contentid);
+		String responseStr = null; JsonObject itemsObject = null; JsonArray itemsArray = null; JsonObject itemObject = null;
+		ArrayList<InfoItemDTO> list = new ArrayList<InfoItemDTO>();
+
+		// [공통정보 조회]
+		String baseURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
+				+ "&MobileOS=ETC&MobileApp=RailGo&listYN=Y" + "&contentId=" + contentid // 컨텐트id 매칭
+				+ "&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y" + "&_type=json";
+		responseStr = apiService.getResponseStr(baseURL);
+		itemsObject = apiService.getItemsObject(responseStr);
+		itemObject = (JsonObject) itemsObject.get("item");
+		InfoItemDTO dto = new Gson().fromJson(itemObject, InfoItemDTO.class); 
+		System.out.println("## dto : " + dto);
+		String category = "";
+		if(dto.getContenttypeid()==32) {
+			category="숙박";
+		}else if(dto.getContenttypeid()==12 || dto.getContenttypeid()==14 || dto.getContenttypeid()==15 || dto.getContenttypeid()==28 || dto.getContenttypeid()==38) {
+			category="관광명소";
+		}else if(dto.getContenttypeid()==39) {
+			category="음식점";
+		}
+		
+		return this.detail(dto.getTitle(), dto.getContentid(), dto.getContenttypeid(), dto.getMapx(), dto.getMapy(), areaName, category);
+	}
 	
+	
+	// Detail
 	@PostMapping(value = "/detail/{title}", produces = "text/plain; charset=utf-8")
 	public ModelAndView detail(@PathVariable("title") String title, @RequestParam("contentid") int contentid,
 			@RequestParam("contenttypeid") int contenttypeid, @RequestParam("mapx") String mapx,
-			@RequestParam("mapy") String mapy, @RequestParam("areaName") String areaName) throws Exception {
-		System.out.println("## info title : " + title);
-		System.out.println("## info contentid : " + contentid);
-		System.out.println("## info contenttypeid : " + contenttypeid);
-		System.out.println("## info mapx : " + mapx);
-		System.out.println("## info mapy : " + mapy);
-		System.out.println("## info areaName : " + areaName);
+			@RequestParam("mapy") String mapy, @RequestParam("areaName") String areaName, @RequestParam("category") String category) throws Exception {
+		
+		  System.out.println("## info title : " + title);
+		  System.out.println("## info contentid : " + contentid);
+		  System.out.println("## info contenttypeid : " + contenttypeid);
+		  System.out.println("## info mapx : " + mapx);
+		  System.out.println("## info mapy : " + mapy);
+		  System.out.println("## info areaName : " + areaName);
+		  System.out.println("## info category : " + category);
+		 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("info/detail");
-		mv.addObject("areaName", areaName);
+		mv.addObject("areaName", areaName);		mv.addObject("category", category);
 
-		/*** TourAPI를 이용해 JSON데이터 추출하는 부분 ***/
-		String responseStr = null;
-		JsonObject itemsObject = null;
-		JsonArray itemsArray = null;
-		JsonObject itemObject = null;
+		String responseStr = null; JsonObject itemsObject = null; JsonArray itemsArray = null; JsonObject itemObject = null;
 		ArrayList<InfoItemDTO> list = new ArrayList<InfoItemDTO>();
 
+		// [공통정보 조회]
 		String baseURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
-				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 				+ "&MobileOS=ETC&MobileApp=RailGo&listYN=Y" + "&contentId=" + contentid // 컨텐트id 매칭
 				+ "&contentTypeId=" + contenttypeid // 컨텐트타입 매칭
 				+ "&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y" + "&_type=json";
 		responseStr = apiService.getResponseStr(baseURL);
 		itemsObject = apiService.getItemsObject(responseStr);
 		itemObject = (JsonObject) itemsObject.get("item");
-
-		InfoItemDTO dto = new Gson().fromJson(itemObject, InfoItemDTO.class); // itemObject를 AreaBasedItemDTO에 담기 ( Json
-																				// => Object )
-		// System.out.println("## cat코드변경 전 AreaBasedItemDTO : " + dto);
-		CategoryVO vo = infoService.findCatNameByCat3(itemObject.get("cat3").getAsString()); // cat3를 통해 itemObject의
-																								// CatName 추출
+		InfoItemDTO dto = new Gson().fromJson(itemObject, InfoItemDTO.class); 
+		CategoryVO vo = infoService.findCatNameByCat3(itemObject.get("cat3").getAsString()); 
 		dto.setCat1(vo.getCat1Name());
 		dto.setCat2(vo.getCat2Name());
 		dto.setCat3(vo.getCat3Name()); // cat코드를 catName으로 변경
-		// System.out.println("## cat코드 이름으로 변경 후 AreaBasedItemDTO : " + dto);
 		mv.addObject("detail", dto);
 
+		// [소개정보 조회] 
 		String detailURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?"
-				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 				+ "&numOfRows=10&MobileOS=ETC&MobileApp=RailGo" + "&contentId=" + contentid + "&contentTypeId="
 				+ contenttypeid + "&_type=json";
 		responseStr = apiService.getResponseStr(detailURL);
 		itemsObject = apiService.getItemsObject(responseStr);
 		itemObject = (JsonObject) itemsObject.get("item");
-		if (contenttypeid == 39) {
-			if(itemObject.get("opentimefood")!=null) {
-				mv.addObject("opentime", itemObject.get("opentimefood").getAsString());
-			}else {
-				mv.addObject("opentime", null);
-			}
-		} else if (contenttypeid == 32) {
+		if (contenttypeid == 39) { // 카테고리가 '맛집'인 경우에는 '오픈시간' 추가
+			if(itemObject.get("opentimefood")!=null) mv.addObject("opentime", itemObject.get("opentimefood").getAsString());
+			else  mv.addObject("opentime", null);
+		} else if (contenttypeid == 32) { // 카테고리가 '숙박'인 경우에는 '체크인/아웃  시간' 추가
 			mv.addObject("chkintime", itemObject.get("checkintime").getAsString());
 			mv.addObject("chkouttime", itemObject.get("checkouttime").getAsString());
 		}
 
+		// [이미지정보 조회]
 		String imageURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage?"
-				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
-				+ "&numOfRows=2&MobileOS=ETC&MobileApp=RailGo" + "&contentId=" + contentid + "&imageYN=Y"
-				+ "&_type=json";
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
+				+ "&numOfRows=2&MobileOS=ETC&MobileApp=RailGo" + "&contentId=" + contentid + "&imageYN=Y" + "&_type=json";
 		responseStr = apiService.getResponseStr(imageURL);
 		int total = apiService.getTotalCount(responseStr);
 		if (total == 0) {
@@ -450,8 +553,9 @@ public class InfoController {
 			mv.addObject("img2", ((JsonObject) itemsArray.get(1)).get("originimgurl").getAsString());
 		}
 
+		// [근처 컨텐츠 정보 조회]
 		String locURL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?"
-				+ "serviceKey=aITyOzpmSgMBVPzkEURdo%2F2EuYMTaPQaYNejkRIo3VLfO6RR0DQ2Wt1z32pqbLPq5WcBWkvJvdYei259ze6XvA%3D%3D"
+				+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 				+ "&numOfRows=3&MobileOS=ETC&MobileApp=RailGo&arrange=E" + "&contentTypeId=" + contenttypeid + "&mapX="
 				+ mapx + "&mapY=" + mapy + "&radius=100000000&listYN=Y" + "&_type=json";
 		responseStr = apiService.getResponseStr(locURL);
@@ -459,35 +563,38 @@ public class InfoController {
 		itemsArray = apiService.makeItemsArray(itemsObject);
 		for (int i = 1; i < itemsArray.size(); i++) { // 거리순이라 0번째는 자기 자신이기 때문에 1부터 추출
 			JsonObject locObject = (JsonObject) itemsArray.get(i); // 각 locObject 추출
-			InfoItemDTO infoDto = new Gson().fromJson(locObject, InfoItemDTO.class); // 각 locObject를 infoItemDTO에 담기 (
-																						// Json => Object )
-			CategoryVO catVo = infoService.findCatNameByCat3(locObject.get("cat3").getAsString()); // cat3를 통해
-																									// locObject의
-																									// CatName 추출
-			infoDto.setCat1(catVo.getCat1Name());
-			infoDto.setCat2(catVo.getCat2Name());
-			infoDto.setCat3(catVo.getCat3Name()); // cat코드를 catName으로 변경
-			list.add(infoDto);
+			InfoItemDTO infoDto = new Gson().fromJson(locObject, InfoItemDTO.class); 
+			//System.out.println("## 근처 컨텐츠 : " + infoDto);
+			if(! locObject.get("cat1").getAsString().equals("B03")) {
+				CategoryVO catVo = infoService.findCatNameByCat3(locObject.get("cat3").getAsString()); 
+				infoDto.setCat1(catVo.getCat1Name());
+				infoDto.setCat2(catVo.getCat2Name());
+				infoDto.setCat3(catVo.getCat3Name()); // cat코드를 catName으로 변경
+				list.add(infoDto);
+			}
 		}
 		mv.addObject("locList", list);
 
-		ArrayList<ReviewJoinDTO> reList = null;
-		reList = infoService.findAllReview(contentid);
+		// [리뷰 목록 조회]
+		ArrayList<ReviewJoinDTO> reList = infoService.findAllReview(contentid);
+		int ratingTotal = 0; // 총 평점
 		for(ReviewJoinDTO reviewJoinDTO : reList) {
 			String r_code = reviewJoinDTO.getR_code();
+			ratingTotal += reviewJoinDTO.getRating();
 			ArrayList<TripImageVO> reviewImgList =  infoService.findReviewImg(r_code);
 			if(reviewImgList!=null) {
 				reviewJoinDTO.setImgList(reviewImgList);
 			}
 		}
-		log.info("## reList: " + reList);
+		//log.info("## reList: " + reList);
+		float ratingAvg = ratingTotal/(float)reList.size();
+		//log.info("## ratingAvg: " + ratingAvg + " / ratingTotal : " + ratingTotal + " / reList.size() : " + reList.size());
+		mv.addObject("ratingAvg" , ratingAvg);
 		mv.addObject("reList", reList);
-		
-		
 		return mv;
 	}
 	
-	/* 이미지 업로드 */
+	// 이미지 업로드 
 	@PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> upload(MultipartFile[] uploadFile) {
@@ -502,8 +609,8 @@ public class InfoController {
 
 		for (MultipartFile multipartFile : uploadFile) {
 			TripImageVO imgvo = new TripImageVO();
-			log.info("## Upload File Name: " + multipartFile.getOriginalFilename());
-			log.info("## Upload File Size: " + multipartFile.getSize());
+			//log.info("## Upload File Name: " + multipartFile.getOriginalFilename());
+			//log.info("## Upload File Size: " + multipartFile.getSize());
 			String uploadFileName = multipartFile.getOriginalFilename();
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 			imgvo.setFileName(uploadFileName);
@@ -524,43 +631,41 @@ public class InfoController {
 				}
 				infoService.insertReviewImg(imgvo);
 			} catch (Exception e) {
-				log.info("## upload Exception: " + e);
+				//log.info("## upload Exception: " + e);
 			}
 		}
 		ResponseEntity<String> result = new ResponseEntity<>("성공", HttpStatus.OK);
 		return result;
 	}
 	
+	// 리뷰 작성 
 	@PostMapping("/insertReview")
 	public void insertReview(ReviewVO vo) {
-		log.info("## ReviewVO: " + vo);
+		//log.info("## ReviewVO: " + vo);
 		infoService.insertReview(vo);
 	}
-	
-	
-	/* 업로드 된 이미지를 썸네일로 보여주는 부분 */
+	// 업로드 된 이미지를 썸네일로 보여주는 부분 
 	@GetMapping("/display")	  
 	@ResponseBody 
 	public ResponseEntity<byte[]> getFile(String fileName){ 
 	File file = new File("C:\\upload\\" + fileName); 
 	ResponseEntity<byte[]> result = null;
-		  
 		try { 
 			HttpHeaders header = new HttpHeaders(); 
 			header.add("Content-Type", Files.probeContentType(file.toPath())); 
 			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 		}catch(IOException ie) { 
-			log.info("## display exception: " + ie); 
+			//log.info("## display exception: " + ie); 
 		} 
 		return result; 
 	}
 	 
-	/* 리뷰 삭제 */
+	// 리뷰 삭제 
 	@PostMapping("/deleteReview")
 	public String remove(@RequestBody Map<String,String> r_code) {
 		Map<String,String> code = new HashMap<String,String>();
 		code = r_code;
-		log.info("## delete: " + code.get("r_code"));
+		//log.info("## delete: " + code.get("r_code"));
 		if(r_code == null) return null;
 		infoService.deleteReview(code.get("r_code"));
 		return "성공";
@@ -568,58 +673,84 @@ public class InfoController {
 	
 	
 	
-	
-	/*** makeDTOList(JsonArray jsonArray) : cat1,2,3 코드를 catName으로 바꿔서 다시 가공하는 일반 메소드  ***/
-	public ArrayList<InfoItemDTO> makeDTOList(JsonArray jsonArray) throws Exception {
+	/*** makeInfoItemDTOList(JsonArray jsonArray) : cat1,2,3 코드를 catName으로 바꿔서 다시 가공하는 일반 메소드  ***/
+	public ArrayList<InfoItemDTO> makeInfoItemDTOList(JsonArray jsonArray, String checkOverview) throws Exception {
 		ArrayList<InfoItemDTO> list = new ArrayList<InfoItemDTO>();
-		System.out.println("## jsonArray size : " + jsonArray.size());
+		//System.out.println("## jsonArray size : " + jsonArray.size());
 		int contentId=0; String url=null; String responseStr=null; JsonObject itemsObject=null; String overview=null;
 		for(int i=0; i<jsonArray.size(); i++) {
 			JsonObject itemObject = (JsonObject)jsonArray.get(i); // 각 itemObject 추출
-			System.out.println("## itemObject : " + itemObject);
+			//System.out.println("## itemObject : " + itemObject);
 			InfoItemDTO dto = new Gson().fromJson(itemObject, InfoItemDTO.class); // 각 itemObject를 AreaBasedItemDTO에 담기  ( Json => Object )
-			System.out.println("## cat코드변경 전 AreaBasedItemDTO : " + dto);
+			//System.out.println("## cat코드변경 전 AreaBasedItemDTO : " + dto);
 			if(dto.getCat3() == null || dto.getCat1()=="B03") continue;
 			CategoryVO vo = infoService.findCatNameByCat3(itemObject.get("cat3").getAsString());  // cat3를 통해 itemObject의 CatName 추출
-			dto.setCat1(vo.getCat1Name());		dto.setCat2(vo.getCat2Name());		dto.setCat3(vo.getCat3Name());  // cat코드를 catName으로 변경
-			//System.out.println("## cat코드 이름으로 변경 후 AreaBasedItemDTO : " + dto);
-			
-			// overview 추출 후 dto.setOverview()
-			/*contentId = infoService.getContentId(itemObject); 
-			url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
-				+ "serviceKey=9PvcwqzNy2cTGrRteXXTc00BL0lttnj1uPLlqfRlqVwARkgZGSRy84gdjfY54ZbqVRvas8fYlxL3Q1dxDjmLZw%3D%3D"
-				+ "&MobileOS=ETC&MobileApp=RailGo&contentId="+contentId+"&overviewYN=Y&_type=json";
-			responseStr = apiService.getResponseStr(url);
-			itemsObject = apiService.getItemsObject(responseStr);
-			overview = apiService.getOverview(itemsObject);
-			dto.setOverview(overview); */
-			
+			if(vo!=null) {
+				dto.setCat1(vo.getCat1Name());		dto.setCat2(vo.getCat2Name());		dto.setCat3(vo.getCat3Name());  // cat코드를 catName으로 변경
+				if(checkOverview.equals("Y")) {
+					// overview 추출 후 dto.setOverview()
+					contentId = apiService.getContentId(itemObject); 
+					url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
+						+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
+						+ "&MobileOS=ETC&MobileApp=RailGo&contentId="+contentId+"&overviewYN=Y&_type=json";
+					responseStr = apiService.getResponseStr(url);
+					itemsObject = apiService.getItemsObject(responseStr);
+					overview = apiService.getOverview(itemsObject);
+					dto.setOverview(overview); 
+				}
+				
+				list.add(dto);
+			}
+		}
+		return list;
+	}
+	
+	/*** makeDetailInfoDTOList ***/
+	public ArrayList<DetailInfoDTO> makeDetailInfoDTOList(JsonArray jsonArray) {
+		ArrayList<DetailInfoDTO> list = new ArrayList<DetailInfoDTO>();
+		for(int i=0; i<jsonArray.size(); i++) {
+			JsonObject itemObject = (JsonObject)jsonArray.get(i);
+			DetailInfoDTO dto = new Gson().fromJson(itemObject, DetailInfoDTO.class);
 			list.add(dto);
 		}
 		return list;
 	}
+	
+	/*** 각 코스에 대한 코스 정보 가공해주는 메소드 (코스1-코스2-코스3..) ***/
+	public String getSubNamesByCourse(InfoItemDTO course) throws Exception {
+		int contentId = course.getContentid();
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo?"
+				+ "ServiceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
+				+ "&contentTypeId=25&contentId="+contentId+"&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y&_type=json";
+		String responseStr = apiService.getResponseStr(url);
+		JsonObject itemsObject = apiService.getItemsObject(responseStr);
+		JsonArray itemsArray = apiService.makeItemsArray(itemsObject);
+		
+		String subNames = ""; JsonObject itemObject=null;
+		for(int i=0; i<itemsArray.size(); i++) {
+			itemObject = (JsonObject)itemsArray.get(i);
+			if(i==itemsArray.size()-1) subNames += itemObject.get("subname").getAsString();
+			else subNames += itemObject.get("subname").getAsString() + " → ";
+		}
+		//System.out.println("## 코스 정보 : " + subNames);
+		return subNames;
+	}
 
-	/* 날짜별로 이미지 저장 폴더 생성해주는 메소드 */
+	/*** 날짜별로 이미지 저장 폴더 생성해주는 메소드 ***/
 	private String getFolder() {
-
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
 		Date date = new Date();
-
 		String str = sdf.format(date);
-
 		return str.replace("-", File.separator);
 	}
 
-	/* 이미지 파일을 판단해주는 메소드 */
+	/*** 이미지 파일을 판단해주는 메소드 ***/
 	private boolean checkImageType(File file) {
 		try {
 			String contentType = Files.probeContentType(file.toPath());
-
 			return contentType.startsWith("image");
-
 		} catch (IOException ie) {
-			log.info("## checkImageType Exception: " + ie);
+			//log.info("## checkImageType Exception: " + ie);
 		}
 		return false;
 	}

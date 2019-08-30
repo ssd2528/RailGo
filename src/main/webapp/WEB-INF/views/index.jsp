@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>[RailGo] Main Page</title>
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-		
+		<link rel="icon" href="/img/favicon.ico">
 		<!-- CSS -->
 		<link href="/css/common.css" rel="stylesheet">
 		<link href="/css/index.css" rel="stylesheet">

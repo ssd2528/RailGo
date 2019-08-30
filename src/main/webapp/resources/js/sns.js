@@ -4,6 +4,7 @@ $(document).ready(function(){
 	var planner = $('.planner-img');
 	var member = $('.member-img');	
 	
+	// sns 항시 이미지 변환
 	$('.sns-img img').attr('src', '../img/header/sns_clicked.png');
 	sns.css('color', '#009CE9');
 	sns.closest('li').css('border-bottom', 'solid 3px #009CE9');

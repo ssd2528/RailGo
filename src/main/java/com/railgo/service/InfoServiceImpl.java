@@ -26,7 +26,7 @@ import com.railgo.mapper.TripImageMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
-//@Log4j
+@Log4j
 @Service
 @AllArgsConstructor
 public class InfoServiceImpl implements InfoService {
@@ -87,7 +87,7 @@ public class InfoServiceImpl implements InfoService {
 		return categoryMapper.findCat3List(cat2);
 	}
 	
-	/* 찬우 */
+	
 	@Override
 	public ArrayList<ReviewJoinDTO> findAllReview(int contentid){
 		return reviewMapper.findAllReview(contentid);

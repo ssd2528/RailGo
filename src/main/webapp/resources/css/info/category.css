@@ -25,8 +25,9 @@ header { height:61px; border-bottom: 1px solid lightgray; }
 .category-info-box{margin:0 auto;max-width:1280px}
 .category-category{float:left;color:gray;display:block;padding-left:10px}
 .category-category span{color:gray}
-.category-category span:hover{cursor:pointer;text-decoration:underline;color:gray}
+.category-category span.link-areaName:hover{cursor:pointer;text-decoration:underline;color:gray}
 .category-name{text-align:left;margin:5px 0;display:block;padding-left:10px}
+
 
 
 /* 		section-search 		*/
@@ -57,14 +58,15 @@ input[type=checkbox]:checked+label span.chkbox{background:url(../../resources/im
 /* 		info-list 		*/
 .arrange-chk{ color:#000; font-weight:bold; }
 .arrange:hover { text-decoration:underline; cursor:pointer; }
-.fa-exclamation-circle{color:#7f7f7f;font-size:100px;margin-top:40px}
-.info-list{display:grid;grid-template-columns:200px 2fr;margin-bottom:15px;margin-top:20px}
+.fa-exclamation-circle{color:#7f7f7f;font-size:100px;margin-top:40px;}
+.info-list{display:grid;grid-template-columns:200px 2fr;padding:20px 0px;}
+.info-list:hover { cursor:pointer; background:#efefef; }
 .info-list-img{margin-left:20px;width:150px;height:100%}
 .info-list-title{display:inline}
-.info-list-title:hover{text-decoration:underline}
 .info-list-data{padding-left:10px}
 .info-explain{color:gray;width:600px;height:25px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .info-rating{color:#ed7d31}
+.info-readcount { color: #595959; font-size: 13px; margin-top: 3px; }
 
 
 /*		 list-paging 		*/

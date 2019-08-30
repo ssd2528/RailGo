@@ -21,7 +21,6 @@ $(document).ready(function(){
 		$('label.error').css('display', 'none');
 		//location.reload();
 		$('html').css('overflow', 'auto');
-		
 	}); 
 	
 	$('.password-find-tag').click(function() {
@@ -81,6 +80,7 @@ $(function(){
 	$.validator.addMethod('passwordCk',  function( value, element ) {
 		return this.optional(element) ||  /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(value);
 	}); 
+	
 	$('#signup-form').validate({
 		rules:{
 			name:{required:true},
@@ -138,14 +138,14 @@ $(function(){
 			var loginCookie = $('#loginCookie').is(':checked');
 			//alert(loginCookie);
 			$.ajax({
-				url:'signin',
+				url:'/signin',
 				type:'post',
 				dataType:'text',
 				data:{email:email, pwd:pwd, loginCookie:loginCookie},
 				success : function(result) {
-					if(result == 'success') {
+					if(result == 'success') {	
 						alert('로그인 성공!');
-						location.href='../';
+						location.href='/';
 					}else if(result == 'does not exit') {
 						$('.error_msg').css('display', 'block');
 						$('.error_msg').html('존재하지 않는 아이디입니다.');
@@ -168,7 +168,7 @@ $(function(){
 		},submitHandler:function(form){
 			var email = $('.inform-addr').val();
 			$.ajax({
-				url:'sendUUID',
+				url:'/sendUUID',
 				type:'post',
 				dataType:'text',
 				data:{email:email},

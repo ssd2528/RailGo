@@ -6,6 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>[RailGo] Schedule Page</title>
+		<link rel="icon" href="/img/favicon.ico">
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		
 		<!-- Css -->
@@ -23,6 +24,11 @@
 		<script src="../js/schedule.js" type="text/javascript"></script>
 	</head>
 	<body>
+		<!-- 비정상적 URL 직접 접근 차단 -->
+		<% if(request.getHeader("referer") == null) {  %>
+			<script> alert('정상적인 경로를 통해 다시 접근해 주세요.'); location.href='/'; </script>
+		<% } %>
+		
 		<div class="wrap">
 			<!-- header -->
 			<%@include file="../includes/header.jsp"%>
@@ -42,19 +48,21 @@
 									<a href="#" class="like-schedule">좋아한 일정</a>
 								</div>
 								<div class="schedule-lists">
-									<div class="schedule-list-img">
-										<div class="schedule-list">
-											<a class="schedule-name">여행 이름</a>
-											<a class="schedule-date">(2019.07.03~2019.07.05)</a>
-											<a href=# class="MnD">수정</a>
-											<a class="MnD">|</a>
-											<a href=# class="MnD">삭제</a><br>
-											<img class="schedule-userImg" src="../img/member/default_profile_m.png">
-											<a class="schedule-userName">사용자 닉네임</a>
-										</div>
-									</div>
+								<!-- 
+								<div class="schedule-list">
+                                        <ul>
+                                            <li><img class="schedule-list-img" src="/img/member/winter.jpeg"></li>
+                                            <li><div class="schedule-name">여행 이름</div></li>
+                                            <li><div class="schedule-date">(2019.07.03~2019.07.05)</div></li>
+                                            <li><a href="#" class="MnD">수정</a></li>
+                                            <li><div class="MnD">|</div></li>
+                                            <li><a href="#" class="MnD">삭제</a><br></li>
+                                            <li><img class="schedule-userImg" src="/img/member/default_profile_m.png"></li>
+                                            <li><div class="schedule-userName">사용자 닉네임</div></li>
+                                        </ul>
+                                </div>
+                                -->
 								</div>
-								
 								
 								<!-- 
 								<div class="dg_warning-div">

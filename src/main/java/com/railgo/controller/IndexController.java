@@ -19,29 +19,16 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/")
 @AllArgsConstructor
 public class IndexController {
-	
-	@GetMapping("/")
+	@RequestMapping("/")
 	public String index() {
 		return "index";
 	}
-
-	@RequestMapping("/planner")
-	public String plannerList() {
+	@RequestMapping("planner")
+	public String planner() {
 		return "planner/list";
 	}
-	
-	@GetMapping("/pwd_setting")
-	public String pwd_setting() {
-		return "pwd_setting";
-	}
-	
-	@GetMapping("/error500")
-	public String error500() {
-		return "error500";
-	}
-	
-	@GetMapping("/error404")
-	public String error404() {
-		return "error404";
+	@RequestMapping("course")
+	public String course() {
+		return "info/one_course_info";
 	}
 }

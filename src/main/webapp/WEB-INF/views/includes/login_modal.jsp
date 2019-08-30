@@ -52,7 +52,7 @@
 				<div class="sign-up">
 					<hr>
 					<div class="sign-up-group">
-						<form name="signupF" method="POST" id="signup-form" class="signup-form" action="signup">
+						<form name="signupF" method="POST" id="signup-form" class="signup-form" action="/signup">
 							<div class="infoArea">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								<input class="inform" type='text' name='name' id="name" placeholder='이름'>

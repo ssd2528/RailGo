@@ -25,7 +25,6 @@ $(document).ready(function() {
         }	
         
 		var formData = $('.review-form').serialize();
-		
 		$.ajax({
 			url:'/info/insertReview', 
 			data: formData,
@@ -33,8 +32,11 @@ $(document).ready(function() {
 			success: function(data){
 				console.log(data);
 			}
-		})
+		});
 		$('.page-reload').submit();
+		sendAlarm($('.review-textarea').val()); // 알람기능 보내기 ※
+		
+		
 	});
 	
 	// 이미지 업로드
@@ -114,20 +116,22 @@ function handleImgsFilesSelect(e){
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			var img_html = "<li><img src=\""+e.target.result+"\"id=\"img-"+index+"\"/>";
-			img_html += "<a href=\"javascript:void(0);\" onclick=\"deleteImage("+index+")\" id=\"img-"+index+"\">삭제</a></li>";
 			$('.review-uploadResult ul').append(img_html);
 			index++;
 		}
 		reader.readAsDataURL(f);
 	});
 }
-//썸네일 삭제
-function deleteImage(index) {
-	console.log("index: " + index);
-	img_files.splice(index, 1);
-	
-	var img_id = "#img-"+ index;
-	$(img_id).remove();
-	$(img_id).hide();
-	console.log(img_files);
+
+// 알람 보내기 기능
+var websocket;
+websocket = new WebSocket("ws://localhost:8080/socket"); // 웹 소켓을 지정한 URL로 연결
+websocket.onopen = function(){ console.log("연결 성공"); }
+websocket.onmessage = function(e) {
+	var text = e.data;
+	console.log(text);
+}
+websocket.onclose = function(e) { console.log("연결 끊김"); }
+function sendAlarm(review) {
+	websocket.send(review);
 }
