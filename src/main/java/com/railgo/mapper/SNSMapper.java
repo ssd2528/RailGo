@@ -12,4 +12,5 @@ public interface SNSMapper {
 	public SNSJoinDTO content(String sns_code); // 글 상세보기
 	public int delete(String sns_code); // 글 삭제
 	public int update(SNSVO sns); // 글 수정
+	public SNSVO modifyContent(String sns_code); // 수정할 글 정보 불러오기
 }

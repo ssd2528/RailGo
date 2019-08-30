@@ -13,7 +13,7 @@
 				
 				<!-- 로그인 모달 (sign-in) -->
 				<div class="sign-in-group">
-					<form id="signin-form" class="signin-form" method="POST" action="signin">
+					<form id="signin-form" class="signin-form" method="POST" action="/signin">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<input class="inform" type='email' name='email' id='signin-email' class='signin-email' placeholder='이메일 주소'>
 						<input class="inform" type='password' name='pwd' id='signin-pwd' class='signin-pwd' placeholder='비밀번호'>

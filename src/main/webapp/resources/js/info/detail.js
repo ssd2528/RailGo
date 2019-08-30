@@ -40,25 +40,23 @@ $(document).ready(function() {
 	// 이미지 업로드
 	$("#uploadBtn").on("click", function(e){
 		var formData = new FormData();
-		var inputFile = $("input[name='uploadFile']");
-		var files = inputFile[0].files;
-		console.log(files);
-		for(var i = 0; i < files.length; i++){
-			formData.append("uploadFile", files[i]);
+		for(var i=0, len=img_files.length; i<len; i++){
+			var uploadFile = 'image_'+i;
+			formData.append('uploadFile', img_files[i]);
 		}
+		
 		$.ajax({
 			url:'/info/upload',
 			processData: false,
 			contentType: false, 
 			data: formData,
 			type: 'POST',
-			dataType: 'json',
+			dataType: 'text',
 			success: function(result){
 				console.log(result);
 			}
 		})
 	})
-	var img_files=[];
 	$('#review_file').on('change', handleImgsFilesSelect);
 	
 	// 리뷰 삭제
@@ -85,6 +83,7 @@ $(document).ready(function() {
 		}
 	});
 });
+var img_files=[];
 // 이미지 선택 시 썸네일 생성
 function handleImgsFilesSelect(e){
 	img_files=[];
@@ -115,9 +114,20 @@ function handleImgsFilesSelect(e){
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			var img_html = "<li><img src=\""+e.target.result+"\"id=\"img-"+index+"\"/>";
+			img_html += "<a href=\"javascript:void(0);\" onclick=\"deleteImage("+index+")\" id=\"img-"+index+"\">삭제</a></li>";
 			$('.review-uploadResult ul').append(img_html);
 			index++;
 		}
 		reader.readAsDataURL(f);
 	});
+}
+//썸네일 삭제
+function deleteImage(index) {
+	console.log("index: " + index);
+	img_files.splice(index, 1);
+	
+	var img_id = "#img-"+ index;
+	$(img_id).remove();
+	$(img_id).hide();
+	console.log(img_files);
 }

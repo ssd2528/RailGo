@@ -1,14 +1,18 @@
 package com.railgo.domain;
 
 import java.util.Date;
+import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class CommVO {
-	private int comm_code; // ?Œ“ê¸?ì½”ë“œ
-	private String code; // ?ˆ™/?‹/ê´?/ê³?/?–‰/SNS ?†µ?•©ì½”ë“œ
-	private int mem_code; // ?šŒ?›ì½”ë“œ
-	private int origin_code; // ???Œ“ê¸??˜ ?› ?šŒ?›ì½”ë“œ
-	private Date regDate; // ?“±ë¡ë‚ ì§?
+	private int comm_code; // ëŒ“ê¸€ì½”ë“œ
+	private String sns_code; // í†µí•©ì½”ë“œ
+	private String mem_code; // íšŒì›ì½”ë“œ
+	private int origin_code; // ëŒ€ëŒ“ê¸€ì˜ ì›ëŒ“ê¸€ì½”ë“œ
+	private String content; // ëŒ“ê¸€ë‚´ìš©
+	private Date regDate; // ë“±ë¡ë‚ ì§œ
 }

@@ -10,7 +10,7 @@ $(document).ready(function(){
 			$(this).prop('checked', true);
 			
 			var cat3 = $(this).closest('div').find('.cat3Name').attr('id'); // cat3 code
-			if(cat3 == 'all') {
+			if(cat3 == 'all') { 
 				location.href='http://localhost:8080/info/'+category+'/'+areaName;
 			}else {
 				$.ajax({

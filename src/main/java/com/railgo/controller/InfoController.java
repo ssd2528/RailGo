@@ -490,7 +490,7 @@ public class InfoController {
 	/* 이미지 업로드 */
 	@PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public void upload(MultipartFile[] uploadFile) {
+	public ResponseEntity<String> upload(MultipartFile[] uploadFile) {
 		String uploadFolder = "C:\\upload";
 		String uploadFolderPath = getFolder();
 		
@@ -527,6 +527,8 @@ public class InfoController {
 				log.info("## upload Exception: " + e);
 			}
 		}
+		ResponseEntity<String> result = new ResponseEntity<>("성공", HttpStatus.OK);
+		return result;
 	}
 	
 	@PostMapping("/insertReview")
