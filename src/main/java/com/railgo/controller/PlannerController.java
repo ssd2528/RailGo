@@ -48,12 +48,18 @@ public class PlannerController {
 	@RequestMapping("/plan")
 	public ModelAndView plan(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
+		String scheduleitem = request.getParameter("item");
+		//System.out.println("item: "+scheduleitem);
+		//System.out.println("item size: "+scheduleitem.length());
 		String ticket = request.getParameter("tickets");
 		String startday = request.getParameter("startday");
-		System.out.println(ticket + ", " + startday);
+		String plancode = request.getParameter("plancode");
+		//System.out.println(ticket + ", " + startday+", item : "+scheduleitem);
 		mv.setViewName("planner/plan");
 		mv.addObject("ticket", ticket);
 		mv.addObject("startday", startday);
+		mv.addObject("plancode",plancode);
+		mv.addObject("scheduleitem",scheduleitem);
 		return mv;
 	}
 
@@ -96,7 +102,7 @@ public class PlannerController {
 			return null;
 		}
 	}
-	
+	// 플래너 생성 페이지에서 장소 검색시 키워드를 tour api에 요청해서 해당 자료들을 불러오는 메소드
 	@RequestMapping(value="/searchKeyword", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String searchKeyword(@RequestParam("areaName") String areaName, @RequestParam("keyword") String keyword) throws Exception {
@@ -111,30 +117,27 @@ public class PlannerController {
 		responseStr = apiService.getResponseStr(urlStr);
 		return responseStr;
 	}
-
+	// 저장&닫기 버튼을 눌렀을때 신규 생성인지 update인지 구별해서 저장하는 메소드
 	@RequestMapping(value="/plan/saveAndClose", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String saveAndClose(@RequestBody PlannerJsonDTO dto) {
 		PlannerJsonDTO pjd = dto;
-		log.info("##saveAndClose : "+pjd);
 		PlannerVO planner = pjd.getPlanner();
-		ArrayList<PlannerDateVO> plannerDateArr = pjd.getPlannerDate();
-		ArrayList<PlannerScheduleVO> plannerScheduleArr = pjd.getPlannerSchedule();
-		log.info("####planner : "+planner);
-		log.info("####plannerDateArr : "+plannerDateArr);
-		log.info("####plannerScheduleArr : "+plannerScheduleArr);
-		plannerService.insertPlanner(planner);
-		for(PlannerDateVO vo : plannerDateArr) {
-			plannerService.insertPlannerDate(vo);
+	  /*log.info("##saveAndClose : "+pjd);
+		log.info("####planner : "+planner); */
+		String plan_code = planner.getPlan_code();
+		if(plan_code.equals("new")) {
+			plannerService.createPlanner(pjd);
+		}else {
+			// plan code 를 디비에서 일치하는 넘 검사해서 걔네 싹 지우고 지금 가져온 데이터로 다시 insert
+			Boolean delCheck = plannerService.deleteScheduleList(plan_code);
+			if(delCheck) { plannerService.updatePlanner(pjd);
+			}else { return "false"; }
+			
 		}
-		if(plannerScheduleArr != null) {
-			for(PlannerScheduleVO vo : plannerScheduleArr) {
-				plannerService.insertPlannerSchedule(vo);
-			}
-		}
-		return "save";
+		return "save";	
 	}
-	
+
 	@RequestMapping(value = "/map/locData", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String test5(@RequestBody Map<String, String> json) {

@@ -43,8 +43,10 @@
 					<!-- 1. 일정 정보 부분(schedule-info-box) -->
 					<div class="schedule-info-box">
 						<!-- 전체 일정(plan-date)  -->
-						<input type="hidden" id="ticket" name="ticket" value="${ticket}">
-						<input type="hidden" id="startday" name="startday" value="${startday}">
+						<input type="hidden" id="scheduleitem" name="scheduleitem" value='${scheduleitem}'>
+						<input type="hidden" id="ticket" name="ticket" value='${ticket}'>
+						<input type="hidden" id="startday" name="startday" value='${startday}'>
+						<input type="hidden" id="plancode" name="plancode" value='${plancode}'>
 						<div class="plan-date"> <span class="start"></span> ~ <span class="end"></span></div> 
 						<!-- 상세 일정(plan-date-box) -->
 						<ul class="plan-date-box">
@@ -254,7 +256,7 @@
 				// Instantiate a directions service.
 		        directionsService = new google.maps.DirectionsService;
 			    google.maps.event.addListener(map,'dragend', function() {  
-			   		dragMapEvent()
+			   		dragMapEvent();
 			      });  
 				google.maps.event.addListener(map, 'zoom_changed', function() {
 				    var zoomLevel = map.getZoom();
@@ -278,6 +280,7 @@
 		</script>
 		<% String RailGoKey = "AIzaSyAdFDMU_KU_Ro2hPEPNNJw0ub3Zv21X-CY"; %>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%=RailGoKey%>&sensor=false&callback=initMap"async defer></script>
-				
+		<!-- complete plan schedule save modal -->
+		<%@include file="plan_save_modal.jsp" %>		
 	</body>
 </html>

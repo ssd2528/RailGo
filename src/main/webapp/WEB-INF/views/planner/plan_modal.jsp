@@ -32,8 +32,10 @@
 			</div>
 			<div class="plan-option-button-wrapper">
 				<form id="plan-form" method="post" action="../planner/plan">
+					<input type="hidden" id="item" name="item">
 					<input type="hidden" name="tickets" id="tickets">
 					<input type="hidden" name="startday" id="startday">
+					<input type="hidden" name="plancode" id="plancode">
 				</form>
 				<div id="plan-option-ok-btn" class="plan-option-button">확인</div>
 				<div id="plan-option-close-btn" class="plan-option-button">닫기</div>

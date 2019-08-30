@@ -58,27 +58,48 @@ $(document).ready(function() {
    		['순천역', 34.946114, 127.503281],
    		['여수엑스포역', 34.753143, 127.748964]
    	];
-	var dateStr = $('#startday').val();
-	var sp = dateStr.split('/');
-	var dateText = new Date(sp[0], sp[1], sp[2]);
+   	let plan_code = $('#plancode').val();
+   	console.log('plan_code : '+plan_code);
+	let dateStr = $('#startday').val();
+	let sp;
+	let dateText;
+	// hash_tag 추출 후 hash_tag로 뷰 조절하기 위해 뽑음
+	let item = $('#scheduleitem').val();
+	let hashTag;
+	if(item !== 'new'){
+		item = JSON.parse(item);
+		hashTag = item.planner.hash_tag;
+	}else{hashTag = 'new';}
+	console.log('hashTag : '+hashTag);
+	// 플랜 생성시엔 날짜가 /형태 플랜 수정시는 날짜가 .으로 월과 일이 구분되어 split해주기 위한 코드 
+	if(dateStr.indexOf("/") !== -1){
+		sp = dateStr.split('/');
+		console.log('sp / : '+sp[0]+','+sp[1]);
+		dateText = new Date(sp[0], sp[1]-1, sp[2]);
+	}else{
+		sp = dateStr.split('.');
+		console.log('sp . : '+sp[0]+','+sp[1]);
+		 dateText = new Date(null, sp[0]-1, sp[1]);
+		}
 	var day = $('#ticket').val();
 	var planDateBox = 'plan-date-list1';	//현재 선택된 DAY의 class name을 담은 변수
 	// ------ page init start ----------------
-	calDate(dateText, day);
-	$('.plan-date-box').children('.plan-date-list1').css('background-color','#009ce9');
-	var str = $('.'+planDateBox).find('.region').text();
-	setZoomforSelectedLoc(str);
-	setTitleName(str);	
-	$('.return-btn').css('display','none'); // 초기값 안보이게 ※
-	checkActiveListSearchText(); // ※
-	$('.list-search-text').val(''); // ※
+	console.log(dateStr+','+dateText+','+day+','+plan_code);
+	if(plan_code === 'new' || plan_code === '' || plan_code === 'undefined' || plan_code === null){
+		console.log('plan_code : '+plan_code);
+		createInit(dateText,day,planDateBox);
+	}else{
+		console.log('plan_code2 : '+plan_code);
+		updateInit(dateText,day,planDateBox);
+	}
 	// ------ page init end-------------------
-
+	//일정 제목 누를시 수정 가능한 input tag 출력 이벤트
 	$('.plan-name').click(function(){
 		$(this).hide();
 		$('.plan-name-text').show();
 		$('.plan-name-text-btn').show();
 	});
+	//일정 제목 눌렀을때 나오는 input tag와 확인 버튼 중 확인 버튼을 눌렀을때 이벤트
 	$(document).on('click','.plan-name-text-btn',function(){
 		if($('.plan-name-text').val() !== ''){
 			$('.plan-name').text($('.plan-name-text').val());
@@ -87,8 +108,87 @@ $(document).ready(function() {
 			$('.plan-name').show();
 		}
 	});
+	// 저장&닫기 버튼 클릭 이벤트
 	$('.closeBtn').click(function(){
-		temporarySaveAndClose();
+		saveAndClose(plan_code,'none');
+	});
+	// 완료 버튼 클릭 이벤트 -> 완료된 일정에선 텍스트가 닫기임
+	$('.completeBtn').click(function(){
+		if($(this).text() === '완료'){
+			let subject = $('.plan-name').text();
+			if(subject !== '일정 제목' && subject !== ''){
+				$('.save-subject-input').val(subject);
+			}
+			//모달창 오픈
+			$(".save-modal-wrapper").css('display','flex');
+			   setTimeout(function() {
+			      $(".save-modal-wrapper").addClass('open');
+			 }, 1)
+			$('body').css({'overflow':'hidden', 'height':'100%'});
+		}else{
+			window.location.href = "../../member/schedule";
+		}
+	});
+	// 바깥 화면 클릭시 modal 창 닫기
+	$('body').click(function(e){
+		if($('.save-modal-wrapper').hasClass('open')){ // site 라는 특정영역이 열려있을 경우
+		      if(!$('.save-modal-wrapper').has(e.target).length){ // site에 클릭 이벤트가 발생되어 있는게 없다면 아래 내용을 실행.
+		    	  removeModal();
+		      }
+		   }
+	});
+	// 닫기 버튼(x)을 눌렀을때 modal 창 닫기
+	$('.save-title-wrapper').children('.close-btn').click(function(e){
+		removeModal();
+	});
+	//modal에 있는 테마 필터 클릭 이벤트
+	$('label').click(function(){
+		let id = $(this).attr('name');
+		if(id === 'checked'){
+			$(this).attr('name',' ');
+		}else{
+			$(this).attr('name','checked');
+		}
+		let items = $('.save-theme-checks');
+		let cnt = 0;
+		for(i = 0; i < 5; i++){
+			let abs = $(items[0]).children()[i];
+			if($(abs).children('label').attr('name') !== 'checked'){
+				$(abs).children().hide();
+				cnt++;
+			}
+		}
+		if(cnt === 5){
+			for(i = 0; i < 5; i++){
+				let abs = $(items[0]).children()[i];
+				$(abs).children().show();
+			}
+		}	
+	});
+	//완료버튼을 누른 후 나오는 모달창(save-modal창)에 있는 완료 버튼 클릭 이벤트
+	$('.complete-check-btn').click(function(){
+		let subject = $('.save-subject-input').val();
+		let hash_tag;
+		if(subject === ''){
+			alert('일정 제목을 작성해주세요.');
+		}else{
+			$('.plan-name').text(subject);
+			let items = $('.save-theme-checks');
+			let cnt = 0;
+			for(i = 0; i < 5; i++){
+				let abs = $(items[0]).children()[i];
+				if($(abs).children('label').attr('name') !== 'checked'){
+					cnt++;
+				}else{
+					hash_tag = $(abs).children('label').attr('for')
+				}
+			}
+			if(cnt >= 5){ alert('테마를 하나 선택해주세요.');}
+			else{
+				removeModal();
+				saveAndClose(plan_code,hash_tag);
+			}
+		}
 	});
 	// DAY 누를 시 도시 리스트(지역 선택 리스트) 출력
 	$('.plan-date-box').children('li').on('click', function(){
@@ -102,11 +202,19 @@ $(document).ready(function() {
 		$(this).css('background-color', '#009ce9');
 		//city list에 지역 이름 세팅 and 지역이름 위치로 줌인
 		setZoomforSelectedLoc(region);
-		setTitleName(region);
+		if(hashTag !== 'new'){
+			//This is none working when this have hash tag name.
+			if(hashTag === 'none'){
+				setTitleName(region);
+			}else{
+				setMarkerScheduleItems(day);
+			}
+		}else{
+			setTitleName(region);
+		}
 		//상세 스케쥴 구역 초기화-----------------------
 		if(region === '지역을 선택하세요.'){initScheduleDetailBox(null);}
 		else{initScheduleDetailBox(day);}
-		hideTransitFind();
 		toggleCityList(80,350,'show');
 	});
 	// > 버튼 누르면 검색 도시 리스트 출력
@@ -230,11 +338,19 @@ $(document).ready(function() {
 		}
 	});
 	$(document).on('click','.return-btn',function(){
-		toggleTransitFind('hide','show');
-		setMapDirectionsDisplay(null);
-    	//경로 창 닫을때 그래그 금지 해제, 마크 표시
-    	setTourMarkerMapOnAll(map);
-    	map.setOptions({draggable: true});
+		if(hashTag !== 'new'){
+			setMapDirectionsDisplay(null);
+			map.setOptions({draggable: true});
+			$('.transit-origin').children('input').val('');
+			$('.transit-destination').children('input').val('');
+			setTourMarker();
+		}else{
+			toggleTransitFind('hide','show');
+			setMapDirectionsDisplay(null);
+    		//경로 창 닫을때 그래그 금지 해제, 마크 표시
+    		setTourMarkerMapOnAll(map);
+    		map.setOptions({draggable: true});
+		}
 	});
 	$('.transit-set-box').children('div').children('.reset-btn').click(function(){
 		$(this).prev().val('');
@@ -246,13 +362,76 @@ var tourMarkers = [];
 var stationLocations = [];
 let directDisplay;
 let directionsService;
-
+let hashTag;
+// 모달 닫는 메소드
+function removeModal(){
+	$('.save-modal-wrapper').removeClass('open');
+	setTimeout(function() {
+		$(".save-modal-wrapper").css('display','none');
+	}, 1)
+	$('body').css({'overflow':'auto', 'height':'100%'});
+}
+//일정 수정을 눌렀을때 초기화 하는 메소드
+function updateInit(dateText,day,planDateBox){
+	let item = $('#scheduleitem').val();
+	item = JSON.parse(item);
+	hashTag = item.planner.hash_tag;
+	console.log(item);
+	calDate(dateText, day);
+	for(i = 1; i <= day; i++){
+		for(j = 0; j < day; j++){
+			if($('.plan-date-list'+i).children('.detail-box').children('.date').text() === item.plannerDate[j].trip_date){
+				$('.plan-date-list'+i).children('.detail-box').children('.region').text(item.plannerDate[j].region);
+			}
+		}
+	}
+	$('.return-btn').css('display','none'); // 초기값 안보이게 ※
+	checkActiveListSearchText(); // ※
+	$('.list-search-text').val(''); // ※
+	$('.plan-name').text(item.planner.subject);
+	for(let ips of item.plannerSchedule){
+		let id = ips.content_id;
+		let img = ips.content_img;
+		let name = ips.content_name;
+		let addr = ips.content_addr;
+		let day = ips.days;
+		let mapxy = ips.content_position;
+		insertLoadItemInScheduleDetailBox(id,img,name,addr,day,mapxy);
+	}
+	$('.empty-detail-box').css('display','block');
+	$('.empty-detail-box').text('<< DAY를 클릭하세요');
+	// 완성된 일정일때 citylist 기능 막기위한 코드
+	if(item.planner.hash_tag !== 'none'){
+		$('.list-cover').remove();
+		$('.city-list').remove();
+		$('.transit-find').show();
+		$('.return-btn').show();
+		$('.closeBtn').hide();
+		$('.completeBtn').text('닫기');
+	}
+}
+//일정 만들기를 눌렀을때 초기화하는 메소드
+function createInit(dateText,day,planDateBox){
+	let memberCode = $('.member-code').children('input').val();
+	if(memberCode === '' || memberCode === null){
+		alert('로그인 후 이용 가능한 서비스 입니다.');
+		window.location.replace("../");
+	}
+	calDate(dateText, day);
+	$('.plan-date-box').children('.plan-date-list1').css('background-color','#009ce9');
+	var str = $('.'+planDateBox).find('.region').text();
+	setZoomforSelectedLoc(str);
+	setTitleName(str);	
+	$('.return-btn').css('display','none'); // 초기값 안보이게 ※
+	checkActiveListSearchText(); // ※
+	$('.list-search-text').val(''); // ※
+}
 //저장하기 위해 현재 페이지의 데이터를 추출하는 메소드
-function extractDataForSave(){
+function extractDataForSave(planCode,hash_tag){
 	let saveJsonData = new Object();
 	let dayArr = new Array();
 	let detailItemArr = new Array();
-	let planCode = '002';
+	//let planCode = '001';
 	let memberCode = $('.member-code').children('input').val();
 	//여행 플래너 테이블에 저장할 배열에 넣음
 	let subject = $('.plan-name').text();
@@ -260,7 +439,7 @@ function extractDataForSave(){
 			'plan_code' : planCode,
 			'mem_code' : memberCode,
 			'subject' : subject,
-			'hash_tag' : 'none'
+			'hash_tag' : hash_tag
 	};
 	saveJsonData.planner = planner;
 	//여행의 DAY들과 DAY들에 대한 날짜 위치를 배열에 넣음
@@ -299,8 +478,8 @@ function extractDataForSave(){
 	return saveJsonData;
 }
 //저장&닫기를 했을때 계획들을 Ajax를 이용해 디비에 저장하는 메소드
-function temporarySaveAndClose(){
-	let param = extractDataForSave();
+function saveAndClose(plan_code,hash_tag){
+	let param = extractDataForSave(plan_code,hash_tag);
 	$.ajax({
 		type : 'post',
 		async : true,
@@ -433,6 +612,20 @@ function insertItemInScheduleDetailBox(id,img,name,addr,day,mapxy){
 			+ '<div class="delete-box"title="삭제"><img style="width:15px;height:15px;" src="../img/planner/delete.png"></div>'
 			+ '</div>');
 }
+// 계획중이던 일정 수정을 눌렀을때 schedule detail box에 저장했던 일정들 뿌려쥬는 메소드
+function insertLoadItemInScheduleDetailBox(id,img,name,addr,day,mapxy){
+	let display;
+	display = 'none';
+	$('.empty-detail-box').css('display','none');
+	$('.item-detail-box').css('display','inline-block');
+	$('.item-detail-box').append('<div id="'+id+'" name="'+day+'" class="schedule-item-wrapper" style="display:'+display+';">'
+			+ '<div class="schedule-item-img" name="'+mapxy+'"><img style="width:60px; height:60px;" src="'+img+'" ></div>'
+			+ '<div class="schedule-item-name">' + name
+			+ '<div class="schedule-item-addr">'+ addr +'</div>'
+			+ '</div>'
+			+ '<div class="delete-box"title="삭제"><img style="width:15px;height:15px;" src="../img/planner/delete.png"></div>'
+			+ '</div>');
+}
 //마커 호버,도시 리스트 시 marker focus 메소드
 function MarkerHoverColorChange(id,action){	// action parameter -> mouseenter면 in / mouseleave면 out
 	var url;
@@ -468,14 +661,18 @@ function MarkerHoverColorChange(id,action){	// action parameter -> mouseenter면
 }
 //지도를 드래그를 이용해 위치를 이동 하였을때 발생하는 이벤트를 처리하는 메소드.
 function dragMapEvent(){
-	if(map.getZoom() > 10){
-		var accomColor = $('.list-theme-wrapper').children('.list-theme-accom').css('border-color');	//색칠된 rgb(0, 156, 233)
-		var foodColor = $('.list-theme-wrapper').children('.list-theme-food').css('border-color');	//색칠된 rgb(0, 156, 233)
-		var tourColor = $('.list-theme-wrapper').children('.list-theme-tour').css('border-color');	//색칠된 rgb(0, 156, 233)
-		if(accomColor === 'rgb(0, 156, 233)'){setSelectedTheme('accom');}
-		else if(foodColor === 'rgb(0, 156, 233)'){setSelectedTheme('food');}
-		else if(tourColor === 'rgb(0, 156, 233)'){setSelectedTheme('tour');}
-		else{}
+	if(hashTag !== 'none'){
+		// function none working;
+	}else{
+		if(map.getZoom() > 10){
+			var accomColor = $('.list-theme-wrapper').children('.list-theme-accom').css('border-color');	//색칠된 rgb(0, 156, 233)
+			var foodColor = $('.list-theme-wrapper').children('.list-theme-food').css('border-color');	//색칠된 rgb(0, 156, 233)
+			var tourColor = $('.list-theme-wrapper').children('.list-theme-tour').css('border-color');	//색칠된 rgb(0, 156, 233)
+			if(accomColor === 'rgb(0, 156, 233)'){setSelectedTheme('accom');}
+			else if(foodColor === 'rgb(0, 156, 233)'){setSelectedTheme('food');}
+			else if(tourColor === 'rgb(0, 156, 233)'){setSelectedTheme('tour');}
+			else{}
+		}
 	}
 }
 // 지역을 선택하세요.의 지역 목록에서 지역 선택할때 지역에 따라 지도를 해당 지역으로 줌인 해주는 메소드
@@ -573,6 +770,21 @@ function themeAjaxInfo(theme){	//파라메터 -> accom, food, tour 문자열이 
 		}
 	});
 }
+function setMarkerScheduleItems(day){
+	let items = $('.schedule-item-wrapper');
+	console.log(day);
+	for(let item of items){
+		if(day === $(item).attr('name')){
+			let mapxy = $(item).children('.schedule-item-img').attr('name');
+			mapxy = mapxy.split(',');
+			let subject = ($(item).children('.schedule-item-name').text()).split($(this).children('.schedule-item-name').children('.schedule-item-addr').text());
+			let img =  $(item).children('.schedule-item-img').children('img').attr('src');
+			let id = $(item).attr('id');
+			addTourMarker(mapxy[0],mapxy[1],subject[0],img,'complete',id);
+		}
+	}
+	setTourMarker();
+}
 //list-title의 자식 title-name 텍스트 설정 메소드(DAY1~DAY7버튼 눌렀을때 정보에 따라 변경됨)
 function setTitleName(loc){
 	if(loc == '지역을 선택하세요.'){
@@ -584,7 +796,11 @@ function setTitleName(loc){
 		
 	}
 }
-	
+//list-title의 자식 title-name 텍스트 설정 메소드(DAY1~DAY7버튼 눌렀을때 정보에 따라 변경됨)
+function setTitleinsertName(loc){
+	$('.title-name').text(loc + ' ▼');
+	setSelectedTheme(null);
+}	
 //도시 선택시 상->하 토글 메소드
 function toggleSelectCity(){
 	if($('.select-city-title').css('display') == 'none'){
@@ -606,7 +822,6 @@ function toggleCityList(setTime,mapPos,tog){
 	}else if(parseInt(mapPos) == 0){ // < 클릭 시 
 		$('#map').attr('style', 'width: 100% !important; position:relative; overflow:hidden;');
 	}
-	//$('#map').css('width', '100%');
 	google.maps.event.trigger(map, 'resize');
 	map.setCenter(map.getCenter());
 	$('#map').css('left', mapPos+'px');
@@ -618,7 +833,7 @@ function calDate(dateText, day) {
 		} else {
 			dateText.setDate(dateText.getDate() + 1);
 		}
-		var mm = dateText.getMonth();
+		var mm = dateText.getMonth()+1;
 		mm = (mm < 10) ? '0' + mm : mm;
 		var dd = dateText.getDate();
 		dd = (dd < 10) ? '0' + dd : dd;
