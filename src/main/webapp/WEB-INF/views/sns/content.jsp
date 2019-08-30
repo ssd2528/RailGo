@@ -56,6 +56,7 @@
 							</ul>
 						</div>
 						<div class="sns-article-right">
+							<span class="close">&times;</span>
 							<div class="sns-content">
 								<div class="sns-content-write">
 									<c:choose>
@@ -209,6 +210,7 @@
 					<!-- ./sns-content-wrapper -->
 				</div>
 				<!-- ./content-wrapper -->
+				
 			</div>
 			<!-- ./content -->
 

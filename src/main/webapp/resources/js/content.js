@@ -341,4 +341,9 @@ $(document).ready(function(){
 			}
 		})
 	});
+	
+	// x버튼 클릭 -> sns 페이지 이동
+	$('.close').on('click', function(){
+		location.href="../sns/sns";
+	});
 });

@@ -1,6 +1,8 @@
 .section-main { padding-bottom:0px; !important;}
 /* SNS-CONTENT */
 .sns-content-wrapper { padding-top:37px; height:74%; }
+.close { position:absolute; font-size:25px; right:10px; cursor:pointer; }
+.close:hover { font-size:27px; }
 
 /* SNS-IMG */
 .sns-modal-imgs { float:left; width:65%;}
