@@ -106,7 +106,7 @@
 					
 					<!-- 2. 상세 일정 정보(schedule-detail-box) -->
 					<div class="schedule-detail-box">
-						<div class="empty-detail-box">상세일정정보</div>
+						<div class="empty-detail-box">상세일정정보</div>	
 						<div class="item-detail-box"></div>	
 						<!-- ./ 2. 상세 일정 정보(schedule-detail-box)
 						<div class="schedule-item-wrapper">
@@ -279,7 +279,7 @@
 			}
 		</script>
 		<% String RailGoKey = "AIzaSyAdFDMU_KU_Ro2hPEPNNJw0ub3Zv21X-CY"; %>
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%=RailGoKey%>&sensor=false&callback=initMap"async defer></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%=RailGoKey%>&sensor=false&callback=initMap"async defer></script>				
 		<!-- complete plan schedule save modal -->
 		<%@include file="plan_save_modal.jsp" %>		
 	</body>

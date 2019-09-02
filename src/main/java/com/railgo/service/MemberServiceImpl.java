@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.railgo.domain.FollowingVO;
 import com.railgo.domain.MemberAddVO;
 import com.railgo.domain.MemberVO;
 import com.railgo.mapper.MailUtils;
@@ -125,6 +126,10 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("## email : " + email + ", pwd : " + pwd);
 		memberMapper.updatePwd(map);
 	}
+	@Override
+	public MemberVO selMember(String mem_code) {
+		return memberMapper.selMember(mem_code);
+	}
 
 	@Override
 	public MemberAddVO selMemadd(MemberVO member) {
@@ -134,6 +139,56 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberAddVO selMemadd(String mem_code) {
 		return memberMapper.selMemadd(mem_code);
+	}
+
+	@Override
+	public MemberVO[] selRecomMem2(String mem_code) {
+		return memberMapper.selRecomMem2(mem_code);
+	}
+	
+	@Override
+	public MemberVO[] selRecomMem() {
+		return memberMapper.selRecomMem();
+	}
+	
+	@Override
+	public MemberAddVO[] selRecomMemAdd2(String mem_code) {
+		return memberMapper.selRecomMemAdd2(mem_code);
+	}
+	
+	@Override
+	public MemberAddVO[] selRecomMemAdd() {
+		return memberMapper.selRecomMemAdd();
+	}
+	
+	@Override
+	public void following(FollowingVO following) {
+		 memberMapper.following(following);
+	}
+	
+	@Override
+	public void unFollow(FollowingVO following) {
+		 memberMapper.unFollow(following);
+	}
+	
+	@Override
+	public int selFollowing(String mem_code) {
+		 return memberMapper.selFollowing(mem_code);
+	}
+	
+	@Override
+	public int selFollower(String mem_code) {
+		 return memberMapper.selFollower(mem_code);
+	}
+	
+	@Override
+	public int selFollower2(String[] member) {
+		 return memberMapper.selFollower2(member);
+	}
+	
+	@Override
+	public int selFollowExist(FollowingVO following) {
+		 return memberMapper.selFollowExist(following);
 	}
 	
 	@Override

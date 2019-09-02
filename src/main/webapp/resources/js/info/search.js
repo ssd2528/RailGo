@@ -53,7 +53,7 @@ function searchFilter(keyword, category, currentPage){
 	});
 }
 
-
+ 
 //Search Keyword
 $(document).ready(function(){
 	$('#search-keyword').keydown(function(e){
