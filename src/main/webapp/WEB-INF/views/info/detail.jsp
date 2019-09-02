@@ -192,15 +192,15 @@
 								<div class="review-table">
 									
 									<c:choose>
-										<c:when test="${member.profile != null}">
-											<img class="reviewer-img" src='/member/display?fileName=${member.profile}' alt="프로필">
+										<c:when test="${memadd.profile != null}">
+											<img class="reviewer-img" src='/member/display?fileName=${memadd.profile}' alt="프로필">
 										</c:when>
-										<c:when test="${rereList.profile == null}">
+										<c:when test="${memadd.profile == null}">
 											<c:choose>
-												<c:when test="${memadd.gender eq 'M'}">
+												<c:when test="${member.gender eq 'M'}">
 													<img class="reviewer-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
 												</c:when>
-												<c:when test="${memadd.gender eq 'F'}">
+												<c:when test="${member.gender eq 'F'}">
 													<img class="reviewer-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
 												</c:when>
 											</c:choose>	
