@@ -60,10 +60,7 @@
 							<div class="sns-content">
 								<div class="sns-content-write">
 									<c:choose>
-										<c:when test="${content.profile != null}">
-											<img class="sns-writer-profile" src='/member/display?fileName=${memadd.profile}' alt="프로필">
-										</c:when>
-										<c:when test="${content.profile == null}">
+										<c:when test="${content.profile eq null || content.profile eq ''}">
 											<c:choose>
 												<c:when test="${content.gender eq 'M'}">
 													<img class="sns-writer-profile" src="/img/member/default_profile_m.png" alt="프로필 남" >
@@ -72,6 +69,9 @@
 													<img class="sns-writer-profile" src="/img/member/default_profile_f.png" alt="프로필 여" >
 												</c:when>
 											</c:choose>	
+										</c:when>
+										<c:when test="${content.profile ne null}">
+											<img class="sns-writer-profile" src='/member/display?fileName=${content.profile}' alt="프로필">
 										</c:when>
 									</c:choose>
 									<div class="sns-write-box">
