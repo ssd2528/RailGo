@@ -229,11 +229,19 @@
 		    <artifactId>spring-security-oauth2</artifactId>
 		    <version>2.3.5.RELEASE</version>
 		</dependency>
+		
 		<dependency> <!-- 17. commons-io -->
 		    <groupId>commons-io</groupId>
 		    <artifactId>commons-io</artifactId>
 		    <version>2.6</version>
 		</dependency>
+		
+		<dependency> <!-- 18. Web Socket -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
 		
 		<!-- Excel 가공을 위한  dependency -->
 		<dependency>

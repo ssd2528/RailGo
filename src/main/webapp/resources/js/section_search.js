@@ -3,10 +3,11 @@ $(document).ready(function(){
 	// '어디로 가시나요' 클릭시 search-modal 보이게 하기
 	$('.search-city').on('click',function(){
 		   $('.search-modal').css('display','flex');
+		   
 		   setTimeout(function() {
 		      $(".search-modal").addClass('show-modal');
 		      $('.search-text').focus();
-		   }, 1)
+		   }, 1);
 		   $('body').css({'overflow':'hidden', 'height':'100%'});
 	});	
 	
@@ -16,7 +17,7 @@ $(document).ready(function(){
 		$('body').css({'overflow':'auto', 'height':'100%'});
         setTimeout(function() {
             $('.search-modal').css('display','none');
-         }, 50)
+         }, 50);
 	});
 	// 바깥 화면 클릭시 modal 창 닫기
 	$('body').click(function(e){

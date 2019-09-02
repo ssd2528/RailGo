@@ -7,6 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>[RailGo] Plan Page</title>
+		<link rel="icon" href="/img/favicon.ico">
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		
 		<!-- CSS -->
@@ -19,12 +20,17 @@
 		<script src="../js/plan.js" type="text/javascript"></script>
 	</head>
 	<body>
+		<form class="member-code">
+			<input type="hidden" value="${member.mem_code}">
+		</form>
 		<div class="wrap">
 			<!-- header -->
 			<header class="clearfix">
 				<!-- logo -->
 				<div class="logo"> <a href="/"><img src="../img/logo_default.png" alt="내일고"></a></div>
 				<div class="plan-name">일정 제목</div>
+				<input type="text" style="display:none;" maxlength="15" class="plan-name-text">
+				<div class="plan-name-text-btn" style="display:none;">확인</div>
 				<div class="btn-group">
 					<div class="closeBtn">저장&닫기</div>
 					<div class="completeBtn">완료</div>
@@ -37,8 +43,10 @@
 					<!-- 1. 일정 정보 부분(schedule-info-box) -->
 					<div class="schedule-info-box">
 						<!-- 전체 일정(plan-date)  -->
-						<input type="hidden" id="ticket" name="ticket" value="${ticket}">
-						<input type="hidden" id="startday" name="startday" value="${startday}">
+						<input type="hidden" id="scheduleitem" name="scheduleitem" value='${scheduleitem}'>
+						<input type="hidden" id="ticket" name="ticket" value='${ticket}'>
+						<input type="hidden" id="startday" name="startday" value='${startday}'>
+						<input type="hidden" id="plancode" name="plancode" value='${plancode}'>
 						<div class="plan-date"> <span class="start"></span> ~ <span class="end"></span></div> 
 						<!-- 상세 일정(plan-date-box) -->
 						<ul class="plan-date-box">
@@ -99,6 +107,7 @@
 					<!-- 2. 상세 일정 정보(schedule-detail-box) -->
 					<div class="schedule-detail-box">
 						<div class="empty-detail-box">상세일정정보</div>	
+						<div class="item-detail-box"></div>	
 						<!-- ./ 2. 상세 일정 정보(schedule-detail-box)
 						<div class="schedule-item-wrapper">
 							<div class="schedule-item-img"></div>
@@ -115,13 +124,29 @@
 				<!-- 지도 부분 -->
 				<div class="map-search-view-cover">
 					<div class="list-cover"> &gt; </div>
+					
+					<!-- 길찾기 부분 -->
 					<div class="transit-find" style="display:none;">
-						<div class=transit-find-text>출발지</div>
-						<div class="origin"></div>
-						<div class=transit-find-text>도착지</div>
-						<div class="destination"></div>
-						<div class="find">길 찾기</div>
+						<div class="transit-info-box">출발지와 도착지를 선택해주세요.</div>
+						<div class="transit-set-box">
+							<div class="transit-origin">
+								<span class="transit-find-text">출발지</span>
+								<input type="text" class="origin transit-find-input" readonly /> 
+								<span class="reset-btn">&times;</span>
+							</div>
+							<div class="transit-destination">
+								<span class="transit-find-text">도착지</span>
+								<input type="text" class="destination transit-find-input" readonly />
+								<span class="reset-btn">&times;</span>
+							</div>
+							
+							<div class="transit-find-btn">길 찾기</div>
+						</div>
+						<div id="transit-result-box" class="transit-result-box"></div>
 					</div>
+					<div class="return-btn">&lt;</div>
+					<!-- ./길찾기 부분 -->
+					
 					<div class="city-list" style="display:none;">
 						<div class="list-close"> &lt;</div>
 						<div class="list-title">
@@ -193,7 +218,7 @@
 							<!-- <input type="text" class="place-search-bar"> -->
 						</div>
 						<div class="city-list-body">
-							<input type="search" class="list-search" placeholder="장소검색">
+							<input type="search" class="list-search-text" placeholder="장소검색(2글자 이상)">
 							<div class="list-theme-wrapper">
 								<div class="list-theme-tour"></div>
 								<div class="list-theme-accom"></div>
@@ -227,11 +252,11 @@
 			        minZoom:7
 			    });	
 			    // Create a renderer for directions and bind it to the map.
-			    directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+			    directionsDisplay = new google.maps.DirectionsRenderer();
 				// Instantiate a directions service.
 		        directionsService = new google.maps.DirectionsService;
 			    google.maps.event.addListener(map,'dragend', function() {  
-			   		dragMapEvent()
+			   		dragMapEvent();
 			      });  
 				google.maps.event.addListener(map, 'zoom_changed', function() {
 				    var zoomLevel = map.getZoom();
@@ -254,7 +279,8 @@
 			}
 		</script>
 		<% String RailGoKey = "AIzaSyAdFDMU_KU_Ro2hPEPNNJw0ub3Zv21X-CY"; %>
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%=RailGoKey%>&sensor=false&callback=initMap"async defer></script>
-				
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%=RailGoKey%>&sensor=false&callback=initMap"async defer></script>				
+		<!-- complete plan schedule save modal -->
+		<%@include file="plan_save_modal.jsp" %>		
 	</body>
 </html>

@@ -58,6 +58,16 @@
 			</props>
 		</property>
 	</bean>
+	
+	<bean id="RestTemplate" class="org.springframework.web.client.RestTemplate">
+	    <constructor-arg>
+	        <bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+	            <property name="readTimeout" value="90000" />
+	            <property name="connectTimeout" value="900000" />
+	        </bean>
+	    </constructor-arg>
+	</bean>
+
 
 	<!-- google Class Bean설정 추가 -->
 	<!-- 클라이언트ID와 보안비밀 세팅 -->

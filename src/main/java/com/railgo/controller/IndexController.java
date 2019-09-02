@@ -46,33 +46,12 @@ public class IndexController {
 		
 		return mv;
 	}
-
-	/*public ModelAndView recommend() {
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("recomMember",memberService.selRecomMem());
-		mv.addObject("recomMemberAdd",memberService.selRecomMemAdd());
-		log.info(mv);
-		
-		return mv;
-	}*/
-	
 	@RequestMapping("/planner")
-	public String plannerList() {
+	public String planner() {
 		return "planner/list";
 	}
-	
-	@GetMapping("/pwd_setting")
-	public String pwd_setting() {
-		return "pwd_setting";
-	}
-	
-	@GetMapping("/error500")
-	public String error500() {
-		return "error500";
-	}
-	
-	@GetMapping("/error404")
-	public String error404() {
-		return "error404";
+	@RequestMapping("course")
+	public String course() {
+		return "info/one_course_info";
 	}
 }

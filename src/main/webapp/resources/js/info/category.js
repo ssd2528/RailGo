@@ -10,7 +10,7 @@ $(document).ready(function(){
 			$(this).prop('checked', true);
 			
 			var cat3 = $(this).closest('div').find('.cat3Name').attr('id'); // cat3 code
-			if(cat3 == 'all') {
+			if(cat3 == 'all') { 
 				location.href='http://localhost:8080/info/'+category+'/'+areaName;
 			}else {
 				$.ajax({
@@ -542,5 +542,11 @@ $(document).ready(function(){
 		
 	});
 	
+	
+	// 컨텐츠 클릭 시, 상세정보페이지(detail)로 이동하는 부분
+	$('.info-list').click(function(){
+		$(this).find('.detailForm').submit();
+	});
+
 	
 });

@@ -6,12 +6,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.railgo.domain.FollowingVO;
+import com.google.gson.Gson;
 import com.railgo.domain.MemberAddVO;
 import com.railgo.domain.MemberVO;
 import com.railgo.service.MemberService;
@@ -93,8 +97,6 @@ public class MemberController {
 		
 		mv.addObject("selFollowing",memberService.selFollowing(member.getMem_code()));
 		mv.addObject("selFollower",memberService.selFollower(member.getMem_code()));
-		
-		
 		
 		return mv;
 	}
@@ -160,10 +162,37 @@ public class MemberController {
 		
 	}
 	
+	
+	@RequestMapping(value="schedule/getScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String getScheduleList(@RequestBody Map<String,String> json) {
+		Map<String, String> map = json;
+		System.out.println("schedule/getScheduleList init mem_code: " + map.get("mem_code"));
+		String mem_code = map.get("mem_code");
+		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code);
+		if(plannerScheduleJsonList == null || plannerScheduleJsonList.size() == 0) {
+			return "fail";
+		}else {
+			Gson gson = new Gson();
+			String plannerScheduleJsonListToJson = gson.toJson(plannerScheduleJsonList);
+			System.out.println("ArrayList  :"+plannerScheduleJsonList);
+			System.out.println("ArrayList -> Json result :"+plannerScheduleJsonListToJson);
+			return plannerScheduleJsonListToJson;
+		}
+	}
+	@RequestMapping(value="schedule/deleteScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteScheduleList(@RequestBody Map<String, String> json) {
+		Map<String,String> map = json;
+		String plan_code = map.get("plan_code");
+		System.out.println("plan_code : "+plan_code);
+		Boolean delCheck = plannerService.deleteScheduleList(plan_code);
+		if(delCheck)	return "s";
+		else	return "f";
+	}
 	//추가정보 수정
 	@GetMapping("/updateMemadd")
 	public String updateMemadd(MemberAddVO member,HttpSession session, RedirectAttributes rttr) {
-		
 		System.out.println(member);
 		memberService.updateMemadd(member);
 		session.setAttribute("memadd", member);
@@ -176,11 +205,10 @@ public class MemberController {
 	@PostMapping("/updateMemImage")
 	//@RequestMapping(value="/uploadAjaxAction" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String updateMemImage(MultipartFile[] uploadFile, MemberAddVO member, HttpSession session) {
-		
-		
+			
 		log.info("update ajax post........");
 		
-		String uploadFolder = "C:\\Upload\\temp";
+		String uploadFolder = "C:\\upload\\temp";
 		
 		for (MultipartFile multipartFile : uploadFile) {
 			

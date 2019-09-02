@@ -3,7 +3,7 @@
 @import url('../font/12롯데마트행복Bold.ttf');
 
 /* The Modal (background) */
-.modal {
+#Modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 102; /* Sit on top */
@@ -15,7 +15,7 @@
 	background-color: rgba(0, 0, 0, 0.85); /* Black w/ opacity */
 }
 /* Modal Content(login)/Box */
-.modal-content {
+#Modal > .modal-content {
 	overflow: hidden;
 	background-color: #fefefe;
 	margin: 100px auto; /* 15% from the top and centered */
@@ -24,7 +24,7 @@
 	width: 340px; /* Could be more or less, depending on screen size */
 }
 /* The Close Button */
-.close {
+#Modal .close {
 	color: #aaa;
 	float: right;
 	font-size: 40px;
@@ -32,76 +32,76 @@
 	margin-top: -4%
 }
 
-.close:hover, .close:focus {
+#Modal .close:hover, #Modal > .close:focus {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
 }
 
 /* MODAL-TITLE */
-.modal-title { color: #009CE9; height: 50px; }
+#Modal .modal-title { color: #009CE9; height: 50px; }
 
 /* SIGN IN */
-.sign-in-group {margin: 10px 40px;}
-#signin-form {margin:5px 0px 10px 0px;}
-.inform {margin-top: 15px; padding: 2%; width: 250px;}
-.inform:first-child {margin-top: 0px;}
+#Modal .sign-in-group {margin: 10px 40px;}
+#Modal #signin-form {margin:5px 0px 10px 0px;}
+#Modal .inform {margin-top: 15px; padding: 2%; width: 250px;}
+#Modal .inform:first-child {margin-top: 0px;}
 
-#checkboxArea {margin-top: 5px; padding-top: 4px;}
-input[type="checkbox"] {display: none;}
-input[id="loginCookie"]+label {display: inline-block; width: 1rem; height: 1rem; cursor: pointer; border-radius: 3px; float: left; margin: 2px; border: 1px solid black;}
-input[id="loginCookie"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%; background-size: 1rem;}
-.logBtn {background-color: #009CE9; border: none; color: white; margin-top: 10px;
+#Modal #checkboxArea {margin-top: 5px; padding-top: 4px;}
+#Modal input[type="checkbox"] {display: none;}
+#Modal input[id="remember-me"]+label {display: inline-block; width: 1rem; height: 1rem; cursor: pointer; border-radius: 3px; float: left; margin: 2px; border: 1px solid black;}
+#Modal input[id="remember-me"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%; background-size: 1rem;}
+#Modal .logBtn {background-color: #009CE9; border: none; color: white; margin-top: 10px;
 	margin-bottom: 10px; padding: 3px; width: 250px; text-align: center;
 	text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer; }
 
-.password-find-tag {font-size: 13px;}
-.password-find-tag:hover {text-decoration:underline; cursor:pointer;}
+#Modal .password-find-tag {font-size: 13px;}
+#Modal .password-find-tag:hover {text-decoration:underline; cursor:pointer;}
 
-.sign-up-tag , .sign-in-tag { color: #009CE9; margin-left: 10px; font-size: 13px; }
-.sign-up-tag:hover , .sign-in-tag:hover , .agree-tag:hover { text-decoration:underline; cursor:pointer; }
+#Modal .sign-up-tag , #Modal .sign-in-tag { color: #009CE9; margin-left: 10px; font-size: 13px; }
+#Modal .sign-up-tag:hover , #Modal .sign-in-tag:hover , #Modal .agree-tag:hover { text-decoration:underline; cursor:pointer; }
 
-.signin-kakao, .signin-naver { border: none; color: white; width: 250px; height:35px; display: inline-block; margin:10px 0px; cursor: pointer; }
-.signin-kakao { background:#f7e600; }
-.signin-naver { background:#1ec800; }
-.signin-kakao>* { color:#443731; vertical-align:middle; font-family:'Noto Sans KR', sans-serif; font-weight:bold; }
-.signin-naver>* { color:#FFF; vertical-align:middle; font-family:'Noto Sans KR', sans-serif; font-weight:bold; }
-.signin-kakao img, .signin-naver img { width:25px; height:25px; cursor: pointer; margin: 5px 20px 5px 30px; }
+#Modal .signin-kakao, .signin-naver { border: none; color: white; width: 250px; height:35px; display: inline-block; margin:10px 0px; cursor: pointer; }
+#Modal .signin-kakao { background:#f7e600; }
+#Modal .signin-naver { background:#1ec800; }
+#Modal .signin-kakao>* { color:#443731; vertical-align:middle; font-family:'Noto Sans KR', sans-serif; font-weight:bold; }
+#Modal .signin-naver>* { color:#FFF; vertical-align:middle; font-family:'Noto Sans KR', sans-serif; font-weight:bold; }
+#Modal .signin-kakao img, #Modal .signin-naver img { width:25px; height:25px; cursor: pointer; margin: 5px 20px 5px 30px; }
 
 
 
 /* PWD FIND */
-.password-find-group, .sign-up {display: none;}
-#password-find-form label.error, #password-find-form .error_msg {margin:-10px 0px 20px 40px;}
+#Modal .password-find-group, #Modal .sign-up {display: none;}
+#Modal #password-find-form label.error, #Modal #password-find-form .error_msg {margin:-10px 0px 20px 40px;}
 
-p {margin-top: 15px; margin-left: 40px;}
+#Modal p {margin-top: 15px; margin-left: 40px;}
 
-.inform-addr {margin-top: 15px; margin-bottom: 15px; margin-left: 40px;
+#Modal .inform-addr {margin-top: 15px; margin-bottom: 15px; margin-left: 40px;
 	padding: 2%; width: 250px;}
 
-.password-find-btn {background-color: #009CE9; border: none; color: white;
+#Modal .password-find-btn {background-color: #009CE9; border: none; color: white;
 	margin-top: 15px; margin-left: 40px; padding: 3px; width: 250px;
 	text-align: center; text-decoration: none; display: inline-block; font-size: 16px;}
 
 /* SIGN UP */
-.sign-up-group {margin: 2px 40px;}
-.signup-form {padding:5px 0px;}
-.sign-up-btn {background-color: #009CE9; border: none; color: white; margin-top: 10px;
+#Modal .sign-up-group {margin: 2px 40px;}
+#Modal .signup-form {padding:5px 0px;}
+#Modal .sign-up-btn {background-color: #009CE9; border: none; color: white; margin-top: 10px;
 	margin-bottom: 10px; padding: 3px; width: 250px; text-align: center;
 	text-decoration: none; display: inline-block; font-size: 16px;}
 
-#sex-checkboxArea {margin-top: 10px;}
+#Modal #sex-checkboxArea {margin-top: 10px;}
 /* input[type="radio"],  input[type="radio"]{display: none;} */
-input[id="male"]+label , input[id="female"]+label {display: inline-block; width: 1rem; height: 1rem;
+#Modal input[id="male"]+label , #Modal input[id="female"]+label {display: inline-block; width: 1rem; height: 1rem;
 	cursor: pointer; border-radius: 3px; float: left; margin: 3px; border: 1px solid black;}
-input[id="male"]:checked+label , input[id="female"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%;
+#Modal input[id="male"]:checked+label , #Modal input[id="female"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%;
 	background-size: 1rem;}
 
-#agree-checkboxArea {margin-top: 10px; font-size:13px;}
-#agree-checkboxArea>* { vertical-align:middle}
-input[type="checkbox"] {display: none;}
-input[id="agree"]+label {display: inline-block; margin-top: 15px; margin-right: 3px; width: 1rem;
+#Modal #agree-checkboxArea {margin-top: 10px; font-size:13px;}
+#Modal #agree-checkboxArea>* { vertical-align:middle}
+#Modal input[type="checkbox"] {display: none;}
+#Modal input[id="agree"]+label {display: inline-block; margin-top: 15px; margin-right: 3px; width: 1rem;
 	height: 1rem; cursor: pointer; border-radius: 3px; float: left; border: 1px solid black;}
-input[id="agree"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%;
+#Modal input[id="agree"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%;
 	background-size: 1rem;}
-.agree-tag {color: #009CE9; margin-left: 10px;}
+#Modal .agree-tag {color: #009CE9; margin-left: 10px;}

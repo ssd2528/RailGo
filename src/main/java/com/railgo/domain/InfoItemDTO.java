@@ -24,6 +24,7 @@ public class InfoItemDTO {
 	private String tel;
 	private String title;
 	private String zipcode;
-	
 	private String overview;
+	
+	private String courseSubNames; // 가공된 코스 목록 
 }

@@ -14,6 +14,7 @@ $(document).ready(function(){
 	// planner 항시 이미지 변환
 	$('.planner-img img').attr('src', '../img/header/planner_clicked.png');
 	planner.css('color', '#009CE9');
+	planner.closest('li').css({'border-bottom':'solid 3px #009CE9', 'padding-bottom':'3px'});
 	
 	$.ajax({
 		type: 'get',
@@ -108,14 +109,27 @@ $(document).ready(function(){
 		$(this).hide();
 		$(this).find('span').text('');
 	});
-	// 일정만들기 버튼 클릭시 모달창 오픈
-	$('.planner-info-btn-wrapper').children('.create-plan-btn').on("click",function(){
-		   $("#modal-wrapper").css('display','flex');
+	// 일정만들기 버튼 클릭시 모달창 오픈 - 로그인 되어 있는 상태 시 
+	$('.planner-info-btn-wrapper').children('#create-plan-btn').on("click",function(){
+		$("#modal-wrapper").css('display','flex');
 		   setTimeout(function() {
 		      $("#modal-wrapper").addClass('open');
-		   }, 1)
-		   $('body').css({'overflow':'hidden', 'height':'100%'});
-		});
+		 }, 1)
+		 $('body').css({'overflow':'hidden', 'height':'100%'});
+	});
+	// 일정만들기 버튼 클릭시 모달창 오픈 - 로그인 되어 있지 않은 상태 시 
+	$('.planner-info-btn-wrapper').children('#before-create-plan-btn').on("click",function(){
+		$('#Modal').css('display', 'block');
+		$('.modal-title').text('내일고 로그인');
+		$('label.error').css('display', 'none');
+		$('.error_msg').css('display', 'none');
+		$('.sign-in-group').show();
+		$('.line').show();
+		$('.sign-up').hide();
+		$('.password-find-group').hide();
+		$('html').css('overflow', 'hidden');
+	});
+	
 	// 바깥 화면 클릭시 modal 창 닫기
 	$('body').click(function(e){
 	   if($('#modal-wrapper').hasClass('open')){ // site 라는 특정영역이 열려있을 경우
@@ -169,23 +183,23 @@ $(document).ready(function(){
 		onSelectDate:function(dateText,inst){ 
 			$('#last-option-days').text('');
 			var year = dateText.getFullYear();
-			var month = dateText.getMonth() + 1;
+			var month = dateText.getMonth();
 			var day = dateText.getDate();
 			var ymd = new Date(year,month,day);
 			if($('#third-days-option').css('color') === 'rgb(255, 255, 255)'){
 				ymd.setDate(ymd.getDate() + 2);
-				var mm = ymd.getMonth(); mm = (mm < 10) ? '0' + mm : mm;
+				var mm = ymd.getMonth()+1; mm = (mm < 10) ? '0' + mm : mm;
 				var dd = ymd.getDate(); dd = (dd < 10) ? '0' + dd : dd;	
 			}else if($('#fifth-days-option').css('color') === 'rgb(255, 255, 255)'){
 				ymd.setDate(ymd.getDate() + 4);
-				var mm = ymd.getMonth(); mm = (mm < 10) ? '0' + mm : mm;
+				var mm = ymd.getMonth()+1; mm = (mm < 10) ? '0' + mm : mm;
 				var dd = ymd.getDate(); dd = (dd < 10) ? '0' + dd : dd;	
 			}else{
 				ymd.setDate(ymd.getDate() + 6);
-				var mm = ymd.getMonth(); mm = (mm < 10) ? '0' + mm : mm;
+				var mm = ymd.getMonth()+1; mm = (mm < 10) ? '0' + mm : mm;
 				var dd = ymd.getDate(); dd = (dd < 10) ? '0' + dd : dd;		
 			}
-			$('#last-option-days').text( ymd.getFullYear() +'/'+ mm +'/'+ dd);
+			$('#last-option-days').text( ymd.getFullYear() +'/'+ mm  +'/'+ dd);
 		}
 	});
 	//모달창 확인 버튼 누를 시 조건 확인
@@ -206,10 +220,28 @@ $(document).ready(function(){
 			if(cal === '마지막 날'){alert('날짜를 선택해주세요.');
 			}else{
 				startday = $('#datepicker').val();
+				$('#item').attr('value','new');
 				$('#tickets').attr('value',ticket);
 				$('#startday').attr('value',startday);
+				$('#plancode').attr('value','new');		
 				$('#plan-form').submit();
 			}
+		}
+	});
+	$('.planner-info-btn-wrapper').children('.my-plan-btn').click(function(){
+		let mem = $('.mem-code').children('input').val();
+		if(mem === '' || mem === null){
+			$('#Modal').css('display', 'block');
+			$('.modal-title').text('내일고 로그인');
+			$('label.error').css('display', 'none');
+			$('.error_msg').css('display', 'none');
+			$('.sign-in-group').show();
+			$('.line').show();
+			$('.sign-up').hide();
+			$('.password-find-group').hide();
+			$('html').css('overflow', 'hidden');
+		}else{
+			window.location.href = '../member/schedule';
 		}
 	});
 });

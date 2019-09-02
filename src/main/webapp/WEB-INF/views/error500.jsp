@@ -2,16 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[RailGo] 에러 페이지</title> 
-<link href="../css/error_404_500.css" rel="stylesheet">
-<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
-<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[RailGo] 에러 페이지</title> 
+	<link rel="icon" href="/img/favicon.ico">
+	<link href="../css/error_404_500.css" rel="stylesheet">
+	<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
+	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
-	
 	<!-- 에러페이지 (error500)-->
 	<div class="error500">
 		<i class="fas fa-sad-tear icon">.</i>

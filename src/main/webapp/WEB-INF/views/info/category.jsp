@@ -7,23 +7,36 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>[RailGo] Category Page</title>
+	<title>[RailGo] Info Category Page</title>
+	<link rel="icon" href="/img/favicon.ico">
 	
 	<!-- CSS -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/common.css" rel="stylesheet">
 	<link href="/css/section_search.css" rel="stylesheet">
 	<link href="/css/info/category.css" rel="stylesheet">
+	<link href="/css/login_modal.css" rel="stylesheet">
 	
 	<!-- JS -->
 	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 	<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
-	<script src="/js/header.js" type="text/javascript"></script>
+	<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="/js/login_modal.js" type="text/javascript"></script>
 	<script src="/js/section_search.js" type="text/javascript"></script>
+	<script src="/js/header.js" type="text/javascript"></script>
 	<script src="/js/info/category.js"></script>
 	
 </head>
 <body>
+	<c:if test="${not empty msg}">
+		<script type="text/javascript">
+			alert('${msg}');
+		</script>
+	</c:if>
+	<!-- login_modal -->
+	<%@include file="../includes/login_modal.jsp"%>
+	
+	
 	<input type="hidden" name="category" id="category" class="category" value="${category}" />
 	<input type="hidden" name="areaName" id="areaName" class="areaName" value="${areaName}" />
 	<input type="hidden" name="currentPage" id="currentPage" class="currentPage" value="${currentPage}" />
@@ -44,7 +57,7 @@
 			<!-- navi -->
 			<div class="menu-navi">
 				<ul class="menu-bar-ul">
-					<li><a href="#"><span class="search-city">${areaName} &nbsp;▼</span></a></li>
+					<li><a><span class="search-city">${areaName} &nbsp;▼</span></a></li>
 					<a href="http://localhost:8080/info/accom/${areaName}"><li class="${category eq '숙박' ? 'menu-clicked' : ''}">숙 &nbsp;&nbsp;&nbsp; 박</li></a>
 					<a href="http://localhost:8080/info/hotplace/${areaName}"><li class="${category eq '관광명소' ? 'menu-clicked' : ''}">관광명소</li></a>
 					<a href="http://localhost:8080/info/food/${areaName}"><li class="${category eq '맛집' ? 'menu-clicked' : ''}">맛 &nbsp;&nbsp;&nbsp;집</li></a>
@@ -57,7 +70,8 @@
 			<div class="category-info-box">
 				<br>
 				<div class="category-category">
-					<a href="http://localhost:8080/info/${areaName}"><span>${areaName}</span></a> <i class="fas fa-angle-right"></i>
+					<a href="http://localhost:8080/info/${areaName}"><span class="link-areaName">${areaName}</span></a> 
+					<i class="fas fa-angle-right"></i>
 					<span>${category}</span>
 				</div>
 				<br> <br> <br>
@@ -76,9 +90,9 @@
 
 				<div class="article-wrapper article-25">
 					<!-- article-search -->
-					<div class="search-container">
+					<!-- <div class="search-container">
 						<input type="text" class="search-keyword" name="keyword" placeholder="검색"> <a href="#"><i class="fa fa-search icon"></i></a>
-					</div>
+					</div> -->
 					
 					<!-- checkbox -->
 					<%@include file="checkbox.jsp"%>
@@ -98,9 +112,16 @@
 
 						<!-- info-list -->
 						<c:forEach items="${list}" var="item" varStatus="status">
-							<input type="hidden" value="${status.count}">
 							<c:if test="${(status.count >= ((currentPage-1)*10 + 1) && status.count <= currentPage*10) || category=='숙박' || category=='맛집'}">
 								<div class="info-list">
+									<form class="detailForm" method="post" action="../detail/${item.title}" style="display:none;">
+										<input type="hidden" value="${item.contentid}" name="contentid"> 
+										<input type="hidden" value="${item.contenttypeid}" name="contenttypeid">
+										<input type="hidden" value="${item.mapx}" name="mapx">
+										<input type="hidden" value="${item.mapy}" name="mapy">
+										<input type="hidden" value="${areaName}" name="areaName">
+										<input type="hidden" value="${category}" name="category">
+									</form>
 									<c:choose>
 										<c:when test="${item.firstimage eq null}"> 
 											<img class="info-list-img" src="/img/default.png">
@@ -111,14 +132,15 @@
 									</c:choose>
 										
 									<div class="info-list-data">
-										<a href="/info/detail"><h2 class="info-list-title">${item.title}</h2></a>
+										<h2 class="info-list-title">${item.title}</h2>
 										<div class="info-explain">${item.overview}</div>
 										<div class="info-category">
 											<i class="fas fa-map-marker-alt"></i> ${item.addr1} &nbsp; ${item.addr2}
 											&nbsp;&nbsp;
 											<i class="fas fa-list"></i> ${item.cat3}
 										</div>
-										<div class="info-rating">★★★★</div>
+										<div class="info-readcount">[조회수 : ${item.readcount}]</div>
+										<!-- <div class="info-rating">★★★★</div> -->
 									</div>
 								</div>
 								<hr class="checkbox-hr">
@@ -141,7 +163,6 @@
 
 	<!-- footer -->
 	<%@include file="../includes/footer.jsp"%>
-	
 	
 </body>
 </html>
