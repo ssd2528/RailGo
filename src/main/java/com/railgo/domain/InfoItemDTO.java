@@ -27,4 +27,5 @@ public class InfoItemDTO {
 	private String overview;
 	
 	private String courseSubNames; // 가공된 코스 목록 
+	private String areaName; // areaCode, sigunguCode로 찾은 areaName
 }
