@@ -168,10 +168,10 @@
 
 					<div class="article-wrapper article-25">
 						<!-- article-search -->
-						<div class="search-container">
+						<%-- <div class="search-container">
 							<input type="text" name="keyword" class="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
 							<input type="hidden" name="areaName" value="${areaName}">
-						</div>
+						</div> --%>
 					
 						<!-- article-sns-user -->
 						<%@include file="../includes/article_sns_user.jsp"%>
