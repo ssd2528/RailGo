@@ -753,7 +753,7 @@ function themeAjaxInfo(theme){	//파라메터 -> accom, food, tour 문자열이 
 					}
 					if(myItem[i].firstimage == null){myItem[i].firstimage = '../img/default.png';}
 					addTourMarker(myItem[i].mapx, myItem[i].mapy,
-							myItem[i].title, myItem[i].firstimage,theme,myItem[i].contentid);
+							myItem[i].title, myItem[i].firstimage,myItem[i].addr1,viewOrTel,theme,myItem[i].contentid);
 					$('.selected-theme-list').append('<div id="'+myItem[i].contentid+'" class="day-spot-item">'
 							+'<div class="item-img-box" name="'+myItem[i].mapx+','+myItem[i].mapy+'"><img class="img-size" src='+myItem[i].firstimage+'>'
 							+'</div><div class="item-info-box">'+myItem[i].title+'<div class="item-sub">'+myItem[i].addr1+'<br/>'+viewOrTel+'</div></div>'
@@ -780,7 +780,7 @@ function setMarkerScheduleItems(day){
 			let subject = ($(item).children('.schedule-item-name').text()).split($(this).children('.schedule-item-name').children('.schedule-item-addr').text());
 			let img =  $(item).children('.schedule-item-img').children('img').attr('src');
 			let id = $(item).attr('id');
-			addTourMarker(mapxy[0],mapxy[1],subject[0],img,'complete',id);
+			addTourMarker(mapxy[0],mapxy[1],subject[0],subject[1],200,img,'complete',id);
 		}
 	}
 	setTourMarker();
@@ -899,7 +899,7 @@ function addStationsMarker(num) {
 	}
 }
 // 맵의 줌이 13 이상일때 해당 구역의 숙/관/식들의 마커를 추가해주는 메소드 - 파라메터는 갯수
-function addTourMarker(xpos, ypos, tourContent, tourImg, theme, contentId) {
+function addTourMarker(xpos, ypos, tourContent, tourImg, address, viewOrTel, theme, contentId) {
 	// console.log('x : '+xpos+', y : '+ypos+', c: '+tourContent);
 	var imgUrl = "../img/planner/"+theme+"_marker.png";
 	var marker = new google.maps.Marker({
@@ -916,9 +916,14 @@ function addTourMarker(xpos, ypos, tourContent, tourImg, theme, contentId) {
 	});
 	var infoWindow = new google.maps.InfoWindow({
 		content :'<div style="display:inline-block;font-size:15px;font-weight:bold;width:150px;margin-bottom:10px;">' + tourContent + '</div>' + '<br/>'
-				+ '<div style="display:inline-block;margin-right:10px;">'
+				+'<div style="display:inline-block;font-size:10px;width:150px;">' + address + '</div>' + '<br/>'
+				+'<div style="display:inline-block;font-size:10px;width:150px;margin-bottom:7px;">' + viewOrTel + '</div>' + '<br/>'
+				+'<div style="display:inline-block;margin-right:10px;">'
 				+'<img style="width:150px;height:100px;" src="' + tourImg
-				+ '"' + '<div>',
+				+ '"' + '<div>'  + '<br/>'
+				+'<button type="button" onclick="location.href="#"" style="background-color:#009CE9;padding:7px 11px;border:none;color:white;text-align:center;text-decoration:none;display:inline-block;font-size:10px;">자세히보기</button>&nbsp;'
+				+'<button type="button" onclick="location.href="#"" style="background-color:#eb7d31;padding:7px 11px;border:none;color:white;text-align:center;text-decoration:none;display:inline-block;font-size:10px;">일정에추가</button>',
+				/*+'<a href="#" style="display:inline-block;font-size:5px;width:150px;text-align:right;">'+'자세히보기'+'</a>',*/
 		map : map
 	});
 	tourMarkers.push(marker);
@@ -1059,7 +1064,7 @@ $(document).ready(function(){
 							if(contenttypeid==12 || contenttypeid==14 || contenttypeid==15 || contenttypeid==28 || contenttypeid==38) theme='tour';
 							else if(contenttypeid==32) theme='accom';
 							else if(contenttypeid==39) theme='food';
-							addTourMarker(myItem[i].mapx, myItem[i].mapy, myItem[i].title, myItem[i].firstimage,theme,myItem[i].contentid);
+							addTourMarker(myItem[i].mapx, myItem[i].mapy, myItem[i].title, myItem[i].firstimage,myItem[i].addr1,viewOrTel,theme,myItem[i].contentid);
 							
 							$('.selected-theme-list').append('<div id="'+myItem[i].contentid+'" class="day-spot-item">'
 									+'<div class="item-img-box" name="'+myItem[i].mapx+','+myItem[i].mapy+'"><img class="img-size" src='+myItem[i].firstimage+'>'

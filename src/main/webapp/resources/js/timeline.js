@@ -51,6 +51,141 @@ $(document).ready(function(){
 			$(".likeImg").attr('src','../img/planner/heart_normal.png');
 		}
 	});
+	
+	//팔로우 확인 및 팔로우 버튼 바꾸기
+	var followExist = $("input[name='followExist']").val();
+	console.log(followExist);
+	
+	if(followExist == 0){
+		$(".follow").css('background-color','#009CE9');
+		$(".follow").css('color','white');
+	}else if(followExist == 1){
+		$(".follow").css('background-color','#ffffff');
+		$(".follow").css('color','black');
+		$(".follow").css('border','2px solid #009CE9');
+		$(".follow").val('팔로우 해제');
+	}
+	
+	// 팔로우버튼 클릭시 팔로우 및 언팔로우
+	$(".follow").click(function(){
+		
+		var formData = new FormData();
+		var formData2 = new FormData();
+		var color = $(this).css('background-color');
+		
+		var mem_code = $("input[name='mem_code']").val();
+		var following = $("input[name='following']").val();
+			
+			console.log(mem_code);
+			console.log(following);
+			console.log(followExist);
+			
+			for (var key of formData.keys()) {
+
+				  console.log(key);
+
+				}
+
+			for (var value of formData.values()) {
+
+			  console.log(value);
+
+			}
+			
+		//console.log(color);
+		if(followExist == 0){
+			
+			formData.append("mem_code",mem_code);
+			formData.append("following",following);
+			
+			formData2.append("mem_code",mem_code);
+			
+				$.ajax({
+				url:'/member/following',
+				data:formData,
+				type:'POST',
+				//async: false,
+				contentType: false,
+				processData: false,
+				success: function(result){
+					 console.log(result);
+					 //alert("팔로우");
+					//window.location.replace('/member/other_user_info?mem_code='+following);
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+		            alert("앙 에러띠 \n" + textStatus + " : " + errorThrown);
+		        }
+			}); //$.ajax
+				
+				$.ajax({
+				url:'/member/other_user_info',
+				data:formData2,
+				type:'POST',
+				//async: false,
+				contentType: false,
+				processData: false,
+				success: function(result){
+					 //alert("변경");
+					window.location.replace('/member/other_user_info?mem_code='+following);
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+		            alert("에러띠 \n" + textStatus + " : " + errorThrown);
+		        }
+			}); //$.ajax
+			
+		}else if(followExist == 1){
+			
+			formData.append("mem_code",mem_code);
+			formData.append("following",following);
+			
+			formData2.append("mem_code",mem_code);
+			
+			$.ajax({
+				url:'/member/unfollow',
+				data:formData,
+				type:'POST',
+				contentType: false,
+				processData: false,
+				success: function(result){
+					// alert("언팔로우");
+					//window.location.replace('/member/other_user_info?mem_code='+following);
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+		            alert("앙 에러띠\n" + textStatus + " : " + errorThrown);
+		        }
+			}); //$.ajax
+			
+			$.ajax({
+				url:'/member/other_user_info',
+				data:formData2,
+				type:'POST',
+				//async: false,
+				contentType: false,
+				processData: false,
+				success: function(result){
+					// alert("변경");
+					window.location.replace('/member/other_user_info?mem_code='+following);
+				},
+				error:function(jqXHR, textStatus, errorThrown){
+		            alert("에러띠 \n" + textStatus + " : " + errorThrown);
+		        }
+			}); //$.ajax
+		}
+		
+	});
+	// 추가정보 수정중 텍스트필드 클릭시 값 비우기
+	$(".profile-text1").click(function(){
+		$(".profile-text1").val('');
+	});
+	$(".profile-text2").click(function(){
+		$(".profile-text2").val('');
+	});
+	$(".profile-text3").click(function(){
+		$(".profile-text3").val('');
+	});
+	$(".profile-text4").click(function(){
+		$(".profile-text4").val('');
+	});
 });
 
 
@@ -134,7 +269,7 @@ $.fn.selectRange = function(start, end) {
 			data: formData,
 			type: 'POST',
 			success: function(result){
-				// alert("Uplaoded");
+				 //alert("변경 완료");
 				window.location.replace('/member/timeline');
 			}
 		}); // $.ajax
@@ -178,7 +313,7 @@ $(document).ready(function(){
 				data: formData,
 				type: 'POST',
 				success: function(result){
-					// alert("Uplaoded");
+					// alert("변경 완료");
 					window.location.replace('/member/timeline');
 				}
 			}); // $.ajax
