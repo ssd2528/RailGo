@@ -74,13 +74,14 @@
 							<span>포스팅</span>
 							<span>팔로워</span>
 							<span>팔로잉</span>
-							<form method="POST" id="follow">
-							<input type="hidden" value="${member.mem_code}" name="mem_code"> 
-							<input type="hidden" value="${userInfo.mem_code}" name="following"> 
-							<input type="hidden" value="${selFollowExist}" name="followExist"> 
-							<input type="button" name="submit" class="follow" value="팔로우">
-							</form>
-							
+							<c:if test="${member ne null}">
+								<form method="POST" id="follow">
+									<input type="hidden" value="${member.mem_code}" name="mem_code"> 
+									<input type="hidden" value="${userInfo.mem_code}" name="following"> 
+									<input type="hidden" value="${selFollowExist}" name="followExist"> 
+									<input type="button" name="submit" class="follow" value="팔로우">
+								</form>
+							</c:if>
 						</div>
 						<div class="row2">
 							<span class="user-id">${userInfo.name}</span>

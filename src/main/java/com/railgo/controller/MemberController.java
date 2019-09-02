@@ -208,10 +208,11 @@ public class MemberController {
 	//추가정보 수정
 	@GetMapping("/updateMemadd")
 	public String updateMemadd(MemberAddVO member,HttpSession session, RedirectAttributes rttr) {
-		System.out.println(member);
+		System.out.println("-------------------updateMemadd()--------------------");
+		System.out.println("## member : " + member);
 		memberService.updateMemadd(member);
 		session.setAttribute("memadd", member);
-		System.out.println(member);
+		System.out.println("## member : " +member);
 		
 		return "redirect:/member/timeline";
 	}
@@ -275,17 +276,12 @@ public class MemberController {
 	@GetMapping("/display")
 		@ResponseBody
 		public ResponseEntity <byte[]> getFile(String fileName){
-			
-			log.info("filename: " + fileName);
-			
+			log.info("## filename: " + fileName);
 			File file = new File("C:\\Upload\\temp\\"+fileName);
 			//File file = new File(fileName);
-			
 			ResponseEntity<byte[]> result = null;
-			
 			try {
 				HttpHeaders header = new HttpHeaders();
-				
 				header.add("Content-Type", Files.probeContentType(file.toPath()));
 				result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 			}catch(IOException e) {
