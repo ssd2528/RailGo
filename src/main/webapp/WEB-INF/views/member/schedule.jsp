@@ -39,28 +39,39 @@
 				<!-- member-info -->
 				<%@include file="../includes/member_info.jsp"%>
 					<!-- section-main -->
+					<form id="schedule-json-data" method="post" action="../../planner/plan">
+						<input type="hidden" id="item" name="item">
+						<input type="hidden" id="startday" name="startday">
+						<input type="hidden" id="tickets" name="tickets">
+						<input type="hidden" id="plancode" name="plancode">
+					</form>
 					<div class="section-main clearfix">
 						<div class="article-wrapper">
 							<div class="article-item">
 								<div class="schedule-select">
-									<a href="#" class="my-schedule">나의 일정</a>
-									<a>|</a>
-									<a href="#" class="like-schedule">좋아한 일정</a>
+									<span class="my-schedule">계획중인 일정</span>
+									<span>|</span>
+									<span class="complete-schedule">완성된 일정</span>
+									<span>|</span>
+									<span class="like-schedule">좋아한 일정</span>
 								</div>
 								<div class="schedule-lists">
 								<!-- 
 								<div class="schedule-list">
-                                        <ul>
-                                            <li><img class="schedule-list-img" src="/img/member/winter.jpeg"></li>
-                                            <li><div class="schedule-name">여행 이름</div></li>
-                                            <li><div class="schedule-date">(2019.07.03~2019.07.05)</div></li>
-                                            <li><a href="#" class="MnD">수정</a></li>
-                                            <li><div class="MnD">|</div></li>
-                                            <li><a href="#" class="MnD">삭제</a><br></li>
-                                            <li><img class="schedule-userImg" src="/img/member/default_profile_m.png"></li>
-                                            <li><div class="schedule-userName">사용자 닉네임</div></li>
-                                        </ul>
-                                </div>
+								  <img class="schedule-list-img" src="/img/member/winter.jpeg">
+								  <div class="schedule-text-wrapper">
+									  <div class="schedule-name">여행 이름</div>
+									  <div class="schedule-date">(2019.07.03~2019.07.05)</div>
+								    <div class="name-wrapper">
+								      <img class="schedule-userImg" src="/img/member/default_profile_m.png">
+								      <div class="schedule-userName">사용자 닉네임</div>
+								      <div class="btn-wrapper">
+								      <div class="m-btn">수정</div>
+								      <div class="d-btn">| 삭제</div>
+								      </div>  
+								    </div>
+								   </div>
+								</div>
                                 -->
 								</div>
 								

@@ -11,6 +11,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -67,9 +69,9 @@ public class MemberController {
 		Map<String, String> map = json;
 		System.out.println("schedule/getScheduleList init mem_code: " + map.get("mem_code"));
 		String mem_code = map.get("mem_code");
-		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanSchedulelist(mem_code);
-		if(plannerScheduleJsonList.size() == 0) {
-			return null;
+		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code);
+		if(plannerScheduleJsonList == null || plannerScheduleJsonList.size() == 0) {
+			return "fail";
 		}else {
 			Gson gson = new Gson();
 			String plannerScheduleJsonListToJson = gson.toJson(plannerScheduleJsonList);
@@ -77,6 +79,16 @@ public class MemberController {
 			System.out.println("ArrayList -> Json result :"+plannerScheduleJsonListToJson);
 			return plannerScheduleJsonListToJson;
 		}
+	}
+	@RequestMapping(value="schedule/deleteScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteScheduleList(@RequestBody Map<String, String> json) {
+		Map<String,String> map = json;
+		String plan_code = map.get("plan_code");
+		System.out.println("plan_code : "+plan_code);
+		Boolean delCheck = plannerService.deleteScheduleList(plan_code);
+		if(delCheck)	return "s";
+		else	return "f";
 	}
 	//추가정보 수정
 	@GetMapping("/updateMemadd")

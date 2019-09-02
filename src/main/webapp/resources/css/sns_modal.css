@@ -1,46 +1,3 @@
-/* The Modal (background) */
-.sns-modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 102; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.85); /* Black w/ opacity */
-}
-/* Modal Content(login)/Box */
-.sns-modal-content {
-	overflow: hidden;
-	background-color: #fefefe;
-	margin: 50px auto; /* 15% from the top and centered */
-	padding: 20px;
-	border: 1px solid #888;
-	width: 1200px;
-	height: 650px;
-}
-
-/* The Close Button */
-.sns-close {
-	color: #aaa;
-	float: right;
-	font-size: 40px;
-	font-weight: bold;
-	margin-top: -25px;
-	margin-bottom: -25px;
-}
-
-.sns-close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-/* SNS-IMG */
-.sns-modal-imgs { float:left; width:65%; height:100%; }
-.sns-modal-imgs img { height:100%; }
-
 /* SNS-Writer */
 .sns-article-right { float:right; width:33%; height:99%; margin-right:3px; position:relative; margin-left:5px; -}
 .sns-content-write { display:grid; grid-template-columns: 70px 1fr; }
@@ -213,4 +170,23 @@
 
 .sns-uploadResult a:hover {
 	text-decoration: underline;
+}
+
+
+/**************** bxslider.css 변경 부분 ****************/
+.bx-wrapper .bx-controls-direction a {
+	z-index:101;
+}
+#sns-modal .bx-viewport { width:100%; overflow:hidden; position:static; }
+#sns-modal .bx-viewport { width: 100%; overflow: hidden; position: relative; height: 499.992px; }
+#sns-modal .bx-viewport ul {
+    width: 4215%;
+    position: relative;
+    transition-duration: 0s;
+    transform: translate3d(0px, 0px, 0px);
+}
+#sns-modal .bx-viewport ul li {
+    float: left;
+    list-style: none;
+    position: relative;
 }
