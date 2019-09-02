@@ -61,13 +61,18 @@ public class MemberController {
 	
 	//타임라인 페이지
 	@GetMapping("/timeline")
-	public ModelAndView timeline(HttpSession session) {
+	public ModelAndView timeline(HttpSession session, RedirectAttributes rttr) {
 		
 		ModelAndView mv = new ModelAndView();
 	
 		mv.setViewName("/member/timeline");
 		
 		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member==null) { 
+			mv.setViewName("redirect:/");
+			rttr.addFlashAttribute("msg", "정상적인 경로를 통해 다시 접근해 주세요.");
+			return mv;
+		}
 		log.info("timeline mem_code "+member.getMem_code());
 		//FollowingVO follow = new FollowingVO();
 		//follow.setMem_code(member.getMem_code());
@@ -93,11 +98,16 @@ public class MemberController {
 	
 	//스케쥴 페이지
 	@GetMapping("/schedule")
-	public ModelAndView schedule(HttpSession session) {
+	public ModelAndView schedule(HttpSession session, RedirectAttributes rttr) {
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName("/member/schedule");
 		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member==null) { 
+			mv.setViewName("redirect:/");
+			rttr.addFlashAttribute("msg", "정상적인 경로를 통해 다시 접근해 주세요.");
+			return mv;
+		}
 		log.info("schedule mem_code "+member.getMem_code());
 		
 		mv.addObject("selFollowing",memberService.selFollowing(member.getMem_code()));
