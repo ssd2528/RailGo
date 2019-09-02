@@ -47,37 +47,35 @@
 .article-item{
 	
 }
-.schedule-lists{
-	
-}
-.schedule-list-img{
-	background: url('../img/member/winter.jpeg') no-repeat;
-	background-size:100% 75%;
-    width: 37%;
-    height: 24%;
+.schedule-list{
+	background-size:300px 250px;
+	background: #ffffff;
+	width: 500px;
+    height:300px;
     box-shadow: 3px 3px 3px #bfbfbf;
-    margin: 25px 45px 40px 45px;
-    display: inline-block;
+    margin: 20px 50px 40px 50px;
+    display:inline-block;
     padding:0px;
 }
-.schedule-list{
-	background: #ffffff;
-	width: 100%;
-    height: 25%;
-    position:relative;
-    top:75%;
+.schedule-list-img{
+	width: 500px;
+    height:200px;
 }
 .schedule-name{ 
 	font-size:20px; 
 	font-style:bold; 
 	font-weight:bold;
 	float:left;
-	margin: 3px 0px 0px 15px;
+	display:inline-block;
+	position:relative;
+	margin: 5px 0px 0px 15px;
+	top:15px;
 	}
 .schedule-date{ 
 	font-size:13px;
-	margin: 0px 100px 0px 10px;
+	margin: 0px 130px 0px 10px;
 	color:#bfbfbf; 
+	display:inline-block;
 	position:relative;
 	top:8px;
 }
@@ -92,13 +90,11 @@
 	float:left;
 	width: 30px;
     height: 30px;
-    margin: 20px 0px 0px 0px;
-    position:relative;
-	right:17%;
+    margin:15px 10px 0px 20px;
+	right:13%;
 }
 .schedule-userName{
 	color:#bfbfbf; 
-	position:relative;
 	right: 15%;
     top: 20px;
 }

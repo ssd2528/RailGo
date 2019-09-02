@@ -9,18 +9,18 @@
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		
 		<!-- Css -->
-		<link href="../css/common.css" rel="stylesheet">
-		<link href="../css/article_sns_user.css" rel="stylesheet">
-		<link href="../css/index.css" rel="stylesheet">
-		<link href="../css/timeline.css" rel="stylesheet">
-		<link href="../css/schedule.css" rel="stylesheet">
+		<link href="/css/common.css" rel="stylesheet">
+		<link href="/css/article_sns_user.css" rel="stylesheet">
+		<link href="/css/index.css" rel="stylesheet">
+		<link href="/css/timeline.css" rel="stylesheet">
+		<link href="/css/schedule.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
-		<script src="../js/header.js" type="text/javascript"></script>
-		<script src="../js/timeline.js" type="text/javascript"></script>
-		<script src="../js/schedule.js" type="text/javascript"></script>
+		<script src="/js/header.js" type="text/javascript"></script>
+		<script src="/js/timeline.js" type="text/javascript"></script>
+		<script src="/js/schedule.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<div class="wrap">
@@ -41,19 +41,55 @@
 									<a>|</a>
 									<a href="#" class="like-schedule">좋아한 일정</a>
 								</div>
-								<div class="schedule-lists">
-									<div class="schedule-list-img">
-										<div class="schedule-list">
-											<a class="schedule-name">여행 이름</a>
-											<a class="schedule-date">(2019.07.03~2019.07.05)</a>
-											<a href=# class="MnD">수정</a>
-											<a class="MnD">|</a>
-											<a href=# class="MnD">삭제</a><br>
-											<img class="schedule-userImg" src="../img/member/default_profile_m.png">
-											<a class="schedule-userName">사용자 닉네임</a>
-										</div>
+								
+									<div class="schedule-list">
+										<ul>
+											<li><img class="schedule-list-img" src="/img/member/winter.jpeg"></li>
+											<li><div class="schedule-name">여행 이름</div></li>
+											<li><div class="schedule-date">(2019.07.03~2019.07.05)</div></li>
+											<li><a href="#" class="MnD">수정</a></li>
+											<li><div class="MnD">|</div></li>
+											<li><a href="#" class="MnD">삭제</a><br></li>
+											<li><img class="schedule-userImg" src="/img/member/default_profile_m.png"></li>
+											<li><div class="schedule-userName">사용자 닉네임</div></li>
+										</ul>
 									</div>
-								</div>
+									<div class="schedule-list">
+										<ul>
+											<li><img class="schedule-list-img" src="/img/member/winter.jpeg"></li>
+											<li><div class="schedule-name">여행 이름</div></li>
+											<li><div class="schedule-date">(2019.07.03~2019.07.05)</div></li>
+											<li><a href="#" class="MnD">수정</a></li>
+											<li><div class="MnD">|</div></li>
+											<li><a href="#" class="MnD">삭제</a><br></li>
+											<li><img class="schedule-userImg" src="/img/member/default_profile_m.png"></li>
+											<li><div class="schedule-userName">사용자 닉네임</div></li>
+										</ul>
+									</div>
+									<div class="schedule-list">
+										<ul>
+											<li><img class="schedule-list-img" src="/img/member/winter.jpeg"></li>
+											<li><div class="schedule-name">여행 이름</div></li>
+											<li><div class="schedule-date">(2019.07.03~2019.07.05)</div></li>
+											<li><a href="#" class="MnD">수정</a></li>
+											<li><div class="MnD">|</div></li>
+											<li><a href="#" class="MnD">삭제</a><br></li>
+											<li><img class="schedule-userImg" src="/img/member/default_profile_m.png"></li>
+											<li><div class="schedule-userName">사용자 닉네임</div></li>
+										</ul>
+									</div>
+									<div class="schedule-list">
+										<ul>
+											<li><img class="schedule-list-img" src="/img/member/winter.jpeg"></li>
+											<li><div class="schedule-name">여행 이름</div></li>
+											<li><div class="schedule-date">(2019.07.03~2019.07.05)</div></li>
+											<li><a href="#" class="MnD">수정</a></li>
+											<li><div class="MnD">|</div></li>
+											<li><a href="#" class="MnD">삭제</a><br></li>
+											<li><img class="schedule-userImg" src="/img/member/default_profile_m.png"></li>
+											<li><div class="schedule-userName">사용자 닉네임</div></li>
+										</ul>
+									</div>
 								
 								
 								<!-- 
