@@ -21,8 +21,7 @@
 								<!-- 사용자가 로그인을 한 상태인 경우 -->
 								<c:if test="${member ne null}">
 									<c:choose>
-										<c:when test="${memadd.profile != ''}"><img id="member-img" src='/member/display?fileName=${memadd.profile}' alt="프로필"></c:when>
-										<c:when test="${memadd.profile == ''}">
+										<c:when test="${memadd.profile == '' || memadd.profile == null}">
 											<c:choose>
 												<c:when test="${member.gender eq 'M'}"><a href="http://localhost:8080/member/timeline" class="member-img">
 												<img src="/img/member/default_profile_m.png" alt="프로필 남" ></a></c:when>
@@ -30,6 +29,7 @@
 												<img src="/img/member/default_profile_f.png" alt="프로필 여" ></a></c:when>
 											</c:choose>	
 										</c:when>
+										<c:when test="${memadd.profile != '' }"><img id="member-img" src='/member/display?fileName=${memadd.profile}' alt="프로필"></c:when>
 									</c:choose>
 									<ul class="member-submenu">
 										<li><a href="http://localhost:8080/member/timeline" class="member-timeline">타임라인</a></li>

@@ -10,7 +10,8 @@
 	<link rel="icon" href="/img/favicon.ico">
 	
 	<!-- CSS -->
-	<link href="/css/font-awesome.min.css" rel="stylesheet">
+	<!-- <link href="/css/font-awesome.min.css" rel="stylesheet"> -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/common.css" rel="stylesheet">
 	<link href="/css/section_search.css" rel="stylesheet">
 	<link href="/css/info/detail.css" rel="stylesheet">

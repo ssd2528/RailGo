@@ -5,7 +5,7 @@
 <div class="section-back-img clearfix">
 	<input type="hidden" value="${memadd.backImage}">
 	<c:choose>
-		<c:when test="${memadd.backImage eq ''}">
+		<c:when test="${memadd.backImage eq '' || memadd.backImage eq null}">
 			<img id="section-back-img" alt="프로필 바탕화면" src="/img/info/서울1.jpg">
 		</c:when>
 		<c:when test="${memadd.backImage ne ''}">
@@ -33,21 +33,7 @@
 	<!-- profile-img -->
 	<div class="profile-img clearfix">
 		<c:choose>
-			<c:when test="${memadd.profile != ''}">
-				<div class='uploadDiv2'>
-					<label class="uplabel2" for='uploadFile2'>
-					<img id="profile-img" src='/member/display?fileName=${memadd.profile}' alt="프로필">
-					</label>
-					<input type="hidden" name="mem_code2" value="${member.mem_code}">
-					<input type="hidden" name="address2" value="${memadd.address}">
-					<input type="hidden" name="job2" value="${memadd.job}">
-					<input type="hidden" name="birth2" value="${memadd.birth}">
-					<input type="hidden" name="interest2" value="${memadd.interest}">
-					<input type="hidden" name="backImage2" value="${memadd.backImage}">
-			        <input type='file' id='uploadFile2' name='profile2' multiple>
-				</div>
-			</c:when>
-			<c:when test="${memadd.profile == ''}">
+			<c:when test="${memadd.profile eq '' || memadd.profile eq null}">
 				<c:choose>	
 					<c:when test="${member.gender eq null}">
 						<div class='uploadDiv2'>
@@ -92,6 +78,20 @@
 						</div>
 					</c:when>
 				</c:choose>
+			</c:when>
+			<c:when test="${memadd.profile ne '' || memadd.profile ne null}">
+				<div class='uploadDiv2'>
+					<label class="uplabel2" for='uploadFile2'>
+					<img id="profile-img" src='/member/display?fileName=${memadd.profile}' alt="프로필">
+					</label>
+					<input type="hidden" name="mem_code2" value="${member.mem_code}">
+					<input type="hidden" name="address2" value="${memadd.address}">
+					<input type="hidden" name="job2" value="${memadd.job}">
+					<input type="hidden" name="birth2" value="${memadd.birth}">
+					<input type="hidden" name="interest2" value="${memadd.interest}">
+					<input type="hidden" name="backImage2" value="${memadd.backImage}">
+			        <input type='file' id='uploadFile2' name='profile2' multiple>
+				</div>
 			</c:when>
 		</c:choose>	
 	</div>

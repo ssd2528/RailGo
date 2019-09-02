@@ -12,20 +12,24 @@
 		<link rel="icon" href="/img/favicon.ico">
 		<!-- CSS -->
 		<link href="/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 		<link href="/css/common.css" rel="stylesheet">
 		<link href="/css/index.css" rel="stylesheet">
 		<link href="/css/section_search.css" rel="stylesheet">
 		<link href="/css/article_sns_user.css" rel="stylesheet">
 		<link href="/css/login_modal.css" rel="stylesheet">
+		<link href="/css/sns_modal.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
+		<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 		<script src="/js/fontawesome.js" type="text/javascript"></script>
 		<script src="/js/header.js" type="text/javascript"></script>
 		<script src="/js/index.js" type="text/javascript"></script>
 		<script src="/js/section_search.js" type="text/javascript"></script>
 		<script src="/js/login_modal.js" type="text/javascript"></script>
 		<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
+		<script src="/js/sns_modal.js" type="text/javascript"></script>
 
 	</head>
 	<body>
@@ -135,98 +139,96 @@
 							<!-- ./article-concept -->
 							
 							<!-- article-sns-content -->
-							<div class="article-item article-sns-content">
-								<div class="article-title"><h2>핫한 SNS 게시물</h2></div>
-								
-								<!-- SNS 게시물 목록 (sns-content-list)  -->
-								<div class="sns-content-list">
-									<!-- 각 SNS 게시글 (sns-content-item) -->
-									<div class="sns-content-item">
-										<div class="sns-content-img col-50" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover;">게시글 이미지</div>
-										<div class="col-45" style="padding:5px 0px;">
-											<div class="sns-content-user">
-												<img class="user-img" src="/img/header/default_profile_m.png">
-												<div class="user-name">사용자 닉네임</div>
-											</div>
-											<div class="sns-content-body font-13">
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글
-											</div>
-											<div class="sns-content-reply font-13"><a href="#">3개의 댓글 모두보기</a></div>
-											<ul class="icon-list">
-												<li> <img class="sns-icon sns-heart" src="/img/sns/heart.png" alt="좋아요"> </li>
-												<li> <img class="sns-icon sns-chat" src="/img/sns/chat.png" alt="댓글달기"> </li>
-												<li> <img class="sns-icon sns-share" src="/img/sns/share.png" alt="공유하기"> </li>
-											</ul>
-											<div class="sns-heart-count font-13">좋아요 5개</div>
-											<div class="sns-content-regDate font-13">작성일자</div>
-										</div>
+							<c:forEach items="${sns}" var="sns">
+								<div class="article-item article-sns-content">
+									<!-- <div class="article-title"><h2>핫한 SNS 게시물</h2></div> -->
+									
+									<!-- SNS 게시물 목록 (sns-content-list)  -->
+									<div class="sns-content-list">
+										<!-- 각 SNS 게시글 (sns-content-item) -->
+										<input type="hidden" class="reply-memCode" value="${member.mem_code}">
+										
+											<form id="sns-form" class="sns-form" method="POST" action="">
+												<div class="sns-content-item">
+													<!-- 게시물 이미지 목록 조회 -->
+													<div class="sns-content-img col-50">
+														<ul class="bxslider">
+															<c:forEach items="${sns.imgList}" var="imgList">
+																<li><img src='/sns/display?fileName=${imgList.imagePath}/s_${imgList.uuid}_${imgList.fileName}' alt="SNS이미지"></li>
+															</c:forEach>
+														</ul>
+													</div>
+													<!-- <div class="sns-content-img col-50" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover;">게시글 이미지</div> -->
+													<div class="col-45" style="padding:5px 0px;">
+														<div class="sns-content-user">
+															<!-- 작성자 프로필 사진 조회 -->
+															<c:choose>
+																<c:when test="${sns.profile != null}">
+																	<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+																</c:when>
+																<c:when test="${sns.profile == null}">
+																	<c:choose>
+																		<c:when test="${sns.gender eq 'M'}">
+																			<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+																		</c:when>
+																		<c:when test="${sns.gender eq 'F'}">
+																			<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+																		</c:when>
+																	</c:choose>	
+																</c:when>
+															</c:choose>
+															<!-- 작성자 닉네임 조회 -->
+															<div class="user-name">${sns.name} 님이 사진을 글을 남겼습니다</div>
+															<!-- 작성자인 경우에만 수정/삭제 버튼 생성 -->
+															<c:if test="${member.mem_code == sns.mem_code && member ne null}">
+																<div class="sns-edit-btn"> ...
+																	<div class="sns-edit-btn-group">
+																		<div class="sns-content-edit">수정</div>
+																		<div class="sns-content-delete">삭제</div>
+																	</div>
+																</div>	
+															</c:if>
+														</div>
+														<!-- 게시물의 작성 내용 -->
+														<div class="sns-content-body font-13">
+															${sns.content}
+														</div>
+														<c:if test="${sns.commCount != 0}">
+															<div class="sns-content-reply font-13 sns-content-modal">${sns.commCount}개의 댓글 모두보기</div>
+														</c:if>
+														<!-- 좋아요 버튼 -->
+														<ul class="icon-list"> 
+															<c:if test="${sns.snsLikeCheck == false}">
+																<li> <img id="sns-heart" class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
+															</c:if>
+															<c:if test="${sns.snsLikeCheck == true}">
+																<li> <img id="sns-heart" class="sns-icon sns-heart-clicked" src="../img/sns/heart_clicked.png" alt="좋아요"> </li>
+															</c:if>
+															<li> <img class="sns-icon sns-chat sns-content-modal" src="../img/sns/chat.png" alt="댓글달기"> </li>
+														</ul>
+														<input type="hidden" name="sns_code" class="sns_code" value="${sns.sns_code}">
+														<input type="hidden" name="mem_code" class="mem_code" value="${member.mem_code}">
+														<!-- 좋아요 갯수 조회 -->
+														<c:if test="${sns.snsLikeCount != 0}">
+															<div class="sns-heart-count font-13">좋아요 <span class="like-count">${sns.snsLikeCount}</span>개</div>
+														</c:if>
+														<c:if test="${sns.snsLikeCount == 0}">
+															<div class="sns-heart-count" style="display:none;">좋아요 <span class="like-count">${sns.snsLikeCount}</span>개</div>
+														</c:if>
+														<!-- 게시물 작성일자 조회 -->
+														<div class="sns-content-regDate font-13">
+															<fmt:formatDate value="${sns.regDate}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+														</div>
+													</div>
+												</div> 
+												<!-- ./각 SNS 게시글 (sns-content-item) -->
+											</form>
 									</div> 
-									<!-- ./sns-content-item -->
-									<!-- 각 SNS 게시글 (sns-content-item) -->
-									<div class="sns-content-item">
-										<div class="sns-content-img col-50" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover;">게시글 이미지</div>
-										<div class="col-45" style="padding:5px 0px;">
-											<div class="sns-content-user">
-												<img class="user-img" src="/img/header/default_profile_m.png">
-												<div class="user-name">사용자 닉네임</div>
-											</div>
-											<div class="sns-content-body font-13">
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글
-											</div>
-											<div class="sns-content-reply font-13"><a href="#">3개의 댓글 모두보기</a></div>
-											<ul class="icon-list">
-												<li> <img class="sns-icon sns-heart" src="/img/sns/heart.png" alt="좋아요"> </li>
-												<li> <img class="sns-icon sns-chat" src="/img/sns/chat.png" alt="댓글달기"> </li>
-												<li> <img class="sns-icon sns-share" src="/img/sns/share.png" alt="공유하기"> </li>
-											</ul>
-											<div class="sns-heart-count font-13">좋아요 5개</div>
-											<div class="sns-content-regDate font-13">작성일자</div>
-										</div>
-									</div> 
-									<!-- ./sns-content-item -->
-									<!-- 각 SNS 게시글 (sns-content-item) -->
-									<div class="sns-content-item">
-										<div class="sns-content-img col-50" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover;">게시글 이미지</div>
-										<div class="col-45" style="padding:5px 0px;">
-											<div class="sns-content-user">
-												<img class="user-img" src="/img/header/default_profile_m.png">
-												<div class="user-name">사용자 닉네임</div>
-											</div>
-											<div class="sns-content-body font-13">
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 
-												게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글 게시물에 대한 글
-											</div>
-											<div class="sns-content-reply font-13"><a href="#">3개의 댓글 모두보기</a></div>
-											<ul class="icon-list">
-												<li> <img class="sns-icon sns-heart" src="/img/sns/heart.png" alt="좋아요"> </li>
-												<li> <img class="sns-icon sns-chat" src="/img/sns/chat.png" alt="댓글달기"> </li>
-												<li> <img class="sns-icon sns-share" src="/img/sns/share.png" alt="공유하기"> </li>
-											</ul>
-											<div class="sns-heart-count font-13">좋아요 5개</div>
-											<div class="sns-content-regDate font-13">작성일자</div>
-										</div>
-									</div> 
-									<!-- ./sns-content-item -->
-								</div> 
-							</div>
-							<!-- article-sns-content -->
+									<!-- ./SNS 게시물 목록 (sns-content-list)  -->
+								</div>
+								<!-- article-sns-content -->
+							</c:forEach>
+							
 						</div>
 						
 						
@@ -258,8 +260,11 @@
 				<!-- ./content-wrapper -->
 			</div>
 			<!-- ./content -->
+			
 			<!-- login_modal -->
 			<%@include file="includes/login_modal.jsp"%>	
+			<!-- sns_modal -->
+			<%@include file="includes/sns_modal.jsp"%>
 			
 			
 			<!-- footer -->
