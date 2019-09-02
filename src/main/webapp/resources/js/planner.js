@@ -10,23 +10,17 @@ $(document).ready(function(){
 	var daysTag = '#third-day-tag,#fifth-day-tag,#seventh-day-tag';
 	var periodTag = '#summer-tag,#winter-tag';
 	var themeTag = '#solo-tag,#duo-tag,#squad-tag,#eatting-tag,#healing-tag';
-	var fThemes = '#f-theme0,#f-theme1,#f-theme2,#f-theme3,#f-theme4';
-	// planner 항시 이미지 변환
+	var fThemes = '#f-theme0,#f-theme1,#f-theme2,#f-theme3,#f-theme4';	
+	var mem_code = $('.mem-code').children('input').val();
+	if(mem_code === '' || mem_code === null){
+		mem_code = 'guest';
+	}
+	// planner 항시 이미지 변환(헤더에 있는 플래너 이미지 호버상태 유지)
 	$('.planner-img img').attr('src', '../img/header/planner_clicked.png');
 	planner.css('color', '#009CE9');
 	planner.closest('li').css({'border-bottom':'solid 3px #009CE9', 'padding-bottom':'3px'});
 	
-	$.ajax({
-		type: 'get',
-		url: '/planner/nailerSchedule',
-		dataType: 'json',
-		success: function(data){
-			console.log(data.response.body.items.item);
-			var myItem = data.response.body.items.item;
-			$('.calendar-map').css('background','url('+myItem.firstimage+')');
-		}
-	});
-	
+	loadScheduleOtherUsers(mem_code,null);
 	// sns hover시 이미지 변환 
 	sns.hover(function(){
 		$('.sns-img img').attr('src', '../img/header/sns_clicked.png');
@@ -228,6 +222,7 @@ $(document).ready(function(){
 			}
 		}
 	});
+	//나의 일정 보기 버튼 클릭 이벤트
 	$('.planner-info-btn-wrapper').children('.my-plan-btn').click(function(){
 		let mem = $('.mem-code').children('input').val();
 		if(mem === '' || mem === null){
@@ -245,3 +240,116 @@ $(document).ready(function(){
 		}
 	});
 });
+
+function loadScheduleOtherUsers(mem_code,filter){
+	let param = {'mem_code':mem_code};
+	console.log(param);
+	$.ajax({
+		type : 'post',
+		async : false,
+		url: 'planner/getOtherUsersScheduleList',
+		dataType : 'json',
+		contentType : 'application/json',
+		data : JSON.stringify(param),
+		success : function(data) {
+			console.log(data);
+			if(data.length === 0 || data === null || data === 'fail'){
+				$('.calendar-lists-wrapper').append('<div class="calendar-lists">'+'다른 내일러들의 일정이 없습니다.'+'</div>');
+			}else{
+				for(let item of data){
+					let DayScheduleArr = new Array();
+					let name = getNameOfSchedule(item.planner.mem_code);
+					let img = '../img/default.png';
+					let hashTagText;
+					let course = new String();
+					let sortDate = new Array();
+					let startdate;
+					let enddate;
+					if(item.planner.hash_tag === 'theme-solo'){hashTagText = '#나홀로';}
+					else if(item.planner.hash_tag === 'theme-duo'){hashTagText = '#단둘이';}
+					else if(item.planner.hash_tag === 'theme-squad'){hashTagText = '#셋이상';}
+					else if(item.planner.hash_tag === 'theme-eating'){hashTagText = '#먹방';}
+					else {hashTagText = '#힐링';}
+					/*for(let i of item.plannerDate){
+						if(i.region === '지역을 선택하세요.'){continue;}
+						course += (i.region+' - ');			
+					}
+					if(course.length >= 1){course = course.substr(0,course.length-3);}
+					else{course = '일정이 없습니다.';}*/
+					
+					for(let i of item.plannerSchedule){
+						if(i.content_img !== 'undefined' && i.content_img !== null && i.content_img !== ''){img = i.content_img; break;}
+						else{img = '../img/default.png';}
+					}
+					for(let i of item.plannerSchedule){
+						let str = i.days + ':' + i.content_name;
+						DayScheduleArr.push(str);
+					}
+					for(let day of item.plannerDate){
+						sortDate.push(day.trip_date);
+					}
+					sortDate.sort();
+					startdate = sortDate[0];
+					for(let index of sortDate){
+						enddate = index;
+					}
+					//console.log(startdate+' ~ '+enddate);
+					$('.calendar-lists-wrapper').append('<div class="calendar-lists">'
+							+'<form class="schedule-list">'
+							+'<input type="hidden" class="startdate" value="'+startdate+'">'
+							+'<input type="hidden" id="" class="item" value="">'
+							+'<input type="hidden" id="" class="enddate" value="'+enddate+'">'
+							+'<input type="hidden" id="" class="day-schedule-str" value="'+DayScheduleArr+'">'
+							+'<input type="hidden" id="" class="tickets" value="'+item.plannerDate.length+'">'
+							+'<input type="hidden" id="" class="plancode" value="'+item.planner.plan_code+'">'
+							+'</form>'
+							+'<div class="calendar-map" style="background: #FFFFFF url(\''+img+'\') no-repeat center center/cover;"></div>'
+							+'<div class="calendar-text-wrapper">'
+							+'<div class="calendar-text-subject">'+item.planner.subject+'</div>'
+							+'<div class="calendar-text-tag">'+hashTagText+'</div>'
+							+'<div class="calendar-text-writer">'+name+'</div>'
+							+'<div class="calendar-like-number-wrapper">'
+							+'<div class="calendar-text-like" ><img class="like-img" src="../img/sns/heart.png"></img></div>'
+							+'<div class="calendar-text-like-number">0</div>'
+							+'</div>'
+							+'</div>'
+							+'</div>'
+					);
+					$('.schedule-list').children('.item').attr('value',JSON.stringify(item));
+				}
+				let items = $('.schedule-list').children('.item');
+				for(i = 0; i<items.length;i++){
+					console.log(items[i]);
+				}
+				
+			}
+		},
+		error : function(data, status, error) {
+			$('.calendar-lists-wrapper').append('<div class="calendar-lists">'+'다른 내일러들의 일정이 없습니다.'+'</div>');
+			console.log('status : '+status);
+			console.log(data);
+		}
+	});
+}
+//다른 내일러 일정 목록 호출시 각 일정의 이름을 불러오는 메소드
+function getNameOfSchedule(mem_code){
+	let param = {'mem_code' : mem_code};
+	let returnName;
+	$.ajax({
+		type : 'post',
+		async : false,
+		url: 'planner/getUserNameScheduleList',
+		dataType : 'text',
+		contentType : 'application/json',
+		data : JSON.stringify(param),
+		success : function(data) {
+			returnName = data;
+		},
+		error : function(data, status, error) {
+			console.log('status : '+status);
+			console.log(data);
+			returnName = '이름을 발견하지 못했습니다.';
+		}
+	});
+	return returnName;
+}

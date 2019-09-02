@@ -69,7 +69,7 @@ public class MemberController {
 		Map<String, String> map = json;
 		System.out.println("schedule/getScheduleList init mem_code: " + map.get("mem_code"));
 		String mem_code = map.get("mem_code");
-		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code);
+		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"schedule");
 		if(plannerScheduleJsonList == null || plannerScheduleJsonList.size() == 0) {
 			return "fail";
 		}else {

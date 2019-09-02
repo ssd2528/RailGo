@@ -145,5 +145,9 @@ public class MemberServiceImpl implements MemberService {
 	public void updateMemImage(MemberAddVO member) {
 		memberMapper.updateMemImage(member);
 	}
+	@Override
+	public String getMemberName(String mem_code) {
+		return memberMapper.getMemberName(mem_code);
+	}
 
 }

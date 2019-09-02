@@ -17,4 +17,6 @@ public interface MemberService {
 	
 	void sendEmailByPwd(String email) throws Exception;
 	void updatePwd(String email, String pwd);
+	
+	String getMemberName(String mem_code);
 }
