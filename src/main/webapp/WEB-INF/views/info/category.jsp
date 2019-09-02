@@ -11,7 +11,7 @@
 	<link rel="icon" href="/img/favicon.ico">
 	
 	<!-- CSS -->
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/common.css" rel="stylesheet">
 	<link href="/css/section_search.css" rel="stylesheet">
 	<link href="/css/info/category.css" rel="stylesheet">
@@ -19,7 +19,7 @@
 	
 	<!-- JS -->
 	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
-	<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
+	<script src="/js/fontawesome.js" type="text/javascript"></script>
 	<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 	<script src="/js/login_modal.js" type="text/javascript"></script>
 	<script src="/js/section_search.js" type="text/javascript"></script>

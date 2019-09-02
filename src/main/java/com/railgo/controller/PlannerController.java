@@ -27,7 +27,7 @@ import com.railgo.domain.PlannerVO;
 import com.railgo.service.MemberService;
 import com.railgo.service.PlannerService;
 import com.railgo.service.PlannerServiceImpl;
-
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.railgo.service.APIService;
@@ -45,16 +45,51 @@ public class PlannerController {
 	private PlannerService plannerService;
 	@Autowired
 	private APIService apiService;
+	@Autowired
+	private MemberService memberService;
+	
+	@RequestMapping(value="getOtherUsersScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String getOtherUsersScheduleList(@RequestBody Map<String,String> json) {
+		Map<String, String> map = json;
+		System.out.println("planner/getOtherUsersScheduleList init mem_code: " + map.get("mem_code"));
+		String mem_code = map.get("mem_code");
+		if(mem_code != null) {
+			ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"plan");
+			if(plannerScheduleJsonList == null || plannerScheduleJsonList.size() == 0) {
+				return "fail";
+			}else {
+				Gson gson = new Gson();
+				String plannerScheduleJsonListToJson = gson.toJson(plannerScheduleJsonList);
+				System.out.println("ArrayList  :"+plannerScheduleJsonList);
+				System.out.println("ArrayList -> Json result :"+plannerScheduleJsonListToJson);
+				return plannerScheduleJsonListToJson;
+			}
+		}else {
+			return "fail";
+		}
+	}
+	
+	@RequestMapping(value="getUserNameScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String getUserNameScheduleList(@RequestBody Map<String,String> json) {
+		Map<String, String> map = json;
+		System.out.println("planner/getUserNameScheduleList init member name : " + map.get("mem_code"));
+		String mem_code = map.get("mem_code");
+		String name = memberService.getMemberName(mem_code);
+		if(name != null)	return name;
+		else	return "fail";
+		
+	}
 	@RequestMapping("/plan")
 	public ModelAndView plan(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		String scheduleitem = request.getParameter("item");
-		//System.out.println("item: "+scheduleitem);
-		//System.out.println("item size: "+scheduleitem.length());
 		String ticket = request.getParameter("tickets");
 		String startday = request.getParameter("startday");
 		String plancode = request.getParameter("plancode");
-		//System.out.println(ticket + ", " + startday+", item : "+scheduleitem);
+		System.out.println("item: "+scheduleitem);
+		System.out.println(ticket + ", " + startday+", item : "+scheduleitem);
 		mv.setViewName("planner/plan");
 		mv.addObject("ticket", ticket);
 		mv.addObject("startday", startday);
@@ -160,30 +195,6 @@ public class PlannerController {
 			String line = "";
 			line = br.readLine();
 			System.out.println(line);
-			return line;
-		} catch (Exception e) {
-			System.out.println("error : " + e.getMessage());
-			return null;
-		}
-	}
-
-	@RequestMapping(value = "/nailerSchedule", produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String test4() {
-		BufferedReader br = null;
-		try {
-			String urlStr = "http://api.visitkorea.or.kr/" + "openapi/service/rest/KorService/areaBasedList"
-					+ "?serviceKey=5J1arCmxYhNIW8f4XlwopZ1O6GyDwUvcAFiUcxYHXROD95kIiO7pfYTye2eDqw551CuepQ1D3goC3BHHQptHCQ%3D%3D"
-					+ "&pageNo=1&numOfRows=1&MobileApp=AppTest&MobileOS=ETC&arrange=A&contentTypeId=15&areaCode=4&sigunguCode=4&listYN=Y"
-					+ "&_type=json";
-			URL url = new URL(urlStr);
-			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-			urlConnection.setRequestMethod("GET");
-			br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
-			String line = "";
-			line = br.readLine();
-			System.out.println(line);
-
 			return line;
 		} catch (Exception e) {
 			System.out.println("error : " + e.getMessage());

@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+.article-wrapper {width:100%;}
+
+.search-keyword {font-size:30px; font-weight:bold; margin:30px 0;}
+
+.category-tabs {display:inline-block;}
+.category-tab {display:inline-block; font-size:15px; background:#FFF; margin-right:-3px; padding:7px 20px; border-right:1px solid #cdcbcb; cursor:pointer;}
+.category-tab:last-child {border-right:none;}
+.category-tab:hover {background:#eb7d31; color:#FFF;}
+.selected-tab {background:#eb7d31; color:#FFF;}
+.total-count {text-align:right; margin:-20px 10px 15px 0px; font-size:15px; }
+
+#selected-category-result-box {background:#FFF; padding:30px 20px;}
+.category-result-box-row {display:flex; justify-content:space-around;}
+.result-item-box {width:23%; height:250px; border:1px solid #dfdfdf; margin-bottom:15px; cursor:pointer;}
+.result-item-img {width:100%; height:180px;}
+.result-item-img > img {width:100%; height:100%;}
+
+.result-item-info-box {padding: 10px;}
+.result-item-title {font-weight: bold;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;width: 100%;height: 23px;}
+.result-item-category {font-size:11px; color:#595959; text-overflow: ellipsis;white-space: nowrap;overflow: hidden;width: 100%;height:16px;}
+.result-item-readcount {font-size:11px; color:#595959;}
+
+.fa-exclamation-circle{color:#7f7f7f;font-size:100px;margin-top:200px;}
+
+
+
+/*		 list-paging 		*/
+.paging{text-align:center;vertical-align:middle;height:30px;padding:5px 0;}
+.pagination{list-style:none;padding:0; width:90%;}
+.pagination-prev{margin-left:5px;float:left;width:40px!important}
+.pagination-next{margin-right:5px;float:right;width:40px!important}
+.pagination li{padding:4px;text-align:center;width:25px;height:25px;border:1px solid #a9a9a9;margin:0 3px}
+.pagination li.selected{border:1px solid #009ce9;background-color:#009ce9;width:25px;height:25px;color:#fff}
+.pagination a{font-size:14px;text-decoration:none}
+.pagination li:not(.selected):hover{border:1px solid silver;background-color:silver;width:25px;height:25px;color:#fff;cursor:pointer}
+.pagination li.button:hover{border:1px solid #009ce9;background-color:#009ce9;width:25px;height:25px;color:#fff;cursor:pointer}
+
+
+/* 		section-search 		*/
+form#searchForm {display:inline-block; float:right; position:relative; top:50px; font-size: medium;}
+form#searchForm .search-container {display: flex;padding: 0;/* margin:20px 10px 15px 10px; */ border: 0;}
+form#searchForm .search-keyword {border: 0;width:220px;height: 40px;padding: 2px 10px;background: white;transition: all 0.4s ease;box-shadow:3px 3px 3px #bfbfbf; margin:0; font-size: medium; font-weight:normal;}
+form#searchForm .icon {padding: 10px;height: 20px;background: dodgerblue;color: white;min-width: 10px;text-align: center;box-shadow:3px 3px 3px #bfbfbf; cursor:pointer;}

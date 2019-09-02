@@ -55,12 +55,17 @@ public class PlannerServiceImpl implements PlannerService {
 		if(dpd != 0 && dp != 0)	return true;
 		else	return false;
 	}
-	public ArrayList<PlannerJsonDTO> PlanScheduleList(String mem_code){
+	public ArrayList<PlannerJsonDTO> PlanScheduleList(String mem_code,String page){
 		ArrayList<PlannerJsonDTO> list = new ArrayList<>();
 		PlannerJsonDTO pjdto = null;
 		ArrayList<PlannerScheduleVO> plannerSchedule = new ArrayList<>();
 		ArrayList<PlannerDateVO> plannerDate = new ArrayList<>();
-		ArrayList<PlannerVO> plannerlist = mapper.plannerList(mem_code);
+		ArrayList<PlannerVO> plannerlist;
+		if(page == "schedule") {	//schedule 페이지에서 호출
+			plannerlist = mapper.plannerList(mem_code);
+		}else {	// planner 페이지에서 호출
+			plannerlist = mapper.otherPlannerList(mem_code);
+		}
 		int size = plannerlist.size();
 		if(size == 0) {
 			return null;

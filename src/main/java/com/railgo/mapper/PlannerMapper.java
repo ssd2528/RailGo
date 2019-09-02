@@ -19,6 +19,7 @@ public interface PlannerMapper {
 	int deletePlanner(String plan_code);
 	int deletePlannerSchedule(String plan_code);
 	int deletePlannerDate(String plan_code);
+	ArrayList<PlannerVO> otherPlannerList(String mem_code);
 	ArrayList<PlannerVO> plannerList(String mem_code);
 	ArrayList<PlannerScheduleVO> plannerScheduleList(String plan_code);
 	ArrayList<PlannerDateVO> plannerDateList(String plan_code);

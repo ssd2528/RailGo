@@ -259,22 +259,8 @@
 			   		dragMapEvent();
 			      });  
 				google.maps.event.addListener(map, 'zoom_changed', function() {
-				    var zoomLevel = map.getZoom();
-				    /*
-					if(zoomLevel <= 7){
-						setStationMarker(7);
-					}else
-				    {
-						setStationMarker(stationLocations.length);	
-						if(zoomLevel == 13){
-							setLocMarker();
-						}else if(zoomLevel < 12){
-							delTourMarkers();
-						}
-				    }*/		
+				    var zoomLevel = map.getZoom();	
 				});
-				//addStationsMarker(stationLocations.length);
-				//setStationMarker(7);
 				toggleCityList(80,350,'show');
 			}
 		</script>

@@ -3,12 +3,14 @@
 
 <!-- profile-background -->
 <div class="section-back-img clearfix">
+	<input type="hidden" value="${memadd.backImage}">
 	<c:choose>
-		<c:when test="${memadd.backImage != null}">
+		<c:when test="${memadd.backImage eq ''}">
+			<img id="section-back-img" alt="프로필 바탕화면" src="/img/info/서울1.jpg">
+		</c:when>
+		<c:when test="${memadd.backImage ne ''}">
 			<img id="section-back-img" alt="프로필 바탕화면" src='/member/display?fileName=${memadd.backImage}'>
 		</c:when>
-		<c:when test="${memadd.backImage == null}">
-			<img id="section-back-img" alt="프로필 바탕화면" src="/img/info/서울1.jpg"></c:when>
 	</c:choose>
 	<div class='uploadDiv'>
 		<label class="uplabel" for='uploadFile'>
@@ -31,7 +33,7 @@
 	<!-- profile-img -->
 	<div class="profile-img clearfix">
 		<c:choose>
-			<c:when test="${memadd.profile != null}">
+			<c:when test="${memadd.profile != ''}">
 				<div class='uploadDiv2'>
 					<label class="uplabel2" for='uploadFile2'>
 					<img id="profile-img" src='/member/display?fileName=${memadd.profile}' alt="프로필">
@@ -45,7 +47,7 @@
 			        <input type='file' id='uploadFile2' name='profile2' multiple>
 				</div>
 			</c:when>
-			<c:when test="${memadd.profile == null}">
+			<c:when test="${memadd.profile == ''}">
 				<c:choose>	
 					<c:when test="${member.gender eq null}">
 						<div class='uploadDiv2'>

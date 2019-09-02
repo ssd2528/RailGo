@@ -72,8 +72,6 @@ function loadPlannedSchedule(scheduleState){
 				let posting = 0;
 				for(let item of items){
 					ScheduleJsonItem.push(item);
-					if(scheduleState === 'insert' && item.planner.hash_tag !== 'none'){continue;}
-					if(scheduleState === 'complete' && item.planner.hash_tag === 'none'){continue;}
 					let sortDate = new Array();
 					let startdate;
 					let lastdate;
@@ -87,16 +85,21 @@ function loadPlannedSchedule(scheduleState){
 						mBtnText = '수정';
 						appendHashTag = '';
 					}else{
+						//일정에 해시태그를 표시하기 위한 구별 코드
 						if(item.planner.hash_tag === 'theme-solo'){hashTagText = '나홀로';}
 						else if(item.planner.hash_tag === 'theme-duo'){hashTagText = '단둘이';}
 						else if(item.planner.hash_tag === 'theme-squad'){hashTagText = '셋이상';}
 						else if(item.planner.hash_tag === 'theme-eating'){hashTagText = '먹방';}
 						else {hashTagText = '힐링';}
-						posting++;
+						posting++;	// 완료된 일정을 세는 변수
 						mBtnName = 'detail-view';
 						mBtnText = '일정 상세 보기';
 						appendHashTag = '<div class="hash-tag">'+'#'+hashTagText+'</div>'
 					}
+					//진행중 , 완료 일정 구분 하기 위한 코드
+					if(scheduleState === 'insert' && item.planner.hash_tag !== 'none'){continue;}
+					if(scheduleState === 'complete' && item.planner.hash_tag === 'none'){continue;}
+					
 					for(let day of item.plannerDate){
 						sortDate.push(day.trip_date);
 					}

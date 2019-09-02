@@ -29,4 +29,5 @@ public interface MemberMapper {
 	void updateMemImage(MemberAddVO member);
 	
 	void updatePwd(HashMap<String, Object> map);
+	String getMemberName(String mem_code);
 }
