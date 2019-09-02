@@ -179,7 +179,7 @@
 							<div class="sns-bottom">
 								<hr class="sns-line">
 								<ul class="sns-icon-list">
-									<c:if test="${likeCheck == false}">
+									<c:if test="${likeCheck == false || likeCheck == null}">
 										<li> <img id="sns-heart" class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
 									</c:if>
 									<c:if test="${likeCheck == true}">
