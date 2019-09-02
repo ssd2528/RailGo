@@ -193,7 +193,7 @@
 									
 									<c:choose>
 										<c:when test="${member.profile != null}">
-											<img class="reviewer-img" src='/member/display?fileName=${commList.profile}' alt="프로필">
+											<img class="reviewer-img" src='/member/display?fileName=${member.profile}' alt="프로필">
 										</c:when>
 										<c:when test="${rereList.profile == null}">
 											<c:choose>

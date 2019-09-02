@@ -1,8 +1,6 @@
 package com.railgo.controller;
 
-import java.awt.List;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -50,7 +48,6 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 @RequestMapping("/member")
-@AllArgsConstructor
 public class MemberController {
 	
 	@Setter(onMethod_=@Autowired)
@@ -58,8 +55,6 @@ public class MemberController {
 	@Setter(onMethod_=@Autowired)
 	PlannerService plannerService;
 	LoginController loginController;
-	@Autowired
-	PlannerService plannerService;
 	//타임라인 페이지
 	@GetMapping("/timeline")
 	public ModelAndView timeline(HttpSession session, RedirectAttributes rttr) {
