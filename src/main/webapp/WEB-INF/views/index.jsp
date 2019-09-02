@@ -11,6 +11,7 @@
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		<link rel="icon" href="/img/favicon.ico">
 		<!-- CSS -->
+		<link href="/css/font-awesome.min.css" rel="stylesheet">
 		<link href="/css/common.css" rel="stylesheet">
 		<link href="/css/index.css" rel="stylesheet">
 		<link href="/css/section_search.css" rel="stylesheet">
@@ -19,6 +20,7 @@
 		
 		<!-- JavaScript -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
+		<script src="/js/fontawesome.js" type="text/javascript"></script>
 		<script src="/js/header.js" type="text/javascript"></script>
 		<script src="/js/index.js" type="text/javascript"></script>
 		<script src="/js/section_search.js" type="text/javascript"></script>
@@ -27,6 +29,7 @@
 
 	</head>
 	<body>
+		<input type="hidden" value="${msg}">
 		<c:if test="${not empty msg}">
 			<script type="text/javascript">alert('${msg}');</script>
 		</c:if>
@@ -228,6 +231,13 @@
 						
 						
 						<div class="article-wrapper article-25">
+							<!-- article-search -->
+							<form id="searchForm" action="search" method="post">
+								<div class="search-container">
+									<input type="text" name="keyword" class="search-keyword" id="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
+								</div>
+							</form>
+							
 							<!-- article-sns-user -->
 							<%@include file="includes/article_sns_user.jsp"%>
 							<!-- ./article-sns-user -->

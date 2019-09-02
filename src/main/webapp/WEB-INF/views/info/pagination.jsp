@@ -3,14 +3,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <ul class="pagination">
-		<fmt:parseNumber var="maxpage" integerOnly="true" value="${totalCount%10==0? totalCount/10 : totalCount/10+1}" />
+		<fmt:parseNumber var="maxpage" integerOnly="true" value="${totalCount%12==0? totalCount/12 : totalCount/12+1}" />
 		
 		<c:set var="page" value="${currentPage}" />
 		<c:if test="${currentPage eq null}">
 			<c:set var="page" value="1" />
 		</c:if>
 		
-		<input type="hidden" value="${maxpage}"> <input type="hidden" value="${page}">
+		<input type="hidden" id="maxPage" value="${maxpage}"> <input type="hidden" id="currentPage" value="${page}">
 		
 		<!-- page maxpage를 넘었을 경우 제한 -->
 		<c:if test="${page > maxpage}">
@@ -47,7 +47,7 @@
 			<c:forEach var="i" begin="1" end="${prev-1}">
 				<c:set var="j" value="${j - 1}" />
 				<c:if test="${(page - j) > 0}">
-					<li class="no no_before">${page - j}</li>
+					<li class="no no_before" value="${page-j}">${page - j}</li>
 				</c:if>
 			</c:forEach>
 		</c:if>
@@ -59,7 +59,7 @@
 		<c:if test="${page != maxpage}">
 			<c:forEach var="i" begin="1" end="${next-1}">
 				<c:if test="${maxpage >= page+i}">
-					<li class="no no_before">${page+i}</li>
+					<li class="no no_before" value="${page+i}">${page+i}</li>
 				</c:if>
 			</c:forEach>
 		</c:if>

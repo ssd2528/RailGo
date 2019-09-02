@@ -55,18 +55,25 @@ public class MemberController {
 	
 	@Setter(onMethod_=@Autowired)
 	MemberService memberService;
+	@Setter(onMethod_=@Autowired)
+	PlannerService plannerService;
 	LoginController loginController;
 	@Autowired
 	PlannerService plannerService;
 	//타임라인 페이지
 	@GetMapping("/timeline")
-	public ModelAndView timeline(HttpSession session) {
+	public ModelAndView timeline(HttpSession session, RedirectAttributes rttr) {
 		
 		ModelAndView mv = new ModelAndView();
 	
 		mv.setViewName("/member/timeline");
 		
 		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member==null) { 
+			mv.setViewName("redirect:/");
+			rttr.addFlashAttribute("msg", "정상적인 경로를 통해 다시 접근해 주세요.");
+			return mv;
+		}
 		log.info("timeline mem_code "+member.getMem_code());
 		//FollowingVO follow = new FollowingVO();
 		//follow.setMem_code(member.getMem_code());
@@ -92,11 +99,16 @@ public class MemberController {
 	
 	//스케쥴 페이지
 	@GetMapping("/schedule")
-	public ModelAndView schedule(HttpSession session) {
+	public ModelAndView schedule(HttpSession session, RedirectAttributes rttr) {
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName("/member/schedule");
 		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member==null) { 
+			mv.setViewName("redirect:/");
+			rttr.addFlashAttribute("msg", "정상적인 경로를 통해 다시 접근해 주세요.");
+			return mv;
+		}
 		log.info("schedule mem_code "+member.getMem_code());
 		
 		mv.addObject("selFollowing",memberService.selFollowing(member.getMem_code()));
@@ -197,10 +209,11 @@ public class MemberController {
 	//추가정보 수정
 	@GetMapping("/updateMemadd")
 	public String updateMemadd(MemberAddVO member,HttpSession session, RedirectAttributes rttr) {
-		System.out.println(member);
+		System.out.println("-------------------updateMemadd()--------------------");
+		System.out.println("## member : " + member);
 		memberService.updateMemadd(member);
 		session.setAttribute("memadd", member);
-		System.out.println(member);
+		System.out.println("## member : " +member);
 		
 		return "redirect:/member/timeline";
 	}
@@ -264,17 +277,12 @@ public class MemberController {
 	@GetMapping("/display")
 		@ResponseBody
 		public ResponseEntity <byte[]> getFile(String fileName){
-			
-			log.info("filename: " + fileName);
-			
+			log.info("## filename: " + fileName);
 			File file = new File("C:\\Upload\\temp\\"+fileName);
 			//File file = new File(fileName);
-			
 			ResponseEntity<byte[]> result = null;
-			
 			try {
 				HttpHeaders header = new HttpHeaders();
-				
 				header.add("Content-Type", Files.probeContentType(file.toPath()));
 				result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 			}catch(IOException e) {
