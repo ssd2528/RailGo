@@ -132,6 +132,7 @@ public class SNSController {
 	public ModelAndView content(String sns_code, HttpSession session) {
 		Object obj = session.getAttribute("member");
 		log.info("## content sns_code: " + sns_code);
+		log.info("## content obj: " + obj);
 		ModelAndView mv = new ModelAndView(); 
 		mv.setViewName("sns/content");
 	  

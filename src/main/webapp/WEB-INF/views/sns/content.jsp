@@ -128,7 +128,7 @@
 													</tr>
 												</table>
 												<input type="hidden" class="reply-commCode" name="comm_code" value="${commList.comm_code}">
-												<input type="hidden" class="reply-memCode" name="mem_code" value="${commList.mem_code}">
+												
 											</div>
 										</div>
 										<c:if test="${commList.rereList ne null}">
@@ -199,7 +199,7 @@
 										placeholder="&nbsp;&nbsp; 댓글 달기..."></textarea>
 									<input type="button" class="sns-reply-btn" value="게시" />
 									<input type="hidden" class="reply-snsCode" value="${content.sns_code}">
-									<input type="hidden" class="reply-memCode" value="${member.mem_code}">
+									<input type="hidden" class="member-memCode" value="${member.mem_code}">
 								</div>
 								<input type="hidden" name="member-gender" value="${member.gender}">
 								<input type="hidden" name="member-profile" value="${memadd.profile}">
