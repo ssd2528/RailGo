@@ -297,7 +297,7 @@ function loadScheduleOtherUsers(mem_code,filter){
 					$('.calendar-lists-wrapper').append('<div class="calendar-lists">'
 							+'<form class="schedule-list">'
 							+'<input type="hidden" class="startdate" value="'+startdate+'">'
-							+'<input type="hidden" id="" class="item" value="">'
+							+'<input type="hidden" id="'+item.planner.plan_code+'" class="item" value="">'
 							+'<input type="hidden" id="" class="enddate" value="'+enddate+'">'
 							+'<input type="hidden" id="" class="day-schedule-str" value="'+DayScheduleArr+'">'
 							+'<input type="hidden" id="" class="tickets" value="'+item.plannerDate.length+'">'
@@ -315,7 +315,7 @@ function loadScheduleOtherUsers(mem_code,filter){
 							+'</div>'
 							+'</div>'
 					);
-					$('.schedule-list').children('.item').attr('value',JSON.stringify(item));
+					$('.schedule-list').children('#'+item.planner.plan_code).attr('value',JSON.stringify(item));
 				}
 				let items = $('.schedule-list').children('.item');
 				for(i = 0; i<items.length;i++){

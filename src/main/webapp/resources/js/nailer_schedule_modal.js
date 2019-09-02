@@ -80,9 +80,8 @@ function fillTextScheduleInfo(data){
 		}
 	}	
 	console.log(jsonData);
-	//jsonData = JSON.parse(jsonData);
-	//console.log(jsonData);
-	//fillFormData(jsonData,startdate,tickets,plancode);
+	jsonData = JSON.parse(jsonData);
+	fillFormData(jsonData,startdate,tickets,plancode);
 }
 // 자세히 보기를 누를 시 데이터 전달을 위해 form tag에 data 채워넣는 메소드
 function fillFormData(jsonData,startdate,tickets,plancode){
