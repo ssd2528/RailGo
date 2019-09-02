@@ -109,7 +109,13 @@
 								<c:forEach items="${courseList}" var="courseItem" varStatus="status">
 									<c:if test="${status.count <= 2}">
 										<li class="one-course-item">
-											<img class="one-course-img" src="${courseItem.firstimage}">
+											<c:if test="${courseItem.firstimage eq null}">	
+												<img class="one-course-img" src="/img/default.png">
+											</c:if>
+											<c:if test="${courseItem.firstimage ne null}">	
+												<img class="one-course-img" src="${courseItem.firstimage}">
+											</c:if>
+												
 											<div class="one-course-info">
 												<div class="one-course-title"> [ ${courseItem.title} ] <span class="one-course-cat3">${courseItem.cat3}</span></div>
 												<div class="one-course-detail">${courseItem.courseSubNames}</div>
@@ -162,10 +168,10 @@
 
 					<div class="article-wrapper article-25">
 						<!-- article-search -->
-						<div class="search-container">
+						<%-- <div class="search-container">
 							<input type="text" name="keyword" class="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
 							<input type="hidden" name="areaName" value="${areaName}">
-						</div>
+						</div> --%>
 					
 						<!-- article-sns-user -->
 						<%@include file="../includes/article_sns_user.jsp"%>

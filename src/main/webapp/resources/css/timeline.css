@@ -1,6 +1,6 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
-@import url('../font/12롯데마트행복Bold.ttf');
+@import url('/font/12롯데마트행복Bold.ttf');
 
 /*  section-profile  */
 #section-back-img{
@@ -22,6 +22,7 @@
 	height:250px;
 	object-fit: cover;
 	border-radius:50%;
+	background-color:#ffffff;
 }
 #back-img-update{
 	position:absolute;
@@ -92,7 +93,7 @@
 	position:relative;
 	top:-5px;
 }
-.profile-text1{
+.profile-text1,.profile-text2,.profile-text3,.profile-text4{
 	position:relative;
 	top:-5px;
 	height:25px;
@@ -103,17 +104,11 @@
 	font-size:16px;
 	color:#7f7f7f;
 }
-.profile-text{
-	position:relative;
-	top:-5px;
-	height:25px;
-	width:165px;
-	border:0px;
-	outline:none;
-	border-bottom:solid 1px;
-	font-size:16px;
-	color:#7f7f7f;
+
+.row1 span {
+	font-weight: bold;
 }
+
 .row1 span, .row2 span {
 	text-align:center;
 	display:inline-block;
@@ -138,6 +133,21 @@
 	height:30px;
 	text-align:center;
 	/* border-bottom:4px solid #009CE9; */
+}
+.follow {
+	background-color:#009CE9;
+	border:none;
+	color:white;
+	outline:0;
+	float:right;
+	padding: 5px 13px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius:5px;
+	margin:-27px 130px 0px 0px;
+	cursor:pointer;
 }
 
 /* section-main */

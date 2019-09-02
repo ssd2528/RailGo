@@ -135,8 +135,8 @@ td{border: 1.2px solid #d9d9d9;padding:11px;}
 	background-color:white;
 	font-size:17px;
 }
-.calendar-text-tag{display:inline-block;margin-right: 7px;}
-.calendar-text-course{color:gray;text-align:left;font-size:13px;margin-bottom:7px;}
+.calendar-text-subject{display:inline-block;margin-right: 7px;}
+.calendar-text-tag{color:gray;text-align:left;font-size:13px;margin-bottom:7px;}
 .calendar-text-writer{display:inline-block;}
 .calendar-like-number-wrapper{float:right;margin-right:5px;}
 .calendar-text-like{display:inline-block;cursor:pointer;}
@@ -275,3 +275,4 @@ td{border: 1.2px solid #d9d9d9;padding:11px;}
 	padding:9px;
 	cursor:pointer;
 }
+

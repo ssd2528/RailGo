@@ -20,7 +20,6 @@
 		<!-- JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-		<script src="/js/jquery.jscroll.js" type="text/javascript"></script>
 		<script src="/js/sns.js" type="text/javascript"></script>
 		<script src="/js/login_modal.js" type="text/javascript"></script>
 		<script src="/js/sns_modal.js" type="text/javascript"></script>
@@ -54,7 +53,7 @@
 										<div class="sns-content-user">
 											<c:choose>
 												<c:when test="${sns.profile != null}">
-													<img class="user-img" src='/member/display?fileName=${memadd.profile}' alt="프로필">
+													<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
 												</c:when>
 												<c:when test="${sns.profile == null}">
 													<c:choose>

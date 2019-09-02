@@ -3,19 +3,19 @@
 
 <!-- profile-background -->
 <div class="section-back-img clearfix">
-	<!-- <a href="#"><img id="back-img-update" src="../img/member/edit.png" alt="프로필 사진 수정"
-	onmouseover="this.src='../img/member/edit_hover.png'" onmouseout="this.src='../img/member/edit.png'"></a> -->
+	<input type="hidden" value="${memadd.backImage}">
 	<c:choose>
-		<c:when test="${memadd.backImage != null}">
+		<c:when test="${memadd.backImage eq ''}">
+			<img id="section-back-img" alt="프로필 바탕화면" src="/img/info/서울1.jpg">
+		</c:when>
+		<c:when test="${memadd.backImage ne ''}">
 			<img id="section-back-img" alt="프로필 바탕화면" src='/member/display?fileName=${memadd.backImage}'>
 		</c:when>
-		<c:when test="${memadd.backImage == null}">
-			<img id="section-back-img" alt="프로필 바탕화면" src="../img/info/서울1.jpg"></c:when>
 	</c:choose>
 	<div class='uploadDiv'>
 		<label class="uplabel" for='uploadFile'>
-		<img id="back-img-update" src="../img/member/edit.png" name="back-img-update" 
-		onmouseover="this.src='../img/member/edit_hover.png'" onmouseout="this.src='../img/member/edit.png'">
+		<img id="back-img-update" src="/img/member/edit.png" name="back-img-update" 
+		onmouseover="this.src='/img/member/edit_hover.png'" onmouseout="this.src='/img/member/edit.png'">
 		</label>
 		<input type="hidden" name="mem_code" value="${member.mem_code}">
 		<input type="hidden" name="address" value="${memadd.address}">
@@ -33,7 +33,7 @@
 	<!-- profile-img -->
 	<div class="profile-img clearfix">
 		<c:choose>
-			<c:when test="${memadd.profile != null}">
+			<c:when test="${memadd.profile != ''}">
 				<div class='uploadDiv2'>
 					<label class="uplabel2" for='uploadFile2'>
 					<img id="profile-img" src='/member/display?fileName=${memadd.profile}' alt="프로필">
@@ -47,10 +47,50 @@
 			        <input type='file' id='uploadFile2' name='profile2' multiple>
 				</div>
 			</c:when>
-			<c:when test="${memadd.profile == null}">
+			<c:when test="${memadd.profile == ''}">
 				<c:choose>	
-					<c:when test="${member.gender eq 'M'}"><img id="profile-img" src="../img/member/default_profile_m.png" alt="프로필"></c:when>
-					<c:when test="${member.gender eq 'F'}"><img id="profile-img" src="../img/member/default_profile_f.png" alt="프로필"></c:when>
+					<c:when test="${member.gender eq null}">
+						<div class='uploadDiv2'>
+							<label class="uplabel2" for='uploadFile2'>
+							<img id="profile-img" src="/img/member/default_profile_m.png" alt="프로필">
+							</label>
+							<input type="hidden" name="mem_code2" value="${member.mem_code}">
+							<input type="hidden" name="address2" value="${memadd.address}">
+							<input type="hidden" name="job2" value="${memadd.job}">
+							<input type="hidden" name="birth2" value="${memadd.birth}">
+							<input type="hidden" name="interest2" value="${memadd.interest}">
+							<input type="hidden" name="backImage2" value="${memadd.backImage}">
+					        <input type='file' id='uploadFile2' name='profile2' multiple>
+						</div>
+					</c:when>
+					<c:when test="${member.gender eq 'M'}">
+						<div class='uploadDiv2'>
+							<label class="uplabel2" for='uploadFile2'>
+							<img id="profile-img" src="/img/member/default_profile_m.png" alt="프로필">
+							</label>
+							<input type="hidden" name="mem_code2" value="${member.mem_code}">
+							<input type="hidden" name="address2" value="${memadd.address}">
+							<input type="hidden" name="job2" value="${memadd.job}">
+							<input type="hidden" name="birth2" value="${memadd.birth}">
+							<input type="hidden" name="interest2" value="${memadd.interest}">
+							<input type="hidden" name="backImage2" value="${memadd.backImage}">
+					        <input type='file' id='uploadFile2' name='profile2' multiple>
+						</div>
+					</c:when>
+					<c:when test="${member.gender eq 'F'}">
+						<div class='uploadDiv2'>
+							<label class="uplabel2" for='uploadFile2'>
+							<img id="profile-img" src="/img/member/default_profile_f.png" alt="프로필">
+							</label>
+							<input type="hidden" name="mem_code2" value="${member.mem_code}">
+							<input type="hidden" name="address2" value="${memadd.address}">
+							<input type="hidden" name="job2" value="${memadd.job}">
+							<input type="hidden" name="birth2" value="${memadd.birth}">
+							<input type="hidden" name="interest2" value="${memadd.interest}">
+							<input type="hidden" name="backImage2" value="${memadd.backImage}">
+					        <input type='file' id='uploadFile2' name='profile2' multiple>
+						</div>
+					</c:when>
 				</c:choose>
 			</c:when>
 		</c:choose>	
@@ -68,10 +108,9 @@
 		<div class="row2">
 			<span class="user-id">${member.name}</span>
 			<span class="posting">0</span>
-			<span class="follower">0</span>
-			<span class="following">0</span>
+			<span class="follower">${selFollower}</span>
+			<span class="following">${selFollowing}</span>
 		</div>
-		<!--  <img alt="Test" src='/member/display?fileName=나홀로_기차.jpg'>-->
 	</div>
 	<!-- /profile-detail -->
 

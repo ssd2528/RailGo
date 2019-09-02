@@ -15,21 +15,57 @@ import com.railgo.mapper.PlannerMapper;
 public class PlannerServiceImpl implements PlannerService {
 	@Autowired
 	private PlannerMapper mapper;
-	public void insertPlanner(PlannerVO vo) {
-		mapper.insertPlanner(vo);
+
+	public void createPlanner(PlannerJsonDTO dto) {
+		PlannerJsonDTO pjd = dto;
+		PlannerVO planner = pjd.getPlanner();
+		ArrayList<PlannerDateVO> plannerDateArr = pjd.getPlannerDate();
+		ArrayList<PlannerScheduleVO> plannerScheduleArr = pjd.getPlannerSchedule();
+		mapper.firstInsertPlanner(planner);
+		for (PlannerDateVO vo : plannerDateArr) {
+			mapper.firstInsertPlannerDate(vo);
+		}
+		if (plannerScheduleArr != null) {
+			for (PlannerScheduleVO vo : plannerScheduleArr) {
+				mapper.firstInsertPlannerSchedule(vo);
+			}
+		}
 	}
-	public void insertPlannerSchedule(PlannerScheduleVO vo) {
-		mapper.insertPlannerSchedule(vo);
+	public void updatePlanner(PlannerJsonDTO dto) {
+		PlannerJsonDTO pjd = dto;
+		PlannerVO planner = pjd.getPlanner();
+		ArrayList<PlannerDateVO> plannerDateArr = pjd.getPlannerDate();
+		ArrayList<PlannerScheduleVO> plannerScheduleArr = pjd.getPlannerSchedule();
+		
+		mapper.insertPlanner(planner);
+		for (PlannerDateVO vo : plannerDateArr) {
+			mapper.insertPlannerDate(vo);
+		}
+		if (plannerScheduleArr != null) {
+			for (PlannerScheduleVO vo : plannerScheduleArr) {
+				mapper.insertPlannerSchedule(vo);
+			}
+		}
 	}
-	public void insertPlannerDate(PlannerDateVO vo) {
-		mapper.insertPlannerDate(vo);
+	public Boolean deleteScheduleList(String plan_code) {
+		int dps = mapper.deletePlannerSchedule(plan_code);
+		int dpd = mapper.deletePlannerDate(plan_code);
+		int dp = mapper.deletePlanner(plan_code);
+		System.out.println("PlannerServiceImpl.java -> deleteScheduleList : "+dps+", "+dpd+", "+dp);
+		if(dpd != 0 && dp != 0)	return true;
+		else	return false;
 	}
-	public ArrayList<PlannerJsonDTO> PlanSchedulelist(String mem_code){
+	public ArrayList<PlannerJsonDTO> PlanScheduleList(String mem_code,String page){
 		ArrayList<PlannerJsonDTO> list = new ArrayList<>();
-		PlannerJsonDTO pjdto;
+		PlannerJsonDTO pjdto = null;
 		ArrayList<PlannerScheduleVO> plannerSchedule = new ArrayList<>();
 		ArrayList<PlannerDateVO> plannerDate = new ArrayList<>();
-		ArrayList<PlannerVO> plannerlist = mapper.plannerList(mem_code);
+		ArrayList<PlannerVO> plannerlist;
+		if(page == "schedule") {	//schedule 페이지에서 호출
+			plannerlist = mapper.plannerList(mem_code);
+		}else {	// planner 페이지에서 호출
+			plannerlist = mapper.otherPlannerList(mem_code);
+		}
 		int size = plannerlist.size();
 		if(size == 0) {
 			return null;
@@ -44,8 +80,8 @@ public class PlannerServiceImpl implements PlannerService {
 				pjdto.setPlannerDate(plannerDate);
 				pjdto.setPlannerSchedule(plannerSchedule);
 				list.add(pjdto);
-				System.out.println("plannerDate : "+i+" : "+plannerDate);
-				System.out.println("plannerSchedule : "+i+" : "+plannerSchedule);
+				//System.out.println("plannerDate : "+i+" : "+plannerDate);
+				//System.out.println("plannerSchedule : "+i+" : "+plannerSchedule);
 			}
 		}
 		return list;

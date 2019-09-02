@@ -8,8 +8,9 @@ import com.railgo.domain.PlannerScheduleVO;
 import com.railgo.domain.PlannerVO;
 
 public interface PlannerService {
-	void insertPlanner(PlannerVO vo);
-	void insertPlannerSchedule(PlannerScheduleVO vo);
-	void insertPlannerDate(PlannerDateVO rvo);
-	ArrayList<PlannerJsonDTO> PlanSchedulelist(String mem_code);
+	void createPlanner(PlannerJsonDTO dto);
+	void updatePlanner(PlannerJsonDTO dto);
+	Boolean deleteScheduleList(String plan_code);
+	//schedule 페이지에서 나의 스케쥴목록과 planner 페이지에서 다른 내일러들의 일정들을 보여주는 메소드
+	ArrayList<PlannerJsonDTO> PlanScheduleList(String mem_code,String page);
 }

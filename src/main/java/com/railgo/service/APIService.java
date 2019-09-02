@@ -11,4 +11,7 @@ public interface APIService {
 	JsonArray makeItemsArray(JsonObject itemsObject);
 	int getTotalCount(String responseStr);
 	String getOverview(JsonObject itemsObject);
+	
+	
+	String findAreaName(int areaCode, int sigunguCode);
 }

@@ -83,6 +83,11 @@ $(document).ready(function(){
 		var sns_code = $('.reply-snsCode').val();
 		var comm_code = 0;
 		
+		console.log(content);
+		console.log(mem_code);
+		console.log(sns_code);
+		
+		
 		if(content.length < 5) {
             alert('내용은 5글자 이상 입력해주세요.');
             return false;
@@ -108,6 +113,7 @@ $(document).ready(function(){
 			type: 'POST',
 			dataType: 'json',
 			success: function(result){
+				html += '<div class="sns-rereply-append">';
 				html += '<div class="sns-reply-box">';
 				if(result.profile!=null){
 					html += '<img class="sns-replyer-profile" src="/member/display?fileName='+ result.profile +'" alt="프로필">';
@@ -135,7 +141,7 @@ $(document).ready(function(){
 				html += '<input type="hidden" class="reply-commCode" name="comm_code" value="'
 				html += result.comm_code;
 				html +=	'">';
-				html += '</div>';
+				html += '</div></div>';
 				$('.sns-reply-container').append(html);
 			}
 		})
