@@ -179,14 +179,14 @@
 							<div class="sns-bottom">
 								<hr class="sns-line">
 								<ul class="sns-icon-list">
-									<c:if test="${likeCheck == false || likeCheck == ''}">
+									<c:if test="${likeCheck == false || likeCheck == null}">
 										<li> <img id="sns-heart" class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
 									</c:if>
 									<c:if test="${likeCheck == true}">
-										<li> <img id="sns-heart" class="sns-icon sns-heart-clicked" src="../img/sns/heart_clicked.png" alt="좋아요"> </li>
+										<li> <img id="sns-heart" class="sns-icon sns-heart-clicked" src="/img/sns/heart_clicked.png" alt="좋아요"> </li>
 									</c:if>
 									<li><img class="sns-icon sns-chat"
-										src="../img/sns/chat.png" alt="댓글달기"></li>
+										src="/img/sns/chat.png" alt="댓글달기"></li>
 									<c:if test="${likeCount != 0}">
 										<div class="sns-heart-count">좋아요 <span class="like-count">${likeCount}</span>개</div>
 									</c:if>

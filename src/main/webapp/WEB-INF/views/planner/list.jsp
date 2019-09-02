@@ -31,6 +31,12 @@
 		<%@include file="../includes/header.jsp"%>
 		<!--  body  -->
 		<form class="mem-code"><input type="hidden" value="${member.mem_code}"></form>
+		<form id="list-schedule-json-data" method="post" action="./planner/plan">
+			<input type="hidden" class="item" name="item">
+			<input type="hidden" class="startday" name="startday">
+			<input type="hidden" class="tickets" name="tickets">
+			<input type="hidden" class="plancode" name="plancode">
+		</form>
 		<div class="content">
 			<div class="content-wrapper">
 				<!-- 여행 플래너 설명  -->
@@ -129,13 +135,13 @@
 									<div id="seventh-day-tag">7일권</div>
 								</td>
 							</tr>
-							<tr>
+							<!-- <tr>
 								<td id="period" class="td-subject">여행 시기</td>
 								<td id="period-option" class="td-option">
 									<div id="summer-tag">여름</div>
 									<div id="winter-tag">겨울</div>
 								</td>
-							</tr>
+							</tr> -->
 							<tr>
 								<td id="theme"class="td-subject">여행 테마</td>
 								<td id="theme-option" class="td-option">
@@ -152,13 +158,13 @@
 						<div class="filter-text">다른 내일러들의 일정</div>
 							<!-- 일정들의 목록 -->
 						<div class="calendar-lists-wrapper">
-						<% for(int i = 0; i < 6; i++){ %>
+						<!-- 
 							<div class="calendar-lists">
 								<div class="calendar-map"></div>
 								<div class="calendar-text-wrapper">
 									<div class="calendar-text-tag">#셋이서</div>
 									<div class="calendar-text-tag">#전국일주</div>
-									<div class="calendar-text-course">서울-대전-대구-부산</div>
+									<div class="calendar-text-subject">일정제목</div>
 									<div class="calendar-text-writer">혐잉</div>
 									<div class="calendar-like-number-wrapper">
 										<div class="calendar-text-like" ><img class="like-img" src="../img/sns/heart.png"></img></div>	
@@ -166,7 +172,7 @@
 									</div>
 								</div>
 							</div>
-						<% } %>
+						 -->
 						</div>
 						<button class="more-btn"> 더보기 </button>
 					</div>

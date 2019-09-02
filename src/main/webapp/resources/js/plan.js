@@ -126,7 +126,7 @@ $(document).ready(function() {
 			 }, 1)
 			$('body').css({'overflow':'hidden', 'height':'100%'});
 		}else{
-			window.location.href = "../../member/schedule";
+			window.location.href = "../";
 		}
 	});
 	// 바깥 화면 클릭시 modal 창 닫기
@@ -412,6 +412,7 @@ function updateInit(dateText,day,planDateBox){
 }
 //일정 만들기를 눌렀을때 초기화하는 메소드
 function createInit(dateText,day,planDateBox){
+	hashTag = 'none';
 	let memberCode = $('.member-code').children('input').val();
 	if(memberCode === '' || memberCode === null){
 		alert('로그인 후 이용 가능한 서비스 입니다.');
@@ -663,7 +664,9 @@ function MarkerHoverColorChange(id,action){	// action parameter -> mouseenter면
 function dragMapEvent(){
 	if(hashTag !== 'none'){
 		// function none working;
+		alert('hash tag is not none');
 	}else{
+		alert('hash tag is none');
 		if(map.getZoom() > 10){
 			var accomColor = $('.list-theme-wrapper').children('.list-theme-accom').css('border-color');	//색칠된 rgb(0, 156, 233)
 			var foodColor = $('.list-theme-wrapper').children('.list-theme-food').css('border-color');	//색칠된 rgb(0, 156, 233)
@@ -777,10 +780,11 @@ function setMarkerScheduleItems(day){
 		if(day === $(item).attr('name')){
 			let mapxy = $(item).children('.schedule-item-img').attr('name');
 			mapxy = mapxy.split(',');
-			let subject = ($(item).children('.schedule-item-name').text()).split($(this).children('.schedule-item-name').children('.schedule-item-addr').text());
+			let subject = ($(item).children('.schedule-item-name').text()).split($(item).children('.schedule-item-name').children('.schedule-item-addr').text());
+			let addr1 = $(item).children('.schedule-item-name').children('.schedule-item-addr').text();
 			let img =  $(item).children('.schedule-item-img').children('img').attr('src');
 			let id = $(item).attr('id');
-			addTourMarker(mapxy[0],mapxy[1],subject[0],subject[1],200,img,'complete',id);
+			addTourMarker(mapxy[0],mapxy[1],subject[0],img,addr1,1985,'complete',id);
 		}
 	}
 	setTourMarker();
@@ -866,17 +870,19 @@ function tourMarkerListener(localmarker, infoWindow) {
 	google.maps.event.addListener(localmarker, 'click', function() {
 		//스트롤 top이 277.5에 위치하게 하기
 		//selected-theme-list 의 top값은 260.5
+		infoWindow.close();
+		infoWindow.open(map, localmarker);
 		var id = '#'+localmarker.id;
 		var scroll_h = $('.selected-theme-list').scrollTop()+$(id).offset().top;
 		$('.selected-theme-list').animate({
 			scrollTop: scroll_h-277.5},500);
 	});
 	google.maps.event.addListener(localmarker, 'mouseover', function() {
-		infoWindow.open(map, localmarker);
+		//infoWindow.open(map, localmarker);
 		MarkerHoverColorChange(localmarker.id,'in');
 	});
 	google.maps.event.addListener(localmarker, 'mouseout', function() {
-		infoWindow.close();
+		//infoWindow.close();
 		MarkerHoverColorChange(localmarker.id,'out');
 	});
 }
@@ -917,13 +923,11 @@ function addTourMarker(xpos, ypos, tourContent, tourImg, address, viewOrTel, the
 	var infoWindow = new google.maps.InfoWindow({
 		content :'<div style="display:inline-block;font-size:15px;font-weight:bold;width:150px;margin-bottom:10px;">' + tourContent + '</div>' + '<br/>'
 				+'<div style="display:inline-block;font-size:10px;width:150px;">' + address + '</div>' + '<br/>'
-				+'<div style="display:inline-block;font-size:10px;width:150px;margin-bottom:7px;">' + viewOrTel + '</div>' + '<br/>'
+				+'<div style="display:inline-block;font-size:10px;width:150px;margin-bottom:7px;">' +'조회수 : ' + viewOrTel + '</div>' + '<br/>'
 				+'<div style="display:inline-block;margin-right:10px;">'
 				+'<img style="width:150px;height:100px;" src="' + tourImg
 				+ '"' + '<div>'  + '<br/>'
-				+'<button type="button" onclick="location.href="#"" style="background-color:#009CE9;padding:7px 11px;border:none;color:white;text-align:center;text-decoration:none;display:inline-block;font-size:10px;">자세히보기</button>&nbsp;'
-				+'<button type="button" onclick="location.href="#"" style="background-color:#eb7d31;padding:7px 11px;border:none;color:white;text-align:center;text-decoration:none;display:inline-block;font-size:10px;">일정에추가</button>',
-				/*+'<a href="#" style="display:inline-block;font-size:5px;width:150px;text-align:right;">'+'자세히보기'+'</a>',*/
+				+'<button type="button" onclick="location.href="#" style="margin-left:50px;background-color:#009CE9;padding:7px 11px;border:none;color:white;text-align:center;text-decoration:none;display:inline-block;font-size:10px;">자세히보기</button>&nbsp;',
 		map : map
 	});
 	tourMarkers.push(marker);

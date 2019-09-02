@@ -52,7 +52,14 @@
 									<div class="article-item article-sns-content">
 										<div class="sns-content-user">
 											<c:choose>
+<<<<<<< HEAD
 												<c:when test="${sns.profile eq '' || sns.profile eq null}">
+=======
+												<c:when test="${sns.profile != null}">
+													<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+												</c:when>
+												<c:when test="${sns.profile == null}">
+>>>>>>> branch 'master' of https://github.com/JaeHyeonKim19/RailGo
 													<c:choose>
 														<c:when test="${sns.gender eq 'M'}">
 															<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >

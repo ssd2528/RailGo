@@ -1,8 +1,6 @@
 package com.railgo.controller;
 
-import java.awt.List;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -50,7 +48,6 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 @RequestMapping("/member")
-@AllArgsConstructor
 public class MemberController {
 	
 	@Setter(onMethod_=@Autowired)
@@ -58,7 +55,6 @@ public class MemberController {
 	@Setter(onMethod_=@Autowired)
 	PlannerService plannerService;
 	LoginController loginController;
-	
 	//타임라인 페이지
 	@GetMapping("/timeline")
 	public ModelAndView timeline(HttpSession session, RedirectAttributes rttr) {
@@ -184,7 +180,7 @@ public class MemberController {
 		Map<String, String> map = json;
 		System.out.println("schedule/getScheduleList init mem_code: " + map.get("mem_code"));
 		String mem_code = map.get("mem_code");
-		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code);
+		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"schedule");
 		if(plannerScheduleJsonList == null || plannerScheduleJsonList.size() == 0) {
 			return "fail";
 		}else {

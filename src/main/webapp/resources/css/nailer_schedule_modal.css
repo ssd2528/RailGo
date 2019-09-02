@@ -26,7 +26,7 @@
     position: relative;
     box-sizing: border-box;
     margin: 0 auto;
-    width: 45%;
+    width: 700px;
     max-width: 100%;
     border-radius: 5px;
     background: #fff;
@@ -71,10 +71,11 @@
 	margin-left:30px;
 }
 
-.schedule-thema, .schedule {
+.schedule-theme, .schedule {
 	margin-top: 15px;
 	font-size: 20px;
 	margin-left:30px;
+	color:#7f7f7f;
 }
 
 .heart-wrapper {
