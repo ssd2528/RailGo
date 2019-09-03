@@ -57,14 +57,14 @@ $(document).ready(function(){
 	// 카카오 로그인 버튼 클릭 시 
 	$(document).on('click', '.signin-kakao', function(){
 		window.name = 'parent';
-		window.open('https://kauth.kakao.com/oauth/authorize?client_id=96efae73b25f4b5afa4875a7d4a8839f&redirect_uri=http://172.168.0.184:8080/kakaoSignin&response_type=code', 'kakao_signin', 'width=400, height=700');
+		window.open('https://kauth.kakao.com/oauth/authorize?client_id=96efae73b25f4b5afa4875a7d4a8839f&redirect_uri=http://localhost:8080/kakaoSignin&response_type=code', 'kakao_signin', 'width=400, height=700');
 		return false;
 	});
 	
 	// 네이버 로그인 버튼 클릭 시 
 	$(document).on('click', '.signin-naver', function(){
 		window.name = 'parent';
-		$.get('http://172.168.0.184:8080/naver_url', function(data){
+		$.get('http://localhost:8080/naver_url', function(data){
 			console.log('## data : ' + data);
 			window.open(data, 'naver_signin', 'width=400, height=750');
 			return false;

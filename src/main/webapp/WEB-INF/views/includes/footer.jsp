@@ -12,7 +12,14 @@
 			<p style="font-size:10px;">Copyright © RailGo all rights reserved.</p>
 		</div>
 		<div class="project-ref">
-			프로젝트 출처
+			<div>
+				<img src="/img/ref/ref_datago.png">
+				<img src="/img/ref/ref_tourAPI.png">
+			</div>
+			<div>
+				<img src="/img/ref/ref_google.png">
+				<img src="/img/ref/ref_flaticon.png">
+			</div>
 		</div>
 	</div>
 </footer>

@@ -11,10 +11,10 @@ $(document).ready(function(){
 			
 			var cat3 = $(this).closest('div').find('.cat3Name').attr('id'); // cat3 code
 			if(cat3 == 'all') { 
-				location.href='http://172.168.0.184:8080/info/'+category+'/'+areaName;
+				location.href='http://localhost:8080/info/'+category+'/'+areaName;
 			}else {
 				$.ajax({
-					url:'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'/'+cat3,
+					url:'http://localhost:8080/info/filter/'+category+'/'+areaName+'/'+cat3,
 					type:'POST',
 					dataType:"html",
 					success:function(data) {
@@ -44,12 +44,12 @@ $(document).ready(function(){
 			
 			var contentTypeId = $(this).attr('id');
 			if(contentTypeId == 'all') { // 전체 클릭 시 
-				location.href='http://172.168.0.184:8080/info/'+category+'/'+areaName;
+				location.href='http://localhost:8080/info/'+category+'/'+areaName;
 				$('#checkbox-cat3').slideUp();	$('#checkbox-cat2').slideUp();	$('#checkbox-cat1').slideUp();
 			} else {
 				// Change Category List
 				$.ajax({
-					url:'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName,
+					url:'http://localhost:8080/info/filter/'+category+'/'+areaName,
 					type:'GET',
 					data:{contentTypeId:contentTypeId},
 					dataType:'html',
@@ -65,7 +65,7 @@ $(document).ready(function(){
 				
 				// Show checkbox-cat1 
 				$.ajax({
-					url:'http://172.168.0.184:8080/info/find/cat1',
+					url:'http://localhost:8080/info/find/cat1',
 					type:'GET',
 					data:{contentTypeId:contentTypeId},
 					success:function(data){
@@ -106,15 +106,15 @@ $(document).ready(function(){
 		console.log('Cat1List CheckBox 클릭 (cat1:'+cat1+', contentTypeId:'+contentTypeId+')');
 		if(cat1 == '111'){
 			console.log('대분류-전체');
-			showUrl='http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId;
+			showUrl='http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId;
 			$('#checkbox-cat3').slideUp();	$('#checkbox-cat2').slideUp();	
 		} else {
 			console.log('대분류-'+cat1);
-			showUrl='http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1;
+			showUrl='http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1;
 			
 			// Show checkbox-cat2
 			$.ajax({
-				url:'http://172.168.0.184:8080/info/find/cat2',
+				url:'http://localhost:8080/info/find/cat2',
 				type:'GET',
 				data:{contentTypeId:contentTypeId, cat1:cat1},
 				success:function(data){
@@ -167,15 +167,15 @@ $(document).ready(function(){
 		console.log('Cat2List CheckBox 클릭 (cat2:'+cat2+', cat1:'+cat1+', contentTypeId:'+contentTypeId+')');
 		if(cat2 == '222'){
 			console.log('중분류-전체');
-			showUrl='http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1;
+			showUrl='http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1;
 			$('#checkbox-cat3').slideUp();		
 		} else {
 			console.log('중분류-'+cat2);
-			showUrl='http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2;
+			showUrl='http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2;
 			
 			// Show checkbox-cat3
 			$.ajax({
-				url:'http://172.168.0.184:8080/info/find/cat3',
+				url:'http://localhost:8080/info/find/cat3',
 				type:'GET',
 				data:{contentTypeId:contentTypeId, cat2:cat2},
 				success:function(data){
@@ -228,10 +228,10 @@ $(document).ready(function(){
 		console.log('Cat3List CheckBox 클릭 (cat3:'+cat3+'cat2:'+cat2+', cat1:'+cat1+', contentTypeId:'+contentTypeId+')');
 		if(cat3 == '333'){
 			console.log('소분류-전체');
-			showUrl='http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2;
+			showUrl='http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2;
 		} else {
 			console.log('소분류-'+cat3);
-			showUrl='http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2+'&cat3='+cat3;
+			showUrl='http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2+'&cat3='+cat3;
 		}
 		
 		// Show Category List
@@ -288,9 +288,9 @@ $(document).ready(function(){
 		var url = '';
 		if(cat3 == '' || cat3 == undefined) { // [숙박,관광명소,맛집] No Filtering
 			console.log('[숙박,관광명소,맛집] No CheckBox Filtering Arrange');
-			url = 'http://172.168.0.184:8080/info/'+category+'/'+areaName;
+			url = 'http://localhost:8080/info/'+category+'/'+areaName;
 		}else {
-			url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'/'+$('#cat3').val();
+			url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'/'+$('#cat3').val();
 		}
 		$.ajax({
 			url:url,
@@ -315,10 +315,10 @@ $(document).ready(function(){
 			console.log('[숙박/음식] After Arrange : ' + arrange);
 			if($('#cat3').val()=='' || $('#cat3').val()==undefined) {
 				console.log('[숙박/음식] 전체 체크박스 클릭');
-				location.href='http://172.168.0.184:8080/info/'+category+'/'+areaName;
+				location.href='http://localhost:8080/info/'+category+'/'+areaName;
 			}else{
 				console.log('[숙박/음식] cat3 : ' + $('#cat3').val());
-				url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'/'+$('#cat3').val();
+				url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'/'+$('#cat3').val();
 
 			}
 		}else if(category=='hotplace') {  /***** [관광명소] *****/
@@ -329,22 +329,22 @@ $(document).ready(function(){
 					if(cat1=='' || cat1==undefined){
 						if(contentTypeId=='' || contentTypeId==undefined){ 
 							console.log('[관광명소] 타입-전체');
-							url = 'http://172.168.0.184:8080/info/'+category+'/'+areaName;
+							url = 'http://localhost:8080/info/'+category+'/'+areaName;
 						}else{
 							console.log('[관광명소] 타입-'+ contentTypeId);
-							url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId;
+							url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId;
 						}
 					}else{
 						console.log('[관광명소] 타입-'+contentTypeId+'/cat1-'+cat1);
-						url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1;
+						url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1;
 					}
 				}else{
 					console.log('[관광명소] 타입-'+contentTypeId+'/cat1-'+cat1+'/cat2-'+cat2);
-					url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2;
+					url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2;
 				}
 			}else{
 				console.log('[관광명소] 타입-'+contentTypeId+'/cat1-'+cat1+'/cat2-'+cat2+'/cat3-'+cat3);
-				url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2+'&cat3='+cat3;
+				url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2+'&cat3='+cat3;
 			}
 		}
 
@@ -376,7 +376,7 @@ $(document).ready(function(){
 		$('li.no_before').removeClass('selected');
 		$(this).addClass('selected');
 		var page = $(this).text();
-		location.href="http://172.168.0.184:8080/info/"+category+"/"+areaName+"/"+page;
+		location.href="http://localhost:8080/info/"+category+"/"+areaName+"/"+page;
 	});
 });
 
@@ -400,12 +400,12 @@ $(document).ready(function(){
 			console.log('[숙박/맛집] Pagination 버튼 클릭 ' + page);
 			if($('#cat3').val()=='' || $('#cat3').val()==undefined){
 				console.log('cat3-전체')
-				url = 'http://172.168.0.184:8080/info/'+category+'/'+areaName+'/'+page;
+				url = 'http://localhost:8080/info/'+category+'/'+areaName+'/'+page;
 				type = 'GET';
 			}else {
 				var cat3=$('#cat3').val();
 				console.log('cat3-'+cat3);
-				url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'/'+cat3+'/'+page;
+				url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'/'+cat3+'/'+page;
 				type = 'POST';
 			}
 		}else if(category=='hotplace'){	/***** [관광명소] *****/
@@ -415,26 +415,26 @@ $(document).ready(function(){
 					if(cat1=='' || cat1==undefined){
 						if(contentTypeId=='' || contentTypeId==undefined){ 
 							console.log('contentTypeId 없음');
-							url = 'http://172.168.0.184:8080/info/'+category+'/'+areaName+'/'+page;
+							url = 'http://localhost:8080/info/'+category+'/'+areaName+'/'+page;
 							type = 'GET';
 						}else {
 							console.log('contentTypeId 있음' + contentTypeId); // 카테고리만 클릭되어 있고 원하는 페이지 클릭 시
-							url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&pageNo='+page;
+							url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&pageNo='+page;
 							type = 'GET';
 						}
 					}else {
 						console.log('contentTypeId-'+contentTypeId+' / cat1-'+cat1);
-						url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&pageNo='+page;
+						url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&pageNo='+page;
 						type = 'GET';
 					}
 				}else {
 					console.log('contentTypeId-'+contentTypeId+' / cat1-'+cat1+' / cat2-'+cat2);
-					url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2+'&pageNo='+page;
+					url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2+'&pageNo='+page;
 					type = 'GET';
 				}
 			}else {
 				console.log('contentTypeId-'+contentTypeId+' / cat1-'+cat1+' / cat2-'+cat2+' / cat3-'+cat3);
-				url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2+'&cat3='+cat3+'&pageNo='+page;
+				url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2+'&cat3='+cat3+'&pageNo='+page;
 				type = 'GET';
 			}
 		}
@@ -469,10 +469,10 @@ $(document).ready(function(){
 				console.log('[숙박/맛집] 카테고리 - 전체')
 				if($('#arrange').val()=='' || $('#arrange').val()==undefined) {
 					console.log('arrange 없음');
-					location.href='http://172.168.0.184:8080/info/'+category+'/'+areaName+'/'+page;
+					location.href='http://localhost:8080/info/'+category+'/'+areaName+'/'+page;
 				}else {
 					console.log('arrange 있음 : ' + $('#arrange').val());
-					url = 'http://172.168.0.184:8080/info/'+category+'/'+areaName+'/'+page+'?arrange='+$('#arrange').val();
+					url = 'http://localhost:8080/info/'+category+'/'+areaName+'/'+page+'?arrange='+$('#arrange').val();
 					type = 'GET';
 				}
 				
@@ -481,11 +481,11 @@ $(document).ready(function(){
 				var url='';		var type='';
 				if($('#arrange').val()=='' || $('#arrange').val()==undefined) {
 					console.log('arrange 없음');
-					url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'/'+cat3+"/"+page;
+					url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'/'+cat3+"/"+page;
 					type = 'POST';
 				}else {
 					console.log('arrange 있음 : ' + $('#arrange').val());
-					url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'/'+cat3+"/"+page+'?arrange='+$('#arrange').val();
+					url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'/'+cat3+"/"+page+'?arrange='+$('#arrange').val();
 					type = 'GET';
 				}
 			}
@@ -499,29 +499,29 @@ $(document).ready(function(){
 						if(contentTypeId=='' || contentTypeId==undefined){ // contentType 관광명소 체크박스 - 전체
 							console.log('contentTypeId 없음');
 							if(arrange==''||arrange==undefined){
-								location.href = 'http://172.168.0.184:8080/info/'+category+'/'+areaName+'/'+page;
+								location.href = 'http://localhost:8080/info/'+category+'/'+areaName+'/'+page;
 							}else {
-								url='http://172.168.0.184:8080/info/'+category+'/'+areaName+'/'+page+'?arrange='+arrange;
+								url='http://localhost:8080/info/'+category+'/'+areaName+'/'+page+'?arrange='+arrange;
 								type='GET';
 							}
 						}else { // contentType 관광명소 타입 선택 (+ 대분류 체크박스 '전체'로 활성화)
 							console.log('contentTypeId 있음' + contentTypeId); // 카테고리만 클릭되어 있고 원하는 페이지 클릭 시
-							url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?arrange='+arrange+'&contentTypeId='+contentTypeId+'&pageNo='+page;
+							url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?arrange='+arrange+'&contentTypeId='+contentTypeId+'&pageNo='+page;
 							type = 'GET';
 						}
 					}else { // 관광명소타입 + 대분류 체크박스 선택 (+ 중분류 체크박스 '전체'로 활성화)
 						console.log('contentTypeId-'+contentTypeId+' / cat1-'+cat1);
-						url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?arrange='+arrange+'&contentTypeId='+contentTypeId+'&cat1='+cat1+'&pageNo='+page;
+						url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?arrange='+arrange+'&contentTypeId='+contentTypeId+'&cat1='+cat1+'&pageNo='+page;
 						type = 'GET';
 					}
 				}else { // 관광명소타입 + 중분류 체크박스 선택 (+ 소분류 체크박스 '전체'로 활성화)
 					console.log('contentTypeId-'+contentTypeId+' / cat1-'+cat1+' / cat2-'+cat2);
-					url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?arrange='+arrange+'&contentTypeId='+contentTypeId+'&cat1='+cat2+'&cat2='+cat2+'&pageNo='+page;
+					url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?arrange='+arrange+'&contentTypeId='+contentTypeId+'&cat1='+cat2+'&cat2='+cat2+'&pageNo='+page;
 					type = 'GET';
 				}
 			}else { // 관광명소타입 + 소분류 체크박스 선택 
 				console.log('contentTypeId-'+contentTypeId+' / cat1-'+cat1+' / cat2-'+cat2+' / cat3-'+cat3);
-				url = 'http://172.168.0.184:8080/info/filter/'+category+'/'+areaName+'?arrange='+arrange+'&contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2+'&cat3='+cat3+'&pageNo='+page;
+				url = 'http://localhost:8080/info/filter/'+category+'/'+areaName+'?arrange='+arrange+'&contentTypeId='+contentTypeId+'&cat1='+cat1+'&cat2='+cat2+'&cat3='+cat3+'&pageNo='+page;
 				type = 'GET';
 			}
 		}
@@ -548,5 +548,21 @@ $(document).ready(function(){
 		$(this).find('.detailForm').submit();
 	});
 
+});
+
+//Search Keyword
+$(document).ready(function(){
+	$('#search-keyword').keydown(function(e){
+		if(e.keyCode==13){
+			var keyword = $('#search-keyword').val();
+			$('#searchForm').attr('action', '/search/'+keyword);
+			$('#searchForm').submit();
+		}
+	});
 	
+	$('.fa-search').on('click', function(){
+		var keyword = $('#search-keyword').val();
+		$('#searchForm').attr('action', '/search/'+keyword);
+		$('#searchForm').submit();
+	});
 });

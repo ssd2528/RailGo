@@ -58,9 +58,9 @@
 			<div class="menu-navi">
 				<ul class="menu-bar-ul">
 					<li><a><span class="search-city">${areaName} &nbsp;▼</span></a></li>
-					<a href="http://172.168.0.184:8080/info/accom/${areaName}"><li class="${category eq '숙박' ? 'menu-clicked' : ''}">숙 &nbsp;&nbsp;&nbsp; 박</li></a>
-					<a href="http://172.168.0.184:8080/info/hotplace/${areaName}"><li class="${category eq '관광명소' ? 'menu-clicked' : ''}">관광명소</li></a>
-					<a href="http://172.168.0.184:8080/info/food/${areaName}"><li class="${category eq '맛집' ? 'menu-clicked' : ''}">맛 &nbsp;&nbsp;&nbsp;집</li></a>
+					<a href="http://localhost:8080/info/accom/${areaName}"><li class="${category eq '숙박' ? 'menu-clicked' : ''}">숙 &nbsp;&nbsp;&nbsp; 박</li></a>
+					<a href="http://localhost:8080/info/hotplace/${areaName}"><li class="${category eq '관광명소' ? 'menu-clicked' : ''}">관광명소</li></a>
+					<a href="http://localhost:8080/info/food/${areaName}"><li class="${category eq '맛집' ? 'menu-clicked' : ''}">맛 &nbsp;&nbsp;&nbsp;집</li></a>
 				</ul>
 			</div>
 		</div>
@@ -70,7 +70,7 @@
 			<div class="category-info-box">
 				<br>
 				<div class="category-category">
-					<a href="http://172.168.0.184:8080/info/${areaName}"><span class="link-areaName">${areaName}</span></a> 
+					<a href="http://localhost:8080/info/${areaName}"><span class="link-areaName">${areaName}</span></a> 
 					<i class="fas fa-angle-right"></i>
 					<span>${category}</span>
 				</div>
