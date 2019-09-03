@@ -34,6 +34,10 @@
 			<%@include file="../includes/header.jsp"%>
 	
 			<!-- content -->
+			<form class="paging-form">
+				<input type="hidden" class="start" name="start" value="1">
+				<input type="hidden" class="end" name="end" value="6">
+			</form>
 			<div class="content">
 				<div class="content-wrapper">
 				<!-- member-info -->
@@ -74,7 +78,7 @@
 								</div>
                                 -->
 								</div>
-								
+								<button class="more-btn"> 더보기 </button>
 								<!-- 
 								<div class="dg_warning-div">
 									<img class="dg_warning" src="../img/planner/dg_warning.png"><br>

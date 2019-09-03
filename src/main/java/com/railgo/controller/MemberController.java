@@ -58,8 +58,7 @@ public class MemberController {
 	@Setter(onMethod_=@Autowired)
 	PlannerService plannerService;
 	LoginController loginController;
-	@Autowired
-	PlannerService plannerService;
+
 	//타임라인 페이지
 	@GetMapping("/timeline")
 	public ModelAndView timeline(HttpSession session, RedirectAttributes rttr) {
@@ -185,9 +184,11 @@ public class MemberController {
 		Map<String, String> map = json;
 		System.out.println("schedule/getScheduleList init mem_code: " + map.get("mem_code"));
 		String mem_code = map.get("mem_code");
-		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"schedule");
+		int start = Integer.parseInt(map.get("start"));
+		int end = Integer.parseInt(map.get("end"));
+		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"schedule",start,end);
 		if(plannerScheduleJsonList == null || plannerScheduleJsonList.size() == 0) {
-			return "fail";
+			return "null";
 		}else {
 			Gson gson = new Gson();
 			String plannerScheduleJsonListToJson = gson.toJson(plannerScheduleJsonList);
