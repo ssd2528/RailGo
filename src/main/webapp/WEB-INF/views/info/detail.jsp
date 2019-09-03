@@ -139,7 +139,7 @@
 							<c:forEach items="${reList}" var="reList">
 								<div class="review-table">
 									<c:if test="${null ne reList.profile}">
-										<img class="reviewer-img" src="${reList.profile}">
+										<img class="reviewer-img" src="/member/display?fileName=${reList.profile}">
 									</c:if>
 									<c:if test="${null eq reList.profile}">
 										<c:if test="${'M' eq reList.gender}"><img class="reviewer-img" src="/img/info/default_profile_m.png"></c:if>
