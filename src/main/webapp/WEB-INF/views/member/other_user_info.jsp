@@ -25,6 +25,7 @@
 		<script src="/js/fontawesome.js" type="text/javascript"></script>
 		<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 		<script src="/js/header.js" type="text/javascript"></script>
+		<script src="/js/login_modal.js" type="text/javascript"></script>
 		<script src="/js/timeline.js" type="text/javascript"></script>
 	</head>
 	<body>
