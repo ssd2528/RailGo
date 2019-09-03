@@ -197,8 +197,6 @@
 								</form>
 							</c:forEach>
 							<!-- /article-sns-content -->
-	
-							
 						</div>
 					</div>
 					<!-- /section-main -->
