@@ -233,11 +233,11 @@
 						
 						<div class="article-wrapper article-25">
 							<!-- article-search -->
-							<form id="searchForm" action="search" method="post">
+							<!-- <form id="searchForm" action="search" method="post">
 								<div class="search-container">
 									<input type="text" name="keyword" class="search-keyword" id="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
 								</div>
-							</form>
+							</form> -->
 							
 							<!-- article-sns-user -->
 							<%@include file="includes/article_sns_user.jsp"%>
