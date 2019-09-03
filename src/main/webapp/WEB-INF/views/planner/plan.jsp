@@ -11,13 +11,15 @@
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		
 		<!-- CSS -->
-		<link href="../css/plan.css" rel="stylesheet">
+		<link href="/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/css/common.css" rel="stylesheet">
+		<link href="/css/plan.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
 		<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
-		<script src="../js/plan.js" type="text/javascript"></script>
+		<script src="/js/plan.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<form class="member-code">

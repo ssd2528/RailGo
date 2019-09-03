@@ -18,3 +18,21 @@ $(document).ready(function() {
 		$(this).find('.courseForm').submit();
 	});
 });
+
+
+//Search Keyword
+$(document).ready(function(){
+	$('#search-keyword').keydown(function(e){
+		if(e.keyCode==13){
+			var keyword = $('#search-keyword').val();
+			$('#searchForm').attr('action', '/search/'+keyword);
+			$('#searchForm').submit();
+		}
+	});
+	
+	$('.fa-search').on('click', function(){
+		var keyword = $('#search-keyword').val();
+		$('#searchForm').attr('action', '/search/'+keyword);
+		$('#searchForm').submit();
+	});
+});

@@ -10,18 +10,21 @@
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		
 		<!-- Css -->
-		<link href="../css/common.css" rel="stylesheet">
-		<link href="../css/article_sns_user.css" rel="stylesheet">
-		<link href="../css/index.css" rel="stylesheet">
-		<link href="../css/timeline.css" rel="stylesheet">
-		<link href="../css/schedule.css" rel="stylesheet">
+		<link href="/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+		<link href="/css/common.css" rel="stylesheet">
+		<link href="/css/article_sns_user.css" rel="stylesheet">
+		<link href="/css/index.css" rel="stylesheet">
+		<link href="/css/timeline.css" rel="stylesheet">
+		<link href="/css/schedule.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
-		<script src="../js/header.js" type="text/javascript"></script>
-		<script src="../js/timeline.js" type="text/javascript"></script>
-		<script src="../js/schedule.js" type="text/javascript"></script>
+		<script src="/js/fontawesome.js" type="text/javascript"></script>
+		<script src="/js/header.js" type="text/javascript"></script>
+		<script src="/js/timeline.js" type="text/javascript"></script>
+		<script src="/js/schedule.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<!-- 비정상적 URL 직접 접근 차단 -->

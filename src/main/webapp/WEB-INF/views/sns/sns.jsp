@@ -9,6 +9,7 @@
 		<title>[RailGo] SNS Page</title>
 		<link rel="icon" href="/img/favicon.ico">
 		<!-- CSS -->
+		<link href="/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 		<link href="/css/common.css" rel="stylesheet">
 		<link href="/css/article_sns_user.css" rel="stylesheet">
@@ -20,6 +21,7 @@
 		<!-- JavaScript -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 		<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+		<script src="/js/fontawesome.js" type="text/javascript"></script>
 		<script src="/js/sns.js" type="text/javascript"></script>
 		<script src="/js/login_modal.js" type="text/javascript"></script>
 		<script src="/js/sns_modal.js" type="text/javascript"></script>
