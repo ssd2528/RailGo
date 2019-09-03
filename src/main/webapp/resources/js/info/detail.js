@@ -34,9 +34,6 @@ $(document).ready(function() {
 			}
 		});
 		$('.page-reload').submit();
-		sendAlarm($('.review-textarea').val()); // 알람기능 보내기 ※
-		
-		
 	});
 	
 	// 이미지 업로드
@@ -123,15 +120,3 @@ function handleImgsFilesSelect(e){
 	});
 }
 
-// 알람 보내기 기능
-var websocket;
-websocket = new WebSocket("ws://localhost:8080/socket"); // 웹 소켓을 지정한 URL로 연결
-websocket.onopen = function(){ console.log("연결 성공"); }
-websocket.onmessage = function(e) {
-	var text = e.data;
-	console.log(text);
-}
-websocket.onclose = function(e) { console.log("연결 끊김"); }
-function sendAlarm(review) {
-	websocket.send(review);
-}

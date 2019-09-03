@@ -32,7 +32,7 @@ public class PlannerMapperTests {
 	}*/
 	@Test
 	public void testPlannerList() {
-		mapper.plannerList("AA000001");
+		//mapper.plannerList("AA000001");
 		log.info("##test planner list : ");
 	}
 }

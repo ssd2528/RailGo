@@ -10,7 +10,15 @@
 					<!-- navi -->
 					<div class="navi">
 						<ul>
-							<li><a href="#" class="alarm-img"><img src="/img/header/alarm.png" alt="알림"><br>알림</a></li>
+							<!-- <li><a class="alarm-img"><img src="/img/header/alarm.png" alt="알림"><br>알림</a></li> -->
+							<!-- article-search -->
+							<li>
+								<form id="searchForm" action="search" method="post">
+									<div class="search-container">
+										<input type="text" name="keyword" class="search-keyword" id="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
+									</div>
+								</form>
+							</li>
 							<li><a href="http://localhost:8080/sns/sns" class="sns-img"><img src="/img/header/sns.png" alt="SNS"><br>SNS</a></li>
 							<li><a href="http://localhost:8080/planner" class="planner-img"><img src="/img/header/planner.png" alt="플래너"><br>플래너</a></li>
 							<li class="member">

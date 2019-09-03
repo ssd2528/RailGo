@@ -76,17 +76,13 @@ $(document).ready(function(){
 		}
 	});
 	
-	// 댓글 입력
+	// ----------------- 댓글 입력 ----------------- //
 	$('.sns-reply-btn').on('click', function(){
-		var content = $('.sns-reply-textarea').val();
-		var mem_code = $('.member-memCode').val();
-		var sns_code = $('.reply-snsCode').val();
+		var content = $('.sns-reply-textarea').val(); // 댓글 내용
+		var mem_code = $('.member-memCode').val(); // 로그인한 사용자 코드
+		var sns_code = $('.reply-snsCode').val(); // 댓글을 쓰고 있는 게시글 코드
 		var comm_code = 0;
-		
-		console.log(content);
-		console.log(mem_code);
-		console.log(sns_code);
-		
+		console.log(content); console.log(mem_code); console.log(sns_code);
 		
 		if(content.length < 5) {
             alert('내용은 5글자 이상 입력해주세요.');
@@ -98,13 +94,12 @@ $(document).ready(function(){
 		}
 		
 		formData = new FormData();
-		formData.append('content', content);
+		formData.append('content', content); 
 		formData.append('mem_code', mem_code);
 		formData.append('sns_code', sns_code);
 		formData.append('comm_code', comm_code);
 		
 		var html = '';
-		
 		$.ajax({
 			url:'/sns/insertReply',
 			processData: false,

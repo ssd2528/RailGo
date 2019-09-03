@@ -260,14 +260,20 @@ $(document).ready(function() {
 		var id = $(this).attr('id');
 		MarkerHoverColorChange(id,'in');
 	});
-	//day-spot-item 클래스(Tour api를 이용해 가져온 정보들)를 호버에서 벗어날시 그에 맞는 마커를 활성화 시키는 이벤트
+	//day-spot-item 클래스(Tour api를 이용해 가져온 정보들)를 호버에서 벗어날시 그에 맞는 마커를 비활성화 시키는 이벤트
 	$(document).on('mouseleave','.day-spot-item,.schedule-item-wrapper',function(){
 		var id = $(this).attr('id');
 		MarkerHoverColorChange(id,'out');
 	});
+	// city-list의 아이템들의 이미지나 제목을 눌렀을때 해당 infowindow 띄어주기 이벤트
+	$(document).on('click','.item-img-box, .item-info-box, .schedule-item-img',function(){
+		let id = $(this).parent().attr('id');
+		showInfoWindowOfItemList(id);
+	});
+
 	//city-list 에서 숙박 식당 관광 리스트들의 +버튼 눌렀을때 발생하는 이벤트
 	$(document).on('click','.item-insert-box',function(){
-		var id,img,name,addrStr,addr,mapxy;
+		var id,img,name,addrStr,addr,mapxy,areacode,sigungucode;
 		var day = null;
 		for(i = 1; i <= 7; i++){
 			var color = $('#day'+i).parent('li').css('background-color');
@@ -286,7 +292,9 @@ $(document).ready(function() {
 		addrStr = addrStr.split('조회수 :');
 		addr = addrStr[0];
 		mapxy =  $(this).parent().children('.item-img-box').attr('name');
-		insertItemInScheduleDetailBox(id,img,name,addr,day,mapxy);
+		areacode = ($(this).parent().attr('name')).split(',')[0];
+		sigungucode = ($(this).parent().attr('name')).split(',')[1];
+		insertItemInScheduleDetailBox(id,img,name,addr,day,mapxy,areacode,sigungucode);
 	});
 	//상세일정에 추가된 목록들에 삭제 이미지를 클릭했을때 목록에서 삭제하는 이벤트
 	$(document).on('click','.delete-box',function(){
@@ -355,14 +363,51 @@ $(document).ready(function() {
 	$('.transit-set-box').children('div').children('.reset-btn').click(function(){
 		$(this).prev().val('');
 	})
+	$(document).on('click','.infowindow-detail-view',function(){
+		let areacode = $(this).attr('name').split(',')[0];
+		let sigungucode = $(this).attr('name').split(',')[1];
+		let contentid = $(this).attr('name').split(',')[2];
+		let areaName = getAreaName(areacode,sigungucode);
+		console.log(areaName);
+		window.open('/info/detailInfo?areaName='+areaName+'&contentid='+contentid);
+	});
 });
 let map;
 var markers = [];
 var tourMarkers = [];
+var infoWindows = [];
 var stationLocations = [];
 let directDisplay;
 let directionsService;
 let hashTag;
+//city-list에 있는 tour api 목록들의 이미지나 제목을 눌렀을때 해당하는 info window 를 open해주기 위한 메소드
+function showInfoWindowOfItemList(id){
+	delInfoWindow();	// 모든 infowindow close
+	for(i = 0; i < infoWindows.length; i++){
+		if(id == tourMarkers[i].id){
+			infoWindows[i].open(map, tourMarkers[i]);
+		}
+	}
+}
+//지역 이름 반환 메소드
+function getAreaName(areacode,sigungucode){
+	let name = null;
+	$.ajax({
+		type : 'get',
+		async : false,
+		url : '/planner/detail?areacode='+areacode+'&sigungucode='+sigungucode,
+		dataType : 'text',
+		success : function(data) {
+			name = data;
+			//console.log(data);	
+		},
+		error : function(data, status, error) {
+			alert('fail code :' + data.status + ', ' + data);
+			console.log(data);
+		}
+	});
+	return name;
+}
 // 모달 닫는 메소드
 function removeModal(){
 	$('.save-modal-wrapper').removeClass('open');
@@ -396,7 +441,9 @@ function updateInit(dateText,day,planDateBox){
 		let addr = ips.content_addr;
 		let day = ips.days;
 		let mapxy = ips.content_position;
-		insertLoadItemInScheduleDetailBox(id,img,name,addr,day,mapxy);
+		let areacode = ips.areacode;
+		let sigungucode = ips.sigungucode;
+		insertLoadItemInScheduleDetailBox(id,img,name,addr,day,mapxy,areacode,sigungucode);
 	}
 	$('.empty-detail-box').css('display','block');
 	$('.empty-detail-box').text('<< DAY를 클릭하세요');
@@ -469,7 +516,9 @@ function extractDataForSave(planCode,hash_tag){
 					'content_position' : $(item).children('.schedule-item-img').attr('name'),
 					'content_img' : $(item).children('.schedule-item-img').children('img').attr('src'),
 					'content_name' : ($(item).children('.schedule-item-name').text().split($(item).children('.schedule-item-name').children('.schedule-item-addr').text()))[0] ,
-					'content_addr' : $(item).children('.schedule-item-name').children('.schedule-item-addr').text() 
+					'content_addr' : $(item).children('.schedule-item-name').children('.schedule-item-addr').text(),
+					'areacode' : ($(item).children('.schedule-item-name').attr('name')).split(',')[0],
+					'sigungucode' : ($(item).children('.schedule-item-name').attr('name')).split(',')[1]
 			};
 			detailItemArr.push(detail);
 		}
@@ -602,26 +651,26 @@ function initScheduleDetailBox(day){
 	$('.list-search-text').val(''); // ※
 }
 //city list에서 item 선택시 schedule detail box 안에 넣는 메소드
-function insertItemInScheduleDetailBox(id,img,name,addr,day,mapxy){
+function insertItemInScheduleDetailBox(id,img,name,addr,day,mapxy,areacode,sigungucode){
 	$('.empty-detail-box').css('display','none');
 	$('.item-detail-box').css('display','inline-block');
 	$('.item-detail-box').append('<div id="'+id+'" name="'+day+'" class="schedule-item-wrapper">'
-			+ '<div class="schedule-item-img" name="'+mapxy+'"><img style="width:60px; height:60px;" src="'+img+'" ></div>'
-			+ '<div class="schedule-item-name">' + name
+			+ '<div class="schedule-item-img" style="cursor:pointer;"name="'+mapxy+'"><img style="width:60px; height:60px;" src="'+img+'" ></div>'
+			+ '<div class="schedule-item-name" name="'+areacode+','+sigungucode+'">' + name
 			+ '<div class="schedule-item-addr">'+ addr +'</div>'
 			+ '</div>'
 			+ '<div class="delete-box"title="삭제"><img style="width:15px;height:15px;" src="../img/planner/delete.png"></div>'
 			+ '</div>');
 }
 // 계획중이던 일정 수정을 눌렀을때 schedule detail box에 저장했던 일정들 뿌려쥬는 메소드
-function insertLoadItemInScheduleDetailBox(id,img,name,addr,day,mapxy){
+function insertLoadItemInScheduleDetailBox(id,img,name,addr,day,mapxy,areacode,sigungucode){
 	let display;
 	display = 'none';
 	$('.empty-detail-box').css('display','none');
 	$('.item-detail-box').css('display','inline-block');
 	$('.item-detail-box').append('<div id="'+id+'" name="'+day+'" class="schedule-item-wrapper" style="display:'+display+';">'
-			+ '<div class="schedule-item-img" name="'+mapxy+'"><img style="width:60px; height:60px;" src="'+img+'" ></div>'
-			+ '<div class="schedule-item-name">' + name
+			+ '<div class="schedule-item-img"  style="cursor:pointer;" name="'+mapxy+'"><img style="width:60px; height:60px;" src="'+img+'" ></div>'
+			+ '<div class="schedule-item-name" name="'+areacode+','+sigungucode+'">' + name
 			+ '<div class="schedule-item-addr">'+ addr +'</div>'
 			+ '</div>'
 			+ '<div class="delete-box"title="삭제"><img style="width:15px;height:15px;" src="../img/planner/delete.png"></div>'
@@ -664,9 +713,7 @@ function MarkerHoverColorChange(id,action){	// action parameter -> mouseenter면
 function dragMapEvent(){
 	if(hashTag !== 'none'){
 		// function none working;
-		alert('hash tag is not none');
 	}else{
-		alert('hash tag is none');
 		if(map.getZoom() > 10){
 			var accomColor = $('.list-theme-wrapper').children('.list-theme-accom').css('border-color');	//색칠된 rgb(0, 156, 233)
 			var foodColor = $('.list-theme-wrapper').children('.list-theme-food').css('border-color');	//색칠된 rgb(0, 156, 233)
@@ -756,8 +803,8 @@ function themeAjaxInfo(theme){	//파라메터 -> accom, food, tour 문자열이 
 					}
 					if(myItem[i].firstimage == null){myItem[i].firstimage = '../img/default.png';}
 					addTourMarker(myItem[i].mapx, myItem[i].mapy,
-							myItem[i].title, myItem[i].firstimage,myItem[i].addr1,viewOrTel,theme,myItem[i].contentid);
-					$('.selected-theme-list').append('<div id="'+myItem[i].contentid+'" class="day-spot-item">'
+							myItem[i].title, myItem[i].firstimage,myItem[i].addr1,viewOrTel,theme,myItem[i].contentid,myItem[i].areacode,myItem[i].sigungucode);
+					$('.selected-theme-list').append('<div id="'+myItem[i].contentid+'" name="'+myItem[i].areacode+','+myItem[i].sigungucode+'" class="day-spot-item">'
 							+'<div class="item-img-box" name="'+myItem[i].mapx+','+myItem[i].mapy+'"><img class="img-size" src='+myItem[i].firstimage+'>'
 							+'</div><div class="item-info-box">'+myItem[i].title+'<div class="item-sub">'+myItem[i].addr1+'<br/>'+viewOrTel+'</div></div>'
 							+'<div class="item-insert-box"><img style="width:30px; height:30px" src="../img/planner/wh_plus.png"></div></div>');
@@ -784,7 +831,9 @@ function setMarkerScheduleItems(day){
 			let addr1 = $(item).children('.schedule-item-name').children('.schedule-item-addr').text();
 			let img =  $(item).children('.schedule-item-img').children('img').attr('src');
 			let id = $(item).attr('id');
-			addTourMarker(mapxy[0],mapxy[1],subject[0],img,addr1,1985,'complete',id);
+			let areacode = ($(item).children('.schedule-item-name').attr('name')).split(',')[0];
+			let sigungucode = ($(item).children('.schedule-item-name').attr('name')).split(',')[1];
+			addTourMarker(mapxy[0],mapxy[1],subject[0],img,addr1,1985,'complete',id, areacode, sigungucode);
 		}
 	}
 	setTourMarker();
@@ -870,7 +919,7 @@ function tourMarkerListener(localmarker, infoWindow) {
 	google.maps.event.addListener(localmarker, 'click', function() {
 		//스트롤 top이 277.5에 위치하게 하기
 		//selected-theme-list 의 top값은 260.5
-		infoWindow.close();
+		delInfoWindow();	// 모든 infowindow close
 		infoWindow.open(map, localmarker);
 		var id = '#'+localmarker.id;
 		var scroll_h = $('.selected-theme-list').scrollTop()+$(id).offset().top;
@@ -905,7 +954,7 @@ function addStationsMarker(num) {
 	}
 }
 // 맵의 줌이 13 이상일때 해당 구역의 숙/관/식들의 마커를 추가해주는 메소드 - 파라메터는 갯수
-function addTourMarker(xpos, ypos, tourContent, tourImg, address, viewOrTel, theme, contentId) {
+function addTourMarker(xpos, ypos, tourContent, tourImg, address, viewOrTel, theme, contentId, areacode, sigungucode) {
 	// console.log('x : '+xpos+', y : '+ypos+', c: '+tourContent);
 	var imgUrl = "../img/planner/"+theme+"_marker.png";
 	var marker = new google.maps.Marker({
@@ -921,17 +970,23 @@ function addTourMarker(xpos, ypos, tourContent, tourImg, address, viewOrTel, the
 		}
 	});
 	var infoWindow = new google.maps.InfoWindow({
-		content :'<div style="display:inline-block;font-size:15px;font-weight:bold;width:150px;margin-bottom:10px;">' + tourContent + '</div>' + '<br/>'
+		content :'<div id="'+contentId+'" class="infowindow" style="display:inline-block;font-size:15px;font-weight:bold;width:150px;margin-bottom:10px;">' + tourContent + '</div>' + '<br/>'
 				+'<div style="display:inline-block;font-size:10px;width:150px;">' + address + '</div>' + '<br/>'
 				+'<div style="display:inline-block;font-size:10px;width:150px;margin-bottom:7px;">' +'조회수 : ' + viewOrTel + '</div>' + '<br/>'
 				+'<div style="display:inline-block;margin-right:10px;">'
 				+'<img style="width:150px;height:100px;" src="' + tourImg
 				+ '"' + '<div>'  + '<br/>'
-				+'<button type="button" onclick="location.href="#" style="margin-left:50px;background-color:#009CE9;padding:7px 11px;border:none;color:white;text-align:center;text-decoration:none;display:inline-block;font-size:10px;">자세히보기</button>&nbsp;',
+				+'<div class="infowindow-detail-view" name="'+areacode+','+sigungucode+','+contentId+'" style="margin-left:50px;background-color:#009CE9;padding:7px 11px;border:none;color:white;text-align:center;text-decoration:none;display:inline-block;font-size:10px;cursor:pointer;">자세히보기</div>&nbsp;',
 		map : map
 	});
 	tourMarkers.push(marker);
+	infoWindows.push(infoWindow);
 	tourMarkerListener(marker, infoWindow);
+}
+function delInfoWindow(){
+	for(i = 0; i < infoWindows.length;i++){
+		infoWindows[i].close();
+	}
 }
 // 맵에 투어 정보 마커들의 갯수 조절 메소드(zoom이 확대 축소 될때마다 호출됨)
 function setStationMarker(num) {
@@ -1068,7 +1123,7 @@ $(document).ready(function(){
 							if(contenttypeid==12 || contenttypeid==14 || contenttypeid==15 || contenttypeid==28 || contenttypeid==38) theme='tour';
 							else if(contenttypeid==32) theme='accom';
 							else if(contenttypeid==39) theme='food';
-							addTourMarker(myItem[i].mapx, myItem[i].mapy, myItem[i].title, myItem[i].firstimage,myItem[i].addr1,viewOrTel,theme,myItem[i].contentid);
+							addTourMarker(myItem[i].mapx, myItem[i].mapy, myItem[i].title, myItem[i].firstimage,myItem[i].addr1,viewOrTel,theme,myItem[i].contentid, myItem[i].areacode, myItem[i].sigungucode);
 							
 							$('.selected-theme-list').append('<div id="'+myItem[i].contentid+'" class="day-spot-item">'
 									+'<div class="item-img-box" name="'+myItem[i].mapx+','+myItem[i].mapy+'"><img class="img-size" src='+myItem[i].firstimage+'>'

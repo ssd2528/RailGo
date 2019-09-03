@@ -20,24 +20,43 @@ $(document).ready(function(){
 		}
 	});
 	$('.my-schedule').click(function(){
+		$('.schedule-lists').children('div').remove();
+		$('.paging-form').children('.start').val('1');
+		$('.paging-form').children('.end').val('6');
 		$(this).css('color','#009CE9');
 		$('.complete-schedule').css('color','black');
 		$('.like-schedule').css('color','black');
 		loadPlannedSchedule('insert');
 	});
 	$('.complete-schedule').click(function(){
+		$('.schedule-lists').children('div').remove();
+		$('.paging-form').children('.start').val('1');
+		$('.paging-form').children('.end').val('6');
 		$(this).css('color','#009CE9');
 		$('.my-schedule').css('color','black');
 		$('.like-schedule').css('color','black');
 		loadPlannedSchedule('complete');
 	});
 	$('.like-schedule').click(function(){
+		$('.schedule-lists').children('div').remove();
+		$('.paging-form').children('.start').val('1');
+		$('.paging-form').children('.end').val('6');
 		$(this).css('color','#009CE9');
 		$('.my-schedule').css('color','black');
 		$('.complete-schedule').css('color','black');
 		//loadPlannedSchedule('like');
 	});
-	
+	$('.more-btn').click(function(){
+		let state;
+		if($('.my-schedule').css('color') === 'rgb(0, 156, 233)'){
+			state = 'insert';
+		}else if ($('.complete-schedule').css('color') === 'rgb(0, 156, 233)'){
+			state = 'complete';
+		}else{
+			state = 'like';
+		}
+		loadPlannedSchedule(state);
+	});
 });
 let ScheduleJsonItem = new Array();
 //schedule 페이지 로드시 초기 설정 메소드
@@ -48,9 +67,15 @@ function init(){
 }
 // 해당 계정의 일정 목록들 불러오는 ajax 메소드
 function loadPlannedSchedule(scheduleState){
+	let start = $('.paging-form').children('.start').val();
+	let end = $('.paging-form').children('.end').val();
 	let mem_code = $('.uploadDiv').children('input').val();
 	let name = $('.row2').children('.user-id').text();
-	let param = {'mem_code':mem_code};
+	let param = {'mem_code':mem_code,'start':start,'end':end};
+	/* 여행 일정 없을때의 문장*/
+	let str;
+	if(scheduleState === 'insert'){str = '계획중인 여행 일정이 없습니다.'}
+	else if(scheduleState === 'complete'){str = '완성된 여행 일정이 없습니다.'}
 	console.log(mem_code);
 	$.ajax({
 		type : 'post',
@@ -60,13 +85,21 @@ function loadPlannedSchedule(scheduleState){
 		contentType : 'application/json',
 		data : JSON.stringify(param),
 		success : function(data) {
-			$('.schedule-lists').children('div').remove();
 			if(data === 'fail' || data === null){
-				$('.schedule-lists').append('<div class="dg_warning-div">'
-						+ '<img class="dg_warning" src="../img/planner/dg_warning.png"><br>'
-						+ '<a class="dg_warning-txt">아직 작성하신 여행 일정이 없습니다.</a>'
-						+'</div>');
+				console.log($('.schedule-lists').children().length);
+				if($('.schedule-lists').length === 0){
+					$('.schedule-lists').css('margin-left','33%');
+					$('.schedule-lists').append('<div class="dg_warning-div">'
+							+ '<img class="dg_warning" src="../img/planner/dg_warning.png"><br>'
+							+ '<a class="dg_warning-txt">'+str+'</a>'
+							+'</div>');
+					$('.more-btn').hide();
+				}else{
+					$('.more-btn').show();
+				}
 			}else{
+				 $('.paging-form').children('.start').val(parseInt(start)+6);
+				 $('.paging-form').children('.end').val(parseInt(end)+6);
 				console.log(data);
 				let items = data;
 				let posting = 0;
@@ -113,6 +146,7 @@ function loadPlannedSchedule(scheduleState){
 					}else{
 						thumbnailImg = item.plannerSchedule[0].content_img;
 					}
+					$('.schedule-lists').css('margin-left','0');
 					$('.schedule-lists').append(
 							'<div class="schedule-list" name="'+item.planner.plan_code+'">'
 							+'<img class="schedule-list-img" src="'+thumbnailImg+'">'
@@ -120,7 +154,7 @@ function loadPlannedSchedule(scheduleState){
 							+'<div class="schedule-name">'+item.planner.subject+'</div>'
 							+'<div class="schedule-date">('+startdate+' ~ '+lastdate+')</div>'
 							+'<div class="name-wrapper">'
-							+'<img class="schedule-userImg" src="'+$('#profile-img').attr('src')+'">'
+							+'<img class="schedule-userImg" border-radius src="'+$('#profile-img').attr('src')+'">'
 							+'<div class="schedule-userName">'+name+'</div>'
 							+'<div class="btn-wrapper">'
 							+'<div class="m-btn" name="'+mBtnName+'" style="cursor:pointer;">'+mBtnText+'</div>'
@@ -133,14 +167,30 @@ function loadPlannedSchedule(scheduleState){
 					);
 				}
 				$('.row2').children('.posting').text(posting);
+				if($('.schedule-lists').children().length === 0){
+					$('.schedule-lists').css('margin-left','33%');
+					$('.schedule-lists').append('<div class="dg_warning-div">'
+							+ '<img class="dg_warning" src="../img/planner/dg_warning.png"><br>'
+							+ '<a class="dg_warning-txt">'+str+'</a>'
+							+'</div>');
+					$('.more-btn').hide();
+				}else{
+					$('.more-btn').show();
+				}
 			}
 		},
 		error : function(data, status, error) {
-			$('.schedule-lists').children('div').remove();
-			$('.schedule-lists').append('<div class="dg_warning-div">'
-					+ '<img class="dg_warning" src="../img/planner/dg_warning.png"><br>'
-					+ '<a class="dg_warning-txt">아직 작성하신 여행 일정이 없습니다.</a>'
-					+'</div>');
+			console.log($('.schedule-lists').children().length);
+			if($('.schedule-lists').children().length === 0){
+				$('.schedule-lists').css('margin-left','33%');
+				$('.schedule-lists').append('<div class="dg_warning-div">'
+						+ '<img class="dg_warning" src="../img/planner/dg_warning.png"><br>'
+						+ '<a class="dg_warning-txt">'+str+'</a>'
+						+'</div>');
+				$('.more-btn').hide();
+			}else{
+				$('.more-btn').show();
+			}
 			console.log(data);
 		}
 	});

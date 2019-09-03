@@ -139,15 +139,13 @@
 							<!-- ./article-concept -->
 							
 							<!-- article-sns-content -->
-							<c:forEach items="${sns}" var="sns">
+							<c:forEach items="${sns}" var="sns" varStatus="status">
+								<c:if test="${status.count <= 3}">
 								<div class="article-item article-sns-content">
-									<!-- <div class="article-title"><h2>핫한 SNS 게시물</h2></div> -->
-									
 									<!-- SNS 게시물 목록 (sns-content-list)  -->
 									<div class="sns-content-list">
 										<!-- 각 SNS 게시글 (sns-content-item) -->
 										<input type="hidden" class="reply-memCode" value="${member.mem_code}">
-										
 											<form id="sns-form" class="sns-form" method="POST" action="">
 												<div class="sns-content-item">
 													<!-- 게시물 이미지 목록 조회 -->
@@ -178,7 +176,7 @@
 																</c:when>
 															</c:choose>
 															<!-- 작성자 닉네임 조회 -->
-															<div class="user-name">${sns.name} 님이 사진을 글을 남겼습니다</div>
+															<div class="user-name">${sns.name} <span style="color:#595959; font-weight:normal; font-size:15px;">님이 글을 남겼습니다.</span></div>
 															<!-- 작성자인 경우에만 수정/삭제 버튼 생성 -->
 															<c:if test="${member.mem_code == sns.mem_code && member ne null}">
 																<div class="sns-edit-btn"> ...
@@ -227,6 +225,7 @@
 									<!-- ./SNS 게시물 목록 (sns-content-list)  -->
 								</div>
 								<!-- article-sns-content -->
+								</c:if>
 							</c:forEach>
 							
 						</div>
@@ -234,11 +233,11 @@
 						
 						<div class="article-wrapper article-25">
 							<!-- article-search -->
-							<form id="searchForm" action="search" method="post">
+							<!-- <form id="searchForm" action="search" method="post">
 								<div class="search-container">
 									<input type="text" name="keyword" class="search-keyword" id="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
 								</div>
-							</form>
+							</form> -->
 							
 							<!-- article-sns-user -->
 							<%@include file="includes/article_sns_user.jsp"%>

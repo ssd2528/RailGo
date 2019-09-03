@@ -34,8 +34,11 @@ header {
 
 .logo img { width:150px; height:50px; }
 .navi { float:right; margin-left:auto; text-align:center; }
-.navi li { display: inline-block; margin: 0px 5px; vertical-align: middle; font-size: 10px; padding: 0 10px; /* border-bottom: solid 3px #009CE9; */ padding-bottom: 7px; }
+.navi li { display: inline-block; margin: 0px 10px; vertical-align: middle; font-size: 10px; padding: 0 10px; /* border-bottom: solid 3px #009CE9; */ padding-bottom: 7px; }
 .navi li:last-child { margin-right:0; }
+.navi li .search-container { margin:0; display:flex; height:35px; border:1px solid #d9d9d9; }
+.navi li .search-container * { box-shadow: none; }
+.navi li .search-container .svg-inline--fa.fa-w-16 { width:2em; background:#eb7d31; }
 
 .signin-btn { background:#009CE9; color:#FFF; font-size:13px; padding:5px 15px; margin:0 5px; cursor:pointer;}
 
@@ -48,6 +51,8 @@ header {
 .member-submenu li a { color:#FFF;}
 .member-submenu li:hover { background:#7f7f7f; }
 .member:hover .member-submenu { display:block; }
+
+.alarm-subbox { display:none; }
 
 
 /* 		CONTENT		*/
