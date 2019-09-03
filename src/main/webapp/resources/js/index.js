@@ -44,6 +44,55 @@ $(document).ready(function(){
 });
 
 
+// 나홀로 컨셉 추천 부분
+$(document).ready(function(){
+	// 컨셉1. 나홀로 떠나는 여행
+	var plannerListBySolo = $('#plannerListBySolo').val();
+	plannerListBySolo = JSON.parse(plannerListBySolo);
+	$('#plannerListBySolo').val(plannerListBySolo);
+	insertConceptList(plannerListBySolo, '.concept-solo');	
+	
+	// 컨셉2. 맛있는 음식들과 떠나는 여행
+	var plannerListByEating = $('#plannerListByEating').val();
+	plannerListByEating = JSON.parse(plannerListByEating);
+	$('#plannerListByEating').val(plannerListByEating);
+	insertConceptList(plannerListByEating, '.concept-eating');
+});
+
+function insertConceptList(PlannerList, conceptType) {
+	for(var plannerItem of PlannerList) {
+		var planner = plannerItem.planner;				
+		var planner_subject = planner.subject;	// 일정 제목	
+		
+		var plannerDate = plannerItem.plannerDate;
+		var planner_course = ''; // 일정에 대한 코스 가공
+		for(var i in plannerDate) {
+			if(plannerDate[i].region == '지역을 선택하세요.') plannerDate[i].region = (parseInt(i)+1)+'일차';
+			
+			if(plannerDate[plannerDate.length-1] == plannerDate[i]) planner_course += plannerDate[i].region;
+			else planner_course += plannerDate[i].region + ' - ';
+		}
+		var plannerDate_tripdateFirst = plannerDate[0].trip_date;	// 첫번째 날짜
+		var plannerDate_tripdateLast = plannerDate[plannerDate.length-1].trip_date; // 마지막 날짜
+		var plannerDate_length = plannerDate.length; // 총 일정 수
+		
+		var plannerSchedule = plannerItem.plannerSchedule;	
+		var plannerSchedule_firstImage = plannerSchedule[0].content_img;
+		
+		var html = '<li class="concept-item">'
+				+	'<div class="concept-img" style="background:#d9d9d9  url('+plannerSchedule_firstImage+') no-repeat center center/cover; width:100%; height:150px;"></div>'
+				+	'<div class="concept-detail">'
+				+		'<div class="concept-detail-subject">'+planner_subject+'</div>'
+				+		'<div class="concept-detail-region">'+planner_course+'</div>'
+				+		'<div class="concept-detail-tripdate">'+plannerDate_tripdateFirst + ' ~ ' + plannerDate_tripdateLast+ ' (' + plannerDate_length+'일 코스)</div>'
+				+	'</div>'
+				+'</li>';
+		$(conceptType).append(html);
+	}
+	
+}
+
+
 // bxSlider
 $(document).ready(function(){
 	// 이미지 슬라이더
