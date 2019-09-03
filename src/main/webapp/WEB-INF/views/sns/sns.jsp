@@ -97,7 +97,7 @@
 											<div class="sns-content-reply sns-content-modal">${sns.commCount}개의 댓글 모두보기</div>
 										</c:if>
 										<ul class="icon-list"> 
-											<c:if test="${sns.snsLikeCheck == false}">
+											<c:if test="${sns.snsLikeCheck == false || sns.snsLikeCheck == ''}">
 												<li> <img id="sns-heart" class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
 											</c:if>
 											<c:if test="${sns.snsLikeCheck == true}">

@@ -17,6 +17,9 @@
 		<link href="/css/common.css" rel="stylesheet">
 		<link href="/css/article_sns_user.css" rel="stylesheet">
 		<link href="/css/index.css" rel="stylesheet">
+		<link href="/css/sns.css" rel="stylesheet">
+		<link href="/css/sns_modal.css" rel="stylesheet">
+		<link href="/css/content.css" rel="stylesheet">
 		<link href="/css/timeline.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
