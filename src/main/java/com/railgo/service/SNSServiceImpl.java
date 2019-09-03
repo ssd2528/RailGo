@@ -60,6 +60,11 @@ public class SNSServiceImpl implements SNSService {
 	}
 	
 	@Override
+	public List<SNSJoinDTO> getListMem(String mem_code) {
+		return snsMapper.getListMem(mem_code);
+	}
+	
+	@Override
 	public SNSJoinDTO content(String sns_code) {
 		return snsMapper.content(sns_code);
 	}

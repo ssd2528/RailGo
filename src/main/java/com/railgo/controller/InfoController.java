@@ -9,7 +9,9 @@ import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -45,6 +47,7 @@ import com.railgo.domain.CategoryVO;
 import com.railgo.domain.DetailInfoDTO;
 import com.railgo.service.APIService;
 import com.railgo.service.InfoService;
+import com.railgo.service.MemberService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -61,10 +64,11 @@ public class InfoController {
 	private APIService apiService;
 	@Autowired
 	private InfoService infoService;
+	private MemberService memberService;
 	
 	// [InfoAreaName]
 	@GetMapping(value="/{areaName}", produces = "application/json; charset=utf-8")
-	public ModelAndView infoAreaName(@PathVariable("areaName") String areaName, RedirectAttributes rttr) throws Exception {
+	public ModelAndView infoAreaName(@PathVariable("areaName") String areaName, RedirectAttributes rttr ,HttpServletRequest request) throws Exception {
 		System.out.println("-------------------------------------- infoAreaName() --------------------------------------");
 		
 		ModelAndView mv = new ModelAndView();
@@ -135,6 +139,18 @@ public class InfoController {
 		itemsArray = apiService.makeItemsArray(itemsObject);
 		ArrayList<InfoItemDTO> accomList = makeInfoItemDTOList(itemsArray, "N");	
 		Collections.shuffle(accomList); mv.addObject("accomList", accomList);
+		
+		// sns 이용자 추천 부분 !!
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		if(member != null) {
+			mv.addObject("recomMember",memberService.selRecomMem2(member.getMem_code()));
+			mv.addObject("recomMemberAdd",memberService.selRecomMemAdd2(member.getMem_code()));
+		}else if(member == null){
+			mv.addObject("recomMember",memberService.selRecomMem());
+			mv.addObject("recomMemberAdd",memberService.selRecomMemAdd());
+		}		
 		
 		return mv;
 	}

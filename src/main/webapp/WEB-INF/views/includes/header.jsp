@@ -22,7 +22,7 @@
 								<c:if test="${member ne null}">
 									<c:choose>
 										<c:when test="${memadd.profile != ''}"><img id="member-img" src='/member/display?fileName=${memadd.profile}' alt="프로필"></c:when>
-										<c:when test="${memadd.profile == ''}">
+										<c:when test="${memadd.profile eq null || memadd.profile == ''}">
 											<c:choose>
 												<c:when test="${member.gender eq 'M'}"><a href="http://localhost:8080/member/timeline" class="member-img">
 												<img src="/img/member/default_profile_m.png" alt="프로필 남" ></a></c:when>

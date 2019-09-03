@@ -38,6 +38,7 @@ import com.railgo.domain.SNSJoinDTO;
 import com.railgo.domain.SNSLikeVO;
 import com.railgo.domain.SNSVO;
 import com.railgo.domain.TripImageVO;
+import com.railgo.service.MemberService;
 import com.railgo.service.SNSService;
 
 import lombok.AllArgsConstructor;
@@ -51,6 +52,7 @@ import net.coobird.thumbnailator.Thumbnailator;
 @AllArgsConstructor
 public class SNSController {
 	private SNSService snsService;
+	private MemberService memberService;
 
 	@GetMapping("/sns")
 	public void snsList(Model model, HttpSession session) {
@@ -81,6 +83,16 @@ public class SNSController {
 				boolean snsLikeCheck = snsService.snsLikeCheck(snsLikeVO);
 				snsJoinDTO.setSnsLikeCheck(snsLikeCheck);
 			}
+		
+			MemberVO member = (MemberVO)session.getAttribute("member");
+			
+			if(member != null) {
+				model.addAttribute("recomMember",memberService.selRecomMem2(member.getMem_code()));
+				model.addAttribute("recomMemberAdd",memberService.selRecomMemAdd2(member.getMem_code()));
+			}else if(member == null){
+				model.addAttribute("recomMember",memberService.selRecomMem());
+				model.addAttribute("recomMemberAdd",memberService.selRecomMemAdd());
+			}		
 		}
 		model.addAttribute("sns", getList);
 	}
