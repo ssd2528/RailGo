@@ -11,7 +11,7 @@
 .food-wrap { width:100%; display:flex; justify-content:space-around; }
 .food-item { width:30%; border:1px solid #d9d9d9; }
 .food-item:hover { cursor:pointer; }
-.food-detail { font-size:15px; padding:3px; }
+.food-detail { padding:5px; }
 .food-detail > .fname { font-weight:bold; font-size:17px; }
 .food-detail > .fcategory { color:#595959; }
 
