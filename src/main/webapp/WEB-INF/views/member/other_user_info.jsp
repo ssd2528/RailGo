@@ -150,7 +150,7 @@
 	
 						<div class="article-wrapper article-75">
 							<!-- article-sns-content -->
-													<input type="hidden" class="reply-memCode" value="${member.mem_code}">
+							<input type="hidden" class="reply-memCode" value="${member.mem_code}">
 							<c:forEach items="${sns}" var="sns">
 								<form id="sns-form" class="sns-form" method="POST" action="">
 									<div class="article-item article-sns-content">
