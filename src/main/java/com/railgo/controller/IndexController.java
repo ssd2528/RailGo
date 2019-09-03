@@ -3,6 +3,7 @@ package com.railgo.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.railgo.domain.MemberVO;
+import com.railgo.domain.SNSJoinDTO;
+import com.railgo.domain.SNSLikeVO;
+import com.railgo.domain.TripImageVO;
 import com.railgo.service.MemberService;
-
+import com.railgo.service.SNSService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.railgo.domain.InfoItemDTO;
@@ -40,10 +44,13 @@ public class IndexController {
 	
 	@Autowired
 	private APIService apiService;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private SNSService snsService;
+	
 	private InfoController infoController;
 	
-	
-MemberService memberService;
 	
 	@GetMapping("/")
 	public ModelAndView index(HttpServletRequest request) {
@@ -54,6 +61,7 @@ MemberService memberService;
 		HttpSession session = request.getSession();
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		
+		/* SNS 추천 이용자 조회 */
 		if(member != null) {
 			mv.addObject("recomMember",memberService.selRecomMem2(member.getMem_code()));
 			mv.addObject("recomMemberAdd",memberService.selRecomMemAdd2(member.getMem_code()));
@@ -61,6 +69,23 @@ MemberService memberService;
 			mv.addObject("recomMember",memberService.selRecomMem());
 			mv.addObject("recomMemberAdd",memberService.selRecomMemAdd());
 		}		
+		/* SNS 게시물 목록 조회 */
+		List<SNSJoinDTO> getList = snsService.getList();
+		for(SNSJoinDTO snsJoinDTO : getList) {
+			String sns_code = snsJoinDTO.getSns_code();
+			ArrayList<TripImageVO> snsImgList = snsService.findSNSImg(sns_code);	snsJoinDTO.setImgList(snsImgList); // SNS 이미지 
+			int commCount = snsService.commCount(sns_code);							snsJoinDTO.setCommCount(commCount); // 댓글 갯수
+			int snsLikeCount = snsService.snsLikeCount(sns_code);					snsJoinDTO.setSnsLikeCount(snsLikeCount); //좋아요 갯수
+			// 좋아요 체크
+			if(member!=null) { // 멤버세션이 null이면 발동X
+				MemberVO memVO = (MemberVO) member;
+				String mem_code = memVO.getMem_code();
+				SNSLikeVO snsLikeVO = new SNSLikeVO(sns_code, mem_code);
+				boolean snsLikeCheck = snsService.snsLikeCheck(snsLikeVO);
+				snsJoinDTO.setSnsLikeCheck(snsLikeCheck);
+			}
+		}
+		mv.addObject("sns", getList);
 		
 		return mv;
 	}

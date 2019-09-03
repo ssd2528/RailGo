@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	// header의 검색 키워드 부분은 안보이게 하기 
+	$('header form#searchForm').remove();
+	
 	var keyword = $('#keyword').val();
 	var currentPage = $('#currentPage').val();
 	

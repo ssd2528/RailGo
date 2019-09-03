@@ -18,7 +18,7 @@
 		
 		
 		<!-- JavaScript -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 		<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 		<script src="/js/sns.js" type="text/javascript"></script>
 		<script src="/js/login_modal.js" type="text/javascript"></script>
@@ -64,6 +64,9 @@
 															<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
 														</c:when>
 													</c:choose>	
+												</c:when>
+												<c:when test="${sns.profile ne '' || sns.profile ne null}">
+													<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
 												</c:when>
 											</c:choose>
 											<div class="user-name">${sns.name}</div>

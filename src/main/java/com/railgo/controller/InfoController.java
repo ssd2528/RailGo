@@ -465,7 +465,7 @@ public class InfoController {
 		return mv;
 	}
 	
-	@PostMapping(value = "/detailInfo")
+	@RequestMapping(value = "/detailInfo", produces = "text/html;charset=UTF-8;application/json")
 	public ModelAndView detail(@RequestParam("areaName") String areaName, @RequestParam("contentid") int contentid) throws Exception {
 		System.out.println("## info contentid : " + contentid);
 		String responseStr = null; JsonObject itemsObject = null; JsonArray itemsArray = null; JsonObject itemObject = null;

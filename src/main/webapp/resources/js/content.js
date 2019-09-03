@@ -76,17 +76,13 @@ $(document).ready(function(){
 		}
 	});
 	
-	// 댓글 입력
+	// ----------------- 댓글 입력 ----------------- //
 	$('.sns-reply-btn').on('click', function(){
-		var content = $('.sns-reply-textarea').val();
-		var mem_code = $('.reply-memCode').val();
-		var sns_code = $('.reply-snsCode').val();
+		var content = $('.sns-reply-textarea').val(); // 댓글 내용
+		var mem_code = $('.member-memCode').val(); // 로그인한 사용자 코드
+		var sns_code = $('.reply-snsCode').val(); // 댓글을 쓰고 있는 게시글 코드
 		var comm_code = 0;
-		
-		console.log(content);
-		console.log(mem_code);
-		console.log(sns_code);
-		
+		console.log(content); console.log(mem_code); console.log(sns_code);
 		
 		if(content.length < 5) {
             alert('내용은 5글자 이상 입력해주세요.');
@@ -98,13 +94,12 @@ $(document).ready(function(){
 		}
 		
 		formData = new FormData();
-		formData.append('content', content);
+		formData.append('content', content); 
 		formData.append('mem_code', mem_code);
 		formData.append('sns_code', sns_code);
 		formData.append('comm_code', comm_code);
 		
 		var html = '';
-		
 		$.ajax({
 			url:'/sns/insertReply',
 			processData: false,
@@ -195,7 +190,7 @@ $(document).ready(function(){
 	$(document).on('click','.sns-rereply-btn',function(){
 		$('.rerebox').css('display', 'none');
 		var content = $('.sns-rereply-textarea').val();
-		var mem_code = $('.reply-memCode').val();
+		var mem_code = $('.member-memCode').val();
 		var sns_code = $('.reply-snsCode').val();
 		var comm_code = $(this).closest('div.sns-rereply-append').find('input[name="comm_code"]').val();
 		var rereply_append = $(this).closest('div.sns-rereply-append>div:last');
@@ -238,7 +233,7 @@ $(document).ready(function(){
 	
 	// 좋아요 클릭
 	$(document).on('click','#sns-heart',function(){
-		var mem_code = $('.reply-memCode').val();
+		var mem_code = $('.member-memCode').val();
 		if(mem_code==''){
 			alert('로그인을 해주세요.');
 			return false;
@@ -246,7 +241,7 @@ $(document).ready(function(){
 		
 		console.log('좋아욧~');
 		var sns_code = $('.reply-snsCode').val();
-		var mem_code = $('.reply-memCode').val();
+		var mem_code = $('.member-memCode').val();
 		var like_count = $('.sns-heart-count');
 		var count = +($('span.like-count').text());
 		var check = '';
@@ -292,7 +287,7 @@ $(document).ready(function(){
 	
 	// 댓글 삭제
 	$(document).on('click','.reply-delete-btn',function(){
-		var mem_code = $('.reply-memCode').val();
+		var mem_code = $('.member-memCode').val();
 		var sns_code = $('.reply-snsCode').val();
 		if(mem_code==''){
 			alert('로그인을 해주세요.');
@@ -321,7 +316,7 @@ $(document).ready(function(){
 	
 	// 대댓글 삭제
 	$(document).on('click','.rereply-delete-btn',function(){
-		var mem_code = $('.reply-memCode').val();
+		var mem_code = $('.member-memCode').val();
 		var sns_code = $('.reply-snsCode').val();
 		if(mem_code==''){
 			alert('로그인을 해주세요.');
@@ -333,7 +328,7 @@ $(document).ready(function(){
 		console.log(rereply_commCode);
 		
 		formData = new FormData();
-		formData.append('comm_code', reply_commCode);
+		formData.append('comm_code', rereply_commCode);
 		
 		$.ajax({
 			url:'/sns/commDelete',

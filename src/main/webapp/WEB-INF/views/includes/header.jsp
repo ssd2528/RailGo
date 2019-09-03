@@ -10,7 +10,15 @@
 					<!-- navi -->
 					<div class="navi">
 						<ul>
-							<li><a href="#" class="alarm-img"><img src="/img/header/alarm.png" alt="알림"><br>알림</a></li>
+							<!-- <li><a class="alarm-img"><img src="/img/header/alarm.png" alt="알림"><br>알림</a></li> -->
+							<!-- article-search -->
+							<li>
+								<form id="searchForm" action="search" method="post">
+									<div class="search-container">
+										<input type="text" name="keyword" class="search-keyword" id="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
+									</div>
+								</form>
+							</li>
 							<li><a href="http://localhost:8080/sns/sns" class="sns-img"><img src="/img/header/sns.png" alt="SNS"><br>SNS</a></li>
 							<li><a href="http://localhost:8080/planner" class="planner-img"><img src="/img/header/planner.png" alt="플래너"><br>플래너</a></li>
 							<li class="member">
@@ -21,8 +29,7 @@
 								<!-- 사용자가 로그인을 한 상태인 경우 -->
 								<c:if test="${member ne null}">
 									<c:choose>
-										<c:when test="${memadd.profile != ''}"><img id="member-img" src='/member/display?fileName=${memadd.profile}' alt="프로필"></c:when>
-										<c:when test="${memadd.profile eq null || memadd.profile == ''}">
+										<c:when test="${memadd.profile == '' || memadd.profile == null}">
 											<c:choose>
 												<c:when test="${member.gender eq 'M'}"><a href="http://localhost:8080/member/timeline" class="member-img">
 												<img src="/img/member/default_profile_m.png" alt="프로필 남" ></a></c:when>
@@ -30,6 +37,7 @@
 												<img src="/img/member/default_profile_f.png" alt="프로필 여" ></a></c:when>
 											</c:choose>	
 										</c:when>
+										<c:when test="${memadd.profile != '' }"><img id="member-img" src='/member/display?fileName=${memadd.profile}' alt="프로필"></c:when>
 									</c:choose>
 									<ul class="member-submenu">
 										<li><a href="http://localhost:8080/member/timeline" class="member-timeline">타임라인</a></li>
