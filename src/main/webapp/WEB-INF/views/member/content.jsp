@@ -8,6 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>[RailGo] timeline Page</title>
+<link rel="icon" href="/img/favicon.ico">
 <!-- CSS -->
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">

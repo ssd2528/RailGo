@@ -9,12 +9,14 @@
 	<link rel="icon" href="/img/favicon.ico">
 	
 	<!-- CSS -->
+	<link href="/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/common.css" rel="stylesheet">
 	<link href="/css/info/one_course_info.css" rel="stylesheet">
 	<link href="/css/login_modal.css" rel="stylesheet">
 	
 	<!-- JavaScript -->
 	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
+	<script src="/js/fontawesome.js" type="text/javascript"></script>
 	<script src="/js/header.js" type="text/javascript"></script>
 	<script src="/js/info/one_course_info.js" type="text/javascript"></script>
 	<script src="/js/login_modal.js" type="text/javascript"></script>
