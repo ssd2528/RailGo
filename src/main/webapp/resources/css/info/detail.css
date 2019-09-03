@@ -36,7 +36,7 @@ header {
 
 .logo img { width:150px; height:50px; }
 .navi { float:right; margin-left:auto; text-align:center; }
-.navi li { display:inline-block; margin:0px 20px; vertical-align: middle; font-size:10px; }
+.navi li { display:inline-block; margin:0px 5px; vertical-align: middle; font-size:10px; }
 .navi li:last-child { margin-right:0; }
 .navi img { width:30px; height:30px; }
 .navi img.member-img { width:45px; height:45px; }
@@ -223,7 +223,7 @@ footer {
 	display: grid;
 	grid-template-columns: 100px 2fr;
 }
-.reviewer-img{ margin-left: 20px; width:50px; height:50px; margin-right:20px; }
+.reviewer-img{ margin-left: 20px; width:50px; height:50px; margin-right:20px; object-fit:cover; border-radius: 50%; }
 
 .review-table th{
 	text-align: left;

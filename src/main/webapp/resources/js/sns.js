@@ -5,16 +5,16 @@ $(document).ready(function(){
 	var member = $('.member-img');	
 	
 	// sns 항시 이미지 변환
-	$('.sns-img img').attr('src', '../img/header/sns_clicked.png');
+	$('.sns-img img').attr('src', '/img/header/sns_clicked.png');
 	sns.css('color', '#009CE9');
 	sns.closest('li').css('border-bottom', 'solid 3px #009CE9');
 	
 	// planner hover시 이미지 변환 
 	planner.hover(function(){
-		$('.planner-img img').attr('src', '../img/header/planner_clicked.png');
+		$('.planner-img img').attr('src', '/img/header/planner_clicked.png');
 		planner.css('color', '#009CE9');
 	}, function(){
-		$('.planner-img img').attr('src', '../img/header/planner.png');
+		$('.planner-img img').attr('src', '/img/header/planner.png');
 		planner.css('color', 'black');
 	});
 	
@@ -27,7 +27,7 @@ $(document).ready(function(){
         infiniteLoop: false,
         hideControlOnEnd: true
     });
-	
+
 	// SNS 상세보기
 	$('.sns-content-modal').on('click', function(){
 		var sns_code = $(this).closest('div.article-item').find('input[name="sns_code"]').val();
@@ -51,7 +51,7 @@ $(document).ready(function(){
 		
 		// 좋아요 추가
 		if($(this).attr('class') === 'sns-icon sns-heart'){
-			$(this).attr('src', '../img/sns/heart_clicked.png');
+			$(this).attr('src', '/img/sns/heart_clicked.png');
 			$(this).attr('class', 'sns-icon sns-heart-clicked');
 			$(this).closest('div.article-item').find('span.like-count').text(count+1);
 			if((count+1)==1){
@@ -60,7 +60,7 @@ $(document).ready(function(){
 			check = 'plus';
 		// 좋아요 취소	
 		}else{
-			$(this).attr('src', '../img/sns/heart.png');
+			$(this).attr('src', '/img/sns/heart.png');
 			$(this).attr('class', 'sns-icon sns-heart');
 			$(this).closest('div.article-item').find('span.like-count').text(count-1);
 			if((count-1)==0){

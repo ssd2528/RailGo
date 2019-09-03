@@ -1,6 +1,5 @@
 package com.railgo.controller;
 
-import java.awt.List;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -58,7 +57,6 @@ public class MemberController {
 	@Setter(onMethod_=@Autowired)
 	PlannerService plannerService;
 	LoginController loginController;
-
 	//타임라인 페이지
 	@GetMapping("/timeline")
 	public ModelAndView timeline(HttpSession session, RedirectAttributes rttr) {

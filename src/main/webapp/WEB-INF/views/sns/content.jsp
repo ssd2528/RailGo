@@ -1,30 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[RailGo] SNS Page</title>
-<!-- CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-<link href="/css/common.css" rel="stylesheet">
-<link href="/css/article_sns_user.css" rel="stylesheet">
-<link href="/css/login_modal.css" rel="stylesheet">
-<link href="/css/content.css" rel="stylesheet">
-
-<!-- JavaScript -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="/js/content.js" type="text/javascript"></script>
-<script
-	src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-<script src="/js/login_modal.js" type="text/javascript"></script>
-<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
-
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[RailGo] SNS Page</title>
+	<!-- CSS -->
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+	<link href="/css/common.css" rel="stylesheet">
+	<link href="/css/article_sns_user.css" rel="stylesheet">
+	<link href="/css/login_modal.css" rel="stylesheet">
+	<link href="/css/content.css" rel="stylesheet">
+	
+	<!-- JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+	<script src="/js/content.js" type="text/javascript"></script>
+	<script src="/js/login_modal.js" type="text/javascript"></script>
+	<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 </head>
 <body>
 	<c:if test="${not empty authMsg}">
@@ -58,12 +54,13 @@
 						<div class="sns-article-right">
 							<span class="close">&times;</span>
 							<div class="sns-content">
+								<!-- 게시글 작성자의 Mem_Code 및 닉네임 조회 -->
+								<input type="hidden" value="${content.mem_code}" id="sns-writer-code">
+								<input type="hidden" value="${content.name}" id="sns-writer-name">
+								
 								<div class="sns-content-write">
 									<c:choose>
-										<c:when test="${content.profile != null}">
-											<img class="sns-writer-profile" src='/member/display?fileName=${memadd.profile}' alt="프로필">
-										</c:when>
-										<c:when test="${content.profile == null}">
+										<c:when test="${content.profile eq null || content.profile eq ''}">
 											<c:choose>
 												<c:when test="${content.gender eq 'M'}">
 													<img class="sns-writer-profile" src="/img/member/default_profile_m.png" alt="프로필 남" >
@@ -72,6 +69,9 @@
 													<img class="sns-writer-profile" src="/img/member/default_profile_f.png" alt="프로필 여" >
 												</c:when>
 											</c:choose>	
+										</c:when>
+										<c:when test="${content.profile ne null}">
+											<img class="sns-writer-profile" src='/member/display?fileName=${content.profile}' alt="프로필">
 										</c:when>
 									</c:choose>
 									<div class="sns-write-box">
@@ -128,7 +128,7 @@
 													</tr>
 												</table>
 												<input type="hidden" class="reply-commCode" name="comm_code" value="${commList.comm_code}">
-												<input type="hidden" class="reply-memCode" name="mem_code" value="${commList.mem_code}">
+												
 											</div>
 										</div>
 										<c:if test="${commList.rereList ne null}">
@@ -179,14 +179,14 @@
 							<div class="sns-bottom">
 								<hr class="sns-line">
 								<ul class="sns-icon-list">
-									<c:if test="${likeCheck == false}">
+									<c:if test="${likeCheck == false || likeCheck == null}">
 										<li> <img id="sns-heart" class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
 									</c:if>
 									<c:if test="${likeCheck == true}">
-										<li> <img id="sns-heart" class="sns-icon sns-heart-clicked" src="../img/sns/heart_clicked.png" alt="좋아요"> </li>
+										<li> <img id="sns-heart" class="sns-icon sns-heart-clicked" src="/img/sns/heart_clicked.png" alt="좋아요"> </li>
 									</c:if>
 									<li><img class="sns-icon sns-chat"
-										src="../img/sns/chat.png" alt="댓글달기"></li>
+										src="/img/sns/chat.png" alt="댓글달기"></li>
 									<c:if test="${likeCount != 0}">
 										<div class="sns-heart-count">좋아요 <span class="like-count">${likeCount}</span>개</div>
 									</c:if>
@@ -199,7 +199,7 @@
 										placeholder="&nbsp;&nbsp; 댓글 달기..."></textarea>
 									<input type="button" class="sns-reply-btn" value="게시" />
 									<input type="hidden" class="reply-snsCode" value="${content.sns_code}">
-									<input type="hidden" class="reply-memCode" value="${member.mem_code}">
+									<input type="hidden" class="member-memCode" value="${member.mem_code}">
 								</div>
 								<input type="hidden" name="member-gender" value="${member.gender}">
 								<input type="hidden" name="member-profile" value="${memadd.profile}">

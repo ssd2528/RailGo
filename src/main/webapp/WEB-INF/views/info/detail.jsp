@@ -10,7 +10,8 @@
 	<link rel="icon" href="/img/favicon.ico">
 	
 	<!-- CSS -->
-	<link href="/css/font-awesome.min.css" rel="stylesheet">
+	<!-- <link href="/css/font-awesome.min.css" rel="stylesheet"> -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/common.css" rel="stylesheet">
 	<link href="/css/section_search.css" rel="stylesheet">
 	<link href="/css/info/detail.css" rel="stylesheet">
@@ -190,8 +191,23 @@
 								<input type="hidden" class="r_code" value="${detail.contentid}" name="contentid" />
 								<input type="hidden" class="mem_code" value="${member.mem_code}" name="mem_code" />
 								<div class="review-table">
-									<!-- 멤버애드 프로필 수정요망 -->
-									<img class="reviewer-img" src="/img/info/default_profile_f.png">
+									
+									<c:choose>
+										<c:when test="${memadd.profile != null}">
+											<img class="reviewer-img" src='/member/display?fileName=${memadd.profile}' alt="프로필">
+										</c:when>
+										<c:when test="${memadd.profile == null}">
+											<c:choose>
+												<c:when test="${member.gender eq 'M'}">
+													<img class="reviewer-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+												</c:when>
+												<c:when test="${member.gender eq 'F'}">
+													<img class="reviewer-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+												</c:when>
+											</c:choose>	
+										</c:when>
+									</c:choose>
+									
 									<div class="review-rating">
 										<select id="example" name="rating">
 											<option value="1">1</option>

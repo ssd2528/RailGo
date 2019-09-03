@@ -1,5 +1,5 @@
 /* SNS-Writer */
-.sns-article-right { float:right; width:33%; height:99%; margin-right:3px; position:relative; margin-left:5px; -}
+.sns-article-right { float:right; width:33%; height:99%; margin-right:3px; position:relative; margin-left:5px; }
 .sns-content-write { display:grid; grid-template-columns: 70px 1fr; }
 .sns-write-box { margin-left:15px; padding-top:15px; }
 .sns-writer-profile { margin: 5px auto; width:70px; height:70px; object-fit:cover; border-radius:50%; }
@@ -126,7 +126,7 @@
 
 
 .sns-img-upload { float:right; margin-right: 31px; }
-.sns-img-upload label { color: white; top:0; background-color: #009CE9; border: none; cursor: pointer; position:absolute; width: 30px; height: 30px; display: inline-block; text-align: center; font-size: 15px; line-height: 30px; -webkit-transition: background-color 0.2s; transition: background-color 0.2s; top: 317px;}
+.sns-img-upload label { color: white; background-color: #009CE9; border: none; cursor: pointer; position:absolute; width: 30px; height: 30px; display: inline-block; text-align: center; font-size: 15px; line-height: 30px; -webkit-transition: background-color 0.2s; transition: background-color 0.2s; top:303px; right:20px; }
 
 .sns-img-upload input[type="file"] {
   position: absolute;

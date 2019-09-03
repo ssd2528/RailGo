@@ -17,9 +17,9 @@
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<input class="inform" type='email' name='email' id='signin-email' class='signin-email' placeholder='이메일 주소'>
 						<input class="inform" type='password' name='pwd' id='signin-pwd' class='signin-pwd' placeholder='비밀번호'>
-						<div id="checkboxArea">
+						<!-- <div id="checkboxArea">
 							<input type='checkbox' name="remember-me" id="remember-me" class="remember-me"> <label for="remember-me"></label>자동로그인
-						</div>
+						</div> -->
 						<div class="error_msg"></div>
 						<button class="logBtn" type="submit">로그인</button>
 						<br>
