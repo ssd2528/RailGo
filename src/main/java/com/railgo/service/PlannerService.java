@@ -13,4 +13,6 @@ public interface PlannerService {
 	Boolean deleteScheduleList(String plan_code);
 	//schedule 페이지에서 나의 스케쥴목록과 planner 페이지에서 다른 내일러들의 일정들을 보여주는 메소드
 	ArrayList<PlannerJsonDTO> PlanScheduleList(String mem_code,String page,int start,int end);
+	
+	ArrayList<PlannerJsonDTO> PlanScheduleListByTheme(String theme); // 컨셉에 맞는 PLANNER 목록 조회
 }

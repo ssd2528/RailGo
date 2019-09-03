@@ -102,37 +102,17 @@
 								<!-- 컨셉1 (concept-wrap) -->
 								<div class="concept-wrap">
 									<div class="concept-title">"나홀로 떠나는 여행"에 대한 추천 코스</div>
-									<ul class="concept-content">
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9  url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
+									<input type="hidden" id="plannerListBySolo" value='${plannerListBySolo}'>
+									<ul class="concept-content concept-solo">
+										
 									</ul>
 								</div>
 								<!-- 컨셉2 (concept-wrap) -->
 								<div class="concept-wrap" style="margin-top:20px;">
-									<div class="concept-title">"커플과 함께 떠나는 여행"에 대한 추천 코스</div>
-									<ul class="concept-content">
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9  url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
+									<div class="concept-title">"맛있는 음식들과 함께 떠나는 여행"에 대한 추천 코스</div>
+									<input type="hidden" id="plannerListByEating" value='${plannerListByEating}'>
+									<ul class="concept-content concept-eating">
+										
 									</ul>
 								</div>
 							</div>
