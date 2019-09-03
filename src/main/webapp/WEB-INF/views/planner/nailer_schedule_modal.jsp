@@ -9,7 +9,7 @@
 
 		<hr>
 		<div class="schedule-img-text-wrapper">
-			<img src="../img/planner/map.jpg" class="map-img" alt="map" />
+			<img src="/img/planner/map.jpg" class="map-img" alt="map" />
 			<div class="schedule-title">"일정 제목"</div>
 			<div class="schedule-theme">#테마정보 #테마정보</div>
 			<div class="schedule">2019.07.09~2019.07.11 (3일)</div>

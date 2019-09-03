@@ -19,8 +19,8 @@
 									</div>
 								</form>
 							</li>
-							<li><a href="http://localhost:8080/sns/sns" class="sns-img"><img src="/img/header/sns.png" alt="SNS"><br>SNS</a></li>
-							<li><a href="http://localhost:8080/planner" class="planner-img"><img src="/img/header/planner.png" alt="플래너"><br>플래너</a></li>
+							<li><a href="http://172.168.0.184:8080/sns/sns" class="sns-img"><img src="/img/header/sns.png" alt="SNS"><br>SNS</a></li>
+							<li><a href="http://172.168.0.184:8080/planner" class="planner-img"><img src="/img/header/planner.png" alt="플래너"><br>플래너</a></li>
 							<li class="member">
 								<!-- 사용자가 로그인을 하지 않은 상태인 경우 -->
 								<c:if test="${member eq null}">
@@ -31,18 +31,18 @@
 									<c:choose>
 										<c:when test="${memadd.profile == '' || memadd.profile == null}">
 											<c:choose>
-												<c:when test="${member.gender eq 'M'}"><a href="http://localhost:8080/member/timeline" class="member-img">
+												<c:when test="${member.gender eq 'M'}"><a href="http://172.168.0.184:8080/member/timeline" class="member-img">
 												<img src="/img/member/default_profile_m.png" alt="프로필 남" ></a></c:when>
-												<c:when test="${member.gender eq 'F'}"><a href="http://localhost:8080/member/timeline" class="member-img">
+												<c:when test="${member.gender eq 'F'}"><a href="http://172.168.0.184:8080/member/timeline" class="member-img">
 												<img src="/img/member/default_profile_f.png" alt="프로필 여" ></a></c:when>
 											</c:choose>	
 										</c:when>
 										<c:when test="${memadd.profile != '' }"><img id="member-img" src='/member/display?fileName=${memadd.profile}' alt="프로필"></c:when>
 									</c:choose>
 									<ul class="member-submenu">
-										<li><a href="http://localhost:8080/member/timeline" class="member-timeline">타임라인</a></li>
-										<li><a href="http://localhost:8080/member/schedule" class="member-schedule">일정관리</a></li>
-										<li><a href="http://localhost:8080/signout" class="member-logout">로그아웃</a></li>
+										<li><a href="http://172.168.0.184:8080/member/timeline" class="member-timeline">타임라인</a></li>
+										<li><a href="http://172.168.0.184:8080/member/schedule" class="member-schedule">일정관리</a></li>
+										<li><a href="http://172.168.0.184:8080/signout" class="member-logout">로그아웃</a></li>
 									</ul>
 								</c:if>
 							</li>

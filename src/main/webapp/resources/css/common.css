@@ -32,7 +32,7 @@ header {
 }
 .header-inner div { display:inline-block; height:50px; }
 
-.logo img { width:150px; height:50px; }
+header .logo img { width:150px; height:50px; }
 .navi { float:right; margin-left:auto; text-align:center; }
 .navi li { display: inline-block; margin: 0px 10px; vertical-align: middle; font-size: 10px; padding: 0 10px; /* border-bottom: solid 3px #009CE9; */ padding-bottom: 7px; }
 .navi li:last-child { margin-right:0; }
@@ -75,4 +75,8 @@ label.error, .error_msg {font-size:11px; color:red; display:block;}
 
 /* 		FOOTER 		*/
 footer { bottom:0; width:100%; height:100px; background:#D9D9D9; }
+footer .footer-wrapper { display: flex; margin: 0 auto; max-width: 1280px; padding:12px 120px; }
+footer .footer-wrapper * { align-self: center; }
+footer .footer-wrapper .logo img { width:200px; height:65px; }
+footer .footer-wrapper .project-info { font-size: 13px; margin:0 120px 0 30px; }
 
