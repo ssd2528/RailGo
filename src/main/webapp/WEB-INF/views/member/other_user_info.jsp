@@ -17,6 +17,9 @@
 		<link href="/css/common.css" rel="stylesheet">
 		<link href="/css/article_sns_user.css" rel="stylesheet">
 		<link href="/css/index.css" rel="stylesheet">
+		<link href="/css/sns.css" rel="stylesheet">
+		<link href="/css/sns_modal.css" rel="stylesheet">
+		<link href="/css/content.css" rel="stylesheet">
 		<link href="/css/timeline.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
@@ -25,6 +28,7 @@
 		<script src="/js/fontawesome.js" type="text/javascript"></script>
 		<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 		<script src="/js/header.js" type="text/javascript"></script>
+		<script src="/js/login_modal.js" type="text/javascript"></script>
 		<script src="/js/timeline.js" type="text/javascript"></script>
 	</head>
 	<body>
@@ -146,7 +150,7 @@
 	
 						<div class="article-wrapper article-75">
 							<!-- article-sns-content -->
-													<input type="hidden" class="reply-memCode" value="${member.mem_code}">
+							<input type="hidden" class="reply-memCode" value="${member.mem_code}">
 							<c:forEach items="${sns}" var="sns">
 								<form id="sns-form" class="sns-form" method="POST" action="">
 									<div class="article-item article-sns-content">

@@ -347,192 +347,193 @@ public class MemberController {
 	}
 	//로컬 사진 불러오기
 	@GetMapping("/display")
-		@ResponseBody
-		public ResponseEntity <byte[]> getFile(String fileName){
-			log.info("## filename: " + fileName);
-			File file = new File("C:\\Upload\\temp\\"+fileName);
-			//File file = new File(fileName);
-			ResponseEntity<byte[]> result = null;
+	@ResponseBody
+	public ResponseEntity <byte[]> getFile(String fileName){
+		log.info("## filename: " + fileName);
+		File file = new File("C:\\Upload\\temp\\"+fileName);
+		//File file = new File(fileName);
+		ResponseEntity<byte[]> result = null;
+		try {
+			HttpHeaders header = new HttpHeaders();
+			header.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+		
+	// 글 삭제
+	@PostMapping("/remove")
+	public String remove(String sns_code) {
+		log.info("remove..." + sns_code);
+		if(sns_code == null) return "redirect:/member/timeline";
+		snsService.remove(sns_code);
+		return "redirect:/member/timeline";
+	}
+	
+	// 수정할 글 불러오기
+	@PostMapping("/modifyContent")
+	@ResponseBody
+	public ResponseEntity<SNSVO> modifyContent(@RequestParam(value="sns_code") String sns_code){
+		log.info("## sns_code: " + sns_code);
+		SNSVO vo = snsService.modifyContent(sns_code);
+		ResponseEntity<SNSVO> result = new ResponseEntity<>(vo, HttpStatus.OK);
+		
+		return result;
+	}
+	
+	// 게시글 수정
+	@PostMapping("/modify")
+	@ResponseBody
+	public ResponseEntity<String> modify(String sns_code, String mem_code, String content) {
+		SNSVO vo = new SNSVO(sns_code, mem_code, content, null);
+		snsService.modify(vo);
+		
+		ResponseEntity<String> result = new ResponseEntity<>("good", HttpStatus.OK);
+		return result;
+	}
+	
+	/* 게시글 상세보기 */
+	@RequestMapping("/content")
+	public ModelAndView content(String sns_code, HttpSession session) {
+		Object obj = session.getAttribute("member");
+		log.info("## content sns_code: " + sns_code);
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("member/content");
+	  
+		// SNS 내용 가져오기
+		SNSJoinDTO content = snsService.content(sns_code); 
+		mv.addObject("content", content);
+		
+		// 이미지리스트 가져오기
+		ArrayList<TripImageVO> snsImgList = snsService.findSNSImg(sns_code);
+		mv.addObject("imgList", snsImgList);
+		
+		// 댓글&대댓글 가져오기
+		ArrayList<CommJoinDTO> commList = snsService.getCommList(sns_code);
+		
+		for(CommJoinDTO commJoinDTO : commList) {
+			int origin_code = commJoinDTO.getComm_code();
+			ArrayList<CommJoinDTO> rereList = snsService.getRereList(origin_code);
+			commJoinDTO.setRereList(rereList);
+		}
+		mv.addObject("commList", commList);
+		
+		// 좋아요 갯수
+		int snsLikeCount = snsService.snsLikeCount(sns_code);
+		mv.addObject("likeCount", snsLikeCount);
+		
+		// 좋아요 체크
+		if(obj!=null) { // 멤버세션이 null이면 발동X
+			MemberVO memVO = (MemberVO) obj;
+			String mem_code = memVO.getMem_code();
+			SNSLikeVO snsLikeVO = new SNSLikeVO(sns_code, mem_code);
+			boolean snsLikeCheck = snsService.snsLikeCheck(snsLikeVO);
+			mv.addObject("likeCheck", snsLikeCheck);
+			log.info(snsLikeCheck);
+		}
+		
+	  	return mv;
+		 
+	}
+	
+	/* 이미지 업로드 */
+	@PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> upload(MultipartFile[] uploadFile) {
+		String uploadFolder = "C:\\upload";
+		String uploadFolderPath = getFolder();
+		
+		// 이미지 저장 폴더 생성
+		File uploadPath = new File(uploadFolder, uploadFolderPath);
+		if (uploadPath.exists() == false) {
+			uploadPath.mkdirs();
+		}
+
+		for (MultipartFile multipartFile : uploadFile) {
+			TripImageVO imgvo = new TripImageVO();
+			log.info("## Upload File Name: " + multipartFile.getOriginalFilename());
+			log.info("## Upload File Size: " + multipartFile.getSize());
+			String uploadFileName = multipartFile.getOriginalFilename();
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+			imgvo.setFileName(uploadFileName);
+
+			UUID uuid = UUID.randomUUID();
+
+			uploadFileName = uuid.toString() + "_" + uploadFileName;
+
 			try {
-				HttpHeaders header = new HttpHeaders();
-				header.add("Content-Type", Files.probeContentType(file.toPath()));
-				result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
-			}catch(IOException e) {
-				e.printStackTrace();
+				File saveFile = new File(uploadPath, uploadFileName);
+				multipartFile.transferTo(saveFile);
+				imgvo.setUuid(uuid.toString());
+				imgvo.setImagePath(uploadFolderPath);
+				
+				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+				Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 800, 500);
+				thumbnail.close();
+				
+				snsService.insertSNSImg(imgvo);
+			} catch (Exception e) {
+				log.info("## upload Exception: " + e);
 			}
-			return result;
 		}
+		ResponseEntity<String> result = new ResponseEntity<>("성공", HttpStatus.OK);
+		return result;
+	}
+	
+	/* 댓글 달기 */
+	@PostMapping("/insertReply")
+	@ResponseBody
+	public ResponseEntity<CommJoinDTO> insertReply(String content, String mem_code, String sns_code, int comm_code){
+		log.info("## comm_code : " + comm_code);
+		ResponseEntity<CommJoinDTO> result = null;
 		
-		// 글 삭제
-		@PostMapping("/remove")
-		public String remove(String sns_code) {
-			log.info("remove..." + sns_code);
-			if(sns_code == null) return "redirect:/member/timeline";
-			snsService.remove(sns_code);
-			return "redirect:/member/timeline";
+		CommVO vo = new CommVO(-1, sns_code, mem_code, comm_code, content, null); 
+		snsService.commRegister(vo);
+	  
+		CommJoinDTO commCheck = snsService.commCheck();
+		result = new ResponseEntity<CommJoinDTO>(commCheck, HttpStatus.OK);
+		
+		return result;
+	}
+	
+	/* 댓글 삭제 */
+	@PostMapping(value="/commDelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> commDelete(int comm_code){
+		snsService.commDelete(comm_code);
+		ResponseEntity<String> result = null;
+		result = new ResponseEntity<String>("성공", HttpStatus.OK);
+		
+		return result;
+	}
+	
+	/* 좋아요 클릭 */
+	@PostMapping(value="/snsLike", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> snsLike(String sns_code, String mem_code, String check){
+		log.info("##### snsLike: " + sns_code + mem_code + check);
+		SNSLikeVO vo = new SNSLikeVO(sns_code, mem_code);
+		
+		if(check.equals("plus")) {
+			snsService.snsLikePlus(vo);
+		}else if(check.equals("minus")) {
+			snsService.snsLikeMinus(vo);
 		}
-		
-		// 수정할 글 불러오기
-		@PostMapping("/modifyContent")
-		@ResponseBody
-		public ResponseEntity<SNSVO> modifyContent(@RequestParam(value="sns_code") String sns_code){
-			log.info("## sns_code: " + sns_code);
-			SNSVO vo = snsService.modifyContent(sns_code);
-			ResponseEntity<SNSVO> result = new ResponseEntity<>(vo, HttpStatus.OK);
-			
-			return result;
-		}
-		
-		// 게시글 수정
-		@PostMapping("/modify")
-		@ResponseBody
-		public ResponseEntity<String> modify(String sns_code, String mem_code, String content) {
-			SNSVO vo = new SNSVO(sns_code, mem_code, content, null);
-			snsService.modify(vo);
-			
-			ResponseEntity<String> result = new ResponseEntity<>("good", HttpStatus.OK);
-			return result;
-		}
-		
-		/* 게시글 상세보기 */
-		@RequestMapping("/content")
-		public ModelAndView content(String sns_code, HttpSession session) {
-			Object obj = session.getAttribute("member");
-			log.info("## content sns_code: " + sns_code);
-			ModelAndView mv = new ModelAndView(); 
-			mv.setViewName("member/content");
-		  
-			// SNS 내용 가져오기
-			SNSJoinDTO content = snsService.content(sns_code); 
-			mv.addObject("content", content);
-			
-			// 이미지리스트 가져오기
-			ArrayList<TripImageVO> snsImgList = snsService.findSNSImg(sns_code);
-			mv.addObject("imgList", snsImgList);
-			
-			// 댓글&대댓글 가져오기
-			ArrayList<CommJoinDTO> commList = snsService.getCommList(sns_code);
-			
-			for(CommJoinDTO commJoinDTO : commList) {
-				int origin_code = commJoinDTO.getComm_code();
-				ArrayList<CommJoinDTO> rereList = snsService.getRereList(origin_code);
-				commJoinDTO.setRereList(rereList);
-			}
-			mv.addObject("commList", commList);
-			
-			// 좋아요 갯수
-			int snsLikeCount = snsService.snsLikeCount(sns_code);
-			mv.addObject("likeCount", snsLikeCount);
-			
-			// 좋아요 체크
-			if(obj!=null) { // 멤버세션이 null이면 발동X
-				MemberVO memVO = (MemberVO) obj;
-				String mem_code = memVO.getMem_code();
-				SNSLikeVO snsLikeVO = new SNSLikeVO(sns_code, mem_code);
-				boolean snsLikeCheck = snsService.snsLikeCheck(snsLikeVO);
-				mv.addObject("likeCheck", snsLikeCheck);
-			}
-		  
-		  	return mv;
-			 
-		}
-		
-		/* 이미지 업로드 */
-		@PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		@ResponseBody
-		public ResponseEntity<String> upload(MultipartFile[] uploadFile) {
-			String uploadFolder = "C:\\upload";
-			String uploadFolderPath = getFolder();
-			
-			// 이미지 저장 폴더 생성
-			File uploadPath = new File(uploadFolder, uploadFolderPath);
-			if (uploadPath.exists() == false) {
-				uploadPath.mkdirs();
-			}
+		ResponseEntity<String> result = new ResponseEntity<>("성공", HttpStatus.OK);
+		return result;
+	}
+	
+	/* 날짜별로 이미지 저장 폴더 생성해주는 메소드 */
+	private String getFolder() {
 
-			for (MultipartFile multipartFile : uploadFile) {
-				TripImageVO imgvo = new TripImageVO();
-				log.info("## Upload File Name: " + multipartFile.getOriginalFilename());
-				log.info("## Upload File Size: " + multipartFile.getSize());
-				String uploadFileName = multipartFile.getOriginalFilename();
-				uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-				imgvo.setFileName(uploadFileName);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-				UUID uuid = UUID.randomUUID();
+		Date date = new Date();
 
-				uploadFileName = uuid.toString() + "_" + uploadFileName;
+		String str = sdf.format(date);
 
-				try {
-					File saveFile = new File(uploadPath, uploadFileName);
-					multipartFile.transferTo(saveFile);
-					imgvo.setUuid(uuid.toString());
-					imgvo.setImagePath(uploadFolderPath);
-					
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 800, 500);
-					thumbnail.close();
-					
-					snsService.insertSNSImg(imgvo);
-				} catch (Exception e) {
-					log.info("## upload Exception: " + e);
-				}
-			}
-			ResponseEntity<String> result = new ResponseEntity<>("성공", HttpStatus.OK);
-			return result;
-		}
-		
-		/* 댓글 달기 */
-		@PostMapping("/insertReply")
-		@ResponseBody
-		public ResponseEntity<CommJoinDTO> insertReply(String content, String mem_code, String sns_code, int comm_code){
-			log.info("## comm_code : " + comm_code);
-			ResponseEntity<CommJoinDTO> result = null;
-			
-			CommVO vo = new CommVO(-1, sns_code, mem_code, comm_code, content, null); 
-			snsService.commRegister(vo);
-		  
-			CommJoinDTO commCheck = snsService.commCheck();
-			result = new ResponseEntity<CommJoinDTO>(commCheck, HttpStatus.OK);
-			
-			return result;
-		}
-		
-		/* 댓글 삭제 */
-		@PostMapping(value="/commDelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		@ResponseBody
-		public ResponseEntity<String> commDelete(int comm_code){
-			snsService.commDelete(comm_code);
-			ResponseEntity<String> result = null;
-			result = new ResponseEntity<String>("성공", HttpStatus.OK);
-			
-			return result;
-		}
-		
-		/* 좋아요 클릭 */
-		@PostMapping(value="/snsLike", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		@ResponseBody
-		public ResponseEntity<String> snsLike(String sns_code, String mem_code, String check){
-			log.info("##### snsLike: " + sns_code + mem_code + check);
-			SNSLikeVO vo = new SNSLikeVO(sns_code, mem_code);
-			
-			if(check.equals("plus")) {
-				snsService.snsLikePlus(vo);
-			}else if(check.equals("minus")) {
-				snsService.snsLikeMinus(vo);
-			}
-			ResponseEntity<String> result = new ResponseEntity<>("성공", HttpStatus.OK);
-			return result;
-		}
-		
-		/* 날짜별로 이미지 저장 폴더 생성해주는 메소드 */
-		private String getFolder() {
-
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-			Date date = new Date();
-
-			String str = sdf.format(date);
-
-			return str.replace("-", File.separator);
-		}
+		return str.replace("-", File.separator);
+	}
 }

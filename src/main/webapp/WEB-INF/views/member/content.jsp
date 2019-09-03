@@ -23,7 +23,7 @@
 <script src="/js/fontawesome.js" type="text/javascript"></script>
 <script src="/js/login_modal.js" type="text/javascript"></script>
 <script src="/js/jquery.validate.min.js" type="text/javascript"></script>
-<script src="/js/timeline.js" type="text/javascript"></script>
+<script src="/js/member_content.js" type="text/javascript"></script>
 
 
 </head>
@@ -31,7 +31,7 @@
 	<c:if test="${not empty authMsg}">
 		<script type="text/javascript">
 			alert('${authMsg}');
-		</script>
+		</script>x
 	</c:if>
 	<!-- login_modal -->
 	<%@include file="../includes/login_modal.jsp"%>
@@ -48,6 +48,7 @@
 				<!-- section-main -->
 				<div class="section-main clearfix">
 					<!-- sns-content-wrapper -->
+					<input type="hidden" value="${member.mem_code}" class="member-memCode">
 					<div class="sns-content-wrapper">
 						<div class="sns-modal-imgs">
 							<ul class="bxslider">
@@ -59,10 +60,13 @@
 						<div class="sns-article-right">
 							<span class="close">&times;</span>
 							<div class="sns-content">
+								<input type="hidden" value="${content.mem_code}" id="sns-writer-code">
+								<input type="hidden" value="${content.name}" id="sns-writer-name">
+								
 								<div class="sns-content-write">
 									<c:choose>
 										<c:when test="${content.profile != null}">
-											<img class="sns-writer-profile" src='/member/display?fileName=${memadd.profile}' alt="프로필">
+											<img class="sns-writer-profile" src='/member/display?fileName=${content.profile}' alt="프로필">
 										</c:when>
 										<c:when test="${content.profile == null}">
 											<c:choose>
@@ -180,7 +184,7 @@
 							<div class="sns-bottom">
 								<hr class="sns-line">
 								<ul class="sns-icon-list">
-									<c:if test="${likeCheck == false || likeCheck == ''}">
+									<c:if test="${likeCheck == false || likeCheck == null}">
 										<li> <img id="sns-heart" class="sns-icon sns-heart" src="/img/sns/heart.png" alt="좋아요"> </li>
 									</c:if>
 									<c:if test="${likeCheck == true}">
@@ -216,7 +220,7 @@
 			<!-- ./content -->
 
 			<!-- footer -->
-			<%@include file="../includes/footer.jsp"%>
+			<!-- %@include file="../includes/footer.jsp"%>-->
 		</div>
 </body>
 </html>
