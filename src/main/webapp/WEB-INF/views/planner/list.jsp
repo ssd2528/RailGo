@@ -37,6 +37,10 @@
 			<input type="hidden" class="tickets" name="tickets">
 			<input type="hidden" class="plancode" name="plancode">
 		</form>
+		<form class="paging-form">
+			<input type="hidden" class="start" name="start" value="1">
+			<input type="hidden" class="end" name="end" value="6">
+		</form>
 		<div class="content">
 			<div class="content-wrapper">
 				<!-- 여행 플래너 설명  -->

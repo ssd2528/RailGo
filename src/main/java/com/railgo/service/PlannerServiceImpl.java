@@ -1,6 +1,8 @@
 package com.railgo.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,16 +57,20 @@ public class PlannerServiceImpl implements PlannerService {
 		if(dpd != 0 && dp != 0)	return true;
 		else	return false;
 	}
-	public ArrayList<PlannerJsonDTO> PlanScheduleList(String mem_code,String page){
+	public ArrayList<PlannerJsonDTO> PlanScheduleList(String mem_code,String page,int start,int end){
 		ArrayList<PlannerJsonDTO> list = new ArrayList<>();
 		PlannerJsonDTO pjdto = null;
 		ArrayList<PlannerScheduleVO> plannerSchedule = new ArrayList<>();
 		ArrayList<PlannerDateVO> plannerDate = new ArrayList<>();
 		ArrayList<PlannerVO> plannerlist;
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("mem_code", mem_code);
+		parameters.put("start", start);
+		parameters.put("end", end);
 		if(page == "schedule") {	//schedule 페이지에서 호출
-			plannerlist = mapper.plannerList(mem_code);
+			plannerlist = mapper.plannerList(parameters);
 		}else {	// planner 페이지에서 호출
-			plannerlist = mapper.otherPlannerList(mem_code);
+			plannerlist = mapper.otherPlannerList(parameters);
 		}
 		int size = plannerlist.size();
 		if(size == 0) {

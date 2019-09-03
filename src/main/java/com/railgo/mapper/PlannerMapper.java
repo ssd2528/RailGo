@@ -1,6 +1,7 @@
 package com.railgo.mapper;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.railgo.domain.PlannerDateVO;
 import com.railgo.domain.PlannerScheduleVO;
@@ -19,8 +20,8 @@ public interface PlannerMapper {
 	int deletePlanner(String plan_code);
 	int deletePlannerSchedule(String plan_code);
 	int deletePlannerDate(String plan_code);
-	ArrayList<PlannerVO> otherPlannerList(String mem_code);
-	ArrayList<PlannerVO> plannerList(String mem_code);
+	ArrayList<PlannerVO> otherPlannerList(Map<String, Object> parameters);
+	ArrayList<PlannerVO> plannerList(Map<String, Object> parameters);
 	ArrayList<PlannerScheduleVO> plannerScheduleList(String plan_code);
 	ArrayList<PlannerDateVO> plannerDateList(String plan_code);
 }

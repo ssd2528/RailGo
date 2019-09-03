@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,17 +49,29 @@ public class PlannerController {
 	@Autowired
 	private MemberService memberService;
 	
+	@GetMapping(value="detail", produces = "text/html;charset=UTF-8;application/json")
+	@ResponseBody
+	public String detailview(@RequestParam("areacode") String areacode, @RequestParam("sigungucode") String sigungucode) {
+		System.out.println("areacode : "+areacode+", sigungucode : "+sigungucode);
+		String areaName = apiService.findAreaName(Integer.parseInt(areacode), Integer.parseInt(sigungucode));
+		System.out.println("areaName : "+areaName);
+		return areaName;
+	}
 	@RequestMapping(value="getOtherUsersScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String getOtherUsersScheduleList(@RequestBody Map<String,String> json) {
 		Map<String, String> map = json;
+		ModelAndView mv = new ModelAndView();
 		System.out.println("planner/getOtherUsersScheduleList init mem_code: " + map.get("mem_code"));
 		String mem_code = map.get("mem_code");
+		int start = Integer.parseInt(map.get("start"));
+		int end = Integer.parseInt(map.get("end"));
 		if(mem_code != null) {
-			ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"plan");
+			ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"plan",start,end);
 			if(plannerScheduleJsonList == null || plannerScheduleJsonList.size() == 0) {
-				return "fail";
+				return "null";
 			}else {
+				int totalCount = plannerScheduleJsonList.size();
 				Gson gson = new Gson();
 				String plannerScheduleJsonListToJson = gson.toJson(plannerScheduleJsonList);
 				System.out.println("ArrayList  :"+plannerScheduleJsonList);

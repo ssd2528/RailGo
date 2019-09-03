@@ -239,10 +239,15 @@ $(document).ready(function(){
 			window.location.href = '../member/schedule';
 		}
 	});
+	$('.more-btn').click(function(){
+		loadScheduleOtherUsers(mem_code,null);
+	});
 });
 
 function loadScheduleOtherUsers(mem_code,filter){
-	let param = {'mem_code':mem_code};
+	let start = $('.paging-form').children('.start').val();
+	let end = $('.paging-form').children('.end').val();
+	let param = {'mem_code':mem_code,'start':start,'end':end};
 	console.log(param);
 	$.ajax({
 		type : 'post',
@@ -253,9 +258,14 @@ function loadScheduleOtherUsers(mem_code,filter){
 		data : JSON.stringify(param),
 		success : function(data) {
 			console.log(data);
-			if(data.length === 0 || data === null || data === 'fail'){
-				$('.calendar-lists-wrapper').append('<div class="calendar-lists">'+'다른 내일러들의 일정이 없습니다.'+'</div>');
+			if(data === null || data === 'fail'){
+				if($('.calendar-lists-wrapper').children().length === 0){
+					$('.calendar-lists-wrapper').append('<div class="calendar-lists" style="margin-left:33.6%;border:none;font-size:22px;color:#464545">'
+						+'<img style="margin-top:50px;width:200px;height:200px;" src="../img/planner/dg_warning.png"><br>'+'다른 내일러들의 일정이 없습니다.'+'</div>');
+				}
 			}else{
+				 $('.paging-form').children('.start').val(parseInt(start)+6);
+				 $('.paging-form').children('.end').val(parseInt(end)+6);
 				for(let item of data){
 					let DayScheduleArr = new Array();
 					let name = getNameOfSchedule(item.planner.mem_code);
@@ -310,7 +320,6 @@ function loadScheduleOtherUsers(mem_code,filter){
 							+'<div class="calendar-text-writer">'+name+'</div>'
 							+'<div class="calendar-like-number-wrapper">'
 							+'<div class="calendar-text-like" ><img class="like-img" src="../img/sns/heart.png"></img></div>'
-							+'<div class="calendar-text-like-number">0</div>'
 							+'</div>'
 							+'</div>'
 							+'</div>'
@@ -318,14 +327,13 @@ function loadScheduleOtherUsers(mem_code,filter){
 					$('.schedule-list').children('#'+item.planner.plan_code).attr('value',JSON.stringify(item));
 				}
 				let items = $('.schedule-list').children('.item');
-				for(i = 0; i<items.length;i++){
-					console.log(items[i]);
-				}
-				
 			}
 		},
 		error : function(data, status, error) {
-			$('.calendar-lists-wrapper').append('<div class="calendar-lists">'+'다른 내일러들의 일정이 없습니다.'+'</div>');
+			if($('.calendar-lists-wrapper').children().length === 0){
+			$('.calendar-lists-wrapper').append('<div class="calendar-lists" style="margin-left:33.6%;border:none;font-size:22px;color:#464545"">'
+					+'<img style="margin-top:50px;width:200px;height:200px;" src="../img/planner/dg_warning.png"><br>'+'다른 내일러들의 일정이 없습니다.'+'</div>');
+			}
 			console.log('status : '+status);
 			console.log(data);
 		}
