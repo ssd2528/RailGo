@@ -1,7 +1,7 @@
 .section-main { padding-bottom:0px; margin:0 auto; }
 
 /* SNS-CONTENT */
-.sns-content-wrapper { height:510px; padding:26px 0; display:flex; }
+.sns-content-wrapper { height:510px; padding:26px 150px; display:flex; }
 .close { position:absolute; font-size:25px; right:10px; cursor:pointer; }
 .close:hover { font-size:27px; }
 

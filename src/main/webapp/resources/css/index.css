@@ -44,7 +44,7 @@
 .sns-content-body { margin:10px 0px; width: 100%; height: 215px; overflow: auto; }
 .sns-content-body::-webkit-scrollbar { display: none !important; }
 
-.sns-content-reply a { text-decoration:underline; }
+.sns-content-reply:hover { text-decoration:underline; }
 
 .sns-icon { width:30px; height:30px; padding:10px 20px 0px 0px;}
 .sns-icon:hover { cursor:pointer; }
