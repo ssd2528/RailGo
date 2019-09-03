@@ -1,10 +1,12 @@
 package com.railgo.mapper;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.railgo.domain.TripImageVO;
 
 public interface TripImageMapper {
-	public void insert(TripImageVO vo);
-	public List<TripImageVO> findBySNS_CODE(String sns_code);
+	public void insertReview(TripImageVO vo);
+	public ArrayList<TripImageVO> findReviewImg(String r_code);
+	public void insertSNS(TripImageVO vo);
+	public ArrayList<TripImageVO> findSNSImg(String sns_code);
 }

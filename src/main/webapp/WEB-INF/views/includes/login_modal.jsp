@@ -13,12 +13,13 @@
 				
 				<!-- 로그인 모달 (sign-in) -->
 				<div class="sign-in-group">
-					<form id="signin-form" class="signin-form" method="POST" action="signin">
+					<form id="signin-form" class="signin-form" method="POST" action="/signin">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<input class="inform" type='email' name='email' id='signin-email' class='signin-email' placeholder='이메일 주소'>
 						<input class="inform" type='password' name='pwd' id='signin-pwd' class='signin-pwd' placeholder='비밀번호'>
-						<div id="checkboxArea">
-							<input type='checkbox' name="loginCookie" id="loginCookie" class="loginCookie"> <label for="loginCookie"></label>자동로그인
-						</div>
+						<!-- <div id="checkboxArea">
+							<input type='checkbox' name="remember-me" id="remember-me" class="remember-me"> <label for="remember-me"></label>자동로그인
+						</div> -->
 						<div class="error_msg"></div>
 						<button class="logBtn" type="submit">로그인</button>
 						<br>
@@ -28,22 +29,22 @@
 				</div>
 				<hr class="line">
 				<div class="sign-in-group">
-					<!-- <button class="logFb" type="button">Facebook으로 로그인</button> -->
-					<button class="signin-kakao" id="signin-kakao" type="button"> <img src="../img/member/kakao_signin.png"></button>
-					<button class="logGe" type="button"><a href="${google_url}">Google으로 로그인</a></button>
+					<div class="signin-kakao"> <img src="/img/member/kakao.png"> <span> 카카오로 로그인 </span></div>
+					<div class="signin-naver"> <img src="/img/member/naver.png"/> <span> 네이버로 로그인</span> </div>
 				</div>
 				<!-- ./로그인 모달 (sign-in) -->
 				<!-- 비밀번호 찾기 모달 (password-find) -->
 				<div class="password-find-group">
 					<hr>
 					<p>가입된 이메일 주소를 입력해주세요.<br> 메일을 확인하시고 절차에 따라주세요.</p>
-					<form>
-						<input class="inform-addr" type='text' name='addr' placeholder='이메일 주소'>
+					<form id="password-find-form">
+						<input class="inform-addr" type='email' name='email' placeholder='이메일 주소'>
+						<div class="error_msg"></div>
+						<hr>
+						<div>
+							<button class="password-find-btn" type="submit">비밀번호 재설정</button>
+						</div>
 					</form>
-					<hr>
-					<div>
-						<button class="password-find-btn" type="button">비밀번호 재설정</button>
-					</div>
 				</div>
 				<!-- ./비밀번호 찾기 모달 (password-find) -->
 				
@@ -51,8 +52,9 @@
 				<div class="sign-up">
 					<hr>
 					<div class="sign-up-group">
-						<form name="signupF" method="POST" id="signup-form" class="signup-form" action="signup">
+						<form name="signupF" method="POST" id="signup-form" class="signup-form" action="/signup">
 							<div class="infoArea">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								<input class="inform" type='text' name='name' id="name" placeholder='이름'>
 								<input class="inform" type='email' name='email' id="email" placeholder='이메일 주소'> 
 								<input class="inform" type='password' name='pwd' id="pwd" placeholder='비밀번호'> 
@@ -75,8 +77,8 @@
 					</div>
 					<hr>
 					<div class="sign-up-group">
-						<button class="signin-kakao" id="signin-kakao" type="button"> <img src="../img/member/kakao_signin.png"></button>
-						<button class="logGe" type="button">Google으로 로그인</button>
+						<div class="signin-kakao"> <img src="/img/member/kakao.png"> <span> 카카오로 로그인 </span></div>
+						<div class="signin-naver"> <img src="/img/member/naver.png"/> <span> 네이버로 로그인</span> </div>
 					</div>
 				</div>
 				<!-- ./회원가입 모달 (sign-up) -->

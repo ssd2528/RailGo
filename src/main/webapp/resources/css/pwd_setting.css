@@ -4,20 +4,21 @@
 
 body { background:#F2F2F2; display:block; vertical-align: middle;}
 
-.new-pwd-change {background:#FFFFFF; padding:10px 20px; box-shadow:3px 3px 3px #7f7f7f;
-	margin: 170px auto; width: 400px; height: 360px; text-align: center;}
+.new-pwd-change {background:#FFFFFF; padding:50px 20px; box-shadow:3px 3px 3px #7f7f7f;
+	margin: 170px auto; width: 330px; /* height: 350px; */ text-align: center;}
 
-.pwd-title{color: #009CE9; margin-bottom: 15px; font-family: '12롯데마트행복Bold';
-	font-size: 75px; font-weight: 700;}
+.pwd-title{color: #009CE9; margin-bottom: 15px; font-family: '12롯데마트행복Bold'; font-size: 75px; font-weight: 700;}
 
 .pwd-content {margin-bottom: 15px; font-family: '12롯데마트행복Bold';}
 
-.new-pwd , .new-pwd-check {margin-top: 15px; width: 250px; height: 35px;}
+.email, .uuid, .reuuid, .new-pwd , .new-pwd-chk {margin-top: 15px; width: 250px; height: 35px; display:inline-block;}
 
 .pwd-change {background-color: #009CE9; border: none; color: white; 
-	width: 250px; height: 35px; text-align: center;
-	text-decoration: none; display: inline-block; font-size: 16px;}
+	width: 250px; height: 35px; text-align: center; cursor:pointer;
+	text-decoration: none; display: inline-block; font-size: 16px; margin-top: 15px;}
 
+
+label.error, .error_msg {font-size:11px; color:red; display:block;}
 
 
 

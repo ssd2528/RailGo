@@ -5,7 +5,9 @@ $(document).ready(function(){
 	// When the user clicks on the button, open the modal 
 	$('.signin-btn').on('click', function(){
 		modal.css('display', 'block');
-		$('.modal-title').text("내일고 로그인");
+		$('.modal-title').text('내일고 로그인');
+		$('label.error').css('display', 'none');
+		$('.error_msg').css('display', 'none');
 		$('.sign-in-group').show();
 		$('.line').show();
 		$('.sign-up').hide();
@@ -19,10 +21,12 @@ $(document).ready(function(){
 		$('label.error').css('display', 'none');
 		//location.reload();
 		$('html').css('overflow', 'auto');
-		
 	}); 
+	
 	$('.password-find-tag').click(function() {
 		$('form').each(function(){this.reset();})
+		$('label.error').css('display', 'none');
+		$('.error_msg').css('display', 'none');
 		$('.modal-title').text('내일고 비밀번호 찾기');
 		$('.password-find-group').show();
 		$('.sign-in-group').hide();
@@ -32,14 +36,17 @@ $(document).ready(function(){
 	$('.sign-up-tag').click(function() {
 		$('form').each(function(){this.reset();})
 		$('label.error').css('display', 'none');
-		$('.modal-title').text("내일고 회원가입");
+		$('.error_msg').css('display', 'none');
+		$('.modal-title').text('내일고 회원가입');
 		$('.sign-up').show();
 		$('.sign-in-group').hide();
 		$('.line').hide();
 	});
 	$('.sign-in-tag').click(function() {
 		$('form').each(function(){this.reset();})
-		$('.modal-title').text("내일고 로그인");
+		$('label.error').css('display', 'none');
+		$('.error_msg').css('display', 'none');
+		$('.modal-title').text('내일고 로그인');
 		$('.sign-in-group').show();
 		$('.line').show();
 		$('.sign-up').hide();
@@ -48,21 +55,32 @@ $(document).ready(function(){
 	
 
 	// 카카오 로그인 버튼 클릭 시 
-	$(document).on('click', '#signin-kakao', function(){
-		window.name = "parent";
-		window.open("https://kauth.kakao.com/oauth/authorize?client_id=96efae73b25f4b5afa4875a7d4a8839f&redirect_uri=http://localhost:8080/kakaoSignin&response_type=code", "kakao_signin", "width=400, height=700");
-		
+	$(document).on('click', '.signin-kakao', function(){
+		window.name = 'parent';
+		window.open('https://kauth.kakao.com/oauth/authorize?client_id=96efae73b25f4b5afa4875a7d4a8839f&redirect_uri=http://localhost:8080/kakaoSignin&response_type=code', 'kakao_signin', 'width=400, height=700');
 		return false;
+	});
+	
+	// 네이버 로그인 버튼 클릭 시 
+	$(document).on('click', '.signin-naver', function(){
+		window.name = 'parent';
+		$.get('http://localhost:8080/naver_url', function(data){
+			console.log('## data : ' + data);
+			window.open(data, 'naver_signin', 'width=400, height=750');
+			return false;
+		});
 	});
 	
 });
 
 
 $(function(){
+	
 	// 회원가입 Validate
-	$.validator.addMethod("passwordCk",  function( value, element ) {
+	$.validator.addMethod('passwordCk',  function( value, element ) {
 		return this.optional(element) ||  /^.*(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(value);
 	}); 
+	
 	$('#signup-form').validate({
 		rules:{
 			name:{required:true},
@@ -95,7 +113,7 @@ $(function(){
 			repwd:{required:'비밀번호를 입력해주세요.', equalTo:'비밀번호가 다릅니다. 다시 확인해주세요.'}
 		},
 		submitHandler:function(form){
-			if($("input:checkbox[id='agree']").is(":checked")) {
+			if($('input:checkbox[id="agree"]').is(':checked')) {
 				form.submit();
 			}else {
 				alert('약관에 동의하셔야 회원가입이 가능합니다.');
@@ -120,17 +138,19 @@ $(function(){
 			var loginCookie = $('#loginCookie').is(':checked');
 			//alert(loginCookie);
 			$.ajax({
-				url:'signin',
+				url:'/signin',
 				type:'post',
 				dataType:'text',
 				data:{email:email, pwd:pwd, loginCookie:loginCookie},
 				success : function(result) {
-					if(result == 'success') {
+					if(result == 'success') {	
 						alert('로그인 성공!');
-						location.href="../";
+						location.href='/';
 					}else if(result == 'does not exit') {
+						$('.error_msg').css('display', 'block');
 						$('.error_msg').html('존재하지 않는 아이디입니다.');
 					}else if(result == 'do not match') {
+						$('.error_msg').css('display', 'block');
 						$('.error_msg').html('아이디와 비밀번호가 일치하지 않습니다.');
 					}
 				}
@@ -138,6 +158,31 @@ $(function(){
 		}
 	});
 	
-	
+	// 비밀번호 재설정
+	$('#password-find-form').validate({
+		rules: {
+			email:{required:true, email:true},
+		},
+		messages: {
+			email:{required:'이메일을 입력하세요.', email:'올바른 이메일 주소를 입력하세요.'},
+		},submitHandler:function(form){
+			var email = $('.inform-addr').val();
+			$.ajax({
+				url:'/sendUUID',
+				type:'post',
+				dataType:'text',
+				data:{email:email},
+				success : function(result) {
+					if(result == 'success') {
+						alert('입력하신 이메일에 비밀번호 재설정 관련 메일을 보냈습니다.');
+						location.href='../';
+					}else if(result == 'does not exit') {
+						$('.error_msg').css('display', 'block');
+						$('.error_msg').html('존재하지 않는 이메일입니다. 회원가입해주세요.');
+					}
+				}
+			});
+		}
+	});
 });
 

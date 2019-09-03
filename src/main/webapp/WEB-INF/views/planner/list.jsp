@@ -8,24 +8,41 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>[RailGo] Planner list Page</title>
+		<link rel="icon" href="/img/favicon.ico">
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		<!-- CSS -->
-		<link href="../css/common.css" rel="stylesheet">
-		<link href="../css/index.css" rel="stylesheet">
-		<link href="../css/planner.css" rel="stylesheet">
-		<link href="../css/nailer_schedule_modal.css" rel="stylesheet">
+		<link href="/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/css/index.css" rel="stylesheet">
+		<link href="/css/common.css" rel="stylesheet">
+		<link href="/css/planner.css" rel="stylesheet">
+		<link href="/css/nailer_schedule_modal.css" rel="stylesheet">
+		<link href="/css/login_modal.css" rel="stylesheet"> <!-- 로그인 모달창 -->
 		<!-- JavaScript -->
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
-		<script src="../js/planner.js" type="text/javascript"></script>
-		<script src="../js/nailer_schedule_modal.js" type="text/javascript"></script>
+		<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
+		<script src="/js/planner.js" type="text/javascript"></script>
+		<script src="/js/nailer_schedule_modal.js" type="text/javascript"></script>
 	</head>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+	<!-- login_modal -->
+	<%@include file="../includes/login_modal.jsp"%>
+	
 	<div class="wrap">
 		<!-- header -->
 		<%@include file="../includes/header.jsp"%>
 		<!--  body  -->
+		<form class="mem-code"><input type="hidden" value="${member.mem_code}"></form>
+		<form id="list-schedule-json-data" method="post" action="./planner/plan">
+			<input type="hidden" class="item" name="item">
+			<input type="hidden" class="startday" name="startday">
+			<input type="hidden" class="tickets" name="tickets">
+			<input type="hidden" class="plancode" name="plancode">
+		</form>
+		<form class="paging-form">
+			<input type="hidden" class="start" name="start" value="1">
+			<input type="hidden" class="end" name="end" value="6">
+		</form>
 		<div class="content">
 			<div class="content-wrapper">
 				<!-- 여행 플래너 설명  -->
@@ -40,7 +57,12 @@
 						</div>
 					</div>
 					<div class="planner-info-btn-wrapper">
-						<button class="create-plan-btn"><img src="../img/planner/wh_plus.png"></img>일정 만들기</button>
+						<c:if test="${member ne null}">
+							<button class="create-plan-btn" id="create-plan-btn"><img src="../img/planner/wh_plus.png"></img>일정 만들기</button>
+						</c:if>
+						<c:if test="${member eq null}">
+							<button class="create-plan-btn" id="before-create-plan-btn"><img src="../img/planner/wh_plus.png"></img>일정 만들기</button>
+						</c:if>
 						<button class="my-plan-btn"><img src="../img/planner/wh_search.png">나의 일정</button>
 					</div>
 				</div>
@@ -119,13 +141,13 @@
 									<div id="seventh-day-tag">7일권</div>
 								</td>
 							</tr>
-							<tr>
+							<!-- <tr>
 								<td id="period" class="td-subject">여행 시기</td>
 								<td id="period-option" class="td-option">
 									<div id="summer-tag">여름</div>
 									<div id="winter-tag">겨울</div>
 								</td>
-							</tr>
+							</tr> -->
 							<tr>
 								<td id="theme"class="td-subject">여행 테마</td>
 								<td id="theme-option" class="td-option">
@@ -142,13 +164,13 @@
 						<div class="filter-text">다른 내일러들의 일정</div>
 							<!-- 일정들의 목록 -->
 						<div class="calendar-lists-wrapper">
-						<% for(int i = 0; i < 6; i++){ %>
+						<!-- 
 							<div class="calendar-lists">
 								<div class="calendar-map"></div>
 								<div class="calendar-text-wrapper">
 									<div class="calendar-text-tag">#셋이서</div>
 									<div class="calendar-text-tag">#전국일주</div>
-									<div class="calendar-text-course">서울-대전-대구-부산</div>
+									<div class="calendar-text-subject">일정제목</div>
 									<div class="calendar-text-writer">혐잉</div>
 									<div class="calendar-like-number-wrapper">
 										<div class="calendar-text-like" ><img class="like-img" src="../img/sns/heart.png"></img></div>	
@@ -156,13 +178,14 @@
 									</div>
 								</div>
 							</div>
-						<% } %>
+						 -->
 						</div>
 						<button class="more-btn"> 더보기 </button>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 		<!-- nailer schedule modal -->
 		<%@include file="nailer_schedule_modal.jsp" %>
 		<!-- plan-create-modal -->
@@ -175,4 +198,6 @@
 		<link rel="stylesheet" type="text/css" href="../calendarpicker/jquery.datetimepicker.css"/>
 		<script src="../calendarpicker/jquery.js"></script>
 		<script src="../calendarpicker/build/jquery.datetimepicker.full.min.js"></script>
+		<script src="/js/login_modal.js" type="text/javascript"></script>
+		<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 </html>

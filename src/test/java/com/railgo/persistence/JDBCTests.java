@@ -26,7 +26,7 @@ public class JDBCTests {
 				"RailGo")){
 			log.info(con);
 		}catch(Exception e) {
-			fail(e.getMessage());
+			fail("error : "+e.getMessage());
 		}
 	}
 }

@@ -7,20 +7,26 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>[RailGo] SNS Page</title>
+		<link rel="icon" href="/img/favicon.ico">
 		<!-- CSS -->
-		<link href="../css/common.css" rel="stylesheet">
-		<link href="../css/sns.css" rel="stylesheet">
-		<link href="../css/article_sns_user.css" rel="stylesheet">
-		<link href="../css/login_modal.css" rel="stylesheet">
-		<link href="../css/sns_modal.css" rel="stylesheet">
+		<link href="/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+		<link href="/css/common.css" rel="stylesheet">
+		<link href="/css/article_sns_user.css" rel="stylesheet">
+		<link href="/css/login_modal.css" rel="stylesheet">
+		<link href="/css/sns.css" rel="stylesheet">
+		<link href="/css/sns_modal.css" rel="stylesheet">
+		
 		
 		<!-- JavaScript -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="../js/sns.js" type="text/javascript"></script>
-		<script src="../js/login_modal.js" type="text/javascript"></script>
-		<script src="../js/sns_modal.js" type="text/javascript"></script>
-		<script src="../js/header.js" type="text/javascript"></script>
-		<script src="../js/jquery.validate.min.js" type="text/javascript"></script>
+		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
+		<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+		<script src="/js/fontawesome.js" type="text/javascript"></script>
+		<script src="/js/sns.js" type="text/javascript"></script>
+		<script src="/js/login_modal.js" type="text/javascript"></script>
+		<script src="/js/sns_modal.js" type="text/javascript"></script>
+		<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
+		
 	</head>
 	<body>
 		<c:if test="${not empty authMsg}">
@@ -28,6 +34,7 @@
 		</c:if>
 		<!-- login_modal -->
 		<%@include file="../includes/login_modal.jsp"%>
+	
 		
 		<div class="wrap">
 			<!-- header -->
@@ -41,40 +48,79 @@
 					<div class="section-main clearfix">
 						<div class="article-wrapper article-75">
 							<!-- article-sns-content -->
+							<input type="hidden" class="reply-memCode" value="${member.mem_code}">
 							<c:forEach items="${sns}" var="sns">
-								<form id="sns-forms" class="sns-form" action='' method='post'>
-									<input type="hidden" name="sns_code" class="sns_code" value="${sns.sns_code}">
-								<div class="article-item article-sns-content">
-									<div class="sns-content-user">
-										<img class="user-img" src="../img/header/default_profile_m.png">
-										<div class="user-name">${sns.name}</div>
-										<c:if test="${member.mem_code == sns.mem_code}">
-											<div class="edit-btn"> ...
-												<div class="edit-btn-group">
-													<div class="sns-content-edit">수정</div>
-													<div class="sns-content-delete">삭제</div>
-												</div>
-											</div>	
+								<form id="sns-form" class="sns-form" method="POST" action="">
+									<div class="article-item article-sns-content">
+										<div class="sns-content-user">
+											<c:choose>
+												<c:when test="${sns.profile != null}">
+													<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+												</c:when>
+												<c:when test="${sns.profile == null}">
+													<c:choose>
+														<c:when test="${sns.gender eq 'M'}">
+															<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+														</c:when>
+														<c:when test="${sns.gender eq 'F'}">
+															<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+														</c:when>
+													</c:choose>	
+												</c:when>
+												<c:when test="${sns.profile ne '' || sns.profile ne null}">
+													<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+												</c:when>
+											</c:choose>
+											<div class="user-name">${sns.name}</div>
+											<c:if test="${member.mem_code == sns.mem_code && member ne null}">
+												<div class="sns-edit-btn"> ...
+													<div class="sns-edit-btn-group">
+														<div class="sns-content-edit">수정</div>
+														<div class="sns-content-delete">삭제</div>
+													</div>
+												</div>	
+											</c:if>
+										</div>
+										
+										<div class="sns-imgs">
+											<ul class="bxslider">
+												<c:forEach items="${sns.imgList}" var="imgList">
+													<li><img src='/sns/display?fileName=${imgList.imagePath}/s_${imgList.uuid}_${imgList.fileName}' alt="SNS이미지"></li>
+												</c:forEach>
+											</ul>
+										</div>
+										
+										<div class="sns-content-body">
+											${sns.content}
+										</div>
+										<c:if test="${sns.commCount != 0}">
+											<div class="sns-content-reply sns-content-modal">${sns.commCount}개의 댓글 모두보기</div>
 										</c:if>
+										<ul class="icon-list"> 
+											<c:if test="${sns.snsLikeCheck == false || sns.snsLikeCheck == ''}">
+												<li> <img id="sns-heart" class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
+											</c:if>
+											<c:if test="${sns.snsLikeCheck == true}">
+												<li> <img id="sns-heart" class="sns-icon sns-heart-clicked" src="../img/sns/heart_clicked.png" alt="좋아요"> </li>
+											</c:if>
+											<li> <img class="sns-icon sns-chat sns-content-modal" src="../img/sns/chat.png" alt="댓글달기"> </li>
+										</ul>
+										<input type="hidden" name="sns_code" class="sns_code" value="${sns.sns_code}">
+										<input type="hidden" name="mem_code" class="mem_code" value="${member.mem_code}">
+										<c:if test="${sns.snsLikeCount != 0}">
+											<div class="sns-heart-count">좋아요 <span class="like-count">${sns.snsLikeCount}</span>개</div>
+										</c:if>
+										<c:if test="${sns.snsLikeCount == 0}">
+											<div class="sns-heart-count" style="display:none;">좋아요 <span class="like-count">${sns.snsLikeCount}</span>개</div>
+										</c:if>
+										<div class="sns-content-regDate">
+											<fmt:formatDate value="${sns.regDate}" pattern="yyyy년 MM월 dd일 HH:mm"/>
+										</div>
 									</div>
-									<img class="sns-img" src="../img/default.png" alt="SNS이미지">
-									<div class="sns-content-body" rows="5">
-										${sns.content}
-									</div>
-									<div class="sns-content-reply"><a href="#">3개의 댓글 모두보기</a></div>
-									<ul class="icon-list">
-										<li> <img class="sns-icon sns-heart" src="../img/sns/heart.png" alt="좋아요"> </li>
-										<li> <img class="sns-icon sns-chat" src="../img/sns/chat.png" alt="댓글달기"> </li>
-										<li> <img class="sns-icon sns-share" src="../img/sns/share.png" alt="공유하기"> </li>
-									</ul>
-									<div class="sns-heart-count">좋아요 5개</div>
-									<div class="sns-content-regDate">
-										<fmt:formatDate value="${sns.regDate}" pattern="yyyy-MM-dd HH:mm"/>
-									</div>
-								</div>
 								</form>
 							</c:forEach>
 						</div>
+						
 						<div class="article-wrapper article-25">
 							<!-- article-sns-user -->
 							<%@include file="../includes/article_sns_user.jsp"%>
@@ -87,28 +133,23 @@
 							</div>
 							<!-- ./article-adsense -->
 						</div>
-								
 					<!-- 글 작성 (+버튼) -->
-					<img class="sns-write-img" src="../img/sns/plus.png" alt="작성">
+					<c:if test="${member ne null}">
+						<img class="sns-write-img" src="../img/sns/plus.png" alt="작성">
+					</c:if>	
 					<!-- ./글 작성 (+버튼) -->
 					</div>
-					
-					<!-- 더보기 버튼 -->
-					<div class="more-button">
-						<a href="#" id="more-button">더보기</a> 
-					</div>
-					<!-- ./더보기 버튼 -->
-					
 					<!-- ./section-main -->
 				</div>
 				<!-- ./content-wrapper -->
 			</div>
 			<!-- ./content -->
 			
-			<!-- sns write modal -->
-			<%@include file="sns_modal.jsp" %>	
 			<!-- footer -->
 			<%@include file="../includes/footer.jsp"%>
 		</div>
+		
+		<!-- sns_modal -->
+		<%@include file="../includes/sns_modal.jsp"%>
 	</body>
 </html>

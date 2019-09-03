@@ -21,17 +21,15 @@
 	</form>
 	
 
-	<script src="<c:url value='../resources/jquery-3.4.1.min.js'/>"></script>
+	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 	<script>
 		$(document).ready(function() {
 			if('${request}' == 'signup') {
 				$("form#signup").submit();
 			} else if('${request}' == 'signin') {
-				$("form#signin").submit();
+				$('form#signin').submit();
 				self.close();
 				window.opener.location.href='../';
-				self.close();
-				
 			}
 		});
 	</script>
