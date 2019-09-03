@@ -6,6 +6,8 @@ import com.railgo.domain.SNSVO;
 
 public interface SNSMapper {
 	
-	public List<SNSVO> getList();
 	public void register(SNSVO sns);
+	public List<SNSVO> getList();
+	public int delete(String sns_code);
+	public int update(SNSVO sns);
 }

@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class CommVO {
-	private int comm_code; // ?Œ“ê¸?ì½”ë“œ
-	private String code; // ?ˆ™/?‹/ê´?/ê³?/?–‰/SNS ?†µ?•©ì½”ë“œ
-	private int mem_code; // ?šŒ?›ì½”ë“œ
-	private int origin_code; // ???Œ“ê¸??˜ ?› ?šŒ?›ì½”ë“œ
-	private Date regDate; // ?“±ë¡ë‚ ì§?
+	private int comm_code; // ?ï¿½ï¿½ï¿½?ì½”ë“œ
+	private String code; // ?ï¿½ï¿½/?ï¿½ï¿½/ï¿½?/ï¿½?/?ï¿½ï¿½/SNS ?ï¿½ï¿½?ï¿½ï¿½ì½”ë“œ
+	private String mem_code; // ?ï¿½ï¿½?ï¿½ï¿½ì½”ë“œ
+	private String origin_code; // ???ï¿½ï¿½ï¿½??ï¿½ï¿½ ?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½ì½”ë“œ
+	private Date regDate; // ?ï¿½ï¿½ë¡ë‚ ï¿½?
 }

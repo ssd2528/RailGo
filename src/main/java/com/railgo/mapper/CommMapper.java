@@ -1,5 +1,7 @@
 package com.railgo.mapper;
 
-public interface CommMapper {
+import com.railgo.domain.CommVO;
 
+public interface CommMapper {
+	public int insert(CommVO vo);
 }
