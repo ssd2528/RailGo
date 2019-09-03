@@ -35,3 +35,9 @@
 					</div>
 				</div>
 			</header>
+			
+		<!-- 로딩 이미지 -->
+		<div id="loading">
+			<img id="loading-image" src="/img/loading.gif" alt="Loading" />
+		</div>
+		<!-- ./로딩 이미지 -->

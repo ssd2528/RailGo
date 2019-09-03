@@ -24,3 +24,8 @@ $(document).ready(function(){
 	});
 	
 });
+
+//페이지 로딩
+$(window).on('load', function (){
+	 $("#loading").fadeOut(500);
+});
