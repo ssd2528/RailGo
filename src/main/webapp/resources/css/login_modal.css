@@ -3,7 +3,7 @@
 @import url('../font/12롯데마트행복Bold.ttf');
 
 /* The Modal (background) */
-#Modal {
+#login-modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 102; /* Sit on top */
@@ -15,7 +15,7 @@
 	background-color: rgba(0, 0, 0, 0.85); /* Black w/ opacity */
 }
 /* Modal Content(login)/Box */
-#Modal > .modal-content {
+#login-modal > .modal-content {
 	overflow: hidden;
 	background-color: #fefefe;
 	margin: 100px auto; /* 15% from the top and centered */
@@ -24,7 +24,7 @@
 	width: 340px; /* Could be more or less, depending on screen size */
 }
 /* The Close Button */
-#Modal .close {
+#login-modal .close {
 	color: #aaa;
 	float: right;
 	font-size: 40px;
@@ -32,76 +32,76 @@
 	margin-top: -4%
 }
 
-#Modal .close:hover, #Modal > .close:focus {
+#login-modal .close:hover, #login-modal > .close:focus {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
 }
 
 /* MODAL-TITLE */
-#Modal .modal-title { color: #009CE9; height: 50px; }
+#login-modal .modal-title { color: #009CE9; height: 50px; }
 
 /* SIGN IN */
-#Modal .sign-in-group {margin: 10px 40px;}
-#Modal #signin-form {margin:5px 0px 10px 0px;}
-#Modal .inform {margin-top: 15px; padding: 2%; width: 250px;}
-#Modal .inform:first-child {margin-top: 0px;}
+#login-modal .sign-in-group {margin: 10px 40px;}
+#login-modal #signin-form {margin:5px 0px 10px 0px;}
+#login-modal .inform {margin-top: 15px; padding: 2%; width: 250px;}
+#login-modal .inform:first-child {margin-top: 0px;}
 
-#Modal #checkboxArea {margin-top: 5px; padding-top: 4px;}
-#Modal input[type="checkbox"] {display: none;}
-#Modal input[id="remember-me"]+label {display: inline-block; width: 1rem; height: 1rem; cursor: pointer; border-radius: 3px; float: left; margin: 2px; border: 1px solid black;}
-#Modal input[id="remember-me"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%; background-size: 1rem;}
-#Modal .logBtn {background-color: #009CE9; border: none; color: white; margin-top: 10px;
+#login-modal #checkboxArea {margin-top: 5px; padding-top: 4px;}
+#login-modal input[type="checkbox"] {display: none;}
+#login-modal input[id="remember-me"]+label {display: inline-block; width: 1rem; height: 1rem; cursor: pointer; border-radius: 3px; float: left; margin: 2px; border: 1px solid black;}
+#login-modal input[id="remember-me"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%; background-size: 1rem;}
+#login-modal .logBtn {background-color: #009CE9; border: none; color: white; margin-top: 10px;
 	margin-bottom: 10px; padding: 3px; width: 250px; text-align: center;
 	text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer; }
 
-#Modal .password-find-tag {font-size: 13px;}
-#Modal .password-find-tag:hover {text-decoration:underline; cursor:pointer;}
+#login-modal .password-find-tag {font-size: 13px;}
+#login-modal .password-find-tag:hover {text-decoration:underline; cursor:pointer;}
 
-#Modal .sign-up-tag , #Modal .sign-in-tag { color: #009CE9; margin-left: 10px; font-size: 13px; }
-#Modal .sign-up-tag:hover , #Modal .sign-in-tag:hover , #Modal .agree-tag:hover { text-decoration:underline; cursor:pointer; }
+#login-modal .sign-up-tag , #login-modal .sign-in-tag { color: #009CE9; margin-left: 10px; font-size: 13px; }
+#login-modal .sign-up-tag:hover , #login-modal .sign-in-tag:hover , #login-modal .agree-tag:hover { text-decoration:underline; cursor:pointer; }
 
-#Modal .signin-kakao, .signin-naver { border: none; color: white; width: 250px; height:35px; display: inline-block; margin:10px 0px; cursor: pointer; }
-#Modal .signin-kakao { background:#f7e600; }
-#Modal .signin-naver { background:#1ec800; }
-#Modal .signin-kakao>* { color:#443731; vertical-align:middle; font-family:'Noto Sans KR', sans-serif; font-weight:bold; }
-#Modal .signin-naver>* { color:#FFF; vertical-align:middle; font-family:'Noto Sans KR', sans-serif; font-weight:bold; }
-#Modal .signin-kakao img, #Modal .signin-naver img { width:25px; height:25px; cursor: pointer; margin: 5px 20px 5px 30px; }
+#login-modal .signin-kakao, .signin-naver { border: none; color: white; width: 250px; height:35px; display: inline-block; margin:10px 0px; cursor: pointer; }
+#login-modal .signin-kakao { background:#f7e600; }
+#login-modal .signin-naver { background:#1ec800; }
+#login-modal .signin-kakao>* { color:#443731; vertical-align:middle; font-family:'Noto Sans KR', sans-serif; font-weight:bold; }
+#login-modal .signin-naver>* { color:#FFF; vertical-align:middle; font-family:'Noto Sans KR', sans-serif; font-weight:bold; }
+#login-modal .signin-kakao img, #login-modal .signin-naver img { width:25px; height:25px; cursor: pointer; margin: 5px 20px 5px 30px; }
 
 
 
 /* PWD FIND */
-#Modal .password-find-group, #Modal .sign-up {display: none;}
-#Modal #password-find-form label.error, #Modal #password-find-form .error_msg {margin:-10px 0px 20px 40px;}
+#login-modal .password-find-group, #login-modal .sign-up {display: none;}
+#login-modal #password-find-form label.error, #login-modal #password-find-form .error_msg {margin:-10px 0px 20px 40px;}
 
-#Modal p {margin-top: 15px; margin-left: 40px;}
+#login-modal p {margin-top: 15px; margin-left: 40px;}
 
-#Modal .inform-addr {margin-top: 15px; margin-bottom: 15px; margin-left: 40px;
+#login-modal .inform-addr {margin-top: 15px; margin-bottom: 15px; margin-left: 40px;
 	padding: 2%; width: 250px;}
 
-#Modal .password-find-btn {background-color: #009CE9; border: none; color: white;
+#login-modal .password-find-btn {background-color: #009CE9; border: none; color: white;
 	margin-top: 15px; margin-left: 40px; padding: 3px; width: 250px;
 	text-align: center; text-decoration: none; display: inline-block; font-size: 16px;}
 
 /* SIGN UP */
-#Modal .sign-up-group {margin: 2px 40px;}
-#Modal .signup-form {padding:5px 0px;}
-#Modal .sign-up-btn {background-color: #009CE9; border: none; color: white; margin-top: 10px;
+#login-modal .sign-up-group {margin: 2px 40px;}
+#login-modal .signup-form {padding:5px 0px;}
+#login-modal .sign-up-btn {background-color: #009CE9; border: none; color: white; margin-top: 10px;
 	margin-bottom: 10px; padding: 3px; width: 250px; text-align: center;
 	text-decoration: none; display: inline-block; font-size: 16px;}
 
-#Modal #sex-checkboxArea {margin-top: 10px;}
+#login-modal #sex-checkboxArea {margin-top: 10px;}
 /* input[type="radio"],  input[type="radio"]{display: none;} */
-#Modal input[id="male"]+label , #Modal input[id="female"]+label {display: inline-block; width: 1rem; height: 1rem;
+#login-modal input[id="male"]+label , #login-modal input[id="female"]+label {display: inline-block; width: 1rem; height: 1rem;
 	cursor: pointer; border-radius: 3px; float: left; margin: 3px; border: 1px solid black;}
-#Modal input[id="male"]:checked+label , #Modal input[id="female"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%;
+#login-modal input[id="male"]:checked+label , #login-modal input[id="female"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%;
 	background-size: 1rem;}
 
-#Modal #agree-checkboxArea {margin-top: 10px; font-size:13px;}
-#Modal #agree-checkboxArea>* { vertical-align:middle}
-#Modal input[type="checkbox"] {display: none;}
-#Modal input[id="agree"]+label {display: inline-block; margin-top: 15px; margin-right: 3px; width: 1rem;
+#login-modal #agree-checkboxArea {margin-top: 10px; font-size:13px;}
+#login-modal #agree-checkboxArea>* { vertical-align:middle}
+#login-modal input[type="checkbox"] {display: none;}
+#login-modal input[id="agree"]+label {display: inline-block; margin-top: 15px; margin-right: 3px; width: 1rem;
 	height: 1rem; cursor: pointer; border-radius: 3px; float: left; border: 1px solid black;}
-#Modal input[id="agree"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%;
+#login-modal input[id="agree"]:checked+label {background: url("../img/member/checkbox.jpg") no-repeat 50% 50%;
 	background-size: 1rem;}
-#Modal .agree-tag {color: #009CE9; margin-left: 10px;}
+#login-modal .agree-tag {color: #009CE9; margin-left: 10px;}

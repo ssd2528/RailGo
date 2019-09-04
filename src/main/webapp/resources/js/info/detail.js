@@ -137,3 +137,18 @@ $(document).ready(function(){
 		$('#searchForm').submit();
 	});
 });
+
+//recommend-item hover 이벤트
+$(document).ready(function(){
+	$(document).on('mouseenter','.recommend-list',function(){
+		var test = $(this).find('.recommend-img').attr('src');
+		$(this).find('.recommend-title').css('text-decoration', 'underline');
+		if(test!='/img/default.png'){
+			$(this).find('.recommend-img img').css('-webkit-transform', 'scale(1.1)');
+		}
+	});
+	$(document).on('mouseleave','.recommend-list',function(){
+		$(this).find('.recommend-title').css('text-decoration', 'none');
+		$(this).find('.recommend-img img').css('-webkit-transform', 'scale(1)');
+	});
+});

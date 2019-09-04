@@ -15,10 +15,15 @@
 .course-detail { font-size:15px; }
 
 /* article-concept */
-.concept-title { margin:5px 0px; }
+.concept-title { margin:5px 0px; font-size:20px; }
 .concept-content { display: flex; justify-content: space-between; width: 100%; }
-.concept-item { width:30%; background:#d9d9d9; }
-.concept-detail { font-size:15px; }
+.concept-item { width:30%; border:1px solid #d9d9d9; }
+.concept-item:hover { cursor:pointer; }
+.concept-detail { font-size:15px; padding:5px; }
+.concept-detail .concept-detail-subject { font-weight: bold; font-size: 17px; }
+.concept-detail .concept-detail-region { font-size:13px; color:#595959; }
+.concept-detail .concept-detail-tripdate { font-size:13px; color:#595959; }
+
 
 /* 		section-search 		*/
 .search-container {display: flex;padding: 0;margin:20px 10px 15px 10px; border: 0;}

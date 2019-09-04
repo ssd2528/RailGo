@@ -19,6 +19,7 @@
 		<link href="/css/article_sns_user.css" rel="stylesheet">
 		<link href="/css/login_modal.css" rel="stylesheet">
 		<link href="/css/sns_modal.css" rel="stylesheet">
+		<link href="/css/nailer_schedule_modal.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
@@ -30,6 +31,7 @@
 		<script src="/js/login_modal.js" type="text/javascript"></script>
 		<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 		<script src="/js/sns_modal.js" type="text/javascript"></script>
+		<script src="/js/nailer_schedule_modal.js" type="text/javascript"></script>
 
 	</head>
 	<body>
@@ -39,6 +41,14 @@
 		</c:if>
 		<!-- login_modal -->
 		<%@include file="includes/login_modal.jsp"%>
+		
+		<!-- 컨셉 중 자세히 보기 클릭시  planner/plan페이지로 이동 -->
+		<form id="list-schedule-json-data" method="post" action="./planner/plan">
+			<input type="hidden" class="item" name="item">
+			<input type="hidden" class="startday" name="startday">
+			<input type="hidden" class="tickets" name="tickets">
+			<input type="hidden" class="plancode" name="plancode">
+		</form>
 		
 		<div class="wrap">
 			<!-- header -->
@@ -102,37 +112,17 @@
 								<!-- 컨셉1 (concept-wrap) -->
 								<div class="concept-wrap">
 									<div class="concept-title">"나홀로 떠나는 여행"에 대한 추천 코스</div>
-									<ul class="concept-content">
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9  url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
+									<input type="hidden" id="plannerListBySolo" value='${plannerListBySolo}'>
+									<ul class="concept-content concept-solo">
+										
 									</ul>
 								</div>
 								<!-- 컨셉2 (concept-wrap) -->
 								<div class="concept-wrap" style="margin-top:20px;">
-									<div class="concept-title">"커플과 함께 떠나는 여행"에 대한 추천 코스</div>
-									<ul class="concept-content">
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9  url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
-										<li class="concept-item">
-											<div class="concept-img" style="background:#d9d9d9 url('/img/default.png') no-repeat center center/cover; width:100%; height:150px;"></div>
-											<div class="concept-detail">#나홀로_내일로</div>
-										</li>
+									<div class="concept-title">"맛있는 음식들과 함께 떠나는 여행"에 대한 추천 코스</div>
+									<input type="hidden" id="plannerListByEating" value='${plannerListByEating}'>
+									<ul class="concept-content concept-eating">
+										
 									</ul>
 								</div>
 							</div>
@@ -232,24 +222,9 @@
 						
 						
 						<div class="article-wrapper article-25">
-							<!-- article-search -->
-							<!-- <form id="searchForm" action="search" method="post">
-								<div class="search-container">
-									<input type="text" name="keyword" class="search-keyword" id="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
-								</div>
-							</form> -->
-							
 							<!-- article-sns-user -->
 							<%@include file="includes/article_sns_user.jsp"%>
 							<!-- ./article-sns-user -->
-							
-							<!-- article-adsense -->
-							<div class="article-item article-adsense">
-								<div class="article-title"><h2>에드센스</h2></div><br>
-								에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>
-							</div>
-							<!-- ./article-adsense -->
-							
 						</div>
 					</div> <!-- ./section-main -->
 					
@@ -260,6 +235,8 @@
 			</div>
 			<!-- ./content -->
 			
+			<!-- nailer schedule modal -->
+			<%@include file="planner/nailer_schedule_modal.jsp" %>
 			<!-- login_modal -->
 			<%@include file="includes/login_modal.jsp"%>	
 			<!-- sns_modal -->

@@ -93,7 +93,9 @@
 													<img class="recommend-img" src="/img/default.png">
 												</c:if>
 												<c:if test="${recommedItem.firstimage ne null}">
-													<img class="recommend-img" src="${recommedItem.firstimage}">
+													<div class="recommend-img">	
+														<img src="${recommedItem.firstimage}">
+													</div>
 												</c:if>
 												<div class="recommend-info">
 													<div class="recommend-title">${recommedItem.title}</div> 

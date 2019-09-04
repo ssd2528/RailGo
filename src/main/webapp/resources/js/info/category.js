@@ -566,3 +566,15 @@ $(document).ready(function(){
 		$('#searchForm').submit();
 	});
 });
+
+// info-list hover 이벤트
+$(document).ready(function(){
+	$(document).on('mouseenter','.info-list',function(){
+		$(this).find('.info-list-title').css('text-decoration', 'underline');
+		$(this).find('.info-list-img img').css('-webkit-transform', 'scale(1.1)');
+	});
+	$(document).on('mouseleave','.info-list',function(){
+		$(this).find('.info-list-title').css('text-decoration', 'none');
+		$(this).find('.info-list-img img').css('-webkit-transform', 'scale(1)');
+	});
+});	

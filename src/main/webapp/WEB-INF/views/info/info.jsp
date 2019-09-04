@@ -89,7 +89,9 @@
 												<input type="hidden" value="${foodItem.mapy}" name="mapy">
 												<input type="hidden" value="${areaName}" name="areaName">
 												<input type="hidden" value="음식점" name="category">
-												<div class="food-img" style="background:#d9d9d9  url('${foodItem.firstimage}') no-repeat center center/cover; width:100%; height:170px;"></div>
+												<div class="food-img" >
+													<img src="${foodItem.firstimage}">
+												</div>
 												<div class="food-detail">
 													<div class="fname">${foodItem.title}</div>
 													<div class="fcategory">${foodItem.cat3}</div>
@@ -112,7 +114,7 @@
 											<c:if test="${courseItem.firstimage eq null}">	
 												<img class="one-course-img" src="/img/default.png">
 											</c:if>
-											<c:if test="${courseItem.firstimage ne null}">	
+											<c:if test="${courseItem.firstimage ne null}">
 												<img class="one-course-img" src="${courseItem.firstimage}">
 											</c:if>
 												
@@ -151,7 +153,9 @@
 												<input type="hidden" value="${accomItem.mapy}" name="mapy">
 												<input type="hidden" value="${areaName}" name="areaName">
 												<input type="hidden" value="숙박" name="category">
-												<div class="bed-img" style="background:#d9d9d9  url('${accomItem.firstimage}') no-repeat center center/cover; width:100%; height:170px;"></div>
+												<div class="bed-img" >
+													<img src="${accomItem.firstimage}">
+												</div>
 												<div class="bed-detail">
 													<div class="bname">${accomItem.title}</div>
 													<div class="bcategory">${accomItem.cat3}</div>
@@ -162,16 +166,12 @@
 								</c:forEach>
 							</ul>
 						</div>
-						<!-- ./article-bed -->
+						<!-- ./article-bed-->
 					</div>
 
 
 					<div class="article-wrapper article-25">
 						<!-- article-search -->
-						<%-- <div class="search-container">
-							<input type="text" name="keyword" class="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
-							<input type="hidden" name="areaName" value="${areaName}">
-						</div> --%>
 					
 						<!-- article-sns-user -->
 						<%@include file="../includes/article_sns_user.jsp"%>
