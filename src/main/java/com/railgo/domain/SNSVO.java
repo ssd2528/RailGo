@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SNSVO {
-	private String name;
 	private String sns_code; // 숙/식/관/공/행/SNS통합코드
 	private String mem_code; // 회원코드
 	private String content; // 내용

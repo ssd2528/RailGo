@@ -23,8 +23,27 @@ $(document).ready(function(){
 		planner.css('color', 'black');
 	});
 	
+	//페이지 로딩
+	$.ajax({
+		type: "POST",
+		url: "",
+		data: "",
+		success: function(result)
+		{
+
+		},
+		error: function() {
+			
+		}
+	});
+    $('.wrap-loading').hide();
+ 
+    $('.wrap-loading')
+    .ajaxStart(function() {
+        $(this).fadeIn(500);
+    })
+    .ajaxStop(function() {
+    	$(this).fadeOut(500);
+    });
 });
-//페이지 로딩
-$(window).on('load', function (){
-	 $("#loading").fadeOut(500);
-});
+

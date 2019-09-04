@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="/js/header.js" type="text/javascript"></script>
 			<!-- header -->
 			<header class="clearfix">
 				<div class="header-inner clearfix">
+				
 					<!-- logo -->
 					<div class="logo">
 						<a href="/"><img src="/img/logo_default.png" alt="내일고"></a>
@@ -50,9 +52,9 @@
 					</div>
 				</div>
 			</header>
-			
+	
 		<!-- 로딩 이미지 -->
-		<div id="loading">
-			<img id="loading-image" src="/img/loading.gif" alt="Loading" />
+		<div class="wrap-loading">
+			<img id="loading-image" src="/img/header/loading.gif" alt="Loading" />
 		</div>
 		<!-- ./로딩 이미지 -->
