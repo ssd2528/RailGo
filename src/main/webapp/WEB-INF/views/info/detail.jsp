@@ -139,7 +139,7 @@
 							<c:forEach items="${reList}" var="reList">
 								<div class="review-table">
 									<c:if test="${null ne reList.profile}">
-										<img class="reviewer-img" src="${reList.profile}">
+										<img class="reviewer-img" src="/member/display?fileName=${reList.profile}">
 									</c:if>
 									<c:if test="${null eq reList.profile}">
 										<c:if test="${'M' eq reList.gender}"><img class="reviewer-img" src="/img/info/default_profile_m.png"></c:if>
@@ -269,10 +269,12 @@
 									<input type="hidden" value="${category}" name="category">
 									<div class="recommend-area">
 									<c:if test="${locList.firstimage eq null}">
-										<a href="#"><img class="recommend-img" src="/img/default.png"></a>
+										<img class="recommend-img" src="/img/default.png">
 									</c:if>
 									<c:if test="${locList.firstimage ne null}">
-										<a href="#"><img class="recommend-img" src="${locList.firstimage}"></a>
+										<div class="recommend-img">
+											<img src="${locList.firstimage}">
+										</div>
 									</c:if>
 										<div class="recommend-info">
 											<span class="recommend-title">${locList.title}</span> 
@@ -285,10 +287,6 @@
 								</li>
 							</c:forEach>
 						</ul>
-					</div>
-					<!-- article-adsense -->
-					<div class="article-item article-adsense">
-						에드센스<br> 에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>
 					</div>
 				</div>
 			</div>

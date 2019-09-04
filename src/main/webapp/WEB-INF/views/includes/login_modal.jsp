@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 		<!-- The Modal -->
-		<div id="Modal" class="modal">
+		<div id="login-modal" class="modal">
 
 			<!-- Modal content -->
 			<div class="modal-content">

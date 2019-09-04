@@ -36,3 +36,33 @@ $(document).ready(function(){
 		$('#searchForm').submit();
 	});
 });
+
+// course-item hover 이벤트
+$(document).ready(function(){
+	$(document).on('mouseenter','.course-item',function(){
+		var test = $(this).find('.course-item-subdetailimg').attr('src');
+		$(this).find('.course-item-subname').css('text-decoration', 'underline');
+		if(test!='/img/default.png'){
+			$(this).find('.course-item-subdetailimg').css('-webkit-transform', 'scale(1.1)');
+		}
+	});
+	$(document).on('mouseleave','.course-item',function(){
+		$(this).find('.course-item-subname').css('text-decoration', 'none');
+		$(this).find('.course-item-subdetailimg').css('-webkit-transform', 'scale(1)');
+	});
+});	
+
+// recommend-item hover 이벤트
+$(document).ready(function(){
+	$(document).on('mouseenter','.recommend-item',function(){
+		var test = $(this).find('.recommend-img').attr('src');
+		$(this).find('.recommend-title').css('text-decoration', 'underline');
+		if(test!='/img/default.png'){
+			$(this).find('.recommend-img img').css('-webkit-transform', 'scale(1.1)');
+		}
+	});
+	$(document).on('mouseleave','.recommend-item',function(){
+		$(this).find('.recommend-title').css('text-decoration', 'none');
+		$(this).find('.recommend-img img').css('-webkit-transform', 'scale(1)');
+	});
+});

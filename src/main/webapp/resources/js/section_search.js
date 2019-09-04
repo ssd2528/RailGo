@@ -108,16 +108,29 @@ function closeModal(){
 	$('body').css({'overflow':'auto', 'height':'100%'});
 }
 
+$(document).ready(function(){
+	$('#infoLinkForm').on('submit', function(){
+		$('.wrap-loading').css('display', 'block');
+		return true;
+	});
+});
 // LinkHandler(areaName)
 function infoLinkHandler(areaName){
 	if($('.search-city').hasClass('search-bed')){
-		location.href='../../info/accom/'+areaName;
+		$('#infoLinkForm').attr('action','/info/accom/'+areaName);
+		$('#infoLinkForm').submit();
+		//location.href='../../info/accom/'+areaName;
 	}else if($('.search-city').hasClass('search-hotplace')){
-		location.href='../info/hotplace/'+areaName;
+		$('#infoLinkForm').attr('action','/info/hotplace/'+areaName);
+		$('#infoLinkForm').submit();
+		//location.href='../info/hotplace/'+areaName;
 	}else if($('.search-city').hasClass('search-food')){
-		location.href='../../info/food/'+areaName;
+		$('#infoLinkForm').attr('action','/info/food/'+areaName);
+		$('#infoLinkForm').submit();
+		//location.href='../../info/food/'+areaName;
 	}else {
-		location.href='../../info/'+areaName;
+		$('#infoLinkForm').attr('action','/info/'+areaName);
+		$('#infoLinkForm').submit();
+		//location.href='../../info/'+areaName;
 	}
-	
 }

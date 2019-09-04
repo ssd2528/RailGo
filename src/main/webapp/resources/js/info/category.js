@@ -25,6 +25,10 @@ $(document).ready(function(){
 					error:function() {
 						alert('페이지 로드 중 문제가 발생하였습니다.');
 						return false;
+					}, beforeSend : function(){
+						$('.wrap-loading').show();
+					}, complete : function(){
+						$('.wrap-loading').hide();
 					}
 				});
 			}
@@ -60,6 +64,10 @@ $(document).ready(function(){
 					error:function() {
 						alert('페이지 로드 중 문제가 발생하였습니다.');
 						return false;
+					}, beforeSend : function(){
+						$('.wrap-loading').show();
+					}, complete : function(){
+						$('.wrap-loading').hide();
 					}
 				});
 				
@@ -82,6 +90,10 @@ $(document).ready(function(){
 						str +='<hr class="checkbox-hr">';
 						//console.log(html);
 						$('#checkbox-cat1List-block').html(str);
+					}, beforeSend : function(){
+						$('.wrap-loading').show();
+					}, complete : function(){
+						$('.wrap-loading').hide();
 					}
 				});
 				$('#checkbox-cat1').slideDown();	
@@ -130,6 +142,10 @@ $(document).ready(function(){
 					});
 					str +='<hr class="checkbox-hr">';
 					$('#checkbox-cat2List-block').html(str);
+				}, beforeSend : function(){
+					$('.wrap-loading').show();
+				}, complete : function(){
+					$('.wrap-loading').hide();
 				}
 			});
 			$('#checkbox-cat2').slideDown();
@@ -148,6 +164,10 @@ $(document).ready(function(){
 			error:function() {
 				alert('페이지 로드 중 문제가 발생하였습니다.');
 				return false;
+			}, beforeSend : function(){
+				$('.wrap-loading').show();
+			}, complete : function(){
+				$('.wrap-loading').hide();
 			}
 		});
 	});
@@ -191,6 +211,10 @@ $(document).ready(function(){
 					});
 					str +='<hr class="checkbox-hr">';
 					$('#checkbox-cat3List-block').html(str);
+				}, beforeSend : function(){
+					$('.wrap-loading').show();
+				}, complete : function(){
+					$('.wrap-loading').hide();
 				}
 			});
 			$('#checkbox-cat3').slideDown();
@@ -208,6 +232,10 @@ $(document).ready(function(){
 			error:function() {
 				alert('페이지 로드 중 문제가 발생하였습니다.');
 				return false;
+			}, beforeSend : function(){
+				$('.wrap-loading').show();
+			}, complete : function(){
+				$('.wrap-loading').hide();
 			}
 		});
 	});
@@ -246,6 +274,10 @@ $(document).ready(function(){
 			error:function() {
 				alert('페이지 로드 중 문제가 발생하였습니다.');
 				return false;
+			}, beforeSend : function(){
+				$('.wrap-loading').show();
+			}, complete : function(){
+				$('.wrap-loading').hide();
 			}
 		});
 	});	
@@ -304,6 +336,10 @@ $(document).ready(function(){
 			error:function() {
 				alert('페이지 로드 중 문제가 발생하였습니다.');
 				return false;
+			}, beforeSend : function(){
+				$('.wrap-loading').show();
+			}, complete : function(){
+				$('.wrap-loading').hide();
 			}
 		});
 	});
@@ -360,6 +396,10 @@ $(document).ready(function(){
 			error:function() {
 				alert('페이지 로드 중 문제가 발생하였습니다.');
 				return false;
+			}, beforeSend : function(){
+				$('.wrap-loading').show();
+			}, complete : function(){
+				$('.wrap-loading').hide();
 			}
 		});
 	});
@@ -451,6 +491,10 @@ $(document).ready(function(){
 			error:function() {
 				alert('페이지 로드 중 문제가 발생하였습니다.');
 				return false;
+			}, beforeSend : function(){
+				$('.wrap-loading').show();
+			}, complete : function(){
+				$('.wrap-loading').hide();
 			}
 		});
 		
@@ -537,6 +581,10 @@ $(document).ready(function(){
 			error:function() {
 				alert('페이지 로드 중 문제가 발생하였습니다.');
 				return false;
+			}, beforeSend : function(){
+				$('.wrap-loading').show();
+			}, complete : function(){
+				$('.wrap-loading').hide();
 			}
 		});
 		
@@ -566,3 +614,15 @@ $(document).ready(function(){
 		$('#searchForm').submit();
 	});
 });
+
+// info-list hover 이벤트
+$(document).ready(function(){
+	$(document).on('mouseenter','.info-list',function(){
+		$(this).find('.info-list-title').css('text-decoration', 'underline');
+		$(this).find('.info-list-img img').css('-webkit-transform', 'scale(1.1)');
+	});
+	$(document).on('mouseleave','.info-list',function(){
+		$(this).find('.info-list-title').css('text-decoration', 'none');
+		$(this).find('.info-list-img img').css('-webkit-transform', 'scale(1)');
+	});
+});	

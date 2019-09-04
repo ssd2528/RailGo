@@ -1,32 +1,42 @@
 $(document).ready(function(){
 	// open the modal 
-	$('.calendar-map').on("click",function(){
+	/*$('.calendar-map').on("click",function(){
+		console.log('1111111111');
 		   $("#modal").css('display','flex');
 		   setTimeout(function() {
 		      $("#modal").addClass('show');
 		   }, 1)
 		   $('body').css({'overflow':'hidden', 'height':'100%'});
 		   fillTextScheduleInfo(this);
-		});
+		});*/
+	$(document).on('click','.calendar-map',function(){
+		console.log('1111111111');
+		   $("#modal").css('display','flex');
+		   setTimeout(function() {
+		      $("#modal").addClass('show');
+		   }, 1)
+		   $('body').css({'overflow':'hidden', 'height':'100%'});
+		   fillTextScheduleInfo(this);
+	});
 	// 바깥 화면 클릭시 modal 창 닫기
 	$('body').click(function(e){
 	   if($('#modal').hasClass('show')){ // site 라는 특정영역이 열려있을 경우
 	      if(!$('#modal').has(e.target).length){ // site에 클릭 이벤트가 발생되어 있는게 없다면 아래 내용을 실행.
-	    	  closeModal();
+	    	  closeScheduleModal();
 	      }
 	   }
 	});
 	// close the modal 
 	$(".close-button").on("click",function(){
-		closeModal();
+		closeScheduleModal();
 	});
 	$('.detail-view-button').on('click',function(){
-		closeModal();
+		closeScheduleModal();
 		$('#list-schedule-json-data').submit();
 	});
 });
 // 모달 종료 메소드
-function closeModal(){
+function closeScheduleModal(){
 	 $('#modal').removeClass('show');
      $('body').css({'overflow':'auto', 'height':'100%'});
      setTimeout(function() {
@@ -44,17 +54,17 @@ function fillTextScheduleInfo(data){
 	let scheduleArr = $(data).prev().children('.day-schedule-str').val();
 	let splitArr = scheduleArr.split(',');
 	//자세히 보기시 넘기기 위한 데이터를 저장 할 변수 목록들
-	let jsonData = $(data).prev().children('.item').val();
-	let startdate = $(data).prev().children('.startdate').val();
-	let tickets = $(data).prev().children('.tickets').val();
-	let plancode = $(data).prev().children('.plancode').val(); 
-	console.log(data);
-	console.log('plan code :'+plancode);
-	$('.modal_title').text(name+'님의 일정');
-	$('.map-img').attr('src',img);
-	$('.schedule-title').text('제목 : '+subject);
-	$('.schedule-theme').text(hash_tag);
-	$('.schedule').text('일정 : '+startdate+' ~ '+enddate);
+	let jsonData = $(data).prev().find('.item').val();
+	let startdate = $(data).prev().find('.startdate').val();
+	let tickets = $(data).prev().find('.tickets').val();
+	let plancode = $(data).prev().find('.plancode').val(); 
+	//console.log(data);
+	//console.log('plan code :'+plancode);
+	$('#modal .modal_title').text(name+'님의 일정');
+	$('#modal .map-img').attr('src',img);
+	$('#modal .schedule-title').text(subject);
+	$('#modal .schedule-theme').text(hash_tag);
+	$('#modal .schedule').text('('+startdate+' ~ '+enddate+')');
 	if(scheduleArr.length === 0 || scheduleArr === null || scheduleArr === 'undefined'){
 		$('.nailer-schedule-group').children().remove();
 		$('.nailer-schedule-group').append('<div style="text-align:center; font-size:20px; margin-top:50px;"> 일정 목록이 없습니다. </div>');
@@ -79,7 +89,7 @@ function fillTextScheduleInfo(data){
 			cnt++;
 		}
 	}	
-	console.log(jsonData);
+	//console.log(jsonData);
 	jsonData = JSON.parse(jsonData);
 	fillFormData(jsonData,startdate,tickets,plancode);
 }
