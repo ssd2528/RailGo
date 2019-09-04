@@ -114,7 +114,6 @@ public class MemberController {
 			}
 		}
 	
-		log.info("timeline mem_code "+member.getMem_code());
 		//FollowingVO follow = new FollowingVO();
 		//follow.setMem_code(member.getMem_code());
 		//follow.setFollowing(mem_code);
@@ -128,6 +127,7 @@ public class MemberController {
 		mv.addObject("recomMemberAdd",memberService.selRecomMemAdd2(member.getMem_code()));
 		mv.addObject("selFollowing",memberService.selFollowing(member.getMem_code()));
 		mv.addObject("selFollower",memberService.selFollower(member.getMem_code()));
+		mv.addObject("getSnsCount",memberService.getSnsCount(member.getMem_code()));
 		//mv.addObject("selFollower",memberService.selFollower(member.getMem_code()));
 		//mv.addObject("selFollowExist",memberService.selFollowExist(follow));
 		//mv.addObject("otherFollower",memberService.selFollower());
@@ -150,10 +150,10 @@ public class MemberController {
 			rttr.addFlashAttribute("msg", "정상적인 경로를 통해 다시 접근해 주세요.");
 			return mv;
 		}
-		log.info("schedule mem_code "+member.getMem_code());
-		
+
 		mv.addObject("selFollowing",memberService.selFollowing(member.getMem_code()));
 		mv.addObject("selFollower",memberService.selFollower(member.getMem_code()));
+		mv.addObject("getSnsCount",memberService.getSnsCount(member.getMem_code()));
 		
 		return mv;
 	}
@@ -172,7 +172,6 @@ public class MemberController {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		Object obj = session.getAttribute("member");
 		FollowingVO follow = new FollowingVO();
-		log.info("member "+member);
 		
 		if(member != null) {
 			follow.setMem_code(member.getMem_code());
@@ -212,41 +211,39 @@ public class MemberController {
 			}
 		}	
 	
-		log.info(follow);
 		mv.setViewName("/member/other_user_info");
 		mv.addObject("selFollowing",memberService.selFollowing(mem_code));
 		mv.addObject("selFollower",memberService.selFollower(mem_code));
+		mv.addObject("getSnsCount",memberService.getSnsCount(mem_code));
 		mv.addObject("sns", getList);
-		log.info(mv);
 		
 		return mv;
 	}
 	
+	//팔로우
 	@RequestMapping(value="/following" , method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void following(FollowingVO following, RedirectAttributes rttr){
-		//log.info("mem_code :"+mem_code);
-		log.info("following :"+following);
+		log.info("## following :"+following);
 		memberService.following(following);
 	}
 	
+	//언팔로우
 	@RequestMapping(value="/unfollow" , method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void unfollow(FollowingVO following, RedirectAttributes rttr){
-		//log.info("mem_code :"+mem_code);
-		log.info("following :"+following);
+		log.info("## unfollow :"+following);
 		memberService.unFollow(following);
 	}
 	
+	//팔로우 했는지 확인
 	@RequestMapping(value="/followExist" , method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public void followExist(FollowingVO following, RedirectAttributes rttr){
-		//log.info("mem_code :"+mem_code);
-		log.info("following :"+following);
-		log.info(memberService.selFollowExist(following));
+		log.info("## followExist :"+following);
 		memberService.selFollowExist(following);
 		
-	}
+	}	
 	@RequestMapping(value="schedule/getLikeScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String getLikeScheduleList(@RequestBody Map<String,String> json) {
@@ -348,12 +345,9 @@ public class MemberController {
 				member.setProfile(multipartFile.getOriginalFilename());	
 			}
 			
-			log.info(member);
 			memberService.updateMemImage(member);
 			MemberAddVO memadd = memberService.selMemadd(member.getMem_code());
 			session.setAttribute("memadd", memadd);
-			log.info(member);
-			log.info(memadd);
 			
 			// IE has file each
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") +1);

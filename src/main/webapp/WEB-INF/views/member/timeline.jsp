@@ -120,11 +120,6 @@
 	
 							<!-- article-sns-user -->
 							<%@include file="../includes/article_sns_user.jsp"%>
-							<!-- article-adsense -->
-							<div class="article-item article-adsense">
-								또드또스<br> 또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>
-							</div>
-							<!-- /article-adsense -->
 						</div>
 	
 						<div class="article-wrapper article-75">
@@ -136,7 +131,9 @@
 										<div class="sns-content-user">
 											<c:choose>
 												<c:when test="${sns.profile != null}">
+													<a href="../member/timeline">
 													<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+													</a>
 												</c:when>
 												<c:when test="${sns.profile == null}">
 													<c:choose>

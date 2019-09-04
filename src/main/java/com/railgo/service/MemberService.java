@@ -24,6 +24,7 @@ public interface MemberService {
 	int selFollower(String mem_code); // 팔로워 불러오기
 	int selFollower2(String[] member);
 	int selFollowExist(FollowingVO following); // 팔로우 했는지 확인
+	int getSnsCount(String mem_code); // 포스팅 수 불러오기
 	void updateMemadd(MemberAddVO member); // 추가정보 업데이트
 	void updateMemImage(MemberAddVO member); // 사진 업데이트
 	
