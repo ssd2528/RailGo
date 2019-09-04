@@ -83,7 +83,7 @@
 												</c:if>
 													<li class="result-item-box">
 														<div class="result-item-img">
-															<c:if test="${item.firstimage eq null}"><img src="/img/default.png"></c:if>
+															<c:if test="${item.firstimage eq null}"><img class="default-img" src="/img/default.png"></c:if>
 															<c:if test="${item.firstimage ne null}"><img src="${item.firstimage}"></c:if>
 														</div>
 														<div class="result-item-info-box">
