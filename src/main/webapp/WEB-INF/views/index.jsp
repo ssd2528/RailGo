@@ -19,6 +19,7 @@
 		<link href="/css/article_sns_user.css" rel="stylesheet">
 		<link href="/css/login_modal.css" rel="stylesheet">
 		<link href="/css/sns_modal.css" rel="stylesheet">
+		<link href="/css/nailer_schedule_modal.css" rel="stylesheet">
 		
 		<!-- JavaScript -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
@@ -30,6 +31,7 @@
 		<script src="/js/login_modal.js" type="text/javascript"></script>
 		<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 		<script src="/js/sns_modal.js" type="text/javascript"></script>
+		<script src="/js/nailer_schedule_modal.js" type="text/javascript"></script>
 
 	</head>
 	<body>
@@ -39,6 +41,14 @@
 		</c:if>
 		<!-- login_modal -->
 		<%@include file="includes/login_modal.jsp"%>
+		
+		<!-- 컨셉 중 자세히 보기 클릭시  planner/plan페이지로 이동 -->
+		<form id="list-schedule-json-data" method="post" action="./planner/plan">
+			<input type="hidden" class="item" name="item">
+			<input type="hidden" class="startday" name="startday">
+			<input type="hidden" class="tickets" name="tickets">
+			<input type="hidden" class="plancode" name="plancode">
+		</form>
 		
 		<div class="wrap">
 			<!-- header -->
@@ -212,24 +222,9 @@
 						
 						
 						<div class="article-wrapper article-25">
-							<!-- article-search -->
-							<!-- <form id="searchForm" action="search" method="post">
-								<div class="search-container">
-									<input type="text" name="keyword" class="search-keyword" id="search-keyword" placeholder="검색"> <i class="fa fa-search icon"></i>
-								</div>
-							</form> -->
-							
 							<!-- article-sns-user -->
 							<%@include file="includes/article_sns_user.jsp"%>
 							<!-- ./article-sns-user -->
-							
-							<!-- article-adsense -->
-							<div class="article-item article-adsense">
-								<div class="article-title"><h2>에드센스</h2></div><br>
-								에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>
-							</div>
-							<!-- ./article-adsense -->
-							
 						</div>
 					</div> <!-- ./section-main -->
 					
@@ -240,6 +235,8 @@
 			</div>
 			<!-- ./content -->
 			
+			<!-- nailer schedule modal -->
+			<%@include file="planner/nailer_schedule_modal.jsp" %>
 			<!-- login_modal -->
 			<%@include file="includes/login_modal.jsp"%>	
 			<!-- sns_modal -->

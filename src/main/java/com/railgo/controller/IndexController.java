@@ -3,6 +3,7 @@ package com.railgo.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,15 +76,18 @@ public class IndexController {
 			mv.addObject("recomMember",memberService.selRecomMem());
 			mv.addObject("recomMemberAdd",memberService.selRecomMemAdd());
 		}	
+		
+		/* 컨셉 추천 */
 		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = null;
 		Gson gson = new GsonBuilder().create();
-		/* 컨셉 추천1. 나홀로 떠나는 여행  */
+		// 추천1. 나홀로 떠나는 여행 
 		plannerScheduleJsonList = plannerService.PlanScheduleListByTheme("theme-solo");
+		Collections.shuffle(plannerScheduleJsonList);
 		String plannerListBySolo = gson.toJson(plannerScheduleJsonList);
 		mv.addObject("plannerListBySolo", plannerListBySolo);
-		
-		/* 컨셉 추천2. 먹방 */
+		// 추천2. 먹방
 		plannerScheduleJsonList = plannerService.PlanScheduleListByTheme("theme-eating");
+		Collections.shuffle(plannerScheduleJsonList);
 		String plannerListByEating = gson.toJson(plannerScheduleJsonList);
 		mv.addObject("plannerListByEating", plannerListByEating);
 		
