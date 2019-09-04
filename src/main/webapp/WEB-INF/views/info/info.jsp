@@ -189,15 +189,6 @@
 						<%@include file="../includes/article_sns_user.jsp"%>
 						<!-- ./article-sns-user -->
 
-						<!-- article-adsense -->
-						<div class="article-item article-adsense">
-							<div class="article-title">
-								<h2>에드센스</h2>
-							</div>
-							<br> 에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>
-						</div>
-						<!-- ./article-adsense -->
-
 					</div>
 				</div>
 				<!-- ./section-main -->
