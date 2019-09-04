@@ -99,7 +99,6 @@
 	color:#929191;
 	font-size:16px;
 	font-weight:bold;
-	width:100%;
 	margin:5px;
 	margin-left:82px;
 }
@@ -126,6 +125,8 @@
 	display: inline-block;
 	color: #6f6f6f;
 }
+.calendar-text-like{display:inline-block;cursor:pointer;margin-right:10px;}
+.like-img{width:17px;height:17px;cursor:pointer;vertical-align: middle;margin-left:10px;}
 /*더보기 버튼*/
 .more-btn{
 	color:white;

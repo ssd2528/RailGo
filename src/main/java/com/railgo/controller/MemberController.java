@@ -247,17 +247,15 @@ public class MemberController {
 		memberService.selFollowExist(following);
 		
 	}
-	
-	
-	@RequestMapping(value="schedule/getScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
+	@RequestMapping(value="schedule/getLikeScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
-	public String getScheduleList(@RequestBody Map<String,String> json) {
+	public String getLikeScheduleList(@RequestBody Map<String,String> json) {
 		Map<String, String> map = json;
-		System.out.println("schedule/getScheduleList init mem_code: " + map.get("mem_code"));
+		System.out.println("schedule/ggetLikeScheduleList init mem_code: " + map.get("mem_code"));
 		String mem_code = map.get("mem_code");
 		int start = Integer.parseInt(map.get("start"));
 		int end = Integer.parseInt(map.get("end"));
-		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"schedule",start,end);
+		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.LikePlanScheduleList(mem_code,start,end);
 		if(plannerScheduleJsonList == null || plannerScheduleJsonList.size() == 0) {
 			return "null";
 		}else {
@@ -267,6 +265,34 @@ public class MemberController {
 			System.out.println("ArrayList -> Json result :"+plannerScheduleJsonListToJson);
 			return plannerScheduleJsonListToJson;
 		}
+	}
+	@RequestMapping(value="schedule/getScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String getScheduleList(@RequestBody Map<String,String> json) {
+		Map<String, String> map = json;
+		System.out.println("schedule/getScheduleList init mem_code: " + map.get("mem_code"));
+		String mem_code = map.get("mem_code");
+		int start = Integer.parseInt(map.get("start"));
+		int end = Integer.parseInt(map.get("end"));
+		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"schedule",start,end,"none","none","none");
+		if(plannerScheduleJsonList == null || plannerScheduleJsonList.size() == 0) {
+			return "null";
+		}else {
+			Gson gson = new Gson();
+			String plannerScheduleJsonListToJson = gson.toJson(plannerScheduleJsonList);
+			System.out.println("ArrayList  :"+plannerScheduleJsonList);
+			System.out.println("ArrayList -> Json result :"+plannerScheduleJsonListToJson);
+			return plannerScheduleJsonListToJson;
+		}
+	}
+	@RequestMapping(value="schedule/getPosting")
+	@ResponseBody
+	public String getPosting(@RequestBody Map<String, String> json) {
+		Map<String,String> map = json;
+		String mem_code = map.get("mem_code");
+		System.out.println("mem_code : "+mem_code);
+		String posting = String.valueOf(plannerService.getPostingCount(mem_code));
+		return posting;
 	}
 	@RequestMapping(value="schedule/deleteScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
