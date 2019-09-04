@@ -77,7 +77,9 @@
 							<img class="info-list-img" src="/img/default.png">
 						</c:when>
 						<c:when test="${item.firstimage ne null}"> 
-							<img class="info-list-img" src="${item.firstimage}">
+							<div class="info-list-img">
+								<img src="${item.firstimage}">
+							</div>
 						</c:when>
 					</c:choose>
 						
