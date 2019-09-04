@@ -73,3 +73,18 @@ $(document).ready(function(){
 		$('#searchForm').submit();
 	});
 });
+
+// result-item hover 이벤트
+$(document).ready(function(){
+	$(document).on('mouseenter','.result-item-box',function(){
+		var test = $(this).find('.result-item-img img').attr('class');
+		$(this).find('.result-item-title').css('text-decoration', 'underline');
+		if(test!='default-img'){
+			$(this).find('.result-item-img img').css('-webkit-transform', 'scale(1.1)');
+		}
+	});
+	$(document).on('mouseleave','.result-item-box',function(){
+		$(this).find('.result-item-title').css('text-decoration', 'none');
+		$(this).find('.result-item-img img').css('-webkit-transform', 'scale(1)');
+	});
+});	
