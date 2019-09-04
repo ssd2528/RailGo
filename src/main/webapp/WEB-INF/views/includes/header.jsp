@@ -52,9 +52,3 @@
 					</div>
 				</div>
 			</header>
-	
-		<!-- 로딩 이미지 -->
-		<div class="wrap-loading">
-			<img id="loading-image" src="/img/header/loading.gif" alt="Loading" />
-		</div>
-		<!-- ./로딩 이미지 -->

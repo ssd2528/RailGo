@@ -19,7 +19,7 @@
 		<div class="error500-content">서버 스크립트에 문제가 생겼습니다.</div>
 		<div>원격지 서버가 응답 시간을 초과하였습니다.<br>이용에 불편을 드려 죄송합니다.</div>
 		
-		<button class="error500-button" type="button">메인페이지로</button>
+		<button class="error500-button" type="button" onclick="location.href='/'">메인페이지로</button>
 	</div>
 	<!-- ./에러페이지 (error500)-->
 </body>
