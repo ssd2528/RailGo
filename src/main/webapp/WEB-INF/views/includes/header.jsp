@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="/js/header.js" type="text/javascript"></script>
 			<!-- header -->
 			<header class="clearfix">
 				<div class="header-inner clearfix">
@@ -50,3 +51,9 @@
 					</div>
 				</div>
 			</header>
+
+			<!-- 로딩 이미지 -->
+			<div class="wrap-loading">
+				<img id="loading-image" src="/img/header/loading.gif" alt="Loading" />
+			</div>
+			<!-- ./로딩 이미지 -->

@@ -108,6 +108,12 @@ function closeModal(){
 	$('body').css({'overflow':'auto', 'height':'100%'});
 }
 
+$(document).ready(function(){
+	$('#infoLinkForm').on('submit', function(){
+		$('.wrap-loading').css('display', 'block');
+		return true;
+	});
+});
 // LinkHandler(areaName)
 function infoLinkHandler(areaName){
 	if($('.search-city').hasClass('search-bed')){
@@ -117,7 +123,8 @@ function infoLinkHandler(areaName){
 	}else if($('.search-city').hasClass('search-food')){
 		location.href='../../info/food/'+areaName;
 	}else {
-		location.href='../../info/'+areaName;
+		$('#infoLinkForm').attr('action','info/'+areaName);
+		$('#infoLinkForm').submit();
+		//location.href='../../info/'+areaName;
 	}
-	
 }
