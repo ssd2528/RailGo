@@ -1,4 +1,9 @@
 $(document).ready(function(){
+	$('#searchForm').on('submit', function(){
+		$('.wrap-loading').css('display', 'block');
+		return true;
+	});
+	
 	var alarm = $('.alarm-img');
 	var sns = $('.sns-img'); 
 	var planner = $('.planner-img');

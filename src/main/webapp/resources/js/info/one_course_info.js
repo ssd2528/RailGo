@@ -1,4 +1,9 @@
 $(document).ready(function() {
+	$('.courseForm, #searchForm').on('submit', function(){
+		$('.wrap-loading').css('display', 'block');
+		return true;
+	});
+	
 	var firstimage = $('#firstimage-url').val();
 	$('.firstimage').css('background', '#FFFFFF url("'+firstimage+'") no-repeat center center/cover');
 	

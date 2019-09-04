@@ -1,4 +1,9 @@
 $(document).ready(function(){
+	$('.detailLinkForm, #searchForm').on('submit', function(){
+		$('.wrap-loading').css('display', 'block');
+		return true;
+	});
+	
 	// header의 검색 키워드 부분은 안보이게 하기 
 	$('header form#searchForm').remove();
 	

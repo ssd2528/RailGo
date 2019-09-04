@@ -1,5 +1,10 @@
 // CheckBox 
 $(document).ready(function(){
+	$('.detailForm, #searchForm').on('submit', function(){
+		$('.wrap-loading').css('display', 'block');
+		return true;
+	});
+	
 	var category = $('#category').val();
 	var areaName = $('#areaName').val();
 	
