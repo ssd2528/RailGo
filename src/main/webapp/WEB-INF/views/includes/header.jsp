@@ -4,7 +4,6 @@
 			<!-- header -->
 			<header class="clearfix">
 				<div class="header-inner clearfix">
-				
 					<!-- logo -->
 					<div class="logo">
 						<a href="/"><img src="/img/logo_default.png" alt="내일고"></a>
@@ -52,3 +51,9 @@
 					</div>
 				</div>
 			</header>
+
+			<!-- 로딩 이미지 -->
+			<div class="wrap-loading">
+				<img id="loading-image" src="/img/header/loading.gif" alt="Loading" />
+			</div>
+			<!-- ./로딩 이미지 -->

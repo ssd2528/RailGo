@@ -94,32 +94,10 @@
 										<div class="f-x-icon">&times;</div>
 									</div>
 									<!-- 필터 선택하면 올라오는 여행 테마 폼 -->
-									<div id="f-theme-wrapper">
-										<div id="f-theme0" class="filter-value">
-											<span class="f-text"></span>
-											<div class="f-line"></div>
-											<div class="f-x-icon">&times;</div>
-										</div>
-										<div id="f-theme1" class="filter-value">
-											<span class="f-text"></span>
-											<div class="f-line"></div>
-											<div class="f-x-icon">&times;</div>
-										</div>
-										<div id="f-theme2" class="filter-value">
-											<span class="f-text"></span>
-											<div class="f-line"></div>
-											<div class="f-x-icon">&times;</div>
-										</div>
-										<div id="f-theme3" class="filter-value">
-											<span class="f-text"></span>
-											<div class="f-line"></div>
-											<div class="f-x-icon">&times;</div>
-										</div>
-										<div id="f-theme4" class="filter-value">
-											<span class="f-text"></span>
-											<div class="f-line"></div>
-											<div class="f-x-icon">&times;</div>
-										</div>
+									<div id="f-theme" class="filter-value">
+										<span class="f-text"></span>
+										<div class="f-line"></div>
+										<div class="f-x-icon">&times;</div>
 									</div>
 								</td>
 							</tr>
@@ -141,13 +119,6 @@
 									<div id="seventh-day-tag">7일권</div>
 								</td>
 							</tr>
-							<!-- <tr>
-								<td id="period" class="td-subject">여행 시기</td>
-								<td id="period-option" class="td-option">
-									<div id="summer-tag">여름</div>
-									<div id="winter-tag">겨울</div>
-								</td>
-							</tr> -->
 							<tr>
 								<td id="theme"class="td-subject">여행 테마</td>
 								<td id="theme-option" class="td-option">

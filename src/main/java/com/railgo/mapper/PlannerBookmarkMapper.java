@@ -1,5 +1,9 @@
 package com.railgo.mapper;
 
-public interface PlannerBookmarkMapper {
+import com.railgo.domain.PlannerBookmarkVO;
 
+public interface PlannerBookmarkMapper {
+	void insertPlannerBookmark(PlannerBookmarkVO vo);
+	void deletePlannerBookmark(PlannerBookmarkVO vo);
+	int getLikeOrNotPlannerBookmark(PlannerBookmarkVO vo);
 }
