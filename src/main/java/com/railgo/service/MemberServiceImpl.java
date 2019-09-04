@@ -192,6 +192,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public int getSnsCount(String mem_code) {
+		return memberMapper.getSnsCount(mem_code);
+	}
+	
+	@Override
 	public void updateMemadd(MemberAddVO member) {
 		memberMapper.updateMemadd(member);
 	}

@@ -25,6 +25,7 @@ public interface MemberMapper {
 	int selFollower(String mem_code);
 	int selFollower2(String[] member);
 	int selFollowExist(FollowingVO following);
+	int getSnsCount(String mem_code);
 	void updateMemadd(MemberAddVO member);
 	void updateMemImage(MemberAddVO member);
 	
