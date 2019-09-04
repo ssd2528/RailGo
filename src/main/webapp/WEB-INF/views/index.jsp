@@ -112,18 +112,28 @@
 								<!-- 컨셉1 (concept-wrap) -->
 								<div class="concept-wrap">
 									<div class="concept-title">"나홀로 떠나는 여행"에 대한 추천 코스</div>
-									<input type="hidden" id="plannerListBySolo" value='${plannerListBySolo}'>
-									<ul class="concept-content concept-solo">
-										
-									</ul>
+									<c:if test='${plannerListBySolo eq null}'>
+										<div class="no-list" style="background:#efefef; width:100%; padding:50px 0; text-align:center;">
+											"나홀로 떠나는 여행"에 대한 코스 목록이 존재하지 않습니다.
+										</div>
+									</c:if>
+									<c:if test='${plannerListBySolo ne null}'>
+										<input type="hidden" id="plannerListBySolo" value='${plannerListBySolo}'>
+										<ul class="concept-content concept-solo"></ul>
+									</c:if>
 								</div>
 								<!-- 컨셉2 (concept-wrap) -->
 								<div class="concept-wrap" style="margin-top:20px;">
 									<div class="concept-title">"맛있는 음식들과 함께 떠나는 여행"에 대한 추천 코스</div>
-									<input type="hidden" id="plannerListByEating" value='${plannerListByEating}'>
-									<ul class="concept-content concept-eating">
-										
-									</ul>
+									<c:if test='${plannerListByEating eq null}'>
+										<div class="no-list" style="background:#efefef; width:100%; padding:50px 0; text-align:center;">
+											"맛있는 음식들과 함께 떠나는 여행"에 대한 코스 목록이 존재하지 않습니다.
+										</div>
+									</c:if>
+									<c:if test='${plannerListByEating ne null}'>
+										<input type="hidden" id="plannerListByEating" value='${plannerListByEating}'>
+										<ul class="concept-content concept-eating"></ul>
+									</c:if>
 								</div>
 							</div>
 							<!-- ./article-concept -->
