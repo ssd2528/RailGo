@@ -89,28 +89,28 @@
 									<c:when test="${memadd.address != null}">
 									<input type="text" name="address" class="profile-text1" value="${memadd.address}"><br></c:when>
 									<c:when test="${memadd.address == null}">
-									<input type="text" name="address" class="profile-text1" value="정보를 입력해주세요"><br></c:when>
+									<input type="text" name="address" class="profile-text1" value="주소를 입력해주세요"><br></c:when>
 									</c:choose>
 									<img class="location-job-birth-intertest"src="/img/member/info_job.png" alt="직업">
 									<c:choose>
 									<c:when test="${memadd.job != null}">
 									<input type="text" name="job" class="profile-text2" value="${memadd.job}"><br></c:when>
 									<c:when test="${memadd.job == null}">
-									<input type="text" name="job" class="profile-text2" value="정보를 입력해주세요"><br></c:when>
+									<input type="text" name="job" class="profile-text2" value="직업을 입력해주세요"><br></c:when>
 									</c:choose>
 									<img class="location-job-birth-intertest" src="/img/member/info_birth.png" alt="생일">
 									<c:choose>
 									<c:when test="${memadd.birth != null}">
 									<input type="text" name="birth" class="profile-text3" value="${memadd.birth}"><br></c:when>
 									<c:when test="${memadd.birth == null}">
-									<input type="text" name="birth" class="profile-text3" value="정보를 입력해주세요"><br></c:when>
+									<input type="text" name="birth" class="profile-text3" value="생일을 입력해주세요"><br></c:when>
 									</c:choose>
 									<img class="location-job-birth-intertest" src="/img/member/info_interests.png" alt="관심사">
 									<c:choose>
 									<c:when test="${memadd.interest != null}">
 									<input type="text" name="interest" class="profile-text4" value="${memadd.interest}"><br></c:when>
 									<c:when test="${memadd.interest == null}">
-									<input type="text" name="interest" class="profile-text4" value="정보를 입력해주세요"><br></c:when>
+									<input type="text" name="interest" class="profile-text4" value="관심사를 입력해주세요"><br></c:when>
 									</c:choose>						
 								</form>
 							<div class="profile-detailInfo">
