@@ -81,15 +81,19 @@ public class IndexController {
 		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = null;
 		Gson gson = new GsonBuilder().create();
 		// 추천1. 나홀로 떠나는 여행 
-		plannerScheduleJsonList = plannerService.PlanScheduleListByTheme("theme-solo");o
-		Collections.shuffle(plannerScheduleJsonList);
-		String plannerListBySolo = gson.toJson(plannerScheduleJsonList);
-		mv.addObject("plannerListBySolo", plannerListBySolo);
+		plannerScheduleJsonList = plannerService.PlanScheduleListByTheme("theme-solo");
+		if(plannerScheduleJsonList != null) {
+			Collections.shuffle(plannerScheduleJsonList);
+			String plannerListBySolo = gson.toJson(plannerScheduleJsonList);
+			mv.addObject("plannerListBySolo", plannerListBySolo);
+		}
 		// 추천2. 먹방
 		plannerScheduleJsonList = plannerService.PlanScheduleListByTheme("theme-eating");
-		Collections.shuffle(plannerScheduleJsonList);
-		String plannerListByEating = gson.toJson(plannerScheduleJsonList);
-		mv.addObject("plannerListByEating", plannerListByEating);
+		if(plannerScheduleJsonList != null) {
+			Collections.shuffle(plannerScheduleJsonList);
+			String plannerListByEating = gson.toJson(plannerScheduleJsonList);
+			mv.addObject("plannerListByEating", plannerListByEating);
+		}
 		
 		/* SNS 게시물 목록 조회 */
 		List<SNSJoinDTO> getList = snsService.getList();
