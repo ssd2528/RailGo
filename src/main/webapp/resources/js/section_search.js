@@ -117,13 +117,19 @@ $(document).ready(function(){
 // LinkHandler(areaName)
 function infoLinkHandler(areaName){
 	if($('.search-city').hasClass('search-bed')){
-		location.href='../../info/accom/'+areaName;
+		$('#infoLinkForm').attr('action','/info/accom/'+areaName);
+		$('#infoLinkForm').submit();
+		//location.href='../../info/accom/'+areaName;
 	}else if($('.search-city').hasClass('search-hotplace')){
-		location.href='../info/hotplace/'+areaName;
+		$('#infoLinkForm').attr('action','/info/hotplace/'+areaName);
+		$('#infoLinkForm').submit();
+		//location.href='../info/hotplace/'+areaName;
 	}else if($('.search-city').hasClass('search-food')){
-		location.href='../../info/food/'+areaName;
+		$('#infoLinkForm').attr('action','/info/food/'+areaName);
+		$('#infoLinkForm').submit();
+		//location.href='../../info/food/'+areaName;
 	}else {
-		$('#infoLinkForm').attr('action','info/'+areaName);
+		$('#infoLinkForm').attr('action','/info/'+areaName);
 		$('#infoLinkForm').submit();
 		//location.href='../../info/'+areaName;
 	}
