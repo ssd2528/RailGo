@@ -81,7 +81,7 @@ public class IndexController {
 		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = null;
 		Gson gson = new GsonBuilder().create();
 		// 추천1. 나홀로 떠나는 여행 
-		plannerScheduleJsonList = plannerService.PlanScheduleListByTheme("theme-solo");
+		plannerScheduleJsonList = plannerService.PlanScheduleListByTheme("theme-solo");o
 		Collections.shuffle(plannerScheduleJsonList);
 		String plannerListBySolo = gson.toJson(plannerScheduleJsonList);
 		mv.addObject("plannerListBySolo", plannerListBySolo);
