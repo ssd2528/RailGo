@@ -9,8 +9,7 @@ $(document).ready(function(){
 	var cityTag = '#capital-tag, #gangwon-tag, #choongchung-tag, #jeonla-tag, #gyeongsang-tag';
 	var daysTag = '#third-day-tag,#fifth-day-tag,#seventh-day-tag';
 	var periodTag = '#summer-tag,#winter-tag';
-	var themeTag = '#solo-tag,#duo-tag,#squad-tag,#eatting-tag,#healing-tag';
-	var fThemes = '#f-theme0,#f-theme1,#f-theme2,#f-theme3,#f-theme4';	
+	var themeTag = '#solo-tag,#duo-tag,#squad-tag,#eatting-tag,#healing-tag';	
 	var mem_code = $('.mem-code').children('input').val();
 	if(mem_code === '' || mem_code === null){
 		mem_code = 'guest';
@@ -20,7 +19,7 @@ $(document).ready(function(){
 	planner.css('color', '#009CE9');
 	planner.closest('li').css({'border-bottom':'solid 3px #009CE9', 'padding-bottom':'3px'});
 	
-	loadScheduleOtherUsers(mem_code,null);
+	loadScheduleOtherUsers(mem_code,'none','none','none');
 	// sns hover시 이미지 변환 
 	sns.hover(function(){
 		$('.sns-img img').attr('src', '../img/header/sns_clicked.png');
@@ -30,12 +29,18 @@ $(document).ready(function(){
 		sns.css('color', 'black');
 	});
 	//하트 누를시 이미지 변환 -> ajax 추가 필요 
-	$('.calendar-lists-wrapper').find('.calendar-text-like').click(function(){
-		var src = $('.like-img').attr("src");
-		if(src == "../img/sns/heart.png"){
-			$('.calendar-text-like').children('.like-img').attr('src','../img/sns/heart_clicked.png');
-		}else{
-			$('.calendar-text-like').children('.like-img').attr('src','../img/sns/heart.png');
+	$(document).on('click','.calendar-text-like',function(){
+		if(mem_code === 'guest'){alert('로그인 후 이용 가능 서비스입니다.');}
+		else{
+			let src = $(this).children('.like-img').attr("src");
+			let plan_code = $(this).attr('name');
+			if(src == "../img/sns/heart.png"){	//좋아요하지 않은 일정을 클릭했을때
+				$(this).children('.like-img').attr('src','../img/sns/heart_clicked.png');
+				likeOtherPlannerSchedule(mem_code,plan_code,'like');
+			}else{	//이미 좋아요 누른 일정을 또 클릭
+				$(this).children('.like-img').attr('src','../img/sns/heart.png');
+				likeOtherPlannerSchedule(mem_code,plan_code,'unlike');
+			}
 		}
 	});
 	// 필터 옵션 선택시 필터 row에 추가 -> ajax 추가 필요
@@ -51,57 +56,33 @@ $(document).ready(function(){
 			$(daysTag).css('color','#7f7f7f');		
 			$('#f-days').children('.f-text').text(tagVal);
 			$('#f-days').show();	
-		}else if(tagParent === 'period-option'){	//여행 시기 옵션중 하나 선택시
-			$(periodTag).css('color','#7f7f7f');		
-			$('#f-period').children('.f-text').text(tagVal);
-			$('#f-period').show();
 		}else{	//여행 테마 옵션중 하나 or 여러개 선택시
-			if($(this).attr('id') === 'solo-tag'){
-				$('#f-theme0').find('span').text(tagVal);
-				$('#f-theme0').show();
-			}else if($(this).attr('id') === 'duo-tag'){
-				$('#f-theme1').find('span').text(tagVal);
-				$('#f-theme1').show();
-			}else if($(this).attr('id') === 'squad-tag'){
-				$('#f-theme2').find('span').text(tagVal);
-				$('#f-theme2').show();
-			}else if($(this).attr('id') === 'eatting-tag'){
-				$('#f-theme3').find('span').text(tagVal);
-				$('#f-theme3').show();
-			}else if($(this).attr('id') === 'healing-tag'){
-				$('#f-theme4').find('span').text(tagVal);
-				$('#f-theme4').show();
-			}else{
-				return false;
-			}
+			$(themeTag).css('color','#7f7f7f');		
+			$('#f-theme').children('.f-text').text(tagVal);
+			$('#f-theme').show();	
 		}
 		$(this).css('color','#009CE9');	
+		$('.paging-form').children('.start').val('1');
+		$('.paging-form').children('.end').val('6');
+		$('.calendar-lists-wrapper').children().remove();
+		checkedFilterAndLoadList(mem_code);
 	});
 	// 선택된 필터 옵션 x 클릭시 버튼 없애기 or 파란색 칠해진 옵션 다시 복구하기 
-	$('#f-city,#f-days,#f-period'+','+fThemes).click(function(){
+	$('#f-city,#f-days,#f-period,#f-theme').click(function(){
 		var id = $(this).attr('id');
 		if(id === 'f-city'){
 			$(cityTag).css('color','#7f7f7f');
 		}else if(id === 'f-days'){
 			$(daysTag).css('color','#7f7f7f');
-		}else if(id === 'f-period'){
-			$(periodTag).css('color','#7f7f7f');
 		}else{
-			var themeTxt = $(this).find('span').text();
-			if(themeTxt === $('#solo-tag').text()){
-				$('#solo-tag').css('color','#7f7f7f');
-			}else if(themeTxt === $('#duo-tag').text()){
-				$('#duo-tag').css('color','#7f7f7f');
-			}else if(themeTxt === $('#squad-tag').text()){
-				$('#squad-tag').css('color','#7f7f7f');
-			}else if(themeTxt === $('#eatting-tag').text()){
-				$('#eatting-tag').css('color','#7f7f7f');
-			}else{
-				$('#healing-tag').css('color','#7f7f7f');
-			}			
+			$(themeTag).css('color','#7f7f7f');		
 		}
 		$(this).hide();
 		$(this).find('span').text('');
+		$('.paging-form').children('.start').val('1');
+		$('.paging-form').children('.end').val('6');
+		$('.calendar-lists-wrapper').children().remove();
+		checkedFilterAndLoadList(mem_code);
 	});
 	// 일정만들기 버튼 클릭시 모달창 오픈 - 로그인 되어 있는 상태 시 
 	$('.planner-info-btn-wrapper').children('#create-plan-btn').on("click",function(){
@@ -240,14 +221,60 @@ $(document).ready(function(){
 		}
 	});
 	$('.more-btn').click(function(){
-		loadScheduleOtherUsers(mem_code,null);
+		checkedFilterAndLoadList(mem_code);
 	});
 });
-
-function loadScheduleOtherUsers(mem_code,filter){
+// 다른 내일러 일정 좋아요 and 좋아요 취소 기능 메소드
+function likeOtherPlannerSchedule(mem_code,plan_code,likeOrUnlike){
+	let param = {"mem_code":mem_code , "plan_code":plan_code, "likeOrUnlike":likeOrUnlike};
+	let state;
+	$.ajax({
+		type:'post',
+		async:false,
+		url:'planner/likeOrUnlike',
+		dataType:'text',
+		contentType:'application/json',
+		data:JSON.stringify(param),
+		success: function(data){
+			console.log(data);
+			state = data;
+		},
+		eror: function(data){
+			console.log(data);
+		}
+	});
+	if(state == 'likeState' || state == 'unlikeState'){
+		return state;
+	}
+}
+// 필터 옵션 선택이나 선택된 필터 옵션 x 눌렀을때 필터옵션들 검사해서 내일러 스케쥴 리스트 출력해주는 메소드
+function checkedFilterAndLoadList(mem_code){
+	let cityfilter;
+	let datefilter;
+	let themefilter;
+	if($('#f-city').css('display') === 'block'){
+		cityfilter = $('#f-city').children('.f-text').text();
+	}else{cityfilter = 'none';}
+	if($('#f-days').css('display') === 'block'){
+		datefilter = $('#f-days').children('.f-text').text();
+	}else{datefilter = 'none';}
+	if($('#f-theme').css('display') === 'block'){
+		themefilter = $('#f-theme').children('.f-text').text();
+		if(themefilter === '나홀로'){themefilter = 'theme-solo';}
+		else if(themefilter === '단둘이'){themefilter = 'theme-duo';}
+		else if(themefilter === '셋이상'){themefilter = 'theme-squad';}
+		else if(themefilter === '먹방'){themefilter = 'theme-eating';}
+		else{themefilter = 'theme-healing'}
+	}else{
+		themefilter = 'none';
+	}
+	console.log('1 :'+cityfilter+' 2: '+datefilter+' 3: '+themefilter);
+	loadScheduleOtherUsers(mem_code,cityfilter,datefilter,themefilter);
+}
+function loadScheduleOtherUsers(mem_code,city,date,theme){
 	let start = $('.paging-form').children('.start').val();
 	let end = $('.paging-form').children('.end').val();
-	let param = {'mem_code':mem_code,'start':start,'end':end};
+	let param = {'mem_code':mem_code,'start':start,'end':end, 'city':city, 'date':date, 'theme':theme};
 	console.log(param);
 	$.ajax({
 		type : 'post',
@@ -280,6 +307,14 @@ function loadScheduleOtherUsers(mem_code,filter){
 					else if(item.planner.hash_tag === 'theme-squad'){hashTagText = '#셋이상';}
 					else if(item.planner.hash_tag === 'theme-eating'){hashTagText = '#먹방';}
 					else {hashTagText = '#힐링';}
+					let likeOrUnlikeState = likeOtherPlannerSchedule(mem_code,item.planner.plan_code,'getlikeOrNot');
+					let likeImg;
+					console.log(likeOrUnlikeState);
+					if(likeOrUnlikeState === 'likeState'){
+						likeImg = '../img/sns/heart_clicked.png';
+					}else{
+						likeImg = '../img/sns/heart.png';
+					}
 					/*for(let i of item.plannerDate){
 						if(i.region === '지역을 선택하세요.'){continue;}
 						course += (i.region+' - ');			
@@ -319,7 +354,7 @@ function loadScheduleOtherUsers(mem_code,filter){
 							+'<div class="calendar-text-tag">'+hashTagText+'</div>'
 							+'<div class="calendar-text-writer">'+name+'</div>'
 							+'<div class="calendar-like-number-wrapper">'
-							+'<div class="calendar-text-like" ><img class="like-img" src="../img/sns/heart.png"></img></div>'
+							+'<div class="calendar-text-like" name="'+item.planner.plan_code+'" ><img class="like-img" src="'+likeImg+'"></img></div>'
 							+'</div>'
 							+'</div>'
 							+'</div>'

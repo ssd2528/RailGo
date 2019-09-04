@@ -7,6 +7,7 @@ $(document).ready(function(){
 	$('.timeline').css('height','24px');
 	$('.tab-list a').css('margin','0px 30px 0px 30px');
 	init();
+	
 	//삭제 or 수정 버튼 클릭시 발생하는 이벤트
 	$(document).on('click','.m-btn,.d-btn',function(){
 		let funcName = $(this).attr('name');
@@ -17,6 +18,8 @@ $(document).ready(function(){
 			deleteScheduleItem(plan_code);
 		}else if(funcName === 'detail-view'){
 			insertScheduleItem(plan_code);
+		}else{
+			likeOtherPlannerSchedule(mem_code,plan_code,'unlike');
 		}
 	});
 	$('.my-schedule').click(function(){
@@ -44,7 +47,7 @@ $(document).ready(function(){
 		$(this).css('color','#009CE9');
 		$('.my-schedule').css('color','black');
 		$('.complete-schedule').css('color','black');
-		//loadPlannedSchedule('like');
+		loadPlannedSchedule('like');
 	});
 	$('.more-btn').click(function(){
 		let state;
@@ -57,13 +60,62 @@ $(document).ready(function(){
 		}
 		loadPlannedSchedule(state);
 	});
+	
+	$(document).on('click','.like-img',function(){
+		
+	});
 });
 let ScheduleJsonItem = new Array();
+let posting = 0;
 //schedule 페이지 로드시 초기 설정 메소드
 function init(){
 	let mem_code = $('.uploadDiv').children('input').val();
 	if(mem_code === '' || mem_code === null){window.location.replace("../");}
 	loadPlannedSchedule('insert');
+	getPosting(mem_code);
+}
+// 포스팅 갯수 메소드
+function getPosting(mem_code){
+	param = {'mem_code' : mem_code};
+	$.ajax({
+		type : 'post',
+		async : true,
+		url : '/member/schedule/getPosting',
+		dataType : 'text',
+		contentType : 'application/json',
+		data : JSON.stringify(param),
+		success : function(data){
+			posting = data;
+			console.log(data);
+			$('.posting').text(posting);
+		},error : function(data){
+			console.log(data);
+		}
+	});
+}
+//다른 내일러 일정 좋아요 and 좋아요 취소 기능 메소드
+function likeOtherPlannerSchedule(mem_code,plan_code,likeOrUnlike){
+	let param = {"mem_code":mem_code , "plan_code":plan_code, "likeOrUnlike":likeOrUnlike};
+	let state;
+	$.ajax({
+		type:'post',
+		async:false,
+		url:'../planner/likeOrUnlike',
+		dataType:'text',
+		contentType:'application/json',
+		data:JSON.stringify(param),
+		success: function(data){
+			console.log(data);
+			alert('좋아요 취소가 완료되었습니다.');
+			$('.schedule-lists').children('div').remove();
+			$('.paging-form').children('.start').val('1');
+			$('.paging-form').children('.end').val('6');
+			loadPlannedSchedule('like');
+		},
+		eror: function(data){
+			console.log(data);
+		}
+	});
 }
 // 해당 계정의 일정 목록들 불러오는 ajax 메소드
 function loadPlannedSchedule(scheduleState){
@@ -72,22 +124,32 @@ function loadPlannedSchedule(scheduleState){
 	let mem_code = $('.uploadDiv').children('input').val();
 	let name = $('.row2').children('.user-id').text();
 	let param = {'mem_code':mem_code,'start':start,'end':end};
+	let url;
 	/* 여행 일정 없을때의 문장*/
 	let str;
-	if(scheduleState === 'insert'){str = '계획중인 여행 일정이 없습니다.'}
-	else if(scheduleState === 'complete'){str = '완성된 여행 일정이 없습니다.'}
+	if(scheduleState === 'insert'){
+		str = '계획중인 여행 일정이 없습니다.'
+		url = '/member/schedule/getScheduleList';
+	}else if(scheduleState === 'complete'){
+		str = '완성된 여행 일정이 없습니다.'
+		url = '/member/schedule/getScheduleList';
+	}else{
+		str = '좋아요한 여행 일정이 없습니다.'
+		url = '/member/schedule/getLikeScheduleList';
+	}
 	console.log(mem_code);
 	$.ajax({
 		type : 'post',
 		async : true,
-		url : '/member/schedule/getScheduleList',
+		url : url,
 		dataType : 'json',
 		contentType : 'application/json',
 		data : JSON.stringify(param),
 		success : function(data) {
+			
 			if(data === 'fail' || data === null){
 				console.log($('.schedule-lists').children().length);
-				if($('.schedule-lists').length === 0){
+				if($('.schedule-lists').children().length === 0){
 					$('.schedule-lists').css('margin-left','33%');
 					$('.schedule-lists').append('<div class="dg_warning-div">'
 							+ '<img class="dg_warning" src="../img/planner/dg_warning.png"><br>'
@@ -102,7 +164,7 @@ function loadPlannedSchedule(scheduleState){
 				 $('.paging-form').children('.end').val(parseInt(end)+6);
 				console.log(data);
 				let items = data;
-				let posting = 0;
+				
 				for(let item of items){
 					ScheduleJsonItem.push(item);
 					let sortDate = new Array();
@@ -111,23 +173,27 @@ function loadPlannedSchedule(scheduleState){
 					let thumbnailImg;
 					let mBtnName;
 					let mBtnText;
+					let mBtnDelText;
 					let appendHashTag;
 					let hashTagText;
+					let delOrUnlikeText;
+					let margin;
 					if(item.planner.hash_tag === 'none'){
 						mBtnName = 'insert';
 						mBtnText = '수정';
 						appendHashTag = '';
 					}else{
+						if(scheduleState == 'like'){mBtnDelText = 'unlike';delOrUnlikeText = '좋아요 취소'; margin = 'margin-left: 130px;';}
+						else{mBtnDelText='delete';delOrUnlikeText = '삭제'; margin = 'margin-left: 82px;';}
 						//일정에 해시태그를 표시하기 위한 구별 코드
 						if(item.planner.hash_tag === 'theme-solo'){hashTagText = '나홀로';}
 						else if(item.planner.hash_tag === 'theme-duo'){hashTagText = '단둘이';}
 						else if(item.planner.hash_tag === 'theme-squad'){hashTagText = '셋이상';}
 						else if(item.planner.hash_tag === 'theme-eating'){hashTagText = '먹방';}
 						else {hashTagText = '힐링';}
-						posting++;	// 완료된 일정을 세는 변수
 						mBtnName = 'detail-view';
 						mBtnText = '일정 상세 보기';
-						appendHashTag = '<div class="hash-tag">'+'#'+hashTagText+'</div>'
+						appendHashTag = '<div class="hash-tag" style="'+margin+'">'+'#'+hashTagText+'</div>';
 					}
 					//진행중 , 완료 일정 구분 하기 위한 코드
 					if(scheduleState === 'insert' && item.planner.hash_tag !== 'none'){continue;}
@@ -147,26 +213,25 @@ function loadPlannedSchedule(scheduleState){
 						thumbnailImg = item.plannerSchedule[0].content_img;
 					}
 					$('.schedule-lists').css('margin-left','0');
-					$('.schedule-lists').append(
-							'<div class="schedule-list" name="'+item.planner.plan_code+'">'
-							+'<img class="schedule-list-img" src="'+thumbnailImg+'">'
-							+'<div class="schedule-text-wrapper">'
-							+'<div class="schedule-name">'+item.planner.subject+'</div>'
-							+'<div class="schedule-date">('+startdate+' ~ '+lastdate+')</div>'
-							+'<div class="name-wrapper">'
-							+'<img class="schedule-userImg" border-radius src="'+$('#profile-img').attr('src')+'">'
-							+'<div class="schedule-userName">'+name+'</div>'
-							+'<div class="btn-wrapper">'
-							+'<div class="m-btn" name="'+mBtnName+'" style="cursor:pointer;">'+mBtnText+'</div>'
-							+'&nbsp;|&nbsp;'
-							+'<div class="d-btn" name="delete" style="cursor:pointer;">삭제</div>'
-							+ appendHashTag
-							+'</div>'
-							+'</div>'
-							+'<div>'
-					);
+						$('.schedule-lists').append(
+								'<div class="schedule-list" name="'+item.planner.plan_code+'">'
+								+'<img class="schedule-list-img" src="'+thumbnailImg+'">'
+								+'<div class="schedule-text-wrapper">'
+								+'<div class="schedule-name">'+item.planner.subject+'</div>'
+								+'<div class="schedule-date">('+startdate+' ~ '+lastdate+')</div>'
+								+'<div class="name-wrapper">'
+								+'<img class="schedule-userImg" border-radius src="'+$('#profile-img').attr('src')+'">'
+								+'<div class="schedule-userName">'+name+'</div>'
+								+'<div class="btn-wrapper">'
+								+'<div class="m-btn" name="'+mBtnName+'" style="cursor:pointer;">'+mBtnText+'</div>'
+								+'&nbsp;|&nbsp; <div class="d-btn" name="'+mBtnDelText+'" style="cursor:pointer;">'+delOrUnlikeText+'</div>'
+								+ appendHashTag
+								+'</div>'
+								+'</div>'
+								+'<div>'
+						);
 				}
-				$('.row2').children('.posting').text(posting);
+				//$('.row2').children('.posting').text(posting);
 				if($('.schedule-lists').children().length === 0){
 					$('.schedule-lists').css('margin-left','33%');
 					$('.schedule-lists').append('<div class="dg_warning-div">'
@@ -217,6 +282,7 @@ function insertScheduleItem(plan_code){
 }
 //일정 삭제 버튼 클릭시 일정을 삭제하는 메소드
 function deleteScheduleItem(plan_code){
+	let mem_code = $('.uploadDiv').children('input').val();
 	let param = {'plan_code' : plan_code};
 	$.ajax({
 		type : 'post',
@@ -227,8 +293,20 @@ function deleteScheduleItem(plan_code){
 		data : JSON.stringify(param),
 		success : function(data) {
 			console.log(data);
-			if(data === 's'){alert('삭제가 완료되었습니다.');	loadPlannedSchedule();}
-			else{alert('삭제를 실패하였습니다.');}
+			if(data === 's'){
+				alert('삭제가 완료되었습니다.');
+				let state;
+				console.log($('.complete-schedule').css('color'));
+				if($('.my-schedule').css('color') === 'rgb(0, 156, 233)'){state = 'insert';}
+				if($('.complete-schedule').css('color') === 'rgb(0, 156, 233)'){state = 'complete';}
+				if($('.like-schedule').css('color') === 'rgb(0, 156, 233)'){state = 'like';}
+				getPosting(mem_code);
+				$('.schedule-lists').children('div').remove();
+				$('.paging-form').children('.start').val('1');
+				$('.paging-form').children('.end').val('6');
+				loadPlannedSchedule(state);
+				
+			}else{alert('삭제를 실패하였습니다.');}
 		},
 		error : function(data, status, error) {
 			//alert('fail code :' + data.status + ', ' + data);

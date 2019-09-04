@@ -114,17 +114,30 @@ $(document).ready(function() {
 	});
 	// 완료 버튼 클릭 이벤트 -> 완료된 일정에선 텍스트가 닫기임
 	$('.completeBtn').click(function(){
-		if($(this).text() === '완료'){
-			let subject = $('.plan-name').text();
-			if(subject !== '일정 제목' && subject !== ''){
-				$('.save-subject-input').val(subject);
+		let items = $('.plan-date-box').children('li');
+		let flag = false;
+		for(let item of items){
+			console.log(item);
+			if($(item).css('visibility') === 'visible'){
+				console.log($(item).children('.detail-box').children('.region').text());
+				if($(item).children('.detail-box').children('.region').text() === '지역을 선택하세요.'){
+					flag = false;
+				}else{ flag = true;}
 			}
-			//모달창 오픈
-			$(".save-modal-wrapper").css('display','flex');
-			   setTimeout(function() {
-			      $(".save-modal-wrapper").addClass('open');
-			 }, 1)
-			$('body').css({'overflow':'hidden', 'height':'100%'});
+		}
+		if($(this).text() === '완료'){
+			if(flag){			
+				let subject = $('.plan-name').text();
+				if(subject !== '일정 제목' && subject !== ''){
+					$('.save-subject-input').val(subject);
+				}
+				//모달창 오픈
+				$(".save-modal-wrapper").css('display','flex');
+				   setTimeout(function() {
+				      $(".save-modal-wrapper").addClass('open');
+				 }, 1)
+				$('body').css({'overflow':'hidden', 'height':'100%'});
+			}else{alert('DAY일정을 모두 선택해 주세요.');}
 		}else{
 			window.location.href = "../";
 		}

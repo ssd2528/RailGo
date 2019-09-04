@@ -1,13 +1,23 @@
 $(document).ready(function(){
 	// open the modal 
-	$('.calendar-map').on("click",function(){
+	/*$('.calendar-map').on("click",function(){
+		console.log('1111111111');
 		   $("#modal").css('display','flex');
 		   setTimeout(function() {
 		      $("#modal").addClass('show');
 		   }, 1)
 		   $('body').css({'overflow':'hidden', 'height':'100%'});
 		   fillTextScheduleInfo(this);
-		});
+		});*/
+	$(document).on('click','.calendar-map',function(){
+		console.log('1111111111');
+		   $("#modal").css('display','flex');
+		   setTimeout(function() {
+		      $("#modal").addClass('show');
+		   }, 1)
+		   $('body').css({'overflow':'hidden', 'height':'100%'});
+		   fillTextScheduleInfo(this);
+	});
 	// 바깥 화면 클릭시 modal 창 닫기
 	$('body').click(function(e){
 	   if($('#modal').hasClass('show')){ // site 라는 특정영역이 열려있을 경우

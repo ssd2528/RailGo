@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.railgo.domain.PlannerBookmarkVO;
 import com.railgo.domain.PlannerDateVO;
 import com.railgo.domain.PlannerJsonDTO;
 import com.railgo.domain.PlannerScheduleVO;
@@ -66,12 +67,15 @@ public class PlannerController {
 		String mem_code = map.get("mem_code");
 		int start = Integer.parseInt(map.get("start"));
 		int end = Integer.parseInt(map.get("end"));
+		String city = map.get("city");
+		String date = map.get("date");
+		String theme = map.get("theme");
+		//System.out.println("$!$!$$$$$$$$$$$$$ : "+city+','+date+','+theme);
 		if(mem_code != null) {
-			ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"plan",start,end);
+			ArrayList<PlannerJsonDTO> plannerScheduleJsonList = plannerService.PlanScheduleList(mem_code,"plan",start,end,city,date,theme);
 			if(plannerScheduleJsonList == null || plannerScheduleJsonList.size() == 0) {
 				return "null";
 			}else {
-				int totalCount = plannerScheduleJsonList.size();
 				Gson gson = new Gson();
 				String plannerScheduleJsonListToJson = gson.toJson(plannerScheduleJsonList);
 				System.out.println("ArrayList  :"+plannerScheduleJsonList);
@@ -82,7 +86,28 @@ public class PlannerController {
 			return "fail";
 		}
 	}
-	
+	@RequestMapping(value="likeOrUnlike", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String likeOrUnlike(@RequestBody Map<String,String> json) {
+		Map<String,String> map = json;
+		String likeOrUnlike = map.get("likeOrUnlike");
+		PlannerBookmarkVO vo = new PlannerBookmarkVO(map.get("mem_code"),map.get("plan_code"));
+		if(likeOrUnlike.equals("like")) {
+			plannerService.insertPlannerBookmark(vo);
+			return "insert";
+		}else if(likeOrUnlike.equals("unlike")){
+			plannerService.deletePlannerBookmark(vo);
+			return "delete";
+		}else {
+			//getlikeOrNot
+			int cnt = plannerService.getLikeOrNotPlannerBookmark(vo);
+			if(cnt >= 1) {
+				return "likeState";
+			}else {
+				return "unlikeState";
+			}
+		}
+	}
 	@RequestMapping(value="getUserNameScheduleList", produces = "text/html;charset=UTF-8;application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String getUserNameScheduleList(@RequestBody Map<String,String> json) {
