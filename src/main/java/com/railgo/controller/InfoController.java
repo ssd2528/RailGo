@@ -122,7 +122,7 @@ public class InfoController {
 		responseStr = apiService.getResponseStr(courseURL);
 		itemsObject = apiService.getItemsObject(responseStr);
 		itemsArray = apiService.makeItemsArray(itemsObject);
-		ArrayList<InfoItemDTO> courseList = makeInfoItemDTOList(itemsArray, "Y");
+		ArrayList<InfoItemDTO> courseList = makeInfoItemDTOList(itemsArray, "N");
 		for(InfoItemDTO course : courseList) {
 			course.setCourseSubNames(getSubNamesByCourse(course));
 		}
@@ -199,7 +199,7 @@ public class InfoController {
 		responseStr = apiService.getResponseStr(courseURL);
 		itemsObject = apiService.getItemsObject(responseStr);
 		itemsArray = apiService.makeItemsArray(itemsObject);
-		ArrayList<InfoItemDTO> courseList = makeInfoItemDTOList(itemsArray, "Y");
+		ArrayList<InfoItemDTO> courseList = makeInfoItemDTOList(itemsArray, "N");
 		Collections.shuffle(courseList); mv.addObject("recommedList", courseList);
 		
 		return mv;
@@ -264,7 +264,7 @@ public class InfoController {
 		
 		JsonObject itemsObject = apiService.getItemsObject(responseStr);
 		JsonArray itemsArray = apiService.makeItemsArray(itemsObject);
-		ArrayList<InfoItemDTO> resultList = makeInfoItemDTOList(itemsArray, "Y");
+		ArrayList<InfoItemDTO> resultList = makeInfoItemDTOList(itemsArray, "N");
 		mv.addObject("list", resultList);
 		return mv;
 	}
@@ -699,7 +699,7 @@ public class InfoController {
 				dto.setCat1(vo.getCat1Name());		dto.setCat2(vo.getCat2Name());		dto.setCat3(vo.getCat3Name());  // cat코드를 catName으로 변경
 				if(checkOverview.equals("Y")) {
 					// overview 추출 후 dto.setOverview()
-					contentId = apiService.getContentId(itemObject); 
+					/*contentId = apiService.getContentId(itemObject); 
 					url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
 						+ "serviceKey=9hi5gaFATBRP5Ao7ugWapwfwEF4hOqDiWVFbI1dwctd5kqmpjkUIE7tjPbD9Sqh6a2kxKi4X7b%2F%2FugubodKq4A%3D%3D"
 						+ "&MobileOS=ETC&MobileApp=RailGo&contentId="+contentId+"&overviewYN=Y&_type=json";
@@ -707,6 +707,7 @@ public class InfoController {
 					itemsObject = apiService.getItemsObject(responseStr);
 					overview = apiService.getOverview(itemsObject);
 					dto.setOverview(overview); 
+					*/
 				}
 				
 				list.add(dto);

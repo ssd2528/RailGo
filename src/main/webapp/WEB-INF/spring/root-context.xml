@@ -62,7 +62,7 @@
 	<bean id="RestTemplate" class="org.springframework.web.client.RestTemplate">
 	    <constructor-arg>
 	        <bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
-	            <property name="readTimeout" value="90000" />
+	            <property name="readTimeout" value="900000" />
 	            <property name="connectTimeout" value="900000" />
 	        </bean>
 	    </constructor-arg>
