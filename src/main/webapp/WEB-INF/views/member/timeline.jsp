@@ -117,7 +117,6 @@
 						</div>
 					</div>
 					<!-- /article-introduce -->
-	
 							<!-- article-sns-user -->
 							<%@include file="../includes/article_sns_user.jsp"%>
 						</div>
