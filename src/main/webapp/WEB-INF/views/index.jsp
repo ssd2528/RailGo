@@ -163,35 +163,30 @@
 															<c:choose>
 																<c:when test="${member.mem_code eq sns.mem_code}">
 																	<c:choose>
+																		<c:when test="${sns.profile eq null || sns.profile eq ''}">
+																			<c:choose>
+																				<c:when test="${sns.gender eq 'M'}">
+																					<a href="../member/timeline">
+																						<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+																					</a>
+																				</c:when>
+																				<c:when test="${sns.gender eq 'F'}">
+																					<a href="../member/timeline">
+																						<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+																					</a>
+																				</c:when>
+																			</c:choose>	
+																		</c:when>
 																		<c:when test="${sns.profile ne null || sns.profile ne ''}">
 																			<a href="../member/timeline">
 																				<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
 																			</a>
 																		</c:when>
-																		<c:when test="${sns.profile eq null}">
-																			<c:choose>
-																				<c:when test="${sns.gender eq 'M'}">
-																					<a href="../member/timeline">
-																						<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
-																					</a>
-																				</c:when>
-																				<c:when test="${sns.gender eq 'F'}">
-																					<a href="../member/timeline">
-																						<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
-																					</a>
-																				</c:when>
-																			</c:choose>	
-																		</c:when>
 																	</c:choose>
 																</c:when>
 																<c:when test="${member eq null || member.mem_code ne sns.mem_code}">
 																	<c:choose>
-																		<c:when test="${sns.profile ne null || sns.profile ne ''}">
-																			<a href="../member/other_user_info?mem_code=${sns.mem_code}">
-																				<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
-																			</a>
-																		</c:when>
-																		<c:when test="${sns.profile eq null}">
+																		<c:when test="${sns.profile eq null || sns.profile eq ''}">
 																			<c:choose>
 																				<c:when test="${sns.gender eq 'M'}">
 																					<a href="../member/other_user_info?mem_code=${sns.mem_code}">
@@ -204,6 +199,11 @@
 																					</a>
 																				</c:when>
 																			</c:choose>	
+																		</c:when>
+																		<c:when test="${sns.profile ne null || sns.profile ne ''}">
+																			<a href="../member/other_user_info?mem_code=${sns.mem_code}">
+																				<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+																			</a>
 																		</c:when>
 																	</c:choose>
 																</c:when>
