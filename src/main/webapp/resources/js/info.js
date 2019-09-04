@@ -1,5 +1,10 @@
 // 각 컨텐츠 클릭 시 detail.jsp로 이동
 $(document).ready(function(){
+	$('.detailForm, .courseForm, #searchForm').on('submit', function(){
+		$('.wrap-loading').css('display', 'block');
+		return true;
+	});
+	
 	$('.food-item').click(function(){
 		$(this).find('.detailForm').submit();
 	});

@@ -1,4 +1,9 @@
 $(document).ready(function() {
+	$('.detailForm, .page-reload, #searchForm').on('submit', function(){
+		$('.wrap-loading').css('display', 'block');
+		return true;
+	});
+	
 	// 리뷰 별점 입력
 	$('#example').barrating({
 		theme: 'fontawesome-stars' 
