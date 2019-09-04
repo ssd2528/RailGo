@@ -54,17 +54,17 @@ function fillTextScheduleInfo(data){
 	let scheduleArr = $(data).prev().children('.day-schedule-str').val();
 	let splitArr = scheduleArr.split(',');
 	//자세히 보기시 넘기기 위한 데이터를 저장 할 변수 목록들
-	let jsonData = $(data).prev().children('.item').val();
-	let startdate = $(data).prev().children('.startdate').val();
-	let tickets = $(data).prev().children('.tickets').val();
-	let plancode = $(data).prev().children('.plancode').val(); 
-	console.log(data);
-	console.log('plan code :'+plancode);
-	$('.modal_title').text(name+'님의 일정');
-	$('.map-img').attr('src',img);
-	$('.schedule-title').text('제목 : '+subject);
-	$('.schedule-theme').text(hash_tag);
-	$('.schedule').text('일정 : '+startdate+' ~ '+enddate);
+	let jsonData = $(data).prev().find('.item').val();
+	let startdate = $(data).prev().find('.startdate').val();
+	let tickets = $(data).prev().find('.tickets').val();
+	let plancode = $(data).prev().find('.plancode').val(); 
+	//console.log(data);
+	//console.log('plan code :'+plancode);
+	$('#modal .modal_title').text(name+'님의 일정');
+	$('#modal .map-img').attr('src',img);
+	$('#modal .schedule-title').text(subject);
+	$('#modal .schedule-theme').text(hash_tag);
+	$('#modal .schedule').text('('+startdate+' ~ '+enddate+')');
 	if(scheduleArr.length === 0 || scheduleArr === null || scheduleArr === 'undefined'){
 		$('.nailer-schedule-group').children().remove();
 		$('.nailer-schedule-group').append('<div style="text-align:center; font-size:20px; margin-top:50px;"> 일정 목록이 없습니다. </div>');
@@ -89,7 +89,7 @@ function fillTextScheduleInfo(data){
 			cnt++;
 		}
 	}	
-	console.log(jsonData);
+	//console.log(jsonData);
 	jsonData = JSON.parse(jsonData);
 	fillFormData(jsonData,startdate,tickets,plancode);
 }

@@ -407,8 +407,8 @@ footer {
 	cursor: pointer;
 }
 
-.recommend-title:hover {
-	text-decoration: underline;
+.recommend-list:hover {
+	background:#efefef;
 }
 
 .recommend-area {
@@ -422,6 +422,12 @@ footer {
 	height: 150px;
 	display: block;
 	margin-left: 5%;
+	overflow:hidden;
+}
+
+.recommend-img img {
+	height:100%;
+	transition: all 0.3s ease-in-out;
 }
 
 .recommend-title {

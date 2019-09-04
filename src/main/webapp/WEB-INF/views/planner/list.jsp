@@ -11,13 +11,15 @@
 		<link rel="icon" href="/img/favicon.ico">
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 		<!-- CSS -->
+		<link href="/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/css/index.css" rel="stylesheet">
 		<link href="/css/common.css" rel="stylesheet">
 		<link href="/css/planner.css" rel="stylesheet">
-		<link href="/css/index.css" rel="stylesheet">
 		<link href="/css/nailer_schedule_modal.css" rel="stylesheet">
 		<link href="/css/login_modal.css" rel="stylesheet"> <!-- 로그인 모달창 -->
 		<!-- JavaScript -->
 		<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
+		<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
 		<script src="/js/planner.js" type="text/javascript"></script>
 		<script src="/js/nailer_schedule_modal.js" type="text/javascript"></script>
 	</head>

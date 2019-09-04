@@ -217,4 +217,30 @@ public class PlannerServiceImpl implements PlannerService {
 	public int getLikeOrNotPlannerBookmark(PlannerBookmarkVO vo) {
 		return bookMarkMapper.getLikeOrNotPlannerBookmark(vo);
 	}
+	
+	
+	// 컨셉에 맞는 일정목록 조회
+	public ArrayList<PlannerJsonDTO> PlanScheduleListByTheme(String theme) {
+		ArrayList<PlannerJsonDTO> list = new ArrayList<>();
+		PlannerJsonDTO pjdto = null;
+		ArrayList<PlannerScheduleVO> plannerSchedule = new ArrayList<>();
+		ArrayList<PlannerDateVO> plannerDate = new ArrayList<>();
+		ArrayList<PlannerVO> plannerlist;
+		
+		plannerlist = mapper.findPlanSheduleListByTheme(theme);
+		if(plannerlist.size() == 0 ) return null;
+		for(PlannerVO planner : plannerlist) {
+			pjdto = new PlannerJsonDTO();
+			String plan_code = planner.getPlan_code();
+			plannerDate = mapper.plannerDateList(plan_code);
+			plannerSchedule = mapper.plannerScheduleList(plan_code);
+			pjdto.setPlanner(planner);
+			pjdto.setPlannerDate(plannerDate);
+			pjdto.setPlannerSchedule(plannerSchedule);
+			list.add(pjdto);
+			System.out.println("## PlannerJsonDTO : " + pjdto);
+		}
+		System.out.println("## list : " + list);
+		return list;
+	}
 }

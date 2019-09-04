@@ -20,4 +20,5 @@ public interface PlannerService {
 	void insertPlannerBookmark(PlannerBookmarkVO vo);
 	void deletePlannerBookmark(PlannerBookmarkVO vo);
 	int getLikeOrNotPlannerBookmark(PlannerBookmarkVO vo);
+	ArrayList<PlannerJsonDTO> PlanScheduleListByTheme(String theme); // 컨셉에 맞는 PLANNER 목록 조회
 }

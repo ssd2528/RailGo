@@ -3,6 +3,7 @@ package com.railgo.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +23,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.railgo.domain.MemberVO;
+import com.railgo.domain.PlannerJsonDTO;
 import com.railgo.domain.SNSJoinDTO;
 import com.railgo.domain.SNSLikeVO;
 import com.railgo.domain.TripImageVO;
 import com.railgo.service.MemberService;
+import com.railgo.service.PlannerService;
 import com.railgo.service.SNSService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.railgo.domain.InfoItemDTO;
@@ -48,6 +53,8 @@ public class IndexController {
 	private MemberService memberService;
 	@Autowired
 	private SNSService snsService;
+	@Autowired
+	private PlannerService plannerService;
 	
 	private InfoController infoController;
 	
@@ -68,7 +75,26 @@ public class IndexController {
 		}else if(member == null){
 			mv.addObject("recomMember",memberService.selRecomMem());
 			mv.addObject("recomMemberAdd",memberService.selRecomMemAdd());
-		}		
+		}	
+		
+		/* 컨셉 추천 */
+		ArrayList<PlannerJsonDTO> plannerScheduleJsonList = null;
+		Gson gson = new GsonBuilder().create();
+		// 추천1. 나홀로 떠나는 여행 
+		plannerScheduleJsonList = plannerService.PlanScheduleListByTheme("theme-solo");
+		if(plannerScheduleJsonList != null) {
+			Collections.shuffle(plannerScheduleJsonList);
+			String plannerListBySolo = gson.toJson(plannerScheduleJsonList);
+			mv.addObject("plannerListBySolo", plannerListBySolo);
+		}
+		// 추천2. 먹방
+		plannerScheduleJsonList = plannerService.PlanScheduleListByTheme("theme-eating");
+		if(plannerScheduleJsonList != null) {
+			Collections.shuffle(plannerScheduleJsonList);
+			String plannerListByEating = gson.toJson(plannerScheduleJsonList);
+			mv.addObject("plannerListByEating", plannerListByEating);
+		}
+		
 		/* SNS 게시물 목록 조회 */
 		List<SNSJoinDTO> getList = snsService.getList();
 		for(SNSJoinDTO snsJoinDTO : getList) {
@@ -86,6 +112,7 @@ public class IndexController {
 			}
 		}
 		mv.addObject("sns", getList);
+		
 		
 		return mv;
 	}

@@ -548,5 +548,33 @@ $(document).ready(function(){
 		$(this).find('.detailForm').submit();
 	});
 
-	
 });
+
+//Search Keyword
+$(document).ready(function(){
+	$('#search-keyword').keydown(function(e){
+		if(e.keyCode==13){
+			var keyword = $('#search-keyword').val();
+			$('#searchForm').attr('action', '/search/'+keyword);
+			$('#searchForm').submit();
+		}
+	});
+	
+	$('.fa-search').on('click', function(){
+		var keyword = $('#search-keyword').val();
+		$('#searchForm').attr('action', '/search/'+keyword);
+		$('#searchForm').submit();
+	});
+});
+
+// info-list hover 이벤트
+$(document).ready(function(){
+	$(document).on('mouseenter','.info-list',function(){
+		$(this).find('.info-list-title').css('text-decoration', 'underline');
+		$(this).find('.info-list-img img').css('-webkit-transform', 'scale(1.1)');
+	});
+	$(document).on('mouseleave','.info-list',function(){
+		$(this).find('.info-list-title').css('text-decoration', 'none');
+		$(this).find('.info-list-img img').css('-webkit-transform', 'scale(1)');
+	});
+});	

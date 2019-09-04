@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	var modal = $('#Modal'); // Get the modal
+	var modal = $('#login-modal'); // Get the modal
 	var signinBtn = $('.signin-btn'); // Get the button that opens the modal
 	var closeBtn = $('.close'); // Get the <span> element that closes the modal
 	// When the user clicks on the button, open the modal 

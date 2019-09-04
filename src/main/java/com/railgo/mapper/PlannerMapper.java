@@ -27,4 +27,6 @@ public interface PlannerMapper {
 	ArrayList<PlannerVO> LikePlannerList(Map<String, Object> parameters);
 	ArrayList<PlannerScheduleVO> plannerScheduleList(String plan_code);
 	ArrayList<PlannerDateVO> plannerDateList(String plan_code);
+	
+	ArrayList<PlannerVO> findPlanSheduleListByTheme(String theme); // 컨셉에 맞는 PLANNER 목록 조회
 }

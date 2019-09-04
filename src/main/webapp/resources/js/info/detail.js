@@ -120,3 +120,35 @@ function handleImgsFilesSelect(e){
 	});
 }
 
+
+//Search Keyword
+$(document).ready(function(){
+	$('#search-keyword').keydown(function(e){
+		if(e.keyCode==13){
+			var keyword = $('#search-keyword').val();
+			$('#searchForm').attr('action', '/search/'+keyword);
+			$('#searchForm').submit();
+		}
+	});
+	
+	$('.fa-search').on('click', function(){
+		var keyword = $('#search-keyword').val();
+		$('#searchForm').attr('action', '/search/'+keyword);
+		$('#searchForm').submit();
+	});
+});
+
+//recommend-item hover 이벤트
+$(document).ready(function(){
+	$(document).on('mouseenter','.recommend-list',function(){
+		var test = $(this).find('.recommend-img').attr('src');
+		$(this).find('.recommend-title').css('text-decoration', 'underline');
+		if(test!='/img/default.png'){
+			$(this).find('.recommend-img img').css('-webkit-transform', 'scale(1.1)');
+		}
+	});
+	$(document).on('mouseleave','.recommend-list',function(){
+		$(this).find('.recommend-title').css('text-decoration', 'none');
+		$(this).find('.recommend-img img').css('-webkit-transform', 'scale(1)');
+	});
+});

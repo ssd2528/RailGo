@@ -13,6 +13,7 @@ import com.railgo.domain.TripImageVO;
 public interface SNSService {
 	public void register(SNSVO sns); // 글쓰기
 	public List<SNSJoinDTO> getList(); // 글 전체 불러오기
+	public List<SNSJoinDTO> getListMem(String mem_code); // 특정 유저 글 불러오기
 	public SNSJoinDTO content(String sns_code); // 글 상세보기
 	public void remove(String sns_code); // 글 삭제
 	public boolean modify(SNSVO sns); // 글 수정

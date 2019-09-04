@@ -7,17 +7,20 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>[RailGo] SNS Page</title>
+	<link rel="icon" href="/img/favicon.ico">
 	<!-- CSS -->
-	<link rel="stylesheet"
-		href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+	<link href="/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 	<link href="/css/common.css" rel="stylesheet">
+	<link href="/css/index.css" rel="stylesheet">
 	<link href="/css/article_sns_user.css" rel="stylesheet">
 	<link href="/css/login_modal.css" rel="stylesheet">
 	<link href="/css/content.css" rel="stylesheet">
 	
 	<!-- JavaScript -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
 	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+	<script src="/js/fontawesome.js" type="text/javascript"></script>
 	<script src="/js/content.js" type="text/javascript"></script>
 	<script src="/js/login_modal.js" type="text/javascript"></script>
 	<script src="/js/jquery.validate.min.js" type="text/javascript"></script>

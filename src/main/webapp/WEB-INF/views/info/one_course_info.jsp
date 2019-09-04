@@ -9,12 +9,14 @@
 	<link rel="icon" href="/img/favicon.ico">
 	
 	<!-- CSS -->
+	<link href="/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/css/common.css" rel="stylesheet">
 	<link href="/css/info/one_course_info.css" rel="stylesheet">
 	<link href="/css/login_modal.css" rel="stylesheet">
 	
 	<!-- JavaScript -->
 	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
+	<script src="/js/fontawesome.js" type="text/javascript"></script>
 	<script src="/js/header.js" type="text/javascript"></script>
 	<script src="/js/info/one_course_info.js" type="text/javascript"></script>
 	<script src="/js/login_modal.js" type="text/javascript"></script>
@@ -91,7 +93,9 @@
 													<img class="recommend-img" src="/img/default.png">
 												</c:if>
 												<c:if test="${recommedItem.firstimage ne null}">
-													<img class="recommend-img" src="${recommedItem.firstimage}">
+													<div class="recommend-img">	
+														<img src="${recommedItem.firstimage}">
+													</div>
 												</c:if>
 												<div class="recommend-info">
 													<div class="recommend-title">${recommedItem.title}</div> 
