@@ -33,7 +33,6 @@
 		<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 		<script src="/js/sns_modal.js" type="text/javascript"></script>
 		
-
 	</head>
 	<body>
 		<input type="hidden" value="${msg}">

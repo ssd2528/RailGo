@@ -18,6 +18,17 @@
 	
 	<!-- JavaScript -->
 	<script src="<c:url value='/resources/jquery-3.4.1.min.js'/>"></script>
+	<script>
+		$(window).on('load',function(){
+			$('.wrap-loading').fadeOut(500);
+		});
+		$(document).ready(function(){
+			$('.wrap-loading').fadeOut(500);
+		});
+		$(function(){
+			$('.wrap-loading').fadeOut(500);
+		});
+	</script>
 	<script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
 	<script src="/js/info.js" type="text/javascript"></script>
 	<script src="/js/header.js" type="text/javascript"></script>
@@ -26,6 +37,7 @@
 	<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 </head>
 <body>
+	
 	<c:if test="${not empty msg}">
 		<script type="text/javascript">
 			alert('${msg}');
@@ -176,15 +188,6 @@
 						<!-- article-sns-user -->
 						<%@include file="../includes/article_sns_user.jsp"%>
 						<!-- ./article-sns-user -->
-
-						<!-- article-adsense -->
-						<div class="article-item article-adsense">
-							<div class="article-title">
-								<h2>에드센스</h2>
-							</div>
-							<br> 에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>
-						</div>
-						<!-- ./article-adsense -->
 
 					</div>
 				</div>

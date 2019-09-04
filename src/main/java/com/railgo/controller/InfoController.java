@@ -67,7 +67,7 @@ public class InfoController {
 	private MemberService memberService;
 	
 	// [InfoAreaName]
-	@GetMapping(value="/{areaName}", produces = "application/json; charset=utf-8")
+	@RequestMapping(value="/{areaName}", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json; charset=utf-8")
 	public ModelAndView infoAreaName(@PathVariable("areaName") String areaName, RedirectAttributes rttr ,HttpServletRequest request) throws Exception {
 		System.out.println("-------------------------------------- infoAreaName() --------------------------------------");
 		

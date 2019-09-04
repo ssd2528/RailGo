@@ -288,10 +288,6 @@
 							</c:forEach>
 						</ul>
 					</div>
-					<!-- article-adsense -->
-					<div class="article-item article-adsense">
-						에드센스<br> 에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>
-					</div>
 				</div>
 			</div>
 		</div>

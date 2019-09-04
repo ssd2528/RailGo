@@ -22,21 +22,21 @@ $(document).ready(function(){
 	$('body').click(function(e){
 	   if($('#modal').hasClass('show')){ // site 라는 특정영역이 열려있을 경우
 	      if(!$('#modal').has(e.target).length){ // site에 클릭 이벤트가 발생되어 있는게 없다면 아래 내용을 실행.
-	    	  closeModal();
+	    	  closeScheduleModal();
 	      }
 	   }
 	});
 	// close the modal 
 	$(".close-button").on("click",function(){
-		closeModal();
+		closeScheduleModal();
 	});
 	$('.detail-view-button').on('click',function(){
-		closeModal();
+		closeScheduleModal();
 		$('#list-schedule-json-data').submit();
 	});
 });
 // 모달 종료 메소드
-function closeModal(){
+function closeScheduleModal(){
 	 $('#modal').removeClass('show');
      $('body').css({'overflow':'auto', 'height':'100%'});
      setTimeout(function() {
