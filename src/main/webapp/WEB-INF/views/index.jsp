@@ -27,11 +27,12 @@
 		<script src="/js/fontawesome.js" type="text/javascript"></script>
 		<script src="/js/header.js" type="text/javascript"></script>
 		<script src="/js/index.js" type="text/javascript"></script>
+		<script src="/js/nailer_schedule_modal.js" type="text/javascript"></script>
 		<script src="/js/section_search.js" type="text/javascript"></script>
 		<script src="/js/login_modal.js" type="text/javascript"></script>
 		<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 		<script src="/js/sns_modal.js" type="text/javascript"></script>
-		<script src="/js/nailer_schedule_modal.js" type="text/javascript"></script>
+		
 
 	</head>
 	<body>
