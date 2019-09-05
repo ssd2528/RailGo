@@ -19,7 +19,7 @@
 					style="border: none; width: 5%; cursor: default;">~</div>
 				<div id="last-option-days" class="plan-option-days" style="cursor: default">마지막 날</div>
 			</div>
-			<div class="plan-option-text">3.몇 명이서 가시나요.</div>
+			<!-- <div class="plan-option-text">3.몇 명이서 가시나요.</div>
 			<div class="plan-option-people">
 				<div class="plan-option-minus">-</div>
 				<div class="plan-option-number">1</div>
@@ -29,7 +29,7 @@
 			<div class="plan-option-member-wrapper">
 				<div class="plan-option-text">4.친구를 초대해보세요.</div>
 				<input type="text" class="plan-option-people" placeholder="닉네임검색">
-			</div>
+			</div> -->
 			<div class="plan-option-button-wrapper">
 				<form id="plan-form" method="post" action="../planner/plan">
 					<input type="hidden" id="item" name="item">

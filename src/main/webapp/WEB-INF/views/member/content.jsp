@@ -65,20 +65,53 @@
 								
 								<div class="sns-content-write">
 									<c:choose>
-										<c:when test="${content.profile != null}">
-											<img class="sns-writer-profile" src='/member/display?fileName=${content.profile}' alt="프로필">
-										</c:when>
-										<c:when test="${content.profile == null}">
+										<c:when test="${member.mem_code eq content.mem_code}">
 											<c:choose>
-												<c:when test="${content.gender eq 'M'}">
-													<img class="sns-writer-profile" src="/img/member/default_profile_m.png" alt="프로필 남" >
+												<c:when test="${content.profile ne null || content.profile ne ''}">
+													<a href="../member/timeline">
+														<img class="sns-writer-profile" src='/member/display?fileName=${content.profile}' alt="프로필">
+													</a>
 												</c:when>
-												<c:when test="${content.gender eq 'F'}">
-													<img class="sns-writer-profile" src="/img/member/default_profile_f.png" alt="프로필 여" >
+												<c:when test="${content.profile eq null}">
+													<c:choose>
+														<c:when test="${content.gender eq 'M'}">
+															<a href="../member/timeline">
+																<img class="sns-writer-profile" src="/img/member/default_profile_m.png" alt="프로필 남" >
+															</a>
+														</c:when>
+														<c:when test="${content.gender eq 'F'}">
+															<a href="../member/timeline">
+																<img class="sns-writer-profile" src="/img/member/default_profile_f.png" alt="프로필 여" >
+															</a>
+														</c:when>
+													</c:choose>	
 												</c:when>
-											</c:choose>	
+											</c:choose>
 										</c:when>
-									</c:choose>
+									<c:when test="${member eq null || member.mem_code ne content.mem_code}">
+										<c:choose>
+											<c:when test="${content.profile ne null || content.profile ne ''}">
+												<a href="../member/other_user_info?mem_code=${content.mem_code}">
+													<img class="sns-writer-profile" src='/member/display?fileName=${content.profile}' alt="프로필">
+												</a>
+											</c:when>
+											<c:when test="${content.profile eq null}">
+												<c:choose>
+													<c:when test="${content.gender eq 'M'}">
+														<a href="../member/other_user_info?mem_code=${content.mem_code}">
+															<img class="sns-writer-profile" src="/img/member/default_profile_m.png" alt="프로필 남" >
+														</a>
+													</c:when>
+													<c:when test="${content.gender eq 'F'}">
+														<a href="../member/other_user_info?mem_code=${content.mem_code}">
+															<img class="sns-writer-profile" src="/img/member/default_profile_f.png" alt="프로필 여" >
+														</a>
+													</c:when>
+												</c:choose>	
+											</c:when>
+										</c:choose>
+									</c:when>
+								</c:choose>
 									<div class="sns-write-box">
 										<div class="sns-write-explain">
 											<span class="sns-writer-name"></span>${content.name}님이 리뷰를 남기셨습니다.

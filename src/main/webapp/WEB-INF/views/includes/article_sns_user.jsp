@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 							<!-- article-sns-user -->
 							<div class="article-item article-sns-user">
 								<div class="article-title"><h2>SNS 이용자 추천</h2></div> 
@@ -39,14 +40,9 @@
 												<div class="user-loc font-15"><img src="/img/member/info_location.png">정보 없음</div>
 											</c:when>
 										</c:choose>
-										<span class="user-posting font-15">포스팅</span> &nbsp;&nbsp;&nbsp; <span class="user-follower font-15">${otherFollower} 팔로워</span>
+										<span class="user-posting font-15"> 포스팅</span> &nbsp;&nbsp;&nbsp; <span class="user-follower font-15"> 팔로워</span>
 										<div class="user-detail font-15">사용자 소개 글</div>
 										<button class="follow-btn"><img src="/img/sns/add_follow.png">팔로우</button>
-										<!--<input class="follow-btn" type="image" src="/img/sns/add_follow.png" value="팔로우">
-										<input type="hidden" value="${member.mem_code}" name="mem_code"> 
-										<input type="hidden" value="${recomMember.mem_code}" name="following"> 
-										<input type="hidden" value="${selFollowExist}" name="followExist"> 
-										<input type="image" src="/img/sns/add_follow.png" name="submit" class="follow-btn" value="팔로우">-->
 									</div>
 									</c:forEach>
 									<!-- ./sns-user-item -->

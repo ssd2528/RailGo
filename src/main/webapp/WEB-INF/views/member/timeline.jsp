@@ -58,22 +58,22 @@
 								<img class="location-job-birth-intertest" src="/img/member/info_location.png" alt="지역">
 								<c:choose>
 								<c:when test="${memadd.address != null}"><span class="profile-content">${memadd.address}</span><br></c:when>
-								<c:when test="${memadd.address == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								<c:when test="${memadd.address == null}"><span class="profile-content">주소를 입력해주세요</span><br></c:when>
 								</c:choose>
 								<img class="location-job-birth-intertest"src="/img/member/info_job.png" alt="직업">
 								<c:choose>
 								<c:when test="${memadd.job != null}"><span class="profile-content">${memadd.job}</span><br></c:when>
-								<c:when test="${memadd.job == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								<c:when test="${memadd.job == null}"><span class="profile-content">직업을 입력해주세요</span><br></c:when>
 								</c:choose>
 								<img class="location-job-birth-intertest" src="/img/member/info_birth.png" alt="생일">
 								<c:choose>
 								<c:when test="${memadd.birth != null}"><span class="profile-content">${memadd.birth}</span><br></c:when>
-								<c:when test="${memadd.birth == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								<c:when test="${memadd.birth == null}"><span class="profile-content">생일을 입력해주세요</span><br></c:when>
 								</c:choose>
 								<img class="location-job-birth-intertest" src="/img/member/info_interests.png" alt="관심사">
 								<c:choose>
 								<c:when test="${memadd.interest != null}"><span class="profile-content">${memadd.interest}</span><br></c:when>
-								<c:when test="${memadd.interest == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								<c:when test="${memadd.interest == null}"><span class="profile-content">관심사를 입력해주세요</span><br></c:when>
 								</c:choose>						
 							</div>
 							<div class="article-item article-sns-user2">
@@ -89,46 +89,39 @@
 									<c:when test="${memadd.address != null}">
 									<input type="text" name="address" class="profile-text1" value="${memadd.address}"><br></c:when>
 									<c:when test="${memadd.address == null}">
-									<input type="text" name="address" class="profile-text1" value="정보를 입력해주세요"><br></c:when>
+									<input type="text" name="address" class="profile-text1" value="주소를 입력해주세요"><br></c:when>
 									</c:choose>
 									<img class="location-job-birth-intertest"src="/img/member/info_job.png" alt="직업">
 									<c:choose>
 									<c:when test="${memadd.job != null}">
 									<input type="text" name="job" class="profile-text2" value="${memadd.job}"><br></c:when>
 									<c:when test="${memadd.job == null}">
-									<input type="text" name="job" class="profile-text2" value="정보를 입력해주세요"><br></c:when>
+									<input type="text" name="job" class="profile-text2" value="직업을 입력해주세요"><br></c:when>
 									</c:choose>
 									<img class="location-job-birth-intertest" src="/img/member/info_birth.png" alt="생일">
 									<c:choose>
 									<c:when test="${memadd.birth != null}">
 									<input type="text" name="birth" class="profile-text3" value="${memadd.birth}"><br></c:when>
 									<c:when test="${memadd.birth == null}">
-									<input type="text" name="birth" class="profile-text3" value="정보를 입력해주세요"><br></c:when>
+									<input type="text" name="birth" class="profile-text3" value="생일을 입력해주세요"><br></c:when>
 									</c:choose>
 									<img class="location-job-birth-intertest" src="/img/member/info_interests.png" alt="관심사">
 									<c:choose>
 									<c:when test="${memadd.interest != null}">
 									<input type="text" name="interest" class="profile-text4" value="${memadd.interest}"><br></c:when>
 									<c:when test="${memadd.interest == null}">
-									<input type="text" name="interest" class="profile-text4" value="정보를 입력해주세요"><br></c:when>
+									<input type="text" name="interest" class="profile-text4" value="관심사를 입력해주세요"><br></c:when>
 									</c:choose>						
 								</form>
 							<div class="profile-detailInfo">
 						</div>
 					</div>
 					<!-- /article-introduce -->
-	
-							<!-- article-sns-user -->
-							<%@include file="../includes/article_sns_user.jsp"%>
-							<!-- article-adsense -->
-							<div class="article-item article-adsense">
-								또드또스<br> 또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>
-							</div>
-							<!-- /article-adsense -->
-						</div>
-	
+					<!-- article-sns-user -->
+					<%@include file="../includes/article_sns_user.jsp"%>
+					</div>
 						<div class="article-wrapper article-75">
-							<!-- article-sns-content -->
+						<!-- article-sns-content -->
 						<input type="hidden" class="reply-memCode" value="${member.mem_code}">
 							<c:forEach items="${sns}" var="sns">
 								<form id="sns-form" class="sns-form" method="POST" action="">
@@ -136,7 +129,9 @@
 										<div class="sns-content-user">
 											<c:choose>
 												<c:when test="${sns.profile != null}">
+													<a href="../member/timeline">
 													<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+													</a>
 												</c:when>
 												<c:when test="${sns.profile == null}">
 													<c:choose>
@@ -159,7 +154,6 @@
 												</div>	
 											</c:if>
 										</div>
-										
 										<div class="sns-imgs">
 											<ul class="bxslider">
 												<c:forEach items="${sns.imgList}" var="imgList">

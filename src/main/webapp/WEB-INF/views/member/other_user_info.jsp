@@ -95,7 +95,7 @@
 						</div>
 						<div class="row2">
 							<span class="user-id">${userInfo.name}</span>
-							<span class="posting">0</span>
+							<span class="posting">${getSnsCount}</span>
 							<span class="follower">${selFollower}</span>
 							<span class="following">${selFollowing}</span>
 						</div>
@@ -141,11 +141,6 @@
 	
 							<!-- article-sns-user -->
 							<%@include file="../includes/article_sns_user.jsp"%>
-							<!-- article-adsense -->
-							<div class="article-item article-adsense">
-								또드또스<br> 또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>또드또스<br>
-							</div>
-							<!-- /article-adsense -->
 						</div>
 	
 						<div class="article-wrapper article-75">
@@ -156,18 +151,51 @@
 									<div class="article-item article-sns-content">
 										<div class="sns-content-user">
 											<c:choose>
-												<c:when test="${sns.profile != null}">
-													<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
-												</c:when>
-												<c:when test="${sns.profile == null}">
+												<c:when test="${member.mem_code eq sns.mem_code}">
 													<c:choose>
-														<c:when test="${sns.gender eq 'M'}">
-															<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+														<c:when test="${sns.profile ne null || sns.profile ne ''}">
+															<a href="../member/timeline">
+																<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+															</a>
 														</c:when>
-														<c:when test="${sns.gender eq 'F'}">
-															<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+														<c:when test="${sns.profile eq null}">
+															<c:choose>
+																<c:when test="${sns.gender eq 'M'}">
+																	<a href="../member/timeline">
+																		<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+																	</a>
+																</c:when>
+																<c:when test="${sns.gender eq 'F'}">
+																	<a href="../member/timeline">
+																		<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+																	</a>
+																</c:when>
+															</c:choose>	
 														</c:when>
-													</c:choose>	
+													</c:choose>
+												</c:when>
+												<c:when test="${member eq null || member.mem_code ne sns.mem_code}">
+													<c:choose>
+														<c:when test="${sns.profile ne null || sns.profile ne ''}">
+															<a href="../member/other_user_info?mem_code=${sns.mem_code}">
+																<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+															</a>
+														</c:when>
+														<c:when test="${sns.profile eq null}">
+															<c:choose>
+																<c:when test="${sns.gender eq 'M'}">
+																	<a href="../member/other_user_info?mem_code=${sns.mem_code}">
+																		<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+																	</a>
+																</c:when>
+																<c:when test="${sns.gender eq 'F'}">
+																	<a href="../member/other_user_info?mem_code=${sns.mem_code}">
+																		<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+																	</a>
+																</c:when>
+															</c:choose>	
+														</c:when>
+													</c:choose>
 												</c:when>
 											</c:choose>
 											<div class="user-name">${sns.name}</div>
@@ -218,12 +246,6 @@
 								</form>
 							</c:forEach>
 							<!-- /article-sns-content -->
-	
-							<!-- see-more-button -->
-							<div class="see-more-buttondiv">
-								<button class="see-more-button">더 보 기 ▼</button>
-							</div>
-							<!-- /see-more-button -->
 						</div>
 					</div>
 					<!-- /section-main -->
