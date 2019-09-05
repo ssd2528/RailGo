@@ -117,12 +117,11 @@
 						</div>
 					</div>
 					<!-- /article-introduce -->
-							<!-- article-sns-user -->
-							<%@include file="../includes/article_sns_user.jsp"%>
-						</div>
-	
+					<!-- article-sns-user -->
+					<%@include file="../includes/article_sns_user.jsp"%>
+					</div>
 						<div class="article-wrapper article-75">
-							<!-- article-sns-content -->
+						<!-- article-sns-content -->
 						<input type="hidden" class="reply-memCode" value="${member.mem_code}">
 							<c:forEach items="${sns}" var="sns">
 								<form id="sns-form" class="sns-form" method="POST" action="">
