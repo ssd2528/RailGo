@@ -107,7 +107,7 @@
 		</div>
 		<div class="row2">
 			<span class="user-id">${member.name}</span>
-			<span class="posting">0</span>
+			<span class="posting">${getSnsCount}</span>
 			<span class="follower">${selFollower}</span>
 			<span class="following">${selFollowing}</span>
 		</div>

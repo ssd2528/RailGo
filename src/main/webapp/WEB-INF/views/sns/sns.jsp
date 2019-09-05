@@ -54,25 +54,55 @@
 									<div class="article-item article-sns-content">
 										<div class="sns-content-user">
 											<c:choose>
-												<c:when test="${sns.profile != null}">
-													<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
-												</c:when>
-												<c:when test="${sns.profile == null}">
+												<c:when test="${member.mem_code eq sns.mem_code}">
 													<c:choose>
-														<c:when test="${sns.gender eq 'M'}">
-															<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+														<c:when test="${sns.profile ne null || sns.profile ne ''}">
+															<a href="../member/timeline">
+																<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+															</a>
 														</c:when>
-														<c:when test="${sns.gender eq 'F'}">
-															<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+														<c:when test="${sns.profile eq null}">
+															<c:choose>
+																<c:when test="${sns.gender eq 'M'}">
+																	<a href="../member/timeline">
+																		<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+																	</a>
+																</c:when>
+																<c:when test="${sns.gender eq 'F'}">
+																	<a href="../member/timeline">
+																		<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+																	</a>
+																</c:when>
+															</c:choose>	
 														</c:when>
-													</c:choose>	
+													</c:choose>
 												</c:when>
-												<c:when test="${sns.profile ne '' || sns.profile ne null}">
-													<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+												<c:when test="${member eq null || member.mem_code ne sns.mem_code}">
+													<c:choose>
+														<c:when test="${sns.profile ne null || sns.profile ne ''}">
+															<a href="../member/other_user_info?mem_code=${sns.mem_code}">
+																<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+															</a>
+														</c:when>
+														<c:when test="${sns.profile eq null}">
+															<c:choose>
+																<c:when test="${sns.gender eq 'M'}">
+																	<a href="../member/other_user_info?mem_code=${sns.mem_code}">
+																		<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+																	</a>
+																</c:when>
+																<c:when test="${sns.gender eq 'F'}">
+																	<a href="../member/other_user_info?mem_code=${sns.mem_code}">
+																		<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+																	</a>
+																</c:when>
+															</c:choose>	
+														</c:when>
+													</c:choose>
 												</c:when>
 											</c:choose>
 											<div class="user-name">${sns.name}</div>
-											<c:if test="${member.mem_code == sns.mem_code && member ne null}">
+											<c:if  test="${member.mem_code == sns.mem_code && member ne null}">
 												<div class="sns-edit-btn"> ...
 													<div class="sns-edit-btn-group">
 														<div class="sns-content-edit">수정</div>
@@ -125,13 +155,6 @@
 							<!-- article-sns-user -->
 							<%@include file="../includes/article_sns_user.jsp"%>
 							<!-- ./article-sns-user -->
-							
-							<!-- article-adsense -->
-							<div class="article-item article-adsense">
-								<div class="article-title"><h2>에드센스</h2></div><br>
-								에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>에드센스<br>
-							</div>
-							<!-- ./article-adsense -->
 						</div>
 					<!-- 글 작성 (+버튼) -->
 					<c:if test="${member ne null}">

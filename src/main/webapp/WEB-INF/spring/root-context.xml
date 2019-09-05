@@ -20,7 +20,7 @@
 	<!-- hikariConfig -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:JAVA"></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.61:1521:JAVA"></property>
 		<property name="username" value="RailGo"></property>
 		<property name="password" value="RailGo"></property>
 	</bean>
@@ -62,8 +62,8 @@
 	<bean id="RestTemplate" class="org.springframework.web.client.RestTemplate">
 	    <constructor-arg>
 	        <bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
-	            <property name="readTimeout" value="900000" />
-	            <property name="connectTimeout" value="900000" />
+	            <property name="readTimeout" value="9000000" />
+	            <property name="connectTimeout" value="9000000" />
 	        </bean>
 	    </constructor-arg>
 	</bean>

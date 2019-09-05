@@ -182,6 +182,8 @@ function loadPlannedSchedule(scheduleState){
 						mBtnName = 'insert';
 						mBtnText = '수정';
 						appendHashTag = '';
+						delOrUnlikeText = '삭제';
+						mBtnDelText='delete';
 					}else{
 						if(scheduleState == 'like'){mBtnDelText = 'unlike';delOrUnlikeText = '좋아요 취소'; margin = 'margin-left: 130px;';}
 						else{mBtnDelText='delete';delOrUnlikeText = '삭제'; margin = 'margin-left: 82px;';}

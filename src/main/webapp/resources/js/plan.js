@@ -395,7 +395,7 @@ let directionsService;
 let hashTag;
 //city-list에 있는 tour api 목록들의 이미지나 제목을 눌렀을때 해당하는 info window 를 open해주기 위한 메소드
 function showInfoWindowOfItemList(id){
-	delInfoWindow();	// 모든 infowindow close
+	closeInfoWindow();	// 모든 infowindow close
 	for(i = 0; i < infoWindows.length; i++){
 		if(id == tourMarkers[i].id){
 			infoWindows[i].open(map, tourMarkers[i]);
@@ -932,7 +932,7 @@ function tourMarkerListener(localmarker, infoWindow) {
 	google.maps.event.addListener(localmarker, 'click', function() {
 		//스트롤 top이 277.5에 위치하게 하기
 		//selected-theme-list 의 top값은 260.5
-		delInfoWindow();	// 모든 infowindow close
+		closeInfoWindow();	// 모든 infowindow close
 		infoWindow.open(map, localmarker);
 		var id = '#'+localmarker.id;
 		var scroll_h = $('.selected-theme-list').scrollTop()+$(id).offset().top;
@@ -996,7 +996,7 @@ function addTourMarker(xpos, ypos, tourContent, tourImg, address, viewOrTel, the
 	infoWindows.push(infoWindow);
 	tourMarkerListener(marker, infoWindow);
 }
-function delInfoWindow(){
+function closeInfoWindow(){
 	for(i = 0; i < infoWindows.length;i++){
 		infoWindows[i].close();
 	}
@@ -1015,10 +1015,12 @@ function setTourMarker() {
 function delTourMarkers() {
 	setTourMarkerMapOnAll(null);
 	tourMarkers = [];
+	infoWindows = [];
 }
 function setTourMarkerMapOnAll(map) {
 	for (i = 0; i < tourMarkers.length; i++) {
 		tourMarkers[i].setMap(map);
+		infoWindows[i].setMap(map);
 	}
 }
 // 모든 역 마커들의 map을 셋팅

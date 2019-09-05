@@ -1,3 +1,10 @@
+$(document).ready(function(){
+	$(document).on('submit', 'form', function(){
+		$('.wrap-loading').css('display', 'block');
+		return true;
+	});
+});
+
 $(window).on('load',function(){
 	$('.wrap-loading').fadeOut(500);
 });
@@ -15,3 +22,4 @@ $('.wrap-loading').ajaxStart(function() {
 $('.wrap-loading').ajaxStop(function() {
    $(this).fadeOut(500);
 });
+

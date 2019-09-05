@@ -33,7 +33,6 @@
 		<script src="/js/jquery.validate.min.js" type="text/javascript"></script>
 		<script src="/js/sns_modal.js" type="text/javascript"></script>
 		
-
 	</head>
 	<body>
 		<input type="hidden" value="${msg}">
@@ -162,18 +161,51 @@
 														<div class="sns-content-user">
 															<!-- 작성자 프로필 사진 조회 -->
 															<c:choose>
-																<c:when test="${sns.profile != null}">
-																	<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
-																</c:when>
-																<c:when test="${sns.profile == null}">
+																<c:when test="${member.mem_code eq sns.mem_code}">
 																	<c:choose>
-																		<c:when test="${sns.gender eq 'M'}">
-																			<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+																		<c:when test="${sns.profile eq null || sns.profile eq ''}">
+																			<c:choose>
+																				<c:when test="${sns.gender eq 'M'}">
+																					<a href="../member/timeline">
+																						<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+																					</a>
+																				</c:when>
+																				<c:when test="${sns.gender eq 'F'}">
+																					<a href="../member/timeline">
+																						<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+																					</a>
+																				</c:when>
+																			</c:choose>	
 																		</c:when>
-																		<c:when test="${sns.gender eq 'F'}">
-																			<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+																		<c:when test="${sns.profile ne null || sns.profile ne ''}">
+																			<a href="../member/timeline">
+																				<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+																			</a>
 																		</c:when>
-																	</c:choose>	
+																	</c:choose>
+																</c:when>
+																<c:when test="${member eq null || member.mem_code ne sns.mem_code}">
+																	<c:choose>
+																		<c:when test="${sns.profile eq null || sns.profile eq ''}">
+																			<c:choose>
+																				<c:when test="${sns.gender eq 'M'}">
+																					<a href="../member/other_user_info?mem_code=${sns.mem_code}">
+																						<img class="user-img" src="/img/member/default_profile_m.png" alt="프로필 남" >
+																					</a>
+																				</c:when>
+																				<c:when test="${sns.gender eq 'F'}">
+																					<a href="../member/other_user_info?mem_code=${sns.mem_code}">
+																						<img class="user-img" src="/img/member/default_profile_f.png" alt="프로필 여" >
+																					</a>
+																				</c:when>
+																			</c:choose>	
+																		</c:when>
+																		<c:when test="${sns.profile ne null || sns.profile ne ''}">
+																			<a href="../member/other_user_info?mem_code=${sns.mem_code}">
+																				<img class="user-img" src='/member/display?fileName=${sns.profile}' alt="프로필">
+																			</a>
+																		</c:when>
+																	</c:choose>
 																</c:when>
 															</c:choose>
 															<!-- 작성자 닉네임 조회 -->
