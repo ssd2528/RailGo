@@ -15,7 +15,7 @@
 .food-detail > .fname { font-weight:bold; font-size:17px; }
 .food-detail > .fcategory { color:#595959; }
 .food-img{ width:100%; height:170px; overflow:hidden; }
-.food-item img {transition: all 0.3s ease-in-out; height:100%; }
+.food-item img {transition: all 0.3s ease-in-out; height:100%; width:100%; }
 
 /* article-plan */
 /* .plan-wrap { width:100%; display:flex; justify-content:space-around; }
@@ -45,7 +45,7 @@
 .bed-detail > .bname { font-weight:bold; font-size:17px; }
 .bed-detail > .bcategory { color:#595959; }
 .bed-img{ width:100%; height:170px; overflow:hidden; }
-.bed-item img { transition: all 0.3s ease-in-out; height:100%; }
+.bed-item img { transition: all 0.3s ease-in-out; height:100%; width:100%; }
 
 
 /* 		section-search 		*/
