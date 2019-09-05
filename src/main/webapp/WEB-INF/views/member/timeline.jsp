@@ -154,7 +154,6 @@
 												</div>	
 											</c:if>
 										</div>
-										
 										<div class="sns-imgs">
 											<ul class="bxslider">
 												<c:forEach items="${sns.imgList}" var="imgList">
