@@ -40,7 +40,7 @@
 												<div class="user-loc font-15"><img src="/img/member/info_location.png">정보 없음</div>
 											</c:when>
 										</c:choose>
-										<span class="user-posting font-15"> 포스팅: </span> &nbsp;&nbsp;&nbsp; <span class="user-follower font-15"> 팔로워: ${fn:length(recomMember.mem_code)} </span>
+										<span class="user-posting font-15"> 포스팅</span> &nbsp;&nbsp;&nbsp; <span class="user-follower font-15"> 팔로워</span>
 										<div class="user-detail font-15">사용자 소개 글</div>
 										<button class="follow-btn"><img src="/img/sns/add_follow.png">팔로우</button>
 									</div>
