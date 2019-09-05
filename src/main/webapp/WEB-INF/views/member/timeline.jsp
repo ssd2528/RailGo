@@ -58,22 +58,22 @@
 								<img class="location-job-birth-intertest" src="/img/member/info_location.png" alt="지역">
 								<c:choose>
 								<c:when test="${memadd.address != null}"><span class="profile-content">${memadd.address}</span><br></c:when>
-								<c:when test="${memadd.address == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								<c:when test="${memadd.address == null}"><span class="profile-content">주소를 입력해주세요</span><br></c:when>
 								</c:choose>
 								<img class="location-job-birth-intertest"src="/img/member/info_job.png" alt="직업">
 								<c:choose>
 								<c:when test="${memadd.job != null}"><span class="profile-content">${memadd.job}</span><br></c:when>
-								<c:when test="${memadd.job == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								<c:when test="${memadd.job == null}"><span class="profile-content">직업을 입력해주세요</span><br></c:when>
 								</c:choose>
 								<img class="location-job-birth-intertest" src="/img/member/info_birth.png" alt="생일">
 								<c:choose>
 								<c:when test="${memadd.birth != null}"><span class="profile-content">${memadd.birth}</span><br></c:when>
-								<c:when test="${memadd.birth == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								<c:when test="${memadd.birth == null}"><span class="profile-content">생일을 입력해주세요</span><br></c:when>
 								</c:choose>
 								<img class="location-job-birth-intertest" src="/img/member/info_interests.png" alt="관심사">
 								<c:choose>
 								<c:when test="${memadd.interest != null}"><span class="profile-content">${memadd.interest}</span><br></c:when>
-								<c:when test="${memadd.interest == null}"><span class="profile-content">정보를 입력해주세요</span><br></c:when>
+								<c:when test="${memadd.interest == null}"><span class="profile-content">관심사를 입력해주세요</span><br></c:when>
 								</c:choose>						
 							</div>
 							<div class="article-item article-sns-user2">
@@ -154,7 +154,6 @@
 												</div>	
 											</c:if>
 										</div>
-										
 										<div class="sns-imgs">
 											<ul class="bxslider">
 												<c:forEach items="${sns.imgList}" var="imgList">
