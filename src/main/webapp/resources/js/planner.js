@@ -94,8 +94,8 @@ $(document).ready(function(){
 	});
 	// 일정만들기 버튼 클릭시 모달창 오픈 - 로그인 되어 있지 않은 상태 시 
 	$('.planner-info-btn-wrapper').children('#before-create-plan-btn').on("click",function(){
-		$('#Modal').css('display', 'block');
-		$('.modal-title').text('내일고 로그인');
+		$('#login-modal').css('display', 'block');
+		$('#login-modal .modal-title').text('내일고 로그인');
 		$('label.error').css('display', 'none');
 		$('.error_msg').css('display', 'none');
 		$('.sign-in-group').show();
@@ -207,8 +207,8 @@ $(document).ready(function(){
 	$('.planner-info-btn-wrapper').children('.my-plan-btn').click(function(){
 		let mem = $('.mem-code').children('input').val();
 		if(mem === '' || mem === null){
-			$('#Modal').css('display', 'block');
-			$('.modal-title').text('내일고 로그인');
+			$('#login-modal').css('display', 'block');
+			$('#login-modal .modal-title').text('내일고 로그인');
 			$('label.error').css('display', 'none');
 			$('.error_msg').css('display', 'none');
 			$('.sign-in-group').show();

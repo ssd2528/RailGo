@@ -6,7 +6,7 @@
 	<input type="hidden" value="${memadd.backImage}">
 	<c:choose>
 		<c:when test="${memadd.backImage eq '' || memadd.backImage eq null}">
-			<img id="section-back-img" alt="프로필 바탕화면" src="/img/info/서울1.jpg">
+			<img id="section-back-img" alt="프로필 바탕화면" src="/img/member_background.jpg">
 		</c:when>
 		<c:when test="${memadd.backImage ne ''}">
 			<img id="section-back-img" alt="프로필 바탕화면" src='/member/display?fileName=${memadd.backImage}'>

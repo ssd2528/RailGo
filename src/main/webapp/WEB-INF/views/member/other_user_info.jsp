@@ -47,7 +47,7 @@
 							<img id="section-back-img" alt="프로필 바탕화면" src='/member/display?fileName=${userInfoAdd.backImage}'>
 						</c:when>
 						<c:when test="${userInfoAdd.backImage == null}">
-							<img id="section-back-img" alt="프로필 바탕화면" src="/img/info/서울1.jpg"></c:when>
+							<div id="section-back-img" - style="background: linear-gradient( to bottom, #efefef, #cfcfcf );"></div></c:when>
 					</c:choose>
 				</div>
 				<!-- /profile-background -->
