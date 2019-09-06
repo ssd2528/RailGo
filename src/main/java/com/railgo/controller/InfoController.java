@@ -701,14 +701,14 @@ public class InfoController {
 				dto.setCat1(vo.getCat1Name());		dto.setCat2(vo.getCat2Name());		dto.setCat3(vo.getCat3Name());  // cat코드를 catName으로 변경
 				if(checkOverview.equals("Y")) {
 					// overview 추출 후 dto.setOverview()
-				/*	contentId = apiService.getContentId(itemObject); 
+					contentId = apiService.getContentId(itemObject); 
 					url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
 						+ "serviceKey=5J1arCmxYhNIW8f4XlwopZ1O6GyDwUvcAFiUcxYHXROD95kIiO7pfYTye2eDqw551CuepQ1D3goC3BHHQptHCQ%3D%3D"
 						+ "&MobileOS=ETC&MobileApp=RailGo&contentId="+contentId+"&overviewYN=Y&_type=json";
 					responseStr = apiService.getResponseStr(url);
 					itemsObject = apiService.getItemsObject(responseStr);
 					overview = apiService.getOverview(itemsObject);
-					dto.setOverview(overview); */
+					dto.setOverview(overview); 
 				}
 				
 				list.add(dto);
