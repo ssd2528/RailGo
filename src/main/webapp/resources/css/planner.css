@@ -214,7 +214,7 @@ td{border: 1.2px solid #d9d9d9;padding:11px;}
 }
 .plan-option-wrap{padding:2%;padding-bottom:1%;}
 .plan-option-text{font-size: 20px;font-weight: bold;}
-.plan-option-days-wrapper{margin: 20px 5px 20px 5px;width:90%;height:100%;}
+.plan-option-days-wrapper{margin: 20px 5px 20px 5px;width:90%;height:100%; display:flex; justify-content: space-between;}
 .plan-option-tickets{
 	color:#7f7f7f;
 	text-align:center;
