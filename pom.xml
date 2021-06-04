@@ -206,7 +206,7 @@
         <dependency>  <!-- 15-2. httpclient : Kakao API를 위한 dependency -->
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
+            <version>4.5.13</version>
         </dependency>
         <dependency> <!-- 15-3. scribejava-core : Naver API -->
 			<groupId>com.github.scribejava</groupId>
